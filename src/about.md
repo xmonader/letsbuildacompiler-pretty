@@ -1,0 +1,1 @@
+This is a prettified and bit modern browsable version of [Let's Build a Compiler](https://compilers.iecc.com/crenshaw/) by Jack Crenshaw. The fifteen-part series, written from 1988 to 1995, is a non-technical introduction to compiler construction. I hope you enjoy it :)

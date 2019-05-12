@@ -1,7 +1,4 @@
-# Nim Days
-
-Documenting my days with The Nim Programming language.
-
+- [About this project](about.md)
 - [Introduction](tutor01_introduction.md)
 - [Expression Parsing](tutor02_expressionparsing.md)
 - [More Expressions](tutor03_moreexpressions.md)
@@ -10,7 +7,7 @@ Documenting my days with The Nim Programming language.
 - [Boolean Expressions](tutor06_booleanexpressions.md)
 - [Lexical Scanning](tutor07_lexicalscanning.md)
 - [A Little Philosophy](tutor08_littlephilosophy.md)
-- [A Top View](tutor09_atopview..md)
+- [A Top View](tutor09_atopview.md)
 - [Introducing Tiny](tutor10_introducingtiny.md)
 - [Lexical Scan Revisit](tutor11_lexicalscanrevisit.md)
 - [Miscellany](tutor12_miscellany.md)
