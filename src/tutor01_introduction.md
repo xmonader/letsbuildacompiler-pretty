@@ -1,6 +1,7 @@
+# Part I: INTRODUCTION - 24 July 1988
+
+
 # INTRODUCTION
-
-
 This series of articles is a tutorial on the theory  and practice
 of  developing language parsers and compilers.    Before  we  are
 finished,  we  will  have  covered  every   aspect   of  compiler

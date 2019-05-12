@@ -1,3 +1,6 @@
+# Part VI: BOOLEAN EXPRESSIONS - 31 August 1988
+
+
 # INTRODUCTION
 
 In Part V of this series,  we  took a look at control constructs,

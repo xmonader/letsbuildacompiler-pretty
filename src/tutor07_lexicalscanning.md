@@ -1,3 +1,6 @@
+# Part VII: LEXICAL SCANNING -  7 November 1988
+
+
 # INTRODUCTION
 
 In the last installment, I left you with a  compiler  that  would

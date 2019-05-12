@@ -1,3 +1,5 @@
+# Part XIV: TYPES - 26 May 1990
+
 # INTRODUCTION
 
 In the  last installment (Part XIII: PROCEDURES) I mentioned that

@@ -1,5 +1,6 @@
-
-# INTRODUCTION 
+## Part 16: UNIT CONSTRUCTION - 29 May, 1995
+ 
+## INTRODUCTION 
  
 This series of tutorials promises to be perhaps one of the longest-
 running mini-series in history, rivalled only by the delay in Volume IV 
@@ -116,7 +117,7 @@ important units.
  
 
 
-# JUST LIKE CLASSICAL? 
+## JUST LIKE CLASSICAL? 
  
 Before we proceed, however, I think I should clarify the relationship  
 between, and the functionality of these units.  Those of you who are 
@@ -236,7 +237,7 @@ approaches.
  
 
 
-# FLESHING OUT THE PARSER 
+## FLESHING OUT THE PARSER 
  
 Though I promised you, somewhere along about Installment 14, that we'd 
 never again write every single function from scratch, I ended up 
@@ -356,7 +357,7 @@ optimizer or other after-the-fact device, but to improve the quality of
 the code emitted before optimization.  So make a note of SignedFactor as 
 a good first candidate for attention, and for now we'll leave it be. 
  
-# TERMS AND EXPRESSIONS 
+## TERMS AND EXPRESSIONS 
  
 I'm sure you know what's coming next: We must, yet again, create the 
 rest of the procedures that implement the recursive-descent parsing of 
@@ -590,7 +591,7 @@ At this point, your "compiler" should be able to handle any legal
 expression you can throw at it.  Better yet, it should reject all 
 illegal ones! 
  
-# ASSIGNMENTS 
+## ASSIGNMENTS 
  
 As long as we're this close, we might as well create the code to deal 
 with an assignment statement.  This code needs only to remember the name 
@@ -642,7 +643,7 @@ did.  Here's the BNF:
 <assignment>  ::= <variable> '=' <expression> 
 ```
 
-# BOOLEANS 
+## BOOLEANS 
  
 The next step, as we've learned several times before, is to add Boolean 
 algebra.  In the past, this step has at least doubled the amount of code 
@@ -851,7 +852,7 @@ intended for systems programming, the fewer rules, the better. If
 you don't agree, and want to test for such conditions, we can do 
 it once we have a symbol table. 
  
-# BOOLEAN "AND" 
+## BOOLEAN "AND" 
  
 With that bit of philosophy out of the way, we can press on to the 
 "and" operator, which goes into procedure Term. By now, you can 

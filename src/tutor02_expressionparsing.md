@@ -1,5 +1,6 @@
-# GETTING STARTED
+# Part II: EXPRESSION PARSING - 24 July 1988
 
+# Introduction
 If you've read the introduction document to this series, you will
 already know what  we're  about.    You will also have copied the
 cradle software  into your Turbo Pascal system, and have compiled

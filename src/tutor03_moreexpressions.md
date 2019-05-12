@@ -1,4 +1,6 @@
-# INTRODUCTION
+# Part III: MORE EXPRESSIONS - 4 Aug 1988
+
+# INTRODUCTION 
 
 In the last installment, we examined the techniques used to parse
 and  translate a general math expression.  We  ended  up  with  a
