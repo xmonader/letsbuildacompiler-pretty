@@ -1739,7 +1739,7 @@ table:
           | Result = L      | Result = L      | Result = L      |
           |                 |                 |                 |
 -----------------------------------------------------------------
-
+```
 This table shows the actions to be taken for each  combination of
 operand types.  There are three things to note: First,  we assume
 a library routine  MUL32  which  performs  a  32  x  32 multiply,

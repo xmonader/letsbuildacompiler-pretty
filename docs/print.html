@@ -15881,28 +15881,24 @@ table:</p>
           | Result = L      | Result = L      | Result = L      |
           |                 |                 |                 |
 -----------------------------------------------------------------
-
-This table shows the actions to be taken for each  combination of
+</code></pre>
+<p>This table shows the actions to be taken for each  combination of
 operand types.  There are three things to note: First,  we assume
 a library routine  MUL32  which  performs  a  32  x  32 multiply,
 leaving a &gt;&gt; 32-bit &lt;&lt; (not 64-bit) product.    If  there  is any
 overflow in the process,  we  choose to ignore it and return only
-the lower 32 bits.
-
-Second, note that the  table  is  symmetric  ... the two operands
+the lower 32 bits.</p>
+<p>Second, note that the  table  is  symmetric  ... the two operands
 enter in the same way.  Finally, note that the product  is ALWAYS
 a longword, except when  both  operands  are  bytes.  (It's worth
 noting, in passing, that  this  means  that many expressions will
 end up being longwords, whether we  like  it or not.  Perhaps the
 idea  of  just  promoting  them  all  up  front wasn't  all  that
-outrageous, after all!)
-
-Now, clearly, we are going to have to generate different code for
+outrageous, after all!)</p>
+<p>Now, clearly, we are going to have to generate different code for
 the 16-bit and 32-bit multiplies.  This is best  done  by  having
-separate code generator routines for the two cases:
-
-```delphi
-{---------------------------------------------------------------}
+separate code generator routines for the two cases:</p>
+<pre><code class="language-delphi">{---------------------------------------------------------------}
 { Multiply Top of Stack by Primary (Word) }
 
 procedure GenMult;
