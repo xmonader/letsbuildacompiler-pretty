@@ -1,0 +1,2209 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Procedures - Let's build a compiler</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="tutor01_introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="tutor02_expressionparsing.html"><strong aria-hidden="true">2.</strong> Expression Parsing</a></li><li><a href="tutor03_moreexpressions.html"><strong aria-hidden="true">3.</strong> More Expressions</a></li><li><a href="tutor04_interpreters.html"><strong aria-hidden="true">4.</strong> Interpreters</a></li><li><a href="tutor05_controlstructs.html"><strong aria-hidden="true">5.</strong> Control Constructs</a></li><li><a href="tutor06_booleanexpressions.html"><strong aria-hidden="true">6.</strong> Boolean Expressions</a></li><li><a href="tutor07_lexicalscanning.html"><strong aria-hidden="true">7.</strong> Lexical Scanning</a></li><li><a href="tutor08_littlephilosophy.html"><strong aria-hidden="true">8.</strong> A Little Philosophy</a></li><li><a href="tutor09_atopview..html"><strong aria-hidden="true">9.</strong> A Top View</a></li><li><a href="tutor10_introducingtiny.html"><strong aria-hidden="true">10.</strong> Introducing Tiny</a></li><li><a href="tutor11_lexicalscanrevisit.html"><strong aria-hidden="true">11.</strong> Lexical Scan Revisit</a></li><li><a href="tutor12_miscellany.html"><strong aria-hidden="true">12.</strong> Miscellany</a></li><li><a href="tutor13_procedures.html" class="active"><strong aria-hidden="true">13.</strong> Procedures</a></li><li><a href="tutor14_types.html"><strong aria-hidden="true">14.</strong> Types</a></li><li><a href="tutor15_backtothefuture.html"><strong aria-hidden="true">15.</strong> Back to the Future</a></li><li><a href="tutor16_unitconstruction.html"><strong aria-hidden="true">16.</strong> Unit Construction</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Let's build a compiler</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#introduction" id="introduction"><h1>INTRODUCTION</h1></a>
+<p>At last we get to the good part!</p>
+<p>At  this point we've studied almost all  the  basic  features  of
+compilers  and  parsing.    We  have  learned  how  to  translate
+arithmetic expressions, Boolean expressions, control  constructs,
+data  declarations,  and  I/O  statements.    We  have defined  a
+language, TINY 1.3, that embodies all these features, and we have
+written  a  rudimentary  compiler that can translate  them.    By
+adding some file I/O we could indeed have a working compiler that
+could produce executable object files  from  programs  written in
+TINY.  With such a compiler, we could write simple  programs that
+could read integer data, perform calculations with it, and output
+the results.</p>
+<p>That's nice, but what we have is still only a  toy  language.  We
+can't read or write even a single character of text, and we still
+don't have procedures.</p>
+<p>It's  the  features  to  be  discussed  in  the  next  couple  of
+installments  that  separate  the men from the toys, so to speak.
+&quot;Real&quot; languages have more than one data type,  and  they support
+procedure calls.  More than any others, it's  these  two features
+that give a language much of its character and personality.  Once
+we  have  provided   for   them,  our  languages,  TINY  and  its
+successors, will cease  to  become  toys  and  will  take  on the
+character  of  real  languages,  suitable for serious programming
+jobs.</p>
+<p>For several installments now, I've been promising you sessions on
+these  two  important  subjects.  Each time, other issues came up
+that required me to  digress  and deal with them.  Finally, we've
+been able to put all those issues to rest and can get on with the
+mainstream  of  things.    In   this   installment,   I'll  cover
+procedures.  Next time, we'll talk about the basic data types.</p>
+<a class="header" href="#one-last-digression" id="one-last-digression"><h1>ONE LAST DIGRESSION</h1></a>
+<p>This has  been an extraordinarily difficult installment for me to
+write.  The reason has nothing to do with the subject  itself ...
+I've  known  what I wanted to say for some time, and  in  fact  I
+presented  most  of  this at Software Development  '89,  back  in
+February.  It has more to do with the approach.  Let me explain.</p>
+<p>When I first  began  this  series,  I  told you that we would use
+several &quot;tricks&quot; to  make  things  easy,  and to let us learn the
+concepts without getting too bogged down in the  details.   Among
+these tricks was the idea of looking at individual  pieces  of  a
+compiler at  a time, i.e. performing experiments using the Cradle
+as a base.  When we studied expressions, for  example,  we  dealt
+with only that part of compiler theory.  When we  studied control
+structures,  we wrote a different program,  still  based  on  the
+Cradle, to do that part. We only incorporated these concepts into
+a complete language fairly recently. These techniques have served
+us very well indeed, and led us to the development of  a compiler
+for TINY version 1.3.</p>
+<p>When  I  first  began this session, I tried to build upon what we
+had already done, and  just  add the new features to the existing
+compiler.  That turned out to be a little awkward and  tricky ...
+much too much to suit me.</p>
+<p>I finally figured out why.  In this series of experiments,  I had
+abandoned the very useful techniques that had allowed  us  to get
+here, and  without  meaning  to  I  had  switched over into a new
+method of  working, that involved incremental changes to the full
+TINY compiler.</p>
+<p>You  need  to  understand that what we are doing here is a little
+unique.  There have been a number of articles, such as  the Small
+C articles by Cain and Hendrix, that presented finished compilers
+for one language or another.  This is different.  In  this series
+of tutorials, you are  watching  me  design  and implement both a
+language and a compiler, in real time.</p>
+<p>In the experiments that I've been doing in  preparation  for this
+article,  I  was  trying to inject  the  changes  into  the  TINY
+compiler  in such a way that, at every step, we still had a real,
+working  compiler.     In   other  words,  I  was  attempting  an
+incremental enhancement of the language and  its  compiler, while
+at the same time explaining to you what I was doing.</p>
+<p>That's a tough act to pull off!  I finally  realized  that it was
+dumb to try.    Having  gotten  this  far using the idea of small
+experiments   based   on   single-character  tokens  and  simple,
+special-purpose  programs,  I  had  abandoned  them  in  favor of
+working with the full compiler.  It wasn't working.</p>
+<p>So we're going to go back to our  roots,  so  to  speak.  In this
+installment and the next, I'll be  using  single-character tokens
+again as we study the concepts of procedures,  unfettered  by the
+other baggage  that we have accumulated in the previous sessions.
+As a  matter  of  fact,  I won't even attempt, at the end of this
+session, to merge the constructs into the TINY  compiler.   We'll
+save that for later.</p>
+<p>After all this time, you don't need more buildup  than  that,  so
+let's waste no more time and dive right in.</p>
+<a class="header" href="#the-basics" id="the-basics"><h1>THE BASICS</h1></a>
+<p>All modern  CPU's provide direct support for procedure calls, and
+the  68000  is no exception.  For the 68000, the call  is  a  BSR
+(PC-relative version) or JSR, and the return is RTS.  All we have
+to do is to arrange for  the  compiler to issue these commands at
+the proper place.</p>
+<p>Actually, there are really THREE things we have to address.   One
+of  them  is  the  call/return  mechanism.    The second  is  the
+mechanism  for  DEFINING  the procedure in the first place.  And,
+finally, there is the issue of passing parameters  to  the called
+procedure.  None of these things are really  very  difficult, and
+we can of course borrow heavily on what people have done in other
+languages ... there's no need to reinvent the wheel here.  Of the
+three issues, that of parameter passing will occupy  most  of our
+attention, simply because there are so many options available.</p>
+<a class="header" href="#a-basis-for-experiments" id="a-basis-for-experiments"><h1>A BASIS FOR EXPERIMENTS</h1></a>
+<p>As always, we will need some software to  serve  as  a  basis for
+what  we are doing.  We don't need the full TINY compiler, but we
+do need enough of a program so that some of the  other constructs
+are present.  Specifically, we need at least to be able to handle
+statements of some sort, and data declarations.</p>
+<p>The program shown below is that basis.  It's a vestigial  form of
+TINY, with single-character tokens.   It  has  data declarations,
+but only in their simplest form ... no lists or initializers.  It
+has assignment statements, but only of the kind</p>
+<pre><code>     &lt;ident&gt; = &lt;ident&gt;
+</code></pre>
+<p>In  other  words,  the only legal expression is a single variable
+name.    There  are no control  constructs  ...  the  only  legal
+statement is the assignment.</p>
+<p>Most of the program  is  just the standard Cradle routines.  I've
+shown the whole thing here, just to make sure we're  all starting
+from the same point:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+program Calls;
+
+{--------------------------------------------------------------}
+{ Constant Declarations }
+
+const TAB = ^I;
+      CR  = ^M;
+      LF  = ^J;
+
+{--------------------------------------------------------------}
+{ Variable Declarations }
+
+var Look: char;              { Lookahead Character }
+
+var ST: Array['A'..'Z'] of char;
+
+
+{--------------------------------------------------------------}
+{ Read New Character From Input Stream }
+
+procedure GetChar;
+begin
+   Read(Look);
+end;
+
+{--------------------------------------------------------------}
+{ Report an Error }
+
+procedure Error(s: string);
+begin
+   WriteLn;
+   WriteLn(^G, 'Error: ', s, '.');
+end;
+
+
+{--------------------------------------------------------------}
+{ Report Error and Halt }
+
+procedure Abort(s: string);
+begin
+   Error(s);
+   Halt;
+end;
+
+
+{--------------------------------------------------------------}
+{ Report What Was Expected }
+
+procedure Expected(s: string);
+begin
+   Abort(s + ' Expected');
+end;
+
+
+{--------------------------------------------------------------}
+{ Report an Undefined Identifier }
+
+procedure Undefined(n: string);
+begin
+   Abort('Undefined Identifier ' + n);
+end;
+
+
+{--------------------------------------------------------------}
+{ Report an Duplicate Identifier }
+
+procedure Duplicate(n: string);
+begin
+     Abort('Duplicate Identifier ' + n);
+end;
+
+
+{--------------------------------------------------------------}
+{ Get Type of Symbol }
+
+function TypeOf(n: char): char;
+begin
+     TypeOf := ST[n];
+end;
+
+
+{--------------------------------------------------------------}
+{ Look for Symbol in Table }
+
+function InTable(n: char): Boolean;
+begin
+   InTable := ST[n] &lt;&gt; ' ';
+end;
+
+
+{--------------------------------------------------------------}
+{ Add a New Symbol to Table }
+
+procedure AddEntry(Name, T: char);
+begin
+     if Intable(Name) then Duplicate(Name);
+     ST[Name] := T;
+end;
+
+
+{--------------------------------------------------------------}
+{ Check an Entry to Make Sure It's a Variable }
+
+procedure CheckVar(Name: char);
+begin
+     if not InTable(Name) then Undefined(Name);
+     if  TypeOf(Name)  &lt;&gt;  'v'  then    Abort(Name  +  ' is not a
+variable');
+end;
+
+
+{--------------------------------------------------------------}
+{ Recognize an Alpha Character }
+
+function IsAlpha(c: char): boolean;
+begin
+   IsAlpha := upcase(c) in ['A'..'Z'];
+end;
+
+
+{--------------------------------------------------------------}
+{ Recognize a Decimal Digit }
+
+function IsDigit(c: char): boolean;
+begin
+   IsDigit := c in ['0'..'9'];
+end;
+
+
+{--------------------------------------------------------------}
+{ Recognize an AlphaNumeric Character }
+
+function IsAlNum(c: char): boolean;
+begin
+   IsAlNum := IsAlpha(c) or IsDigit(c);
+end;
+
+
+{--------------------------------------------------------------}
+{ Recognize an Addop }
+
+function IsAddop(c: char): boolean;
+begin
+   IsAddop := c in ['+', '-'];
+end;
+
+
+{--------------------------------------------------------------}
+{ Recognize a Mulop }
+
+function IsMulop(c: char): boolean;
+begin
+   IsMulop := c in ['*', '/'];
+end;
+
+
+{--------------------------------------------------------------}
+{ Recognize a Boolean Orop }
+
+function IsOrop(c: char): boolean;
+begin
+   IsOrop := c in ['|', '~'];
+end;
+
+
+{--------------------------------------------------------------}
+{ Recognize a Relop }
+
+function IsRelop(c: char): boolean;
+begin
+   IsRelop := c in ['=', '#', '&lt;', '&gt;'];
+end;
+
+
+{--------------------------------------------------------------}
+{ Recognize White Space }
+
+function IsWhite(c: char): boolean;
+begin
+   IsWhite := c in [' ', TAB];
+end;
+
+
+{--------------------------------------------------------------}
+{ Skip Over Leading White Space }
+
+procedure SkipWhite;
+begin
+   while IsWhite(Look) do
+      GetChar;
+end;
+
+
+{--------------------------------------------------------------}
+{ Skip Over an End-of-Line }
+
+procedure Fin;
+begin
+   if Look = CR then begin
+      GetChar;
+      if Look = LF then
+         GetChar;
+   end;
+end;
+
+
+{--------------------------------------------------------------}
+{ Match a Specific Input Character }
+
+procedure Match(x: char);
+begin
+   if Look = x then GetChar
+     else Expected('''' + x + '''');
+     SkipWhite;
+end;
+
+
+{--------------------------------------------------------------}
+{ Get an Identifier }
+
+function GetName: char;
+begin
+   if not IsAlpha(Look) then Expected('Name');
+   GetName := UpCase(Look);
+     GetChar;
+     SkipWhite;
+end;
+
+
+{--------------------------------------------------------------}
+{ Get a Number }
+
+function GetNum: char;
+begin
+   if not IsDigit(Look) then Expected('Integer');
+   GetNum := Look;
+     GetChar;
+     SkipWhite;
+end;
+
+
+{--------------------------------------------------------------}
+{ Output a String with Tab }
+
+procedure Emit(s: string);
+begin
+   Write(TAB, s);
+end;
+
+
+{--------------------------------------------------------------}
+{ Output a String with Tab and CRLF }
+
+procedure EmitLn(s: string);
+begin
+   Emit(s);
+   WriteLn;
+end;
+
+
+{--------------------------------------------------------------}
+{ Post a Label To Output }
+
+procedure PostLabel(L: string);
+begin
+   WriteLn(L, ':');
+end;
+
+
+{--------------------------------------------------------------}
+{ Load a Variable to the Primary Register }
+
+procedure LoadVar(Name: char);
+begin
+     CheckVar(Name);
+     EmitLn('MOVE ' + Name + '(PC),D0');
+end;
+
+
+{--------------------------------------------------------------}
+{ Store the Primary Register }
+
+procedure StoreVar(Name: char);
+begin
+     CheckVar(Name);
+     EmitLn('LEA ' + Name + '(PC),A0');
+   EmitLn('MOVE D0,(A0)')
+end;
+
+
+{--------------------------------------------------------------}
+{ Initialize }
+
+procedure Init;
+var i: char;
+begin
+     GetChar;
+     SkipWhite;
+     for i := 'A' to 'Z' do
+          ST[i] := ' ';
+end;
+
+
+{--------------------------------------------------------------}
+{ Parse and Translate an Expression }
+{ Vestigial Version }
+
+procedure Expression;
+begin
+     LoadVar(GetName);
+end;
+
+
+{--------------------------------------------------------------}
+{ Parse and Translate an Assignment Statement }
+
+procedure Assignment;
+var Name: char;
+begin
+     Name := GetName;
+     Match('=');
+     Expression;
+     StoreVar(Name);
+end;
+
+
+{--------------------------------------------------------------}
+
+                             
+
+
+
+
+
+
+{ Parse and Translate a Block of Statements }
+
+procedure DoBlock;
+begin
+     while not(Look in ['e']) do begin
+          Assignment;
+          Fin;
+   end;
+end;
+
+
+{--------------------------------------------------------------}
+{ Parse and Translate a Begin-Block }
+
+procedure BeginBlock;
+begin
+     Match('b');
+     Fin;
+     DoBlock;
+     Match('e');
+     Fin;
+end;
+
+
+{--------------------------------------------------------------}
+{ Allocate Storage for a Variable }
+
+procedure Alloc(N: char);
+begin
+     if InTable(N) then Duplicate(N);
+   ST[N] := 'v';
+     WriteLn(N, ':', TAB, 'DC 0');
+end;
+
+
+{--------------------------------------------------------------}
+{ Parse and Translate a Data Declaration }
+
+procedure Decl;
+var Name: char;
+begin
+   Match('v');
+     Alloc(GetName);
+end;
+
+
+{--------------------------------------------------------------}
+{ Parse and Translate Global Declarations }
+
+procedure TopDecls;
+begin
+     while Look &lt;&gt; 'b' do begin
+      case Look of
+        'v': Decl;
+      else Abort('Unrecognized Keyword ' + Look);
+          end;
+          Fin;
+     end;
+end;
+
+
+{--------------------------------------------------------------}
+{ Main Program }
+
+begin
+     Init;
+     TopDecls;
+     BeginBlock;
+end.
+{--------------------------------------------------------------}
+
+</code></pre>
+<p>Note  that we DO have a symbol table, and there is logic to check
+a variable name to make sure it's a legal one.    It's also worth
+noting that I  have  included  the  code  you've  seen  before to
+provide for white space  and  newlines.    Finally, note that the
+main program is delimited, as usual, by BEGIN-END brackets.</p>
+<p>Once you've copied  the  program  to  Turbo, the first step is to
+compile it and make sure it  works.   Give it a few declarations,
+and then a begin-block.  Try something like:</p>
+<pre><code>     va             (for VAR A)
+     vb             (for VAR B)
+     vc             (for VAR C)
+     b              (for BEGIN)
+     a=b
+     b=c
+     e.             (for END.)
+</code></pre>
+<p>As usual, you should also make some deliberate errors, and verify
+that the program catches them correctly.</p>
+<a class="header" href="#declaring-a-procedure" id="declaring-a-procedure"><h1>DECLARING A PROCEDURE</h1></a>
+<p>If you're satisfied that our little program works, then it's time
+to  deal  with  the  procedures.  Since we haven't  talked  about parameters yet, we'll begin by considering  only  procedures that
+have no parameter lists.</p>
+<p>As a start, let's consider a simple program with a procedure, and
+think about the code we'd like to see generated for it:</p>
+<pre><code class="language-delphi">     PROGRAM FOO;
+     .
+     .
+     PROCEDURE BAR;                     BAR:
+     BEGIN                                   .
+     .                                       .
+     .                                       .
+     END;                                    RTS
+
+     BEGIN { MAIN PROGRAM }             MAIN:
+     .                                       .
+     .                                       .
+     FOO;                                    BSR BAR
+     .                                       .
+     .                                       .
+     END.                                    END MAIN
+
+</code></pre>
+<p>Here I've shown  the  high-order language constructs on the left,
+and the desired assembler code on the right.  The first  thing to
+notice  is that we certainly don't have  much  code  to  generate
+here!  For  the  great  bulk  of  both the procedure and the main
+program,  our existing constructs take care of  the  code  to  be
+generated.</p>
+<p>The key to dealing with the body of the procedure is to recognize
+that  although a procedure may be quite  long,  declaring  it  is
+really no different than  declaring  a  variable.   It's just one
+more kind of declaration.  We can write the BNF:</p>
+<pre><code class="language-delphi">     &lt;declaration&gt; ::= &lt;data decl&gt; | &lt;procedure&gt;
+</code></pre>
+<p>This means that it should be easy to modify TopDecl to  deal with
+procedures.  What about the syntax of a procedure?   Well, here's
+a suggested syntax, which is essentially that of Pascal:</p>
+<pre><code class="language-delphi">     &lt;procedure&gt; ::= PROCEDURE &lt;ident&gt; &lt;begin-block&gt;
+</code></pre>
+<p>There is practically no code generation required, other than that
+generated within the begin-block.    We need only emit a label at
+the beginning of the procedure, and an RTS at the end.</p>
+<p>Here's the required code:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Parse and Translate a Procedure Declaration }
+
+procedure DoProc;
+var N: char;
+begin
+     Match('p');
+     N := GetName;
+     Fin;
+     if InTable(N) then Duplicate(N);
+     ST[N] := 'p';
+     PostLabel(N);
+     BeginBlock;
+     Return;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Note that I've added a new code generation routine, Return, which
+merely emits an RTS instruction.  The creation of that routine is
+&quot;left as an exercise for the student.&quot;</p>
+<p>To  finish  this  version, add the following line within the Case
+statement in DoBlock:</p>
+<pre><code class="language-delphi">            'p': DoProc;
+</code></pre>
+<p>I should mention that  this  structure  for declarations, and the
+BNF that drives it, differs from standard Pascal.  In  the Jensen
+&amp; Wirth  definition of Pascal, variable declarations, in fact ALL
+kinds of declarations,  must  appear in a specific sequence, i.e.
+labels,   constants,  types,  variables,  procedures,  and   main
+program.  To  follow  such  a  scheme, we should separate the two
+declarations, and have code in the main program something like</p>
+<pre><code class="language-delphi">     DoVars;
+     DoProcs;
+     DoMain;
+</code></pre>
+<p>However,  most implementations of Pascal, including Turbo,  don't
+require  that  order  and  let  you  freely  mix up  the  various
+declarations,  as  long  as  you  still  don't  try to  refer  to
+something  before  it's  declared.    Although  it  may  be  more
+aesthetically pleasing to declare all the global variables at the
+top of the  program,  it  certainly  doesn't do any HARM to allow
+them to be sprinkled around.   In  fact,  it may do some GOOD, in
+the  sense  that it gives you the  opportunity  to  do  a  little
+rudimentary  information  hiding.     Variables  that  should  be
+accessed only by the main program, for example,  can  be declared
+just before it and will thus be inaccessible by the procedures.</p>
+<p>OK, try this new version out.  Note that we  can  declare as many
+procedures as we choose (as long  as  we don't run out of single-
+character names!), and the  labels  and RTS's all come out in the
+right places.</p>
+<p>It's  worth  noting  here  that  I  do  <em>NOT</em>  allow  for  nested
+procedures.   In TINY, all procedures must  be  declared  at  the
+global level,  the  same  as  in  C.    There  has  been  quite a
+discussion about this point in  the  Computer  Language  Forum of
+CompuServe.  It turns out that there is a significant  penalty in
+complexity that must be paid for the luxury of nested procedures.
+What's  more,  this  penalty gets paid at RUN TIME, because extra
+code must be added and executed every time a procedure is called.
+I also happen to believe that nesting is not a good  idea, simply
+on the grounds that I have seen too many abuses of the feature.
+Before going on to the next step, it's also worth noting that the
+&quot;main program&quot; as it stands  is incomplete, since it doesn't have
+the label and END statement.  Let's fix that little oversight:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Parse and Translate a Main Program }
+
+procedure DoMain;
+begin
+     Match('b');
+     Fin;
+     Prolog;
+     DoBlock;
+     Epilog;
+end;
+{--------------------------------------------------------------}
+.
+.
+.
+{--------------------------------------------------------------}
+{ Main Program }
+
+begin
+     Init;
+     TopDecls;
+     DoMain;
+end.
+{--------------------------------------------------------------}
+</code></pre>
+<p>Note  that  DoProc  and DoMain are not quite symmetrical.  DoProc
+uses a call to BeginBlock, whereas DoMain cannot.  That's because
+a procedure  is signaled by the keyword PROCEDURE (abbreviated by
+a 'p' here), while the main program gets no  keyword  other  than
+the BEGIN itself.</p>
+<p>And <em>THAT</em> brings up an interesting question: WHY?</p>
+<p>If  we  look  at the structure of C programs, we  find  that  all
+functions are treated just  alike,  except  that the main program
+happens to be identified by its name, &quot;main.&quot;  Since  C functions
+can appear in any order, the main program can also be anywhere in
+the compilation unit.</p>
+<p>In Pascal, on the other hand, all variables  and  procedures must
+be declared before they're  used,  which  means  that there is no
+point putting anything after the  main program ... it could never
+be accessed.  The &quot;main program&quot; is not identified at  all, other
+than  being that part of the code that  comes  after  the  global
+BEGIN.  In other words, if it ain't anything else, it must be the
+main program.</p>
+<p>This  causes  no  small  amount   of   confusion   for  beginning
+programmers, and for big Pascal programs sometimes it's difficult
+to  find the beginning of the main program at all.  This leads to
+conventions such as identifying it in comments:</p>
+<pre><code class="language-delphi">     BEGIN { of MAIN }
+
+</code></pre>
+<p>This  has  always  seemed  to  me to be a bit of a kludge.    The
+question comes up:    Why  should  the main program be treated so
+much  differently  than  a  procedure?   In fact, now that  we've
+recognized that  procedure declarations are just that ... part of
+the global declarations ... isn't  the main program just one more
+declaration, also?</p>
+<p>The answer is yes, and by  treating  it that way, we can simplify
+the code and make  it  considerably  more  orthogonal.  I propose
+that  we  use  an explicit keyword, PROGRAM, to identify the main
+program (Note that this  means  that we can't start the file with
+it, as in Pascal).  In this case, our BNF becomes:</p>
+<pre><code>     &lt;declaration&gt; ::= &lt;data decl&gt; | &lt;procedure&gt; | &lt;main program&gt;
+
+
+     &lt;procedure&gt; ::= PROCEDURE &lt;ident&gt; &lt;begin-block&gt;
+
+
+     &lt;main program&gt; ::= PROGRAM &lt;ident&gt; &lt;begin-block&gt;
+</code></pre>
+<p>The code  also  looks  much  better,  at  least in the sense that
+DoMain and DoProc look more alike:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Parse and Translate a Main Program }
+
+procedure DoMain;
+var N: char;
+begin
+     Match('P');
+     N := GetName;
+     Fin;
+     if InTable(N) then Duplicate(N);
+     Prolog;
+     BeginBlock;
+end;
+{--------------------------------------------------------------}
+.
+.
+.
+{--------------------------------------------------------------}
+{ Parse and Translate Global Declarations }
+
+procedure TopDecls;
+begin
+     while Look &lt;&gt; '.' do begin
+      case Look of
+            'v': Decl;
+            'p': DoProc;
+            'P': DoMain;
+          else Abort('Unrecognized Keyword ' + Look);
+          end;
+          Fin;
+     end;
+end;
+
+
+{--------------------------------------------------------------}
+{ Main Program }
+
+begin
+     Init;
+     TopDecls;
+     Epilog;
+end.
+{--------------------------------------------------------------}
+</code></pre>
+<p>Since the declaration of the main program is now within  the loop
+of  TopDecl,  that  does  present  some difficulties.  How do  we
+ensure that it's  the last thing in the file?  And how do we ever
+exit  from  the  loop?  My answer for the second question, as you
+can see, was to bring back our old friend the  period.   Once the
+parser sees that, we're done.</p>
+<p>To  answer  the first question:  it  depends  on  how  far  we're
+willing to go to  protect  the programmer from dumb mistakes.  In
+the code that I've shown,  there's nothing to keep the programmer
+from adding code after  the  main  program  ... even another main
+program.   The code will just not be  accessible.    However,  we
+COULD access it via a FORWARD statement, which we'll be providing
+later. As a  matter  of fact, many assembler language programmers
+like to use  the  area  just  after the program to declare large,
+uninitialized data blocks, so there may indeed be  some  value in
+not  requiring the main program to be last.  We'll leave it as it
+is.</p>
+<p>If we decide  that  we  should  give the programmer a little more
+help than that, it's pretty easy to add some logic to kick us out
+of the loop  once  the  main  program  has been processed.  Or we
+could  at least flag an error if someone  tries  to  include  two
+mains.</p>
+<a class="header" href="#calling-the-procedure" id="calling-the-procedure"><h1>CALLING THE PROCEDURE</h1></a>
+<p>If you're satisfied that  things  are  working, let's address the
+second half of the equation ... the call.</p>
+<p>Consider the BNF for a procedure call:</p>
+<pre><code>     &lt;proc_call&gt; ::= &lt;identifier&gt;
+</code></pre>
+<p>for an assignment statement, on the other hand, the BNF is:</p>
+<pre><code>     &lt;assignment&gt; ::= &lt;identifier&gt; '=' &lt;expression&gt;
+
+</code></pre>
+<p>At this point we seem to  have  a problem. The two BNF statements
+both begin on the  right-hand  side  with the token <code>&lt;identifier&gt;</code>.
+How are we supposed to know, when we see the  identifier, whether
+we have a procedure call or an assignment statement?   This looks
+like a case where our  parser ceases being predictive, and indeed
+that's exactly the case.  However, it turns  out  to  be  an easy
+problem to fix, since all we have to do is to look at the type of
+the identifier, as  recorded  in  the  symbol  table.    As we've
+discovered before, a  minor  local  violation  of  the predictive
+parsing rule can be easily handled as a special case.</p>
+<p>Here's how to do it:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Parse and Translate an Assignment Statement }
+
+procedure Assignment(Name: char);
+begin
+     Match('=');
+     Expression;
+     StoreVar(Name);
+end;
+
+
+{--------------------------------------------------------------}
+{ Decide if a Statement is an Assignment or Procedure Call }
+
+procedure AssignOrProc;
+var Name: char;
+begin
+     Name := GetName;
+     case TypeOf(Name) of
+          ' ': Undefined(Name);
+          'v': Assignment(Name);
+          'p': CallProc(Name);
+          else Abort('Identifier ' + Name +
+                                   ' Cannot Be Used Here');
+     end;
+end;
+
+
+{--------------------------------------------------------------}
+{ Parse and Translate a Block of Statements }
+
+procedure DoBlock;
+begin
+     while not(Look in ['e']) do begin
+          AssignOrProc;
+          Fin;
+   end;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>As you can see, procedure Block now calls AssignOrProc instead of
+Assignment.  The function of this new procedure is to simply read
+the identifier,  determine  its  type,  and  then  call whichever
+procedure  is  appropriate  for  that  type.  Since the name  has
+already been read,  we  must  pass  it to the two procedures, and
+modify Assignment to match.   Procedure CallProc is a simple code
+generation routine:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Call a Procedure }
+
+procedure CallProc(N: char);
+begin
+     EmitLn('BSR ' + N);
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Well,  at  this  point  we  have  a  compiler  that can deal with
+procedures.    It's  worth  noting  that   procedures   can  call
+procedures to any depth.  So even though we  don't  allow  nested
+DECLARATIONS, there  is certainly nothing to keep us from nesting
+CALLS, just as  we  would  expect  to  do in any language.  We're
+getting there, and it wasn't too hard, was it?</p>
+<p>Of course, so far we can  only  deal with procedures that have no
+parameters.    The  procedures  can  only operate on  the  global
+variables  by  their  global names.  So at this point we have the
+equivalent of BASIC's GOSUB construct.  Not too bad ... after all
+lots of serious programs were written using GOSUBs, but we can do
+better, and we will.  That's the next step.</p>
+<a class="header" href="#passing-parameters" id="passing-parameters"><h1>PASSING PARAMETERS</h1></a>
+<p>Again, we all know the basic idea of passed parameters, but let's
+review them just to be safe.</p>
+<p>In general the procedure is given a parameter list, for example</p>
+<pre><code>     PROCEDURE FOO(X, Y, Z)
+</code></pre>
+<p>In  the declaration of a procedure,  the  parameters  are  called
+formal  parameters, and may be referred to in  the  body  of  the
+procedure  by  those  names.    The  names  used for  the  formal
+parameters  are  really  arbitrary.    Only  the  position really
+counts.  In  the  example  above,  the name 'X' simply means &quot;the
+first parameter&quot; wherever it is used.</p>
+<p>When a procedure is called,  the &quot;actual parameters&quot; passed to it
+are associated  with  the  formal  parameters,  on  a one-for-one
+basis.</p>
+<p>The BNF for the syntax looks something like this:</p>
+<pre><code>     &lt;procedure&gt; ::= PROCEDURE &lt;ident&gt;
+                    '(' &lt;param-list&gt; ')' &lt;begin-block&gt;
+
+
+     &lt;param_list&gt; ::= &lt;parameter&gt; ( ',' &lt;parameter&gt; )* | null
+</code></pre>
+<p>Similarly, the procedure call looks like:</p>
+<pre><code>     &lt;proc call&gt; ::= &lt;ident&gt; '(' &lt;param-list&gt; ')'
+
+</code></pre>
+<p>Note that there is already an implicit decision  built  into this
+syntax.  Some languages, such as Pascal and Ada, permit parameter
+lists to be  optional.    If  there are no parameters, you simply
+leave off the parens  completely.    Other  languages, like C and
+Modula 2, require the parens even if the list is empty.  Clearly,
+the example we just finished corresponds to the  former  point of
+view.  But to tell the truth I prefer the latter.  For procedures
+alone, the  decision would seem to favor the &quot;listless&quot; approach.
+The statement</p>
+<pre><code class="language-delphi">     Initialize; ,
+
+</code></pre>
+<p>standing alone, can only  mean  a procedure call.  In the parsers
+we've  been  writing,  we've  made  heavy  use  of  parameterless
+procedures, and it would seem a  shame  to have to write an empty
+pair of parens for each case.</p>
+<p>But later on we're going to  be  using functions, too.  And since
+functions  can  appear  in  the  same  places  as  simple  scalar
+identifiers, you can't tell the  difference between the two.  You
+have to go  back  to  the  declarations  to find out.  Some folks
+consider  this to be an advantage.  Their  argument  is  that  an
+identifier gets replaced by a value, and what do you care whether
+it's done by  substitution  or  by  a function?  But we sometimes
+<em>DO</em> care, because the function may be quite time-consuming.  If,
+by  writing  a  simple identifier into a given expression, we can
+incur a heavy run-time penalty, it seems to  me  we  ought  to be
+made aware of it.</p>
+<p>Anyway,  Niklaus  Wirth  designed both Pascal and Modula 2.  I'll
+give him the benefit of the doubt and assume that  he  had a good
+reason for changing the rules the second time around!</p>
+<p>Needless to say, it's an easy thing to accomodate either point of
+view as we design a language, so this one is strictly a matter of
+personal preference.  Do it whichever way you like best.</p>
+<p>Before we go any further, let's alter the translator to  handle a
+(possibly empty) parameter list.  For now we  won't  generate any
+extra code ... just parse the syntax.  The  code  for  processing
+the declaration has very  much  the  same  form we've seen before
+when dealing with VAR-lists:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Process the Formal Parameter List of a Procedure }
+
+procedure FormalList;
+begin
+     Match('(');
+     if Look &lt;&gt; ')' then begin
+          FormalParam;
+          while Look = ',' do begin
+               Match(',');
+               FormalParam;
+          end;
+     end;
+     Match(')');
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Procedure DoProc needs to have a line added to call FormalList:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Parse and Translate a Procedure Declaration }
+
+procedure DoProc;
+var N: char;
+begin
+     Match('p');
+     N := GetName;
+     FormalList;
+     Fin;
+     if InTable(N) then Duplicate(N);
+     ST[N] := 'p';
+     PostLabel(N);
+     BeginBlock;
+     Return;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>For now, the code for FormalParam is just a dummy one that simply
+skips the parameter name:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Process a Formal Parameter }
+
+procedure FormalParam;
+var Name:  char;
+begin
+     Name := GetName;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>For  the actual procedure call, there must  be  similar  code  to
+process the actual parameter list:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Process an Actual Parameter }
+
+procedure Param;
+var Name:  char;
+begin
+     Name := GetName;
+end;
+
+
+{--------------------------------------------------------------}
+{ Process the Parameter List for a Procedure  Call }
+
+procedure ParamList;
+begin
+     Match('(');
+     if Look &lt;&gt; ')' then begin
+          Param;
+          while Look = ',' do begin
+               Match(',');
+               Param;
+          end;
+     end;
+     Match(')');
+end;
+
+
+{--------------------------------------------------------------}
+{ Process a Procedure Call }
+
+procedure CallProc(Name: char);
+begin
+     ParamList;
+     Call(Name);
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Note  here  that  <code>CallProc</code>  is  no  longer  just  a  simple  code
+generation  routine.  It has some structure to  it.    To  handle
+this, I've renamed the code  generation routine to just Call, and
+called it from within <code>CallProc</code>.</p>
+<p>OK, if you'll add all this code to  your  translator  and  try it
+out, you'll find that you can indeed parse the syntax properly.
+I'll note in  passing  that  there  is <em>NO</em> checking to make sure
+that  the  number  (and,  later,  types)  of  formal  and  actual
+parameters match up.  In a production compiler, we must of course
+do  this.  We'll ignore the issue now if for no other reason than
+that the structure of our  symbol table doesn't currently give us
+a place to store the necessary information.  Later on, we'll have
+a place for that data and we can deal with the issue then.</p>
+<a class="header" href="#the-semantics-of-parameters" id="the-semantics-of-parameters"><h1>THE SEMANTICS OF PARAMETERS</h1></a>
+<p>So  far we've dealt with the SYNTAX  of  parameter  passing,  and
+we've got the parsing mechanisms in place to handle it.  Next, we
+have to look at the SEMANTICS, i.e., the actions to be taken when
+we encounter parameters. This brings  us  square  up  against the
+issue of the different ways parameters can be passed.</p>
+<p>There is more than one way to pass a parameter, and the way we do
+it can have a  profound  effect on the character of the language.
+So  this is another of those areas where I can't just give you my
+solution.  Rather, it's important that we spend some time looking
+at the  alternatives  so  that  you  can  go another route if you
+choose to.</p>
+<p>There are two main ways parameters are passed:</p>
+<pre><code> - By value
+ - By reference (address)
+</code></pre>
+<p>The differences are best seen in the light of a little history.</p>
+<p>The old FORTRAN compilers passed all parameters by reference.  In
+other  words, what was actually passed was  the  address  of  the
+parameter.  This meant  that  the  called  subroutine was free to
+either read or  write  that  parameter,  as often as it chose to,
+just  as though it were a global variable.    This  was  actually
+quite an efficient  way  to  do  things, and it was pretty simple
+since  the  same  mechanism  was  used  in  all cases,  with  one
+exception that I'll get to shortly.</p>
+<p>There were problems, though.  Many people felt  that  this method
+created entirely too much coupling between the  called subroutine
+and  its  caller.    In  effect, it gave the subroutine  complete
+access to all variables that appeared in the parameter list.</p>
+<p>Many  times,  we  didn't want to actually change a parameter, but
+only use it as an input.  For example, we  might  pass an element
+count  to a subroutine, and wish we could  then  use  that  count
+within a DO-loop.    To  avoid  changing the value in the calling
+program, we had to make a local copy of the input  parameter, and
+operate only on the  copy.    Some  FORTRAN programmers, in fact,
+made it a practice to copy ALL parameters except those  that were
+to be used as return values.    Needless to say, all this copying
+defeated  a  good  bit  of  the  efficiency  associated with  the
+approach.</p>
+<p>There was, however, an even more insidious problem, which was not
+really just the fault of  the &quot;pass by reference&quot; convention, but
+a bad convergence of several implementation decisions.</p>
+<p>Suppose we have a subroutine:</p>
+<pre><code class="language-delphi">     SUBROUTINE FOO(X, Y, N)
+</code></pre>
+<p>where N is some kind of  input  count  or flag.  Many times, we'd
+like  to be able to pass a literal or even an expression in place
+of a variable, such as:</p>
+<pre><code class="language-delphi">     CALL FOO(A, B, J + 1)
+</code></pre>
+<p>Here the third  parameter  is  not  a  variable, and so it has no
+address.    The  earliest FORTRAN compilers did  not  allow  such
+things, so we had to resort to subterfuges like:</p>
+<pre><code class="language-delphi">     K = J + 1
+     CALL FOO(A, B, K)
+</code></pre>
+<p>Here again, there was copying required, and the burden was on the
+programmer to do it.  Not good.</p>
+<p>Later  FORTRAN  implementations  got  rid  of  this  by  allowing
+expressions  as  parameters.   What they  did  was  to  assign  a
+compiler-generated variable, store the value of the expression in
+the variable, and then pass the address of the expression.</p>
+<p>So far, so good.    Even if the subroutine mistakenly altered the
+anonymous variable, who was to know  or  care?  On the next call,
+it would be recalculated anyway.</p>
+<p>The  problem  arose  when  someone  decided to make  things  more
+efficient.  They  reasoned,  rightly enough, that the most common
+kind of &quot;expression&quot; was a single integer value, as in:</p>
+<pre><code class="language-delphi">     CALL FOO(A, B, 4)
+</code></pre>
+<p>It seemed inefficient to go to the trouble of &quot;computing&quot; such an
+integer and storing it  in  a temporary variable, just to pass it
+through  the  calling  list.  Since we had to pass the address of
+the  thing  anyway,  it seemed to make lots of sense to just pass
+the address of the literal integer, 4 in the example above.</p>
+<p>To make matters  more  interesting, most compilers, then and now,
+identify all literals and store  them  separately  in  a &quot;literal
+pool,&quot;  so that we only have to store one  value  for each unique
+literal.    That  combination  of  design  decisions:     passing
+expressions, optimization for literals as a special case, and use
+of a literal pool, is what led to disaster.</p>
+<p>To  see  how  it works, imagine that we call subroutine FOO as in
+the example above, passing  it  a literal 4.  Actually, what gets
+passed  is  the  address of the literal 4, which is stored in the
+literal pool.   This address corresponds to the formal parameter,
+K, in the subroutine itself.</p>
+<p>Now suppose that, unbeknownst to the  programmer,  subroutine FOO
+actually modifies K to be, say, -7.  Suddenly, that literal  4 in
+the literal pool  gets  CHANGED,  to  a  -7.  From then on, every
+expression that uses  a  4  and  every subroutine that passes a 4
+will be using the value of -7 instead!  Needless to say, this can
+lead to some  bizarre  and difficult-to-find behavior.  The whole
+thing gave  the concept of pass-by-reference a bad name, although
+as we have seen, it was really a combination of  design decisions
+that led to the problem.</p>
+<p>In spite of  the  problem,  the  FORTRAN  approach  had  its good
+points.    Chief  among them is the fact that we  don't  have  to
+support  multiple  mechanisms.    The  same  scheme,  passing the
+address of  the argument, works for EVERY case, including arrays.
+So the size of the compiler can be reduced.</p>
+<p>Partly because of the FORTRAN  gotcha, and partly just because of
+the reduced coupling involved, modern languages  like  C, Pascal,
+Ada, and Modula 2 generally pass scalars by value.</p>
+<p>This means that the value of the scalar is COPIED into a separate
+value  used only for the call.  Since the value passed is a copy,
+the called procedure can use it as a local variable and modify it
+any way it likes.  The value in the caller will not be changed.</p>
+<p>It may seem at first that  this  is a bit inefficient, because of
+the need to copy the parameter.  But remember that we're going to
+have  to  fetch SOME value to pass  anyway,  whether  it  be  the
+parameter  itself  or  an address for it.  Inside the subroutine,
+using  pass-by-value  is  definitely  more  efficient,  since  we
+eliminate one level of indirection.  Finally, we saw earlier that
+with  FORTRAN,  it  was often necessary to make copies within the
+subroutine anyway, so pass-by-value reduces the  number  of local
+variables.  All in all, pass-by-value is better.</p>
+<p>Except for one small little detail:  if all parameters are passed
+by value, there is no way for a called to  procedure  to return a
+result to its caller!  The parameter passed is NOT altered in the
+caller,  only  in  the called procedure.  Clearly, that won't get
+the job done.</p>
+<p>There  have  been   two   answers  to  this  problem,  which  are
+equivalent.   In Pascal, Wirth provides for VAR parameters, which
+are  passed-by-reference.    What a VAR parameter is, in fact, is
+none other than our old friend the FORTRAN parameter, with  a new
+name and paint job for disguise.  Wirth neatly  gets  around  the
+&quot;changing a literal&quot;  problem  as  well  as  the  &quot;address  of an
+expression&quot; problem, by  the  simple expedient of allowing only a
+variable to be the actual parameter.  In other  words,  it's  the
+same restriction that the earliest FORTRANs imposed.</p>
+<p>C does the same thing, but explicitly.  In  C,  <em>ALL</em>  parameters
+are passed  by  value.    One  kind  of variable that C supports,
+however, is the pointer.  So  by  passing a pointer by value, you
+in effect pass what it points to by reference.  In some ways this
+works even better yet,  because  even  though  you can change the
+variable  pointed to all you like, you  still  CAN'T  change  the
+pointer itself.  In a function such as strcpy, for example, where
+the  pointers are incremented as the string  is  copied,  we  are
+really only incrementing copies of the pointers, so the values of
+those  pointers in the calling procedure  still  remain  as  they
+were.  To modify a  pointer,  you  must  pass  a  pointer  to the
+pointer.</p>
+<p>Since we are simply  performing  experiments  here, we'll look at
+BOTH pass-by-value and pass-by-reference.    That  way,  we'll be
+able to use either one as we need to.  It's worth mentioning that
+it's  going  to  be tough to use the C approach to pointers here,
+since a pointer is a different type and we haven't  studied types
+yet!</p>
+<a class="header" href="#pass-by-value" id="pass-by-value"><h1>PASS-BY-VALUE</h1></a>
+<p>Let's just try some simple-minded  things and see where they lead
+us.    Let's begin with the pass-by-value  case.    Consider  the
+procedure call:</p>
+<pre><code class="language-delphi">     FOO(X, Y)
+</code></pre>
+<p>Almost the only reasonable way to pass the data  is  through  the
+CPU stack.  So the code we'd like  to  see  generated  might look
+something like this:</p>
+<pre><code class="language-asm">     MOVE X(PC),-(SP)    ; Push X
+     MOVE Y(PC),-(SP)    ; Push Y
+     BSR FOO             ; Call FOO
+</code></pre>
+<p>That certainly doesn't seem too complex!</p>
+<p>When the BSR is executed, the CPU pushes the return  address onto
+the stack and jumps to FOO.    At  this point the stack will look
+like this:</p>
+<pre><code>          .
+          .
+          Value of X (2 bytes)
+          Value of Y (2 bytes)
+  SP --&gt;  Return Address (4 bytes)
+</code></pre>
+<p>So the values of  the  parameters  have  addresses that are fixed
+offsets from the stack pointer.  In this  example,  the addresses
+are:</p>
+<pre><code>     X:  6(SP)
+     Y:  4(SP)
+</code></pre>
+<p>Now consider what the called procedure might look like:</p>
+<pre><code class="language-delphi">     PROCEDURE FOO(A, B)
+     BEGIN
+          A = B
+     END
+</code></pre>
+<p>(Remember, the names  of  the formal parameters are arbitrary ...
+only the positions count.)</p>
+<p>The desired output code might look like:</p>
+<pre><code class="language-asm">     FOO: MOVE 4(SP),D0
+          MOVE D0,6(SP)
+          RTS
+</code></pre>
+<p>Note that, in order to address the formal parameters, we're going
+to have to know  which  position they have in the parameter list.
+This means some changes to the symbol table stuff.  In  fact, for
+our single-character case it's best to just create  a  new symbol
+table for the formal parameters.</p>
+<p>Let's begin by declaring a new table:</p>
+<pre><code class="language-delphi">     var Params: Array['A'..'Z'] of integer;
+</code></pre>
+<p>We  also  will  need to keep track of how many parameters a given
+procedure has:</p>
+<pre><code class="language-delphi">     var NumParams: integer;
+</code></pre>
+<p>And we need to initialize the new table.  Now, remember  that the
+formal parameter list  will  be different for each procedure that
+we process, so we'll need to initialize that table anew  for each
+procedure.  Here's the initializer:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Initialize Parameter Table to Null }
+
+procedure ClearParams;
+var i: char;
+begin
+     for i := 'A' to 'Z' do
+          Params[i] := 0;
+     NumParams := 0;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>We'll put a call to this procedure in Init, and  also  at the end
+of DoProc:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Initialize }
+
+procedure Init;
+var i: char;
+begin
+     GetChar;
+     SkipWhite;
+     for i := 'A' to 'Z' do
+          ST[i] := ' ';
+     ClearParams;
+end;
+{--------------------------------------------------------------}
+.
+.
+.
+{--------------------------------------------------------------}
+{ Parse and Translate a Procedure Declaration }
+
+procedure DoProc;
+var N: char;
+begin
+     Match('p');
+     N := GetName;
+     FormalList;
+     Fin;
+     if InTable(N) then Duplicate(N);
+     ST[N] := 'p';
+     PostLabel(N);
+     BeginBlock;
+     Return;
+     ClearParams;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Note that the call  within  DoProc ensures that the table will be
+clear when we're in the main program.</p>
+<p>OK, now  we  need  a  few procedures to work with the table.  The
+next few functions are  essentially  copies  of  InTable, TypeOf,
+etc.:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Find the Parameter Number }
+
+function ParamNumber(N: char): integer;
+begin
+     ParamNumber := Params[N];
+end;
+
+
+{--------------------------------------------------------------}
+{ See if an Identifier is a Parameter }
+
+function IsParam(N: char): boolean;
+begin
+     IsParam := Params[N] &lt;&gt; 0;
+end;
+
+
+{--------------------------------------------------------------}
+{ Add a New Parameter to Table }
+
+procedure AddParam(Name: char);
+begin
+     if IsParam(Name) then Duplicate(Name);
+     Inc(NumParams);
+     Params[Name] := NumParams;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Finally, we need some code generation routines:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Load a Parameter to the Primary Register }
+
+procedure LoadParam(N: integer);
+var Offset: integer;
+begin
+     Offset := 4 + 2 * (NumParams - N);
+     Emit('MOVE ');
+     WriteLn(Offset, '(SP),D0');
+end;
+
+
+{--------------------------------------------------------------}
+{ Store a Parameter from the Primary Register }
+
+procedure StoreParam(N: integer);
+var Offset: integer;
+begin
+     Offset := 4 + 2 * (NumParams - N);
+     Emit('MOVE D0,');
+     WriteLn(Offset, '(SP)');
+end;
+
+
+{--------------------------------------------------------------}
+{ Push The Primary Register to the Stack }
+
+procedure Push;
+begin
+     EmitLn('MOVE D0,-(SP)');
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>( The last routine is one we've seen  before,  but  it  wasn't in
+this vestigial version of the program.)</p>
+<p>With those preliminaries in place, we're ready to  deal  with the
+semantics of procedures with calling lists (remember, the code to
+deal with the syntax is already in place).</p>
+<p>Let's begin by processing a formal parameter.  All we have  to do
+is to add each parameter to the parameter symbol table:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Process a Formal Parameter }
+
+procedure FormalParam;
+begin
+     AddParam(GetName);
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Now, what about dealing with a formal parameter  when  it appears
+in the body of the procedure?  That takes a little more work.  We
+must first determine that it IS a formal parameter.  To  do this,
+I've written a modified version of TypeOf:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Get Type of Symbol }
+
+function TypeOf(n: char): char;
+begin
+     if IsParam(n) then
+          TypeOf := 'f'
+     else
+          TypeOf := ST[n];
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>(Note that, since  TypeOf  now  calls  IsParam, it may need to be
+relocated in your source.)</p>
+<p>We also must modify AssignOrProc to deal with this new type:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Decide if a Statement is an Assignment or Procedure Call }
+
+procedure AssignOrProc;
+var Name: char;
+begin
+     Name := GetName;
+     case TypeOf(Name) of
+          ' ': Undefined(Name);
+          'v', 'f': Assignment(Name);
+          'p': CallProc(Name);
+          else  Abort('Identifier ' + Name +  '  Cannot  Be  Used
+Here');
+     end;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Finally,  the  code  to process an assignment  statement  and  an
+expression must be extended:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Parse and Translate an Expression }
+{ Vestigial Version }
+
+procedure Expression;
+var Name: char;
+begin
+     Name := GetName;
+     if IsParam(Name) then
+          LoadParam(ParamNumber(Name))
+     else
+          LoadVar(Name);
+end;
+
+
+{--------------------------------------------------------------}
+{ Parse and Translate an Assignment Statement }
+
+procedure Assignment(Name: char);
+begin
+     Match('=');
+     Expression;
+     if IsParam(Name) then
+          StoreParam(ParamNumber(Name))
+     else
+          StoreVar(Name);
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>As you can see, these procedures will treat  every  variable name
+encountered as either a  formal  parameter  or a global variable,
+depending  on  whether  or not it appears in the parameter symbol
+table.   Remember  that  we  are  using  only a vestigial form of
+Expression.  In the  final  program,  the  change shown here will
+have to be added to Factor, not Expression.</p>
+<p>The rest is easy.  We need only add the  semantics  to the actual
+procedure call, which we can do with one new line of code:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Process an Actual Parameter }
+
+procedure Param;
+begin
+     Expression;
+     Push;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>That's  it.  Add these changes to your program and give it a try.
+Try declaring one or two procedures, each with a formal parameter
+list.  Then do some assignments, using combinations of global and
+formal  parameters.    You  can  call one procedure  from  within
+another, but you cannot DECLARE a nested procedure.  You can even
+pass formal parameters from one procedure to another.  If  we had
+the  full  syntax  of the language here, you'd also be able to do
+things like read  or  write  formal  parameters  or  use  them in
+complicated expressions.</p>
+<a class="header" href="#whats-wrong" id="whats-wrong"><h1>WHAT'S WRONG?</h1></a>
+<p>At this point, you might be thinking: Surely there's more to this
+than a few pushes and  pops.    There  must  be  more  to passing
+parameters than this.</p>
+<p>You'd  be  right.    As  a  matter  of fact, the code that  we're
+generating here leaves a lot to be desired in several respects.</p>
+<p>The most glaring oversight is that it's wrong!   If  you'll  look
+back at the code for a procedure call, you'll see that the caller
+pushes each actual parameter onto the stack before  it  calls the
+procedure.  The  procedure  USES that information, but it doesn't
+change the stack  pointer.    That  means that the stuff is still
+there when we return. SOMEBODY needs to clean up  the  stack,  or
+we'll soon be in very hot water!</p>
+<p>Fortunately,  that's  easily fixed.  All we  have  to  do  is  to
+increment the stack pointer when we're finished.</p>
+<p>Should  we  do  that  in  the  calling  program,  or  the  called
+procedure?   Some folks let the called  procedure  clean  up  the
+stack,  since  that  requires less code to be generated per call,
+and since the procedure, after  all,  knows  how  many parameters
+it's got.   But  that  means  that  it must do something with the
+return address so as not to lose it.</p>
+<p>I prefer letting  the  caller  clean  up, so that the callee need
+only execute a return.  Also, it seems a bit more balanced, since
+the caller is  the  one  who  &quot;messed  up&quot; the stack in the first
+place.  But  THAT  means  that  the caller must remember how many
+items  it  pushed.    To  make  things  easy, I've  modified  the
+procedure  ParamList to be a function  instead  of  a  procedure,
+returning the number of bytes pushed:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Process the Parameter List for a Procedure  Call }
+
+function ParamList: integer;
+var N: integer;
+begin
+     N := 0;
+     Match('(');
+     if Look &lt;&gt; ')' then begin
+          Param;
+          inc(N);
+          while Look = ',' do begin
+               Match(',');
+               Param;
+               inc(N);
+          end;
+     end;
+     Match(')');
+     ParamList := 2 * N;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Procedure CallProc then uses this to clean up the stack:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Process a Procedure Call }
+
+procedure CallProc(Name: char);
+var N: integer;
+begin
+     N := ParamList;
+     Call(Name);
+     CleanStack(N);
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Here I've created yet another code generation procedure:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Adjust the Stack Pointer Upwards by N Bytes }
+
+procedure CleanStack(N: integer);
+begin
+     if N &gt; 0 then begin
+          Emit('ADD #');
+          WriteLn(N, ',SP');
+     end;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>OK, if you'll add this code to your compiler, I think you'll find
+that the stack is now under control.</p>
+<p>The next problem has to do with our way of addressing relative to
+the stack pointer.  That works fine in our simple examples, since
+with our rudimentary  form  of expressions nobody else is messing
+with the stack.  But consider a different example as simple as:</p>
+<pre><code class="language-delphi">     PROCEDURE FOO(A, B)
+     BEGIN
+          A = A + B
+     END
+</code></pre>
+<p>The code generated by a simple-minded parser might be:</p>
+<pre><code class="language-asm">     FOO: MOVE 6(SP),D0       ; Fetch A
+          MOVE D0,-(SP)       ; Push it
+          MOVE 4(SP),D0       ; Fetch B
+          ADD (SP)+,D0        ; Add A
+          MOVE D0,6(SP)       : Store A
+          RTS
+</code></pre>
+<p>This  would  be  wrong.  When we push the first argument onto the
+stack, the offsets for the two formal parameters are no  longer 4
+and 6, but are 6 and 8.  So the second fetch would fetch A again,
+not B.</p>
+<p>This is not  the  end of the world.  I think you can see that all
+we really have to do is to alter the offset every  time  we  do a
+push, and that in fact is what's done if the  CPU  has no support
+for other methods.</p>
+<p>Fortunately,   though,   the   68000   does  have  such  support.
+Recognizing that this CPU  would  be  used  a lot with high-order
+language compilers, Motorola decided to  add  direct  support for
+this kind of thing.</p>
+<p>The problem, as you  can  see, is that as the procedure executes,
+the stack  pointer  bounces  up  and  down,  and so it becomes an
+awkward  thing  to  use  as  a  reference  to access  the  formal
+parameters.  The solution is to define some <em>OTHER</em> register, and
+use  it instead.  This register is typically  set  equal  to  the
+original stack pointer, and is called the frame pointer.</p>
+<p>The  68000 instruction set LINK lets you  declare  such  a  frame
+pointer, and  sets  it  equal  to  the  stack pointer, all in one
+instruction.  As a matter of  fact,  it does even more than that.
+Since this register may have been in use for  something  else  in
+the calling procedure, LINK also pushes the current value of that
+register onto the stack.  It  can  also  add a value to the stack
+pointer, to make room for local variables.</p>
+<p>The complement of LINK is UNLK, which simply  restores  the stack
+pointer and pops the old value back into the register.</p>
+<p>Using these two  instructions,  the code for the previous example
+becomes:</p>
+<pre><code class="language-asm">     FOO: LINK A6,#0
+          MOVE 10(A6),D0      ; Fetch A
+          MOVE D0,-(SP)       ; Push it
+          MOVE 8(A6),D0       ; Fetch B
+          ADD (SP)+,D0        ; Add A
+          MOVE D0,10(A6)      : Store A
+          UNLK A6
+          RTS
+</code></pre>
+<p>Fixing the compiler to generate this code is a lot easier than it
+is  to  explain  it.    All we need to do is to modify  the  code
+generation created by DoProc.  Since that makes the code a little
+more than one line, I've created new procedures to deal  with it,
+paralleling the Prolog and Epilog procedures called by DoMain:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Write the Prolog for a Procedure }
+
+procedure ProcProlog(N: char);
+begin
+     PostLabel(N);
+     EmitLn('LINK A6,#0');
+end;
+
+
+{--------------------------------------------------------------}
+{ Write the Epilog for a Procedure }
+
+procedure ProcEpilog;
+begin
+     EmitLn('UNLK A6');
+     EmitLn('RTS');
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Procedure DoProc now just calls these:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Parse and Translate a Procedure Declaration }
+
+procedure DoProc;
+var N: char;
+begin
+     Match('p');
+     N := GetName;
+     FormalList;
+     Fin;
+     if InTable(N) then Duplicate(N);
+     ST[N] := 'p';
+     ProcProlog(N);
+     BeginBlock;
+     ProcEpilog;
+     ClearParams;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Finally, we need to  change  the  references  to SP in procedures
+LoadParam and StoreParam:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Load a Parameter to the Primary Register }
+
+procedure LoadParam(N: integer);
+var Offset: integer;
+begin
+     Offset := 8 + 2 * (NumParams - N);
+     Emit('MOVE ');
+     WriteLn(Offset, '(A6),D0');
+end;
+
+
+{--------------------------------------------------------------}
+{ Store a Parameter from the Primary Register }
+
+procedure StoreParam(N: integer);
+var Offset: integer;
+begin
+     Offset := 8 + 2 * (NumParams - N);
+     Emit('MOVE D0,');
+     WriteLn(Offset, '(A6)');
+end;
+{--------------------------------------------------------------}
+
+</code></pre>
+<p>(Note that the Offset computation  changes to allow for the extra
+push of A6.)</p>
+<p>That's all it takes.  Try this out and see how you like it.</p>
+<p>At this point we  are  generating  some  relatively nice code for
+procedures and procedure calls.  Within the limitation that there
+are no local variables  (yet)  and  that  no procedure nesting is
+allowed, this code is just what we need.</p>
+<p>There is still just one little small problem remaining:</p>
+<a class="header" href="#we-have-no-way-to-return-results-to-the-caller" id="we-have-no-way-to-return-results-to-the-caller"><h1>WE HAVE NO WAY TO RETURN RESULTS TO THE CALLER!</h1></a>
+<p>But  that,  of course, is not a  limitation  of  the  code  we're
+generating, but  one  inherent  in  the  call-by-value  protocol.
+Notice that we CAN use formal parameters in any  way  inside  the
+procedure.  We  can  calculate  new  values for them, use them as
+loop counters (if we had loops, that is!), etc.   So  the code is
+doing what it's supposed to.   To  get over this last problem, we
+need to look at the alternative protocol.</p>
+<a class="header" href="#call-by-reference" id="call-by-reference"><h1>CALL-BY-REFERENCE</h1></a>
+<p>This  one is easy, now that we have  the  mechanisms  already  in
+place.    We  only  have  to  make  a few  changes  to  the  code
+generation.  Instead of  pushing  a value onto the stack, we must
+push an address.  As it turns out, the 68000 has  an instruction,
+PEA, that does just that.</p>
+<p>We'll be  making  a  new  version  of  the test program for this.
+Before we do anything else,</p>
+<p><code>&gt;&gt;&gt;&gt; MAKE A COPY &lt;&lt;&lt;&lt;</code> of  the program as it now stands, because  we'll  be  needing  it
+again later.</p>
+<p>Let's begin by looking at the code we'd like to see generated for
+the new case. Using the same example as before, we need the call</p>
+<pre><code class="language-delphi">     FOO(X, Y)
+</code></pre>
+<p>to be translated to:</p>
+<pre><code class="language-delphi">     PEA X(PC)           ; Push the address of X
+     PEA Y(PC)           ; Push Y the address of Y
+     BSR FOO             ; Call FOO
+</code></pre>
+<p>That's a simple matter of a slight change to Param:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Process an Actual Parameter }
+
+procedure Param;
+begin
+     EmitLn('PEA ' + GetName + '(PC)');
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>(Note that with pass-by-reference, we can't  have  expressions in
+the calling list, so Param can just read the name directly.)</p>
+<p>At the other end, the references to the formal parameters must be
+given one level of indirection:</p>
+<pre><code class="language-asm">     FOO: LINK A6,#0
+          MOVE.L 12(A6),A0    ; Fetch the address of A
+          MOVE (A0),D0        ; Fetch A
+          MOVE D0,-(SP)       ; Push it
+          MOVE.L 8(A6),A0     ; Fetch the address of B
+          MOVE (A0),D0        ; Fetch B
+          ADD (SP)+,D0        ; Add A
+          MOVE.L 12(A6),A0    ; Fetch the address of A
+          MOVE D0,(A0)        : Store A
+          UNLK A6
+          RTS
+</code></pre>
+<p>All  of  this  can  be   handled  by  changes  to  LoadParam  and
+StoreParam:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Load a Parameter to the Primary Register }
+
+procedure LoadParam(N: integer);
+var Offset: integer;
+begin
+     Offset := 8 + 4 * (NumParams - N);
+     Emit('MOVE.L ');
+     WriteLn(Offset, '(A6),A0');
+     EmitLn('MOVE (A0),D0');
+end;
+
+
+{--------------------------------------------------------------}
+{ Store a Parameter from the Primary Register }
+
+procedure StoreParam(N: integer);
+var Offset: integer;
+begin
+     Offset := 8 + 4 * (NumParams - N);
+     Emit('MOVE.L ');
+     WriteLn(Offset, '(A6),A0');
+     EmitLn('MOVE D0,(A0)');
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>To  get  the  count  right,  we  must  also  change  one line  in
+ParamList:</p>
+<pre><code class="language-delphi">     ParamList := 4 * N;
+</code></pre>
+<p>That  should  do it.  Give it a try and see  if  it's  generating
+reasonable-looking code.  As  you  will  see,  the code is hardly
+optimal,  since  we  reload  the  address register every  time  a
+parameter  is  needed.    But  that's  consistent  with our  KISS
+approach  here,  of  just being sure to generate code that works.
+We'll  just  make  a  little  note here, that here's yet  another
+candidate for optimization, and press on.</p>
+<p>Now we've learned to process parameters  using  pass-by-value and
+pass-by-reference.  In the real world, of course, we'd like to be
+able  to  deal  with BOTH methods.  We can't do that yet, though,
+because we have not yet had a session on types,  and  that has to
+come first.</p>
+<p>If  we can only have ONE method, then of course it has to be  the
+good ol' FORTRAN method of  pass-by-reference,  since  that's the
+only way procedures can ever return values to their caller.</p>
+<p>This, in fact, will be one of the differences  between  TINY  and
+KISS.  In the next version of TINY,  we'll  use pass-by-reference
+for all parameters.  KISS will support both methods.</p>
+<a class="header" href="#local-variables" id="local-variables"><h1>LOCAL VARIABLES</h1></a>
+<p>So  far,  we've  said  nothing  about  local  variables, and  our
+definition of procedures doesn't allow  for  them.    Needless to
+say, that's a big gap in our language, and one  that  needs to be
+corrected.</p>
+<p>Here again we are faced with a choice: Static or dynamic storage?</p>
+<p>In those  old FORTRAN programs, local variables were given static
+storage just like global ones.  That is, each local  variable got
+a  name  and  allocated address, like any other variable, and was
+referenced by that name.</p>
+<p>That's easy for us to do, using the allocation mechanisms already
+in place.  Remember,  though,  that local variables can have  the
+same  names as global ones.  We need to somehow deal with that by
+assigning unique names for these variables.</p>
+<p>The characteristic of static storage, of course, is that the data
+survives  a procedure call and return.   When  the  procedure  is
+called  again,  the  data will still be there.  That  can  be  an
+advantage in some applications.    In the FORTRAN days we used to
+do tricks like initialize a flag, so that you could tell when you
+were entering a  procedure  for  the  first time and could do any
+one-time initialization that needed to be done.</p>
+<p>Of  course,  the  same  &quot;feature&quot;  is also what  makes  recursion
+impossible with static storage.  Any new call to a procedure will
+overwrite the data already in the local variables.</p>
+<p>The alternative is dynamic storage, in which storage is allocated
+on the stack just as for passed parameters.    We  also  have the
+mechanisms  already  for  doing this.  In fact, the same routines
+that  deal with passed (by value) parameters  on  the  stack  can
+easily deal  with  local  variables  as  well  ... the code to be
+generated  is  the  same.  The purpose of the offset in the 68000
+LINK instruction is there just for that reason:  we can use it to
+adjust the stack  pointer  to  make  room  for  locals.   Dynamic
+storage, of course, inherently supports recursion.</p>
+<p>When  I  first  began  planning  TINY,  I  must  admit  to  being
+prejudiced in favor of static  storage.    That's  simply because
+those old FORTRAN  programs  were pretty darned efficient ... the
+early FORTRAN compilers  produced  a quality of code that's still
+rarely matched by modern compilers.   Even today, a given program
+written  in  FORTRAN  is likely to outperform  the  same  program
+written in C or Pascal, sometimes  by  wide margins. (Whew!  Am I
+going to hear about THAT statement!)</p>
+<p>I've always supposed that the reason had to do with the  two main
+differences  between  FORTRAN  implementations  and  the  others:
+static  storage  and  pass-by-reference.    I  know  that dynamic
+storage  supports  recursion,  but it's always seemed to me a bit
+peculiar to be willing to accept slower code in the 95%  of cases
+that don't need recursion, just to get that feature when you need
+it.  The idea is that, with static storage, you can  use absolute
+addressing  rather than indirect addressing, which should  result
+in faster code.</p>
+<p>More recently, though, several folks  have pointed out to me that
+there really is no performance  penalty  associated  with dynamic
+storage.  With the 68000, for example, you shouldn't use absolute
+addressing  anyway  ...  most  operating systems require position
+independent code.  And the 68000 instruction</p>
+<pre><code>     MOVE 8(A6),D0
+</code></pre>
+<p>has exactly the same timing as</p>
+<pre><code>     MOVE X(PC),D0.
+</code></pre>
+<p>So  I'm  convinced,  now, that there is no good reason NOT to use
+dynamic storage.</p>
+<p>Since this use of local variables fits so well into the scheme of
+pass-by-value  parameters,  we'll  use   that   version   of  the
+translator to illustrate it. (I <em>SURE</em> hope you kept a copy!)</p>
+<p>The general idea is to keep track of how  many  local  parameters
+there  are.    Then we use the integer in the LINK instruction to
+adjust the stack pointer downward to make room for them.   Formal
+parameters are  addressed  as  positive  offsets  from  the frame
+pointer, and locals as negative offsets.  With a  little  bit  of
+work, the same procedures we've  already created can take care of
+the whole thing.</p>
+<p>Let's start by creating a new variable, Base:</p>
+<pre><code class="language-delphi">     var Base: integer;
+</code></pre>
+<p>We'll use this  variable,  instead of NumParams, to compute stack
+offsets.  That means changing  the two references to NumParams in
+LoadParam and StoreParam:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Load a Parameter to the Primary Register }
+
+procedure LoadParam(N: integer);
+var Offset: integer;
+begin
+     Offset := 8 + 2 * (Base - N);
+     Emit('MOVE ');
+     WriteLn(Offset, '(A6),D0');
+end;
+
+
+{--------------------------------------------------------------}
+{ Store a Parameter from the Primary Register }
+
+procedure StoreParam(N: integer);
+var Offset: integer;
+begin
+     Offset := 8 + 2 * (Base - N);
+     Emit('MOVE D0,');
+     WriteLn(Offset, '(A6)');
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>The idea is that the value of Base will be  frozen  after we have
+processed the formal parameters, and  won't  increase  further as
+the new, local variables, are inserted in the symbol table.  This
+is taken care of at the end of FormalList:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Process the Formal Parameter List of a Procedure }
+
+procedure FormalList;
+begin
+     Match('(');
+     if Look &lt;&gt; ')' then begin
+          FormalParam;
+          while Look = ',' do begin
+               Match(',');
+               FormalParam;
+          end;
+     end;
+     Match(')');
+     Fin;
+     Base := NumParams;
+     NumParams := NumParams + 4;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>(We add four words to make allowances for the return  address and
+old frame pointer, which end up between the formal parameters and
+the locals.)</p>
+<p>About all we  need  to  do  next  is to install the semantics for
+declaring local variables into the parser.  The routines are very
+similar to Decl and TopDecls:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Parse and Translate a Local Data Declaration }
+
+procedure LocDecl;
+var Name: char;
+begin
+   Match('v');
+     AddParam(GetName);
+     Fin;
+end;
+
+
+{--------------------------------------------------------------}
+
+
+{ Parse and Translate Local Declarations }
+
+function LocDecls: integer;
+var n: integer;
+begin
+     n := 0;
+     while Look = 'v' do begin
+          LocDecl;
+          inc(n);
+     end;
+     LocDecls := n;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Note that LocDecls is a  FUNCTION, returning the number of locals
+to DoProc.</p>
+<p>Next, we modify DoProc to use this information:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Parse and Translate a Procedure Declaration }
+
+procedure DoProc;
+var N: char;
+      k: integer;
+begin
+     Match('p');
+     N := GetName;
+     if InTable(N) then Duplicate(N);
+     ST[N] := 'p';
+     FormalList;
+     k := LocDecls;
+     ProcProlog(N, k);
+     BeginBlock;
+     ProcEpilog;
+     ClearParams;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>(I've  made   a  couple  of  changes  here  that  weren't  really
+necessary.  Aside from rearranging things a bit, I moved the call
+to  Fin  to  within FormalList, and placed one inside LocDecls as
+well.   Don't forget to put one at the end of FormalList, so that
+we're together here.)</p>
+<p>Note the change in the call  to  ProcProlog.  The new argument is
+the number of WORDS (not bytes) to allocate space  for.    Here's
+the new version of ProcProlog:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Write the Prolog for a Procedure }
+
+procedure ProcProlog(N: char; k: integer);
+begin
+     PostLabel(N);
+     Emit('LINK A6,#');
+     WriteLn(-2 * k)
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>That should do it.  Add these changes and see how they work.</p>
+<a class="header" href="#conclusion" id="conclusion"><h1>CONCLUSION</h1></a>
+<p>At this point you know  how to compile procedure declarations and
+procedure calls,  with  parameters  passed  by  reference  and by
+value.  You can also handle local variables.  As you can see, the
+hard part is not  in  providing  the  mechanisms, but in deciding
+just which mechanisms to use.  Once we make these  decisions, the
+code to translate the constructs is really not that difficult.
+I didn't  show  you  how  to  deal  with the combination of local
+parameters   and  pass-by-reference  parameters,  but  that's   a
+straightforward extension to  what  you've already seen.  It just
+gets a little more messy, that's all, since we  need  to  support
+both mechanisms instead of just one at a  time.    I'd  prefer to
+save  that  one  until after we've  dealt  with  ways  to  handle
+different variable types.</p>
+<p>That will be the next installment, which will be coming soon to a
+Forum near you.  See you then.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="tutor12_miscellany.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="tutor14_types.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="tutor12_miscellany.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="tutor14_types.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

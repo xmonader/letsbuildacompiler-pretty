@@ -1,0 +1,743 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Interpreters - Let's build a compiler</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="tutor01_introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="tutor02_expressionparsing.html"><strong aria-hidden="true">2.</strong> Expression Parsing</a></li><li><a href="tutor03_moreexpressions.html"><strong aria-hidden="true">3.</strong> More Expressions</a></li><li><a href="tutor04_interpreters.html" class="active"><strong aria-hidden="true">4.</strong> Interpreters</a></li><li><a href="tutor05_controlstructs.html"><strong aria-hidden="true">5.</strong> Control Constructs</a></li><li><a href="tutor06_booleanexpressions.html"><strong aria-hidden="true">6.</strong> Boolean Expressions</a></li><li><a href="tutor07_lexicalscanning.html"><strong aria-hidden="true">7.</strong> Lexical Scanning</a></li><li><a href="tutor08_littlephilosophy.html"><strong aria-hidden="true">8.</strong> A Little Philosophy</a></li><li><a href="tutor09_atopview..html"><strong aria-hidden="true">9.</strong> A Top View</a></li><li><a href="tutor10_introducingtiny.html"><strong aria-hidden="true">10.</strong> Introducing Tiny</a></li><li><a href="tutor11_lexicalscanrevisit.html"><strong aria-hidden="true">11.</strong> Lexical Scan Revisit</a></li><li><a href="tutor12_miscellany.html"><strong aria-hidden="true">12.</strong> Miscellany</a></li><li><a href="tutor13_procedures.html"><strong aria-hidden="true">13.</strong> Procedures</a></li><li><a href="tutor14_types.html"><strong aria-hidden="true">14.</strong> Types</a></li><li><a href="tutor15_backtothefuture.html"><strong aria-hidden="true">15.</strong> Back to the Future</a></li><li><a href="tutor16_unitconstruction.html"><strong aria-hidden="true">16.</strong> Unit Construction</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Let's build a compiler</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#introduction" id="introduction"><h1>INTRODUCTION</h1></a>
+<p>In the first three installments of this series,  we've  looked at
+parsing and  compiling math expressions, and worked our way grad-
+ually and methodically from dealing  with  very  simple one-term,
+one-character &quot;expressions&quot; up through more general ones, finally
+arriving at a very complete parser that could parse and translate
+complete  assignment  statements,  with  multi-character  tokens,
+embedded white space, and function calls.  This  time,  I'm going
+to walk you through the process one more time, only with the goal
+of interpreting rather than compiling object code.</p>
+<p>Since this is a series on compilers, why should  we  bother  with
+interpreters?  Simply because I want you to see how the nature of
+the  parser changes as we change the goals.  I also want to unify
+the concepts of the two types of translators, so that you can see
+not only the differences, but also the similarities.</p>
+<p>Consider the assignment statement</p>
+<pre><code>           `x = 2 * y + 3`
+</code></pre>
+<p>In a compiler, we want the target CPU to execute  this assignment
+at EXECUTION time.  The translator itself doesn't  do  any arith-
+metic ... it only issues the object code that will cause  the CPU
+to do it when the code is executed.  For  the  example above, the
+compiler would issue code to compute the expression and store the
+results in variable x.</p>
+<p>For an interpreter,  on  the  other  hand, no object code is gen-
+erated.   Instead, the arithmetic is computed immediately, as the
+parsing is going on.  For the example, by the time parsing of the
+statement is complete, x will have a new value.</p>
+<p>The approach we've been  taking  in  this  whole series is called
+&quot;syntax-driven translation.&quot;  As you are aware by now, the struc-
+ture of the  parser  is  very  closely  tied to the syntax of the
+productions we parse.  We  have built Pascal procedures that rec-
+ognize every language  construct.   Associated with each of these
+constructs (and procedures) is  a  corresponding  &quot;action,&quot; which
+does  whatever  makes  sense to do  once  a  construct  has  been
+recognized.    In  our  compiler  so far, every  action  involves
+emitting object code, to be executed later at execution time.  In
+an interpreter, every action  involves  something  to be done im-
+mediately.</p>
+<p>What I'd like you to see here is that the  layout  ... the struc-
+ture ... of  the  parser  doesn't  change.  It's only the actions
+that change.   So  if  you  can  write an interpreter for a given
+language, you can also write a compiler, and vice versa.  Yet, as
+you  will  see,  there  ARE  differences,  and  significant ones.
+Because the actions are different,  the  procedures  that  do the
+recognizing end up being written differently.    Specifically, in
+the interpreter  the recognizing procedures end up being coded as
+FUNCTIONS that return numeric values to their callers.    None of
+the parsing routines for our compiler did that.</p>
+<p>Our compiler, in fact,  is  what we might call a &quot;pure&quot; compiler.
+Each time a construct is recognized, the object  code  is emitted
+IMMEDIATELY.  (That's one reason the code is not very efficient.)
+The interpreter we'll be building  here is a pure interpreter, in
+the sense that there is  no  translation,  such  as &quot;tokenizing,&quot;
+performed on the source code.  These represent  the  two extremes
+of translation.  In  the  real  world,  translators are rarely so
+pure, but tend to have bits of each technique.</p>
+<p>I can think of  several  examples.    I've already mentioned one:
+most interpreters, such as Microsoft BASIC,  for  example, trans-
+late the source code (tokenize it) into an  intermediate  form so
+that it'll be easier to parse real time.</p>
+<p>Another example is an assembler.  The purpose of an assembler, of
+course, is to produce object code, and it normally does that on a
+one-to-one basis: one object instruction per line of source code.
+But almost every assembler also permits expressions as arguments.
+In this case, the expressions  are  always  constant expressions,
+and  so the assembler isn't supposed to  issue  object  code  for
+them.  Rather,  it  &quot;interprets&quot; the expressions and computes the
+corresponding constant result, which is what it actually emits as
+object code.</p>
+<p>As a matter of fact, we  could  use  a bit of that ourselves. The
+translator we built in the  previous  installment  will dutifully
+spit out object code  for  complicated  expressions,  even though
+every term in  the  expression  is  a  constant.  In that case it
+would be far better if the translator behaved a bit more  like an
+interpreter, and just computed the equivalent constant result.</p>
+<p>There is  a concept in compiler theory called &quot;lazy&quot; translation.
+The  idea is that you typically don't just  emit  code  at  every
+action.  In fact, at the extreme you don't emit anything  at all,
+until  you  absolutely  have to.  To accomplish this, the actions
+associated with the parsing routines  typically  don't  just emit
+code.  Sometimes  they  do,  but  often  they  simply  return in-
+formation back to the caller.  Armed with  such  information, the
+caller can then make a better choice of what to do.</p>
+<p>For example, given the statement</p>
+<pre><code>           `x = x + 3 - 2 - (5 - 4)`  ,
+</code></pre>
+<p>our compiler will dutifully spit  out a stream of 18 instructions
+to load each parameter into  registers,  perform  the arithmetic,
+and store the result.  A lazier evaluation  would  recognize that
+the arithmetic involving constants can  be  evaluated  at compile
+time, and would reduce the expression to</p>
+<pre><code>           `x = x + 0`  .
+</code></pre>
+<p>An  even  lazier  evaluation would then be smart enough to figure
+out that this is equivalent to</p>
+<pre><code>           `x = x`  ,
+</code></pre>
+<p>which  calls  for  no  action  at  all.   We could reduce 18  in-
+structions to zero!</p>
+<p>Note that there is no chance of optimizing this way in our trans-
+lator as it stands, because every action takes place immediately.</p>
+<p>Lazy  expression  evaluation  can  produce  significantly  better
+object code than  we  have  been  able  to  so  far.  I warn you,
+though: it complicates the parser code considerably, because each
+routine now has to make decisions as to whether  to  emit  object
+code or not.  Lazy evaluation is certainly not named that because
+it's easier on the compiler writer!</p>
+<p>Since we're operating mainly on  the KISS principle here, I won't
+go  into much more depth on this subject.  I just want you to  be
+aware  that  you  can get some code optimization by combining the
+techniques of compiling and  interpreting.    In  particular, you
+should know that the parsing  routines  in  a  smarter translator
+will generally  return  things  to  their  caller,  and sometimes
+expect things as  well.    That's  the main reason for going over
+interpretation in this installment.</p>
+<a class="header" href="#the-interpreter" id="the-interpreter"><h1>THE INTERPRETER</h1></a>
+<p>OK, now that you know WHY we're going into all this, let's do it.
+Just to give you practice, we're going to start over with  a bare
+cradle and build up the translator all over again.  This time, of
+course, we can go a bit faster.</p>
+<p>Since we're now going  to  do arithmetic, the first thing we need
+to do is to change function GetNum, which up till now  has always
+returned a character  (or  string).    Now, it's better for it to
+return an integer.    MAKE  A  COPY of the cradle (for goodness's
+sake, don't change the version  in  Cradle  itself!!)  and modify
+GetNum as follows:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Get a Number }
+
+function GetNum: integer;
+begin
+   if not IsDigit(Look) then Expected('Integer');
+   GetNum := Ord(Look) - Ord('0');
+   GetChar;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Now, write the following version of Expression:</p>
+<pre><code class="language-delphi">{---------------------------------------------------------------}
+{ Parse and Translate an Expression }
+
+function Expression: integer;
+begin
+   Expression := GetNum;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Finally, insert the statement</p>
+<p><code>Writeln(Expression);</code></p>
+<p>at the end of the main program.  Now compile and test.</p>
+<p>All this program  does  is  to  &quot;parse&quot;  and  translate  a single
+integer  &quot;expression.&quot;    As always, you should make sure that it
+does that with the digits 0..9, and gives an  error  message  for
+anything else.  Shouldn't take you very long!</p>
+<p>OK, now let's extend this to include addops.    Change Expression
+to read:</p>
+<pre><code class="language-delphi">{---------------------------------------------------------------}
+{ Parse and Translate an Expression }
+
+function Expression: integer;
+var Value: integer;
+begin
+   if IsAddop(Look) then
+      Value := 0
+   else
+      Value := GetNum;
+   while IsAddop(Look) do begin
+      case Look of
+       '+': begin
+               Match('+');
+               Value := Value + GetNum;
+            end;
+       '-': begin
+               Match('-');
+               Value := Value - GetNum;
+            end;
+      end;
+   end;
+   Expression := Value;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>The structure of Expression, of  course,  parallels  what  we did
+before,  so  we  shouldn't have too much  trouble  debugging  it.
+There's  been  a  SIGNIFICANT  development, though, hasn't there?
+Procedures Add and Subtract went away!  The reason  is  that  the
+action to be taken  requires  BOTH arguments of the operation.  I
+could have chosen to retain the procedures and pass into them the
+value of the expression to date,  which  is Value.  But it seemed
+cleaner to me to  keep  Value as strictly a local variable, which
+meant that the code for Add and Subtract had to be moved in line.
+This result suggests  that,  while the structure we had developed
+was nice and  clean  for our simple-minded translation scheme, it
+probably  wouldn't do for use with lazy  evaluation.    That's  a
+little tidbit we'll probably want to keep in mind for later.</p>
+<p>OK,  did the translator work?  Then let's  take  the  next  step.
+It's not hard to  figure  out what procedure Term should now look
+like.  Change every call to GetNum in function  Expression  to  a
+call to Term, and then enter the following form for Term:</p>
+<pre><code class="language-delphi">{---------------------------------------------------------------}
+{ Parse and Translate a Math Term }
+
+function Term: integer;
+var Value: integer;
+begin
+   Value := GetNum;
+   while Look in ['*', '/'] do begin
+      case Look of
+       '*': begin
+               Match('*');
+               Value := Value * GetNum;
+            end;
+       '/': begin
+               Match('/');
+               Value := Value div GetNum;
+            end;
+      end;
+   end;
+   Term := Value;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Now, try it out.    Don't forget two things: first, we're dealing
+with integer division, so, for example, 1/3 should come out zero.
+Second, even  though we can output multi-digit results, our input
+is still restricted to single digits.</p>
+<p>That seems like a silly restriction at this point, since  we have
+already  seen how easily function GetNum can  be  extended.    So
+let's go ahead and fix it right now.  The new version is</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Get a Number }
+
+function GetNum: integer;
+var Value: integer;
+begin
+   Value := 0;
+   if not IsDigit(Look) then Expected('Integer');
+   while IsDigit(Look) do begin
+      Value := 10 * Value + Ord(Look) - Ord('0');
+      GetChar;
+   end;
+   GetNum := Value;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>If you've compiled and  tested  this  version of the interpreter,
+the  next  step  is to install function Factor, complete with pa-
+renthesized  expressions.  We'll hold off a  bit  longer  on  the
+variable  names.    First, change the references  to  GetNum,  in
+function Term, so that they call Factor instead.   Now  code  the
+following version of Factor:</p>
+<pre><code class="language-delphi">{---------------------------------------------------------------}
+{ Parse and Translate a Math Factor }
+
+function Expression: integer; Forward;
+
+function Factor: integer;
+begin
+   if Look = '(' then begin
+      Match('(');
+      Factor := Expression;
+      Match(')');
+      end
+   else
+       Factor := GetNum;
+end;
+{---------------------------------------------------------------}
+</code></pre>
+<p>That was pretty easy, huh?  We're rapidly closing in on  a useful
+interpreter.</p>
+<a class="header" href="#a-little-philosophy" id="a-little-philosophy"><h1>A LITTLE PHILOSOPHY</h1></a>
+<p>Before going any further, there's something I'd like  to  call to
+your attention.  It's a concept that we've been making use  of in
+all these sessions, but I haven't explicitly mentioned it up till
+now.  I think it's time, because it's a concept so useful, and so
+powerful,  that  it  makes all the difference  between  a  parser
+that's trivially easy, and one that's too complex to deal with.</p>
+<p>In the early days of compiler technology, people  had  a terrible
+time  figuring  out  how to deal with things like operator prece-
+dence  ...  the  way  that  multiply  and  divide operators  take
+precedence over add and subtract, etc.  I remember a colleague of
+some  thirty years ago, and how excited he was to find out how to
+do it.  The technique used involved building two  stacks,    upon
+which you pushed each operator  or operand.  Associated with each
+operator was a precedence level,  and the rules required that you
+only actually performed an operation  (&quot;reducing&quot;  the  stack) if
+the precedence level showing on top of the stack was correct.  To
+make life more interesting,  an  operator  like ')' had different
+precedence levels, depending  upon  whether or not it was already
+on the stack.  You  had to give it one value before you put it on
+the stack, and another to decide when to take it  off.   Just for
+the experience, I worked all of  this  out for myself a few years
+ago, and I can tell you that it's very tricky.</p>
+<p>We haven't  had  to  do  anything like that.  In fact, by now the
+parsing of an arithmetic statement should seem like child's play.
+How did we get so lucky?  And where did the precedence stacks go?</p>
+<p>A similar thing is going on  in  our interpreter above.  You just
+KNOW that in  order  for  it  to do the computation of arithmetic
+statements (as opposed to the parsing of them), there have  to be
+numbers pushed onto a stack somewhere.  But where is the stack?</p>
+<p>Finally,  in compiler textbooks, there are  a  number  of  places
+where  stacks  and  other structures are discussed.  In the other
+leading parsing method (LR), an explicit stack is used.  In fact,
+the technique is very  much  like the old way of doing arithmetic
+expressions.  Another concept  is  that of a parse tree.  Authors
+like to draw diagrams  of  the  tokens  in a statement, connected
+into a tree with  operators  at the internal nodes.  Again, where
+are the trees and stacks in our technique?  We haven't seen any.
+The answer in all cases is that the structures are  implicit, not
+explicit.    In  any computer language, there is a stack involved
+every  time  you  call  a  subroutine.  Whenever a subroutine  is
+called, the return address is pushed onto the CPU stack.   At the
+end of the subroutine, the address is popped back off and control
+is  transferred  there.   In a recursive language such as Pascal,
+there can also be local data pushed onto the stack, and  it, too,
+returns when it's needed.</p>
+<p>For example,  function  Expression  contains  a  local  parameter
+called  Value, which it fills by a call to Term.  Suppose, in its
+next call to  Term  for  the  second  argument,  that  Term calls
+Factor, which recursively  calls  Expression  again.    That &quot;in-
+stance&quot; of Expression gets another value for its  copy  of Value.
+What happens  to  the  first  Value?    Answer: it's still on the
+stack, and  will  be  there  again  when  we return from our call
+sequence.</p>
+<p>In other words, the reason things look so simple  is  that  we've
+been making maximum use of the resources of the  language.    The
+hierarchy levels  and  the  parse trees are there, all right, but
+they're hidden within the  structure  of  the parser, and they're
+taken care of by the order with which the various  procedures are
+called.  Now that you've seen how we do it, it's probably hard to
+imagine doing it  any other way.  But I can tell you that it took
+a lot of years for compiler writers to get that smart.  The early
+compilers were too complex  too  imagine.    Funny how things get
+easier with a little practice.</p>
+<p>The reason  I've  brought  all  this up is as both a lesson and a
+warning.  The lesson: things can be easy when you do  them right.
+The warning: take a look at what you're doing.  If, as you branch
+out on  your  own,  you  begin to find a real need for a separate
+stack or tree structure, it may be time to ask yourself if you're
+looking at things the right way.  Maybe you just aren't using the
+facilities of the language as well as you could be.</p>
+<p>The next step is to add variable names.  Now,  though,  we have a
+slight problem.  For  the  compiler, we had no problem in dealing
+with variable names ... we just issued the names to the assembler
+and let the rest  of  the program take care of allocating storage
+for  them.  Here, on the other hand, we need to be able to  fetch
+the values of the variables and return them as the  return values
+of Factor.  We need a storage mechanism for these variables.</p>
+<p>Back in the early days of personal computing,  Tiny  BASIC lived.
+It had  a  grand  total  of  26  possible variables: one for each
+letter of the  alphabet.    This  fits nicely with our concept of
+single-character tokens, so we'll  try  the  same  trick.  In the
+beginning of your  interpreter,  just  after  the  declaration of
+variable Look, insert the line:</p>
+<pre><code>           `Table: Array['A'..'Z'] of integer;`
+</code></pre>
+<p>We also need to initialize the array, so add this procedure:</p>
+<pre><code class="language-delphi">{---------------------------------------------------------------}
+{ Initialize the Variable Area }
+
+procedure InitTable;
+var i: char;
+begin
+   for i := 'A' to 'Z' do
+      Table[i] := 0;
+end;
+{---------------------------------------------------------------}
+</code></pre>
+<p>You must also insert a call to InitTable, in procedure Init.
+DON'T FORGET to do that, or the results may surprise you!</p>
+<p>Now that we have an array  of  variables, we can modify Factor to
+use it.  Since we don't have a way (so far) to set the variables,
+Factor  will always return zero values for  them,  but  let's  go
+ahead and extend it anyway.  Here's the new version:</p>
+<pre><code class="language-delphi">{---------------------------------------------------------------}
+{ Parse and Translate a Math Factor }
+
+function Expression: integer; Forward;
+
+function Factor: integer;
+begin
+   if Look = '(' then begin
+      Match('(');
+      Factor := Expression;
+      Match(')');
+      end
+   else if IsAlpha(Look) then
+      Factor := Table[GetName]
+   else
+       Factor := GetNum;
+end;
+{---------------------------------------------------------------}
+</code></pre>
+<p>As always, compile and test this version of the  program.    Even
+though all the variables are now zeros, at least we can correctly
+parse the complete expressions, as well as catch any badly formed
+expressions.</p>
+<p>I suppose you realize the next step: we need to do  an assignment
+statement so we can  put  something INTO the variables.  For now,
+let's  stick  to  one-liners,  though  we will soon  be  handling
+multiple statements.</p>
+<p>The assignment statement parallels what we did before:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Parse and Translate an Assignment Statement }
+                             
+
+
+procedure Assignment;
+var Name: char;
+begin
+   Name := GetName;
+   Match('=');
+   Table[Name] := Expression;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>To test this,  I  added  a  temporary write statement in the main
+program,  to  print out the value of A.  Then I  tested  it  with
+various assignments to it.</p>
+<p>Of course, an interpretive language that can only accept a single
+line of program  is not of much value.  So we're going to want to
+handle multiple statements.  This  merely  means  putting  a loop
+around  the  call  to Assignment.  So let's do that now. But what
+should be the loop exit criterion?  Glad you  asked,  because  it
+brings up a point we've been able to ignore up till now.</p>
+<p>One of the most tricky things  to  handle in any translator is to
+determine when to bail out of  a  given construct and go look for
+something else.  This hasn't been a problem for us so far because
+we've only allowed for  a  single kind of construct ... either an
+expression  or an assignment statement.   When  we  start  adding
+loops and different kinds of statements, you'll find that we have
+to be very careful that things terminate properly.  If we put our
+interpreter in a loop, we need a way to quit.    Terminating on a
+newline is no good, because that's what sends us back for another
+line.  We could always let an unrecognized character take us out,
+but that would cause every run to end in an error  message, which
+certainly seems uncool.</p>
+<p>What we need  is  a  termination  character.  I vote for Pascal's
+ending period ('.').   A  minor  complication  is that Turbo ends
+every normal line  with  TWO characters, the carriage return (CR)
+and line feed (LF).   At  the  end  of  each line, we need to eat
+these characters before processing the next one.   A  natural way
+to do this would  be  with  procedure  Match, except that Match's
+error  message  prints  the character, which of course for the CR
+and/or  LF won't look so great.  What we need is a special proce-
+dure for this, which we'll no doubt be using over and over.  Here
+it is:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Recognize and Skip Over a Newline }
+
+procedure NewLine;
+begin
+   if Look = CR then begin
+      GetChar;
+      if Look = LF then
+         GetChar;
+   end;
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>Insert this procedure at any convenient spot ... I put  mine just
+after Match.  Now, rewrite the main program to look like this:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Main Program }
+
+begin
+   Init;
+   repeat
+      Assignment;
+      NewLine;
+   until Look = '.';
+end.
+{--------------------------------------------------------------}
+</code></pre>
+<p>Note that the  test for a CR is now gone, and that there are also
+no  error tests within NewLine itself.   That's  OK,  though  ...
+whatever is left over in terms of bogus characters will be caught
+at the beginning of the next assignment statement.</p>
+<p>Well, we now have a functioning interpreter.  It doesn't do  us a
+lot of  good,  however,  since  we have no way to read data in or
+write it out.  Sure would help to have some I/O!</p>
+<p>Let's wrap this session  up,  then,  by  adding the I/O routines.
+Since we're  sticking to single-character tokens, I'll use '?' to
+stand for a read statement, and  '!'  for a write, with the char-
+acter  immediately  following  them  to  be used as  a  one-token
+&quot;parameter list.&quot;  Here are the routines:</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Input Routine }
+
+procedure Input;
+begin
+   Match('?');
+   Read(Table[GetName]);
+end;
+
+
+{--------------------------------------------------------------}
+{ Output Routine }
+
+procedure Output;
+begin
+   Match('!');
+   WriteLn(Table[GetName]);
+end;
+{--------------------------------------------------------------}
+</code></pre>
+<p>They aren't very fancy, I admit ... no prompt character on input,
+for example ... but they get the job done.</p>
+<p>The corresponding changes in  the  main  program are shown below.
+Note that we use the usual  trick  of a case statement based upon
+the current lookahead character, to decide what to do.</p>
+<pre><code class="language-delphi">{--------------------------------------------------------------}
+{ Main Program }
+
+begin
+   Init;
+   repeat
+      case Look of
+       '?': Input;
+       '!': Output;
+       else Assignment;
+      end;
+      NewLine;
+   until Look = '.';
+end.
+{--------------------------------------------------------------}
+</code></pre>
+<p>You have now completed a  real, working interpreter.  It's pretty
+sparse, but it works just like the &quot;big boys.&quot;  It includes three
+kinds of program statements  (and  can  tell the difference!), 26
+variables,  and  I/O  statements.  The only things that it lacks,
+really, are control statements,  subroutines,    and some kind of
+program editing function.  The program editing part, I'm going to
+pass on.  After all, we're  not  here  to build a product, but to
+learn  things.    The control statements, we'll cover in the next
+installment, and the subroutines soon  after.  I'm anxious to get
+on with that, so we'll leave the interpreter as it stands.</p>
+<p>I hope that by  now  you're convinced that the limitation of sin-
+gle-character names  and the processing of white space are easily
+taken  care  of, as we did in the last session.   This  time,  if
+you'd like to play around with these extensions, be my  guest ...
+they're  &quot;left as an exercise for the student.&quot;    See  you  next
+time.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="tutor03_moreexpressions.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="tutor05_controlstructs.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="tutor03_moreexpressions.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="tutor05_controlstructs.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,6 @@
+
+[book]
+authors = ["Jack W. Crenshaw"]
+multilingual = false
+src = "src"
+title = "Let's build a compiler"
