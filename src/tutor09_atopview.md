@@ -1,6 +1,6 @@
 # Part IX: A TOP VIEW - 16 April 1989
 
-# INTRODUCTION
+## INTRODUCTION
 
 In  the  previous  installments,  we  have  learned  many of  the
 techniques required to  build  a full-blown compiler.  We've done
@@ -51,7 +51,7 @@ that you can see how it goes.
 Let's get started.
 
 
-# THE TOP LEVEL
+## THE TOP LEVEL
 
 One of the biggest  mistakes  people make in a top-down design is
 failing  to start at the true top.  They think they know what the
@@ -79,7 +79,7 @@ that depends quite a bit on the language to be translated.  Let's
 take a look at Pascal.
 
 
-# THE STRUCTURE OF PASCAL
+## THE STRUCTURE OF PASCAL
 
 Most  texts  for  Pascal  include  a   BNF   or  "railroad-track"
 definition of the language.  Here are the first few lines of one:
@@ -173,7 +173,7 @@ what we've been doing all along, except that we're approaching it
 from the other end.
 
 
-# FLESHING IT OUT
+## FLESHING IT OUT
 
 To flesh out  the  compiler,  we  only have to deal with language
 features  one by one.  I like to start with a stub procedure that
@@ -248,7 +248,7 @@ Does the program  still run the same?  Then we can move on to the
 next stage.
 
 
-# DECLARATIONS
+## DECLARATIONS
 
 The BNF for Pascal declarations is:
 
@@ -462,7 +462,7 @@ the expansion of Pascal here.    Let's  take  a  look  at  a very
 different language.
 
 
-# THE STRUCTURE OF C
+## THE STRUCTURE OF C
 
 The C language is quite another matter, as you'll see.   Texts on
 C  rarely  include  a BNF definition of  the  language.  Probably

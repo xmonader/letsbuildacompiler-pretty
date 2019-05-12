@@ -1,6 +1,6 @@
 # Part 15: BACK TO THE FUTURE - 5 March 1994
 
-# INTRODUCTION
+## INTRODUCTION
 
 Can it really have been four years since I wrote installment 
 fourteen of this series?  Is it really possible that six long 
@@ -26,7 +26,7 @@ comes out, thanks for your patience.  I apologize for the delay.
 Let's move on.
 
 
-# NEW STARTS, OLD DIRECTIONS
+## NEW STARTS, OLD DIRECTIONS
 
 Like many other things, programming languages and programming 
 styles change with time.  In 1994, it seems a little anachronistic 
@@ -143,7 +143,7 @@ compiler takes care of it without the need for make files or other
 mechanisms.
 
 
-# STARTING OVER?
+## STARTING OVER?
 
 Four years ago, in Installment 14, I promised you that our days of 
 re-inventing the wheel, and recoding the same software over and 
@@ -193,7 +193,7 @@ Enough said about philosophy and details.  Let's get on with the
 resurrection of the software.
 
 
-# THE INPUT UNIT
+## THE INPUT UNIT
 
 A key concept that we've used since Day 1 has been the idea of an 
 input stream with one lookahead character.  All the parsing 
@@ -307,7 +307,7 @@ my #1 rule to live by:  Keep It Simple.
 
 
 
-# THE OUTPUT UNIT
+## THE OUTPUT UNIT
 
 Of course, every decent program should have output, and ours is no 
 exception.  Our output routines included the Emit functions.  The 
@@ -437,7 +437,7 @@ design a VW."  So the elegant, tab-friendly version of Output is
 history, and what you see is the simple, compact, VW version.
 
 
-# THE ERROR UNIT
+## THE ERROR UNIT
 
 Our next set of routines are those that handle errors.  To refresh 
 your memory, we take the approach, pioneered by Borland in Turbo 
@@ -509,7 +509,7 @@ only have a couple of entries. But for now, it's probably best to
 include all the units so we can test procedures in them.
 
 
-# SCANNING AND PARSING
+## SCANNING AND PARSING
 
 The classical compiler architecture consists of separate modules 
 for the lexical scanner, which supplies tokens in the language, 
@@ -671,7 +671,7 @@ meaningful error message. If it did, you're in good shape and we
 can proceed.
 
 
-# THE SCANNER UNIT
+## THE SCANNER UNIT
 
 The next, and by far the most important, version of the scanner is 
 the one that handles the multi-character tokens that all real 
@@ -788,7 +788,7 @@ the "uses" clause to use Scanner instead of Scanner1.  Now you
 should be able to type multi-character names and numbers.
 
 
-# DECISIONS, DECISIONS
+## DECISIONS, DECISIONS
 
 In spite of the relative simplicity of both scanners, a lot of 
 thought has gone into them, and a lot of decisions had to be made.  
@@ -887,7 +887,7 @@ end;
 You might file this one away, as I intend to, for a rainy day.
 
 
-# PARSING
+## PARSING
 
 At this point, we have distributed all the routines that made up 
 our Cradle into units that we can draw upon as we need them.  
@@ -1072,7 +1072,7 @@ in Installment 16, coming soon.  See you then.
 
 
 
-# REFERENCES
+## REFERENCES
 
 1. Crenshaw, J.W., "Object-Oriented Design of Assemblers and 
 Compilers," Proc. Software Development '91 Conference, Miller 

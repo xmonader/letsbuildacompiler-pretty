@@ -1,6 +1,6 @@
 # Part V: CONTROL CONSTRUCTS - 19 August 1988
 
-# INTRODUCTION
+## INTRODUCTION
 
 In  the  first  four  installments  of  this  series, we've  been
 concentrating on the parsing of math  expressions  and assignment
@@ -22,7 +22,7 @@ thinking, "Hey! This is EASY!" After we've finished this session,
 I'll bet you'll be thinking so, too.
 
 
-# THE PLAN
+## THE PLAN
 
 In what follows, we'll be starting over again with a bare cradle,
 and as we've done twice before now, we'll build things up  one at
@@ -136,7 +136,7 @@ and  see  how  it works.  Well, it's still not  much,  but  we're
 getting closer.
 
 
-# SOME GROUNDWORK
+## SOME GROUNDWORK
 
 Before we begin to define the various control constructs, we need
 to  lay a bit more groundwork.  First, a word of warning: I won't
@@ -296,7 +296,7 @@ will  be  BEQ's  ...  we'll  be branching AROUND the code  that's
 supposed to be executed when the condition is true.
 
 
-# THE IF STATEMENT
+## THE IF STATEMENT
 
 With that bit of explanation out of the way, we're  finally ready
 to begin coding the IF-statement parser.  In  fact,  we've almost
@@ -464,7 +464,7 @@ badly formed statements.   Just  remember that 'e' is not a legal
 "other" statement.
 
 
-# THE WHILE STATEMENT
+## THE WHILE STATEMENT
 
 The next type of statement should be easy, since we  already have
 the process  down  pat.    The  syntax  I've chosen for the WHILE
@@ -571,7 +571,7 @@ see that you  can  add  new  constructs  about as fast as you can
 dream them up.
 
 
-# THE LOOP STATEMENT
+## THE LOOP STATEMENT
 
 We could stop right here, and  have  a language that works.  It's
 been  shown  many  times that a high-order language with only two
@@ -626,7 +626,7 @@ to call it.
 
 
 
-# REPEAT-UNTIL
+## REPEAT-UNTIL
 
 Here's one construct that I lifted right from Pascal.  The syntax
 is
@@ -692,7 +692,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-# THE FOR LOOP
+## THE FOR LOOP
 
 The FOR loop  is a very handy one to have around, but it's a bear
 to translate.  That's not so much because the construct itself is
@@ -824,7 +824,7 @@ Well, it DOES generate a lot of code, doesn't it?    But at least
 it's the RIGHT code.
 
 
-# THE DO STATEMENT
+## THE DO STATEMENT
 
 All this made me wish for a simpler version of the FOR loop.  The
 reason for all the code  above  is  the  need  to  have  the loop
@@ -876,7 +876,7 @@ I think you'll have to agree, that's a whole lot simpler than the
 classical FOR.  Still, each construct has its place.
 
 
-# THE BREAK STATEMENT
+## THE BREAK STATEMENT
 
 Earlier I promised you a BREAK statement to accompany LOOP.  This
 is  one  I'm sort of proud of.  On the face of it a  BREAK  seems
@@ -1084,7 +1084,7 @@ The  two  extra  instructions,  the  SUBQ and ADDQ, take care  of
 leaving the stack in the right shape.
                              
 
-# CONCLUSION
+## CONCLUSION
 
 At this point we have created a number of control  constructs ...
 a richer set, really, than that provided by almost any other pro-

@@ -1,7 +1,7 @@
 # Part XI: LEXICAL SCAN REVISITED - 3 June 1989
 
 
-# INTRODUCTION
+## INTRODUCTION
 
 I've got some  good news and some bad news.  The bad news is that
 this installment is  not  the  one  I promised last time.  What's
@@ -12,7 +12,7 @@ way  to simplify and improve the lexical  scanning  part  of  the
 compiler.  Let me explain.
 
 
-# BACKGROUND
+## BACKGROUND
 
 If  you'll remember, we talked at length  about  the  subject  of
 lexical  scanners in Part VII, and I left you with a design for a
@@ -79,7 +79,7 @@ and I almost clevered myself clean out of business.   You'd think
 one day I'd learn: K-I-S-S!
 
 
-# THE PROBLEM
+## THE PROBLEM
 
 The problem begins to show  itself in procedure Block, which I've
 reproduced below:
@@ -162,7 +162,7 @@ of  newlines  becomes  very trivial, and MUCH less prone to error
 than we've had to deal with in the past.
 
 
-# THE SOLUTION
+## THE SOLUTION
 
 Let's  begin  to  fix  the  problem  by  re-introducing  the  two
 procedures:
@@ -407,7 +407,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-# FIXING UP THE COMPILER
+## FIXING UP THE COMPILER
 
 Armed with these new scanner procedures, we can now begin  to fix
 the compiler to  use  them  properly.   The changes are all quite
@@ -559,7 +559,7 @@ briefly:
       did not check for a valid variable name.
 
 
-# CONCLUSION
+## CONCLUSION
 
 The resulting compiler for  TINY  is given below.  Other than the
 removal  of  the  keyword PROGRAM, it parses the same language as
@@ -574,7 +574,7 @@ towards removing KISS from  the  "toy  language" category.  We're
 getting very close to being able to write a serious compiler.
 
 
-# TINY VERSION 1.1
+## TINY VERSION 1.1
 
 ```delphi
 {--------------------------------------------------------------}

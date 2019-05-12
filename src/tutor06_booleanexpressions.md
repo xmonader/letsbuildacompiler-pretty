@@ -1,7 +1,7 @@
 # Part VI: BOOLEAN EXPRESSIONS - 31 August 1988
 
 
-# INTRODUCTION
+## INTRODUCTION
 
 In Part V of this series,  we  took a look at control constructs,
 and developed parsing  routines  to  translate  them  into object
@@ -18,7 +18,7 @@ One of the things we'll do in this session is  to  plug that hole
 by expanding Condition into a true parser/translator.
 
 
-# THE PLAN
+## THE PLAN
 
 We're going to  approach  this installment a bit differently than
 any of the others.    In those other installments, we started out
@@ -36,7 +36,7 @@ make up our minds what it is we want.  And the way to do  that is
 at the level of the BNF syntax rules (the GRAMMAR).
 
 
-# THE GRAMMAR
+## THE GRAMMAR
 
 For some time  now,  we've been implementing BNF syntax equations
 for arithmetic expressions, without  ever  actually  writing them
@@ -105,7 +105,7 @@ is not allowed.  In Boolean algebra, though, the expression
 makes perfect sense, and the syntax shown allows for that.
 
 
-# RELOPS
+## RELOPS
 
 OK, assuming that you're willing to accept the grammar I've shown
 here,  we  now  have syntax rules for both arithmetic and Boolean
@@ -225,7 +225,7 @@ compromises  so  that  a  single  parser can handle  the  grammar
 without backtracking.
 
 
-# FIXING THE GRAMMAR
+## FIXING THE GRAMMAR
 
 The  problem  that  we've  encountered  comes   up   because  our
 definitions of both arithmetic and Boolean factors permit the use
@@ -332,7 +332,7 @@ to compile faster than C compilers.  If it's raw speed  you want,
 stick with the Pascal syntax.
 
 
-# THE PARSER
+## THE PARSER
 
 Now that we've gotten through the decision-making process, we can
 press on with development of a parser.  You've done this  with me
@@ -903,7 +903,7 @@ a safe place for future reference, because in our next step we're
 going to be chopping it up.
 
 
-# MERGING WITH CONTROL CONSTRUCTS
+## MERGING WITH CONTROL CONSTRUCTS
 
 At this point, let's go back to the file we had  previously built
 that parses control  constructs.    Remember  those  little dummy
@@ -932,7 +932,7 @@ which stands for "IF a=b X ELSE Y ENDIF".
 What do you think?  Did it work?  Try some others.
 
 
-# ADDING ASSIGNMENTS
+## ADDING ASSIGNMENTS
 
 As long as we're this far,  and  we already have the routines for
 expressions in place, we might  as well replace the "blocks" with

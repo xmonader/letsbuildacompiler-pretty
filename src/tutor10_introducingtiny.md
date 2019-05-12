@@ -1,6 +1,6 @@
 # Part X: INTRODUCING "TINY" - 21 May 1989
 
-# INTRODUCTION
+## INTRODUCTION
 
 In the last installment, I showed you the general  idea  for  the
 top-down development of  a  compiler.    I gave you the first few
@@ -50,7 +50,7 @@ we both need the practice.  Each time I go through this exercise,
 I get a little better at it, and you will, also.
 
 
-# GETTING STARTED
+## GETTING STARTED
 
 Many  years  ago  there were languages called  Tiny  BASIC,  Tiny
 Pascal, and Tiny C, each of which was a subset of its parent full
@@ -305,7 +305,7 @@ the 'e', and see what happens.  As always,  the  compiler  should
 flag all illegal inputs.
 
 
-# DECLARATIONS
+## DECLARATIONS
 
 The obvious next step is to decide what we mean by a declaration.
 My  intent  here  is to have two kinds of declarations: variables
@@ -378,7 +378,7 @@ starting with a 'v' for VAR,  before  the BEGIN-block.  Try a few
 cases and see what happens.
 
 
-# DECLARATIONS AND SYMBOLS
+## DECLARATIONS AND SYMBOLS
 
 That looks pretty good, but  we're still only generating the null
 program  for  output.    A  real compiler would  issue  assembler
@@ -465,7 +465,7 @@ lines of VAR declarations, try a list of several variables on one
 line, and try combinations of the two.  Does it work?
 
 
-# INITIALIZERS
+## INITIALIZERS
 
 As long as we're dealing with data declarations, one thing that's
 always  bothered  me  about  Pascal  is  that  it  doesn't  allow
@@ -564,7 +564,7 @@ Now  you should be able to  initialize  variables  with  negative
 and/or multi-digit values.
 
 
-# THE SYMBOL TABLE
+## THE SYMBOL TABLE
 
 There's one problem  with  the  compiler  as it stands so far: it
 doesn't do anything to record a variable when we declare it.   So
@@ -634,7 +634,7 @@ declarations.  Later, we can  also  use  InTable  when generating
 references to the variables.
 
 
-# EXECUTABLE STATEMENTS
+## EXECUTABLE STATEMENTS
 
 At this point, we can generate a null program that has  some data
 variables  declared  and  possibly initialized.  But  so  far  we
@@ -1050,7 +1050,7 @@ representing a complete program that will  assemble  and execute.
 We have a compiler!
 
 
-# BOOLEANS
+## BOOLEANS
 
 The next step should also  be  familiar  to  you.    We  must add
 Boolean  expressions  and relational operations.    Again,  since
@@ -1384,7 +1384,7 @@ which stands for:
 ```
 See how this assigns a Boolean value to X?
 
-# CONTROL STRUCTURES
+## CONTROL STRUCTURES
 
 We're almost home.   With  Boolean  expressions  in place, it's a
 simple  matter  to  add control structures.  For TINY, we'll only
@@ -1561,7 +1561,7 @@ we've got a virtually complete version of TINY.  I call  it, with
 tongue planted firmly in cheek, TINY Version 0.1.
 
 
-# LEXICAL SCANNING
+## LEXICAL SCANNING
 
 Of course, you know what's next:  We have to convert  the program
 so that  it can deal with multi-character keywords, newlines, and
@@ -1918,7 +1918,7 @@ few minor  exceptions we've already got a compiler that's usable.
 There are still a few areas that need improvement.
 
 
-# MULTI-CHARACTER VARIABLE NAMES
+## MULTI-CHARACTER VARIABLE NAMES
 
 One of those is  the  restriction  that  we still have, requiring
 single-character variable names.    Now that we can handle multi-
@@ -2037,7 +2037,7 @@ That should do it.  Try it out and verify  that  you can, indeed,
 use multi-character variable names.
 
 
-# MORE RELOPS
+## MORE RELOPS
 
 We still have one remaining single-character restriction: the one
 on relops.  Some of the relops are indeed single  characters, but
@@ -2152,7 +2152,7 @@ That's all it takes.  Now  you  can  process all the relops.  Try
 it.
 
 
-# INPUT/OUTPUT
+## INPUT/OUTPUT
 
 We  now  have  a complete, working language, except for one minor
 embarassment: we have no way to get data in or out.  We need some
@@ -2317,7 +2317,7 @@ end;
 That's all there is to it.  _NOW_ we have a language!
 
 
-# CONCLUSION
+## CONCLUSION
 
 At this point we have TINY completely defined.  It's not much ...
 actually a toy  compiler.    TINY  has  only one data type and no

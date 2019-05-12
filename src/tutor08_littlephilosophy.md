@@ -1,6 +1,6 @@
 # Part VIII: A LITTLE PHILOSOPHY - 2 April 1989
 
-# INTRODUCTION
+## INTRODUCTION
 
 This is going to be a  different  kind of session than the others
 in our series on  parsing  and  compiler  construction.  For this
@@ -19,7 +19,7 @@ general what all  this  is  about.   I'll also share some general
 thoughts concerning the usefulness of what we've been doing.
 
 
-# THE ROAD HOME
+## THE ROAD HOME
 
 So far, we've  covered  the parsing and translation of arithmetic
 expressions,  Boolean expressions, and combinations connected  by
@@ -136,7 +136,7 @@ language, using nothing  but  the same kinds of techniques you've
 learned so far.  And THAT brings up some interesting questions.
 
 
-# WHY IS IT SO SIMPLE?
+## WHY IS IT SO SIMPLE?
 
 Before embarking  on this series, I always thought that compilers
 were just naturally complex computer  programs  ...  the ultimate
@@ -441,7 +441,7 @@ conditions, and weren't optimum  structures  for  the  problem at
 hand.
 
 
-# CONCLUSION
+## CONCLUSION
 
 Anyway, that's my arm-waving  guess  as to how we've been able to
 keep things simple.  We started with something simple and  let it

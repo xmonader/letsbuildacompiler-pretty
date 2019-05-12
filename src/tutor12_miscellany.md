@@ -1,7 +1,7 @@
 # Part XII: MISCELLANY - 5 June 1989
 
 
-# INTRODUCTION
+## INTRODUCTION
 
 This installment is another one  of  those  excursions  into side
 alleys  that  don't  seem to fit  into  the  mainstream  of  this
@@ -24,7 +24,7 @@ without being  bothered by that nagging feeling that something is
 missing, we'll address such issues here.
 
 
-# SEMICOLONS
+## SEMICOLONS
 
 Ever since the introduction of Algol, semicolons have been a part
 of  almost every modern language.  We've all  used  them  to  the
@@ -116,7 +116,7 @@ conventional languages like  C.    In  either case, we need to be
 able to deal with semicolons.
 
 
-# SYNTACTIC SUGAR
+## SYNTACTIC SUGAR
 
 This whole discussion brings  up  the  issue of "syntactic sugar"
 ... constructs that are added to a language, not because they are
@@ -212,7 +212,7 @@ like  the semicolon, each item of sugar  is  something  that  can
 potentially cause a compile error by its omission.
 
 
-# DEALING WITH SEMICOLONS
+## DEALING WITH SEMICOLONS
 
 There  are  two  distinct  ways  in which semicolons are used  in
 popular  languages.    In Pascal, the semicolon is regarded as an
@@ -392,7 +392,7 @@ That  sure  didn't  hurt, did it?  We can now parse semicolons in
 Pascal-like fashion.
 
 
-# A COMPROMISE
+## A COMPROMISE
 
 Now that we know how to deal with semicolons, does that mean that
 I'm going to put them in KISS/TINY?  Well, yes and  no.    I like
@@ -426,7 +426,7 @@ Put this procedure in place in the first version of  your program
 Version 1.2.
 
 
-# COMMENTS
+## COMMENTS
 
 Up  until  now  I have carefully avoided the subject of comments.
 You would think that this would be an easy subject ... after all,
@@ -441,7 +441,7 @@ Things  tend to get interesting when  you  consider  things  like
 comment delimiters contained in quoted strings.
 
 
-# SINGLE-CHARACTER DELIMITERS
+## SINGLE-CHARACTER DELIMITERS
 
 Here's an example.  Suppose we assume the  Turbo  Pascal standard
 and use curly braces for comments.  In this case we  have single-
@@ -588,7 +588,7 @@ That does it.  As  sophisticated a comment-handler as you'll ever
 need.
 
 
-# MULTI-CHARACTER DELIMITERS
+## MULTI-CHARACTER DELIMITERS
 
 That's all well and  good  for cases where a comment is delimited
 by single  characters,  but  what  about  the  cases such as C or
@@ -686,7 +686,7 @@ Finally,  note  that  we can again provide for nested comments by
 adding a single statement to SkipComment, just as we did before.
 
 
-# ONE-SIDED COMMENTS
+## ONE-SIDED COMMENTS
 
 So far I've shown you  how  to  deal  with  any  kind  of comment
 delimited on the left and the  right.   That only leaves the one-
@@ -716,7 +716,7 @@ tests  within  GetChar.   Either way, it's an easier problem than
 the balanced case.
 
 
-# CONCLUSION
+## CONCLUSION
 
 At this point we now have the ability to deal with  both comments
 and semicolons, as well as other kinds of syntactic sugar.   I've

@@ -1,6 +1,6 @@
 # Part II: EXPRESSION PARSING - 24 July 1988
 
-# Introduction
+## Introduction
 If you've read the introduction document to this series, you will
 already know what  we're  about.    You will also have copied the
 cradle software  into your Turbo Pascal system, and have compiled
@@ -19,7 +19,7 @@ There are also  some  very  good  lessons to be learned early on,
 that will serve us well later.  For the more experienced readers:
 bear with me.  We'll get rolling soon enough.
 
-# SINGLE DIGITS
+## SINGLE DIGITS
 
 In keeping with the whole theme of this series (KISS, remember?),
 let's start with the absolutely most simple case we can think of.
@@ -84,7 +84,7 @@ chosen the  68000  register  DO.    I  could have made some other
 choices, but this one makes sense.
 
 
-# BINARY EXPRESSIONS
+## BINARY EXPRESSIONS
 
 Now that we have that under our belt,  let's  branch  out  a bit.
 Admittedly, an "expression" consisting of only  one  character is
@@ -238,7 +238,7 @@ start to take the shape of a real parser.
 
 
 
-# GENERAL EXPRESSIONS
+## GENERAL EXPRESSIONS
 
 In the  REAL  world,  an  expression  can  consist of one or more
 terms, separated  by  "addops"  ('+'  or  '-').   In BNF, this is
@@ -333,7 +333,7 @@ Once again, the generated code is less efficient than before, but
 it's a necessary step, as you'll see.
 
 
-# MULTIPLICATION AND DIVISION
+## MULTIPLICATION AND DIVISION
 
 Now let's get down to some REALLY serious business.  As  you  all
 know,  there  are  other  math   operators   than   "addops"  ...
@@ -461,7 +461,7 @@ continue to overlook the inefficiency,  which  I  hope  you will.
 Remember, we're not trying to produce tight code here.
 
 
-# PARENTHESES
+## PARENTHESES
 
 We  can  wrap  up this part of the parser with  the  addition  of
 parentheses with  math expressions.  As you know, parentheses are
@@ -515,7 +515,7 @@ parses  legal sentences, and flags illegal  ones  with  an  error
 message.
 
 
-# UNARY MINUS
+## UNARY MINUS
 
 At  this  point,  we have a parser that can handle just about any
 expression, right?  OK, try this input sentence: `-1`
@@ -597,7 +597,7 @@ useful parser.
 
 
 
-# A WORD ABOUT OPTIMIZATION
+## A WORD ABOUT OPTIMIZATION
 
 Earlier in this session, I promised to give you some hints  as to
 how we can improve the quality of the generated code.  As I said,

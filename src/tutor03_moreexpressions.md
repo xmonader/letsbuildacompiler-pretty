@@ -1,6 +1,6 @@
 # Part III: MORE EXPRESSIONS - 4 Aug 1988
 
-# INTRODUCTION 
+## INTRODUCTION 
 
 In the last installment, we examined the techniques used to parse
 and  translate a general math expression.  We  ended  up  with  a
@@ -22,7 +22,7 @@ We'll use the trick when it serves us to do so, confident that we
 can discard it when we're ready to.
 
 
-# VARIABLES
+## VARIABLES
 
 Most expressions  that we see in practice involve variables, such
 as `b * b + 4 * a * c`
@@ -95,7 +95,7 @@ OK, compile and test this new version of the parser.  That didn't
 hurt too badly, did it?
                               
 
-# FUNCTIONS
+## FUNCTIONS
 
 There is only one  other  common kind of factor supported by most
 languages: the function call.  It's really too early  for  us  to
@@ -195,7 +195,7 @@ requiring further lookahead.   Even  if  you  had to look several
 tokens ahead, the principle would still work.
 
 
-# MORE ON ERROR HANDLING
+## MORE ON ERROR HANDLING
 
 As long as we're talking  philosophy,  there's  another important
 issue to point out:  error  handling.    Notice that although the
@@ -259,7 +259,7 @@ As usual, recompile the program and verify that it does what it's
 supposed to.
 
 
-# ASSIGNMENT STATEMENTS
+## ASSIGNMENT STATEMENTS
 
 OK,  at  this  point we have a parser that works very nicely. I'd
 like to  point  out  that  we  got  it  using  only  88  lines of
@@ -320,7 +320,7 @@ installment.  And the other statements will all fall in  line, as
 long as we remember to KISS.
 
 
-# MULTI-CHARACTER TOKENS
+## MULTI-CHARACTER TOKENS
 
 Throughout  this   series,   I've   been   carefully  restricting
 everything  we  do  to  single-character  tokens,  all  the while
@@ -417,7 +417,7 @@ Make  this  change,  and  then  recompile and test. _NOW_ do  you
 believe that it's a simple change?
 
 
-# WHITE SPACE
+## WHITE SPACE
 
 Before we leave this parser for awhile, let's  address  the issue
 of  white  space.   As it stands now, the parser  will  barf  (or
