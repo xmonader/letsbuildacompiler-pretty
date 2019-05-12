@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="tutor01_introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="tutor02_expressionparsing.html"><strong aria-hidden="true">2.</strong> Expression Parsing</a></li><li><a href="tutor03_moreexpressions.html"><strong aria-hidden="true">3.</strong> More Expressions</a></li><li><a href="tutor04_interpreters.html"><strong aria-hidden="true">4.</strong> Interpreters</a></li><li><a href="tutor05_controlstructs.html"><strong aria-hidden="true">5.</strong> Control Constructs</a></li><li><a href="tutor06_booleanexpressions.html"><strong aria-hidden="true">6.</strong> Boolean Expressions</a></li><li><a href="tutor07_lexicalscanning.html"><strong aria-hidden="true">7.</strong> Lexical Scanning</a></li><li><a href="tutor08_littlephilosophy.html"><strong aria-hidden="true">8.</strong> A Little Philosophy</a></li><li><a href="tutor09_atopview..html"><strong aria-hidden="true">9.</strong> A Top View</a></li><li><a href="tutor10_introducingtiny.html"><strong aria-hidden="true">10.</strong> Introducing Tiny</a></li><li><a href="tutor11_lexicalscanrevisit.html"><strong aria-hidden="true">11.</strong> Lexical Scan Revisit</a></li><li><a href="tutor12_miscellany.html" class="active"><strong aria-hidden="true">12.</strong> Miscellany</a></li><li><a href="tutor13_procedures.html"><strong aria-hidden="true">13.</strong> Procedures</a></li><li><a href="tutor14_types.html"><strong aria-hidden="true">14.</strong> Types</a></li><li><a href="tutor15_backtothefuture.html"><strong aria-hidden="true">15.</strong> Back to the Future</a></li><li><a href="tutor16_unitconstruction.html"><strong aria-hidden="true">16.</strong> Unit Construction</a></li></ol>
+            <ol class="chapter"><li class="affix"><a href="about.html">About this project</a></li><li class="affix"><a href="tutor01_introduction.html">Introduction</a></li><li class="affix"><a href="tutor02_expressionparsing.html">Expression Parsing</a></li><li class="affix"><a href="tutor03_moreexpressions.html">More Expressions</a></li><li class="affix"><a href="tutor04_interpreters.html">Interpreters</a></li><li class="affix"><a href="tutor05_controlstructs.html">Control Constructs</a></li><li class="affix"><a href="tutor06_booleanexpressions.html">Boolean Expressions</a></li><li class="affix"><a href="tutor07_lexicalscanning.html">Lexical Scanning</a></li><li class="affix"><a href="tutor08_littlephilosophy.html">A Little Philosophy</a></li><li class="affix"><a href="tutor09_atopview.html">A Top View</a></li><li class="affix"><a href="tutor10_introducingtiny.html">Introducing Tiny</a></li><li class="affix"><a href="tutor11_lexicalscanrevisit.html">Lexical Scan Revisit</a></li><li class="affix"><a href="tutor12_miscellany.html" class="active">Miscellany</a></li><li class="affix"><a href="tutor13_procedures.html">Procedures</a></li><li class="affix"><a href="tutor14_types.html">Types</a></li><li class="affix"><a href="tutor15_backtothefuture.html">Back to the Future</a></li><li class="affix"><a href="tutor16_unitconstruction.html">Unit Construction</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -136,7 +136,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#introduction" id="introduction"><h1>INTRODUCTION</h1></a>
+                        <a class="header" href="#part-xii-miscellany---5-june-1989" id="part-xii-miscellany---5-june-1989"><h1>Part XII: MISCELLANY - 5 June 1989</h1></a>
+<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
 <p>This installment is another one  of  those  excursions  into side
 alleys  that  don't  seem to fit  into  the  mainstream  of  this
 tutorial  series.    As I mentioned last time, it was while I was
@@ -154,7 +155,7 @@ about them, too, and  wondered  how things would change if we had
 to  deal with them.  Just so you can proceed with what's to come,
 without being  bothered by that nagging feeling that something is
 missing, we'll address such issues here.</p>
-<a class="header" href="#semicolons" id="semicolons"><h1>SEMICOLONS</h1></a>
+<a class="header" href="#semicolons" id="semicolons"><h2>SEMICOLONS</h2></a>
 <p>Ever since the introduction of Algol, semicolons have been a part
 of  almost every modern language.  We've all  used  them  to  the
 point that they are taken for  granted.   Yet I suspect that more
@@ -229,7 +230,7 @@ designing their own languages, which may  include  semicolons, or
 who  want to use the techniques of  these  tutorials  to  compile
 conventional languages like  C.    In  either case, we need to be
 able to deal with semicolons.</p>
-<a class="header" href="#syntactic-sugar" id="syntactic-sugar"><h1>SYNTACTIC SUGAR</h1></a>
+<a class="header" href="#syntactic-sugar" id="syntactic-sugar"><h2>SYNTACTIC SUGAR</h2></a>
 <p>This whole discussion brings  up  the  issue of &quot;syntactic sugar&quot;
 ... constructs that are added to a language, not because they are
 needed, but because they help make the programs look right to the
@@ -307,7 +308,7 @@ extra  insurance  that  it  brings.    If  you like  this  latter
 approach, things like that are easy to add.  Just  remember that,
 like  the semicolon, each item of sugar  is  something  that  can
 potentially cause a compile error by its omission.</p>
-<a class="header" href="#dealing-with-semicolons" id="dealing-with-semicolons"><h1>DEALING WITH SEMICOLONS</h1></a>
+<a class="header" href="#dealing-with-semicolons" id="dealing-with-semicolons"><h2>DEALING WITH SEMICOLONS</h2></a>
 <p>There  are  two  distinct  ways  in which semicolons are used  in
 popular  languages.    In Pascal, the semicolon is regarded as an
 statement SEPARATOR.  No semicolon  is  required  after  the last
@@ -455,7 +456,7 @@ end;
 </code></pre>
 <p>That  sure  didn't  hurt, did it?  We can now parse semicolons in
 Pascal-like fashion.</p>
-<a class="header" href="#a-compromise" id="a-compromise"><h1>A COMPROMISE</h1></a>
+<a class="header" href="#a-compromise" id="a-compromise"><h2>A COMPROMISE</h2></a>
 <p>Now that we know how to deal with semicolons, does that mean that
 I'm going to put them in KISS/TINY?  Well, yes and  no.    I like
 the extra sugar and the security that comes with knowing for sure
@@ -480,7 +481,7 @@ compiler won't complain.  The best of both worlds.</p>
 <p>Put this procedure in place in the first version of  your program
 (the  one for C/Ada syntax), and you have  the  makings  of  TINY
 Version 1.2.</p>
-<a class="header" href="#comments" id="comments"><h1>COMMENTS</h1></a>
+<a class="header" href="#comments" id="comments"><h2>COMMENTS</h2></a>
 <p>Up  until  now  I have carefully avoided the subject of comments.
 You would think that this would be an easy subject ... after all,
 the compiler doesn't have to deal with comments at all; it should
@@ -491,7 +492,7 @@ comments  are  intercepted  almost  the  instant  they  enter the
 compiler.  At the  other,  we can treat them as lexical elements.
 Things  tend to get interesting when  you  consider  things  like
 comment delimiters contained in quoted strings.</p>
-<a class="header" href="#single-character-delimiters" id="single-character-delimiters"><h1>SINGLE-CHARACTER DELIMITERS</h1></a>
+<a class="header" href="#single-character-delimiters" id="single-character-delimiters"><h2>SINGLE-CHARACTER DELIMITERS</h2></a>
 <p>Here's an example.  Suppose we assume the  Turbo  Pascal standard
 and use curly braces for comments.  In this case we  have single-
 character delimiters, so our parsing is a little easier.</p>
@@ -610,7 +611,7 @@ end;
 </code></pre>
 <p>That does it.  As  sophisticated a comment-handler as you'll ever
 need.</p>
-<a class="header" href="#multi-character-delimiters" id="multi-character-delimiters"><h1>MULTI-CHARACTER DELIMITERS</h1></a>
+<a class="header" href="#multi-character-delimiters" id="multi-character-delimiters"><h2>MULTI-CHARACTER DELIMITERS</h2></a>
 <p>That's all well and  good  for cases where a comment is delimited
 by single  characters,  but  what  about  the  cases such as C or
 standard Pascal, where two  characters  are  required?  Well, the
@@ -692,7 +693,7 @@ comment  characters  embedded  in  a  quoted  string,  by calling
 GetCharX  instead  of  GetChar  while  we're  within  the string.
 Finally,  note  that  we can again provide for nested comments by
 adding a single statement to SkipComment, just as we did before.</p>
-<a class="header" href="#one-sided-comments" id="one-sided-comments"><h1>ONE-SIDED COMMENTS</h1></a>
+<a class="header" href="#one-sided-comments" id="one-sided-comments"><h2>ONE-SIDED COMMENTS</h2></a>
 <p>So far I've shown you  how  to  deal  with  any  kind  of comment
 delimited on the left and the  right.   That only leaves the one-
 sided comments like those in assembler language or  in  Ada, that
@@ -716,7 +717,7 @@ assembly language, then we're essentially done.  If  it's  a two-
 character token, as in the '--'  of  Ada, we need only modify the
 tests  within  GetChar.   Either way, it's an easier problem than
 the balanced case.</p>
-<a class="header" href="#conclusion" id="conclusion"><h1>CONCLUSION</h1></a>
+<a class="header" href="#conclusion" id="conclusion"><h2>CONCLUSION</h2></a>
 <p>At this point we now have the ability to deal with  both comments
 and semicolons, as well as other kinds of syntactic sugar.   I've
 shown  you several ways to deal with  each,  depending  upon  the

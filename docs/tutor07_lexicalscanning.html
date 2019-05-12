@@ -136,7 +136,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#introduction" id="introduction"><h1>INTRODUCTION</h1></a>
+                        <a class="header" href="#part-vii-lexical-scanning----7-november-1988" id="part-vii-lexical-scanning----7-november-1988"><h1>Part VII: LEXICAL SCANNING -  7 November 1988</h1></a>
+<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
 <p>In the last installment, I left you with a  compiler  that  would
 ALMOST  work,  except  that  we  were  still  limited to  single-
 character tokens.  The purpose of  this  session is to get rid of
@@ -189,7 +190,7 @@ we get back to our parser  from  the last installment.  Bear with
 me ... I think you'll find it's worth the wait.    In fact, since
 scanners have many applications  outside  of  compilers,  you may
 well find this to be the most useful session for you.</p>
-<a class="header" href="#lexical-scanning" id="lexical-scanning"><h1>LEXICAL SCANNING</h1></a>
+<a class="header" href="#lexical-scanning" id="lexical-scanning"><h2>LEXICAL SCANNING</h2></a>
 <p>Lexical scanning is the process of scanning the  stream  of input
 characters and separating it  into  strings  called tokens.  Most
 compiler  texts  start  here,  and  devote  several  chapters  to
@@ -258,7 +259,7 @@ lexical  scanner  deals  with  things  at  the  character  level,
 collecting characters into strings, etc., and passing  them along
 to the parser proper as indivisible tokens.  It's also considered
 normal to let the scanner have the job of identifying keywords.</p>
-<a class="header" href="#state-machines-and-alternatives" id="state-machines-and-alternatives"><h1>STATE MACHINES AND ALTERNATIVES</h1></a>
+<a class="header" href="#state-machines-and-alternatives" id="state-machines-and-alternatives"><h2>STATE MACHINES AND ALTERNATIVES</h2></a>
 <p>I  mentioned  that  the regular expressions can be parsed using a
 state machine.   In  most  compiler  texts,  and  indeed  in most
 compilers as well, you will find this taken literally.   There is
@@ -296,7 +297,7 @@ using procedures GetName and GetNum.</p>
 with, until the entire token is  read.    This leads us to a more
 localized  scanner; although,  as you will see,  the  idea  of  a
 distributed scanner still has its merits.</p>
-<a class="header" href="#some-experiments-in-scanning" id="some-experiments-in-scanning"><h1>SOME EXPERIMENTS IN SCANNING</h1></a>
+<a class="header" href="#some-experiments-in-scanning" id="some-experiments-in-scanning"><h2>SOME EXPERIMENTS IN SCANNING</h2></a>
 <p>Before  getting  back  to our compiler,  it  will  be  useful  to
 experiment a bit with the general concepts.</p>
 <p>Let's  begin with the two definitions most  often  seen  in  real
@@ -362,7 +363,7 @@ from the main program, as in</p>
 characters, since that's what we told GetName).   It  will reject
 anything else.</p>
 <p>Test the other routine similarly.</p>
-<a class="header" href="#white-space" id="white-space"><h1>WHITE SPACE</h1></a>
+<a class="header" href="#white-space" id="white-space"><h2>WHITE SPACE</h2></a>
 <p>We  also  have  dealt with embedded white space before, using the
 two  routines  IsWhite  and  SkipWhite.    Make  sure that  these
 routines are in your  current  version of the cradle, and add the
@@ -407,7 +408,7 @@ beginning of the program.  Make it any convenient length,  say 16
 characters.)</p>
 <p>Now,  run the program.  Note how the  input  string  is,  indeed,
 separated into distinct tokens.</p>
-<a class="header" href="#state-machines" id="state-machines"><h1>STATE MACHINES</h1></a>
+<a class="header" href="#state-machines" id="state-machines"><h2>STATE MACHINES</h2></a>
 <p>For  the  record,  a  parse  routine  like  GetName  does  indeed
 implement a state machine.  The state is implicit in  the current
 position in the code.  A very useful trick for visualizing what's
@@ -450,7 +451,7 @@ parent procedure, Scan.  Little machines make big machines.</p>
 implicit approach creates these  state  machines.    I personally
 prefer it a lot over the table-driven approach.  It  also results
 is a small, tight, and fast scanner.</p>
-<a class="header" href="#newlines" id="newlines"><h1>NEWLINES</h1></a>
+<a class="header" href="#newlines" id="newlines"><h2>NEWLINES</h2></a>
 <p>Moving right along, let's modify  our scanner to handle more than
 one line.  As I mentioned last time, the most straightforward way
 to  do  this  is to simply treat the newline characters, carriage
@@ -545,7 +546,7 @@ specific places, so I was somewhere in the middle ground.  In the
 rest of these sessions, I'll be picking ways  to  handle newlines
 that I happen to like, but I want you to know how to choose other
 ways for yourselves.</p>
-<a class="header" href="#operators" id="operators"><h1>OPERATORS</h1></a>
+<a class="header" href="#operators" id="operators"><h2>OPERATORS</h2></a>
 <p>We  could  stop now and have a  pretty  useful  scanner  for  our
 purposes.  In the fragments of KISS that we've built so  far, the
 only tokens that have multiple characters are the identifiers and
@@ -599,7 +600,7 @@ end;
 <p>Try the program now.  You  will  find that any code fragments you
 care  to throw at it will be neatly  broken  up  into  individual
 tokens.</p>
-<a class="header" href="#lists-commas-and-command-lines" id="lists-commas-and-command-lines"><h1>LISTS, COMMAS AND COMMAND LINES</h1></a>
+<a class="header" href="#lists-commas-and-command-lines" id="lists-commas-and-command-lines"><h2>LISTS, COMMAS AND COMMAND LINES</h2></a>
 <p>Before getting back to the main thrust of our study, I'd  like to
 get on my soapbox for a moment.</p>
 <p>How many times have you worked with a program or operating system
@@ -651,7 +652,7 @@ the syntax equations or  draw  the  railroad-track  diagrams, and
 code the parser using the techniques I've shown you here.  You'll
 end  up with a better program, and it will be easier to write, to
 boot.</p>
-<a class="header" href="#getting-fancy" id="getting-fancy"><h1>GETTING FANCY</h1></a>
+<a class="header" href="#getting-fancy" id="getting-fancy"><h2>GETTING FANCY</h2></a>
 <p>OK, at this point we have a pretty nice lexical scanner that will
 break  an  input stream up into tokens.  We could use  it  as  it
 stands and have a servicable compiler.  But there are  some other
@@ -919,7 +920,7 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<a class="header" href="#returning-a-character" id="returning-a-character"><h1>RETURNING A CHARACTER</h1></a>
+<a class="header" href="#returning-a-character" id="returning-a-character"><h2>RETURNING A CHARACTER</h2></a>
 <p>Essentially  every scanner I've ever seen  that  was  written  in
 Pascal  used  the  mechanism of an enumerated type that I've just
 described.  It is certainly  a workable mechanism, but it doesn't
@@ -1044,7 +1045,7 @@ end.
 <p>This program should  work  the  same  as the previous version.  A
 minor  difference  in  structure,  maybe,  but   it   seems  more
 straightforward to me.</p>
-<a class="header" href="#distributed-vs-centralized-scanners" id="distributed-vs-centralized-scanners"><h1>DISTRIBUTED vs CENTRALIZED SCANNERS</h1></a>
+<a class="header" href="#distributed-vs-centralized-scanners" id="distributed-vs-centralized-scanners"><h2>DISTRIBUTED vs CENTRALIZED SCANNERS</h2></a>
 <p>The structure for the lexical scanner that I've just shown you is
 very conventional, and  about  99% of all compilers use something
 very  close  to it.  This is  not,  however,  the  only  possible
@@ -1093,7 +1094,7 @@ rather  primitive  approach.   In fact, it is an improvement over
 the classical scanner, since we're  using  the  scanning routines
 only where they're really needed.  In places  where  keywords are
 not allowed, we don't slow things down by looking for them.</p>
-<a class="header" href="#merging-scanner-and-parser" id="merging-scanner-and-parser"><h1>MERGING SCANNER AND PARSER</h1></a>
+<a class="header" href="#merging-scanner-and-parser" id="merging-scanner-and-parser"><h2>MERGING SCANNER AND PARSER</h2></a>
 <p>Now that we've covered  all  of the theory and general aspects of
 lexical scanning that we'll be needing, I'm FINALLY ready to back
 up my claim that  we  can  accomodate multi-character tokens with

@@ -136,7 +136,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#introduction" id="introduction"><h1>INTRODUCTION</h1></a>
+                        <a class="header" href="#part-xiii-procedures---27-august-1989" id="part-xiii-procedures---27-august-1989"><h1>Part XIII: PROCEDURES - 27 August 1989</h1></a>
+<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
 <p>At last we get to the good part!</p>
 <p>At  this point we've studied almost all  the  basic  features  of
 compilers  and  parsing.    We  have  learned  how  to  translate
@@ -167,7 +168,7 @@ that required me to  digress  and deal with them.  Finally, we've
 been able to put all those issues to rest and can get on with the
 mainstream  of  things.    In   this   installment,   I'll  cover
 procedures.  Next time, we'll talk about the basic data types.</p>
-<a class="header" href="#one-last-digression" id="one-last-digression"><h1>ONE LAST DIGRESSION</h1></a>
+<a class="header" href="#one-last-digression" id="one-last-digression"><h2>ONE LAST DIGRESSION</h2></a>
 <p>This has  been an extraordinarily difficult installment for me to
 write.  The reason has nothing to do with the subject  itself ...
 I've  known  what I wanted to say for some time, and  in  fact  I
@@ -220,7 +221,7 @@ session, to merge the constructs into the TINY  compiler.   We'll
 save that for later.</p>
 <p>After all this time, you don't need more buildup  than  that,  so
 let's waste no more time and dive right in.</p>
-<a class="header" href="#the-basics" id="the-basics"><h1>THE BASICS</h1></a>
+<a class="header" href="#the-basics" id="the-basics"><h2>THE BASICS</h2></a>
 <p>All modern  CPU's provide direct support for procedure calls, and
 the  68000  is no exception.  For the 68000, the call  is  a  BSR
 (PC-relative version) or JSR, and the return is RTS.  All we have
@@ -235,7 +236,7 @@ we can of course borrow heavily on what people have done in other
 languages ... there's no need to reinvent the wheel here.  Of the
 three issues, that of parameter passing will occupy  most  of our
 attention, simply because there are so many options available.</p>
-<a class="header" href="#a-basis-for-experiments" id="a-basis-for-experiments"><h1>A BASIS FOR EXPERIMENTS</h1></a>
+<a class="header" href="#a-basis-for-experiments" id="a-basis-for-experiments"><h2>A BASIS FOR EXPERIMENTS</h2></a>
 <p>As always, we will need some software to  serve  as  a  basis for
 what  we are doing.  We don't need the full TINY compiler, but we
 do need enough of a program so that some of the  other constructs
@@ -679,7 +680,7 @@ and then a begin-block.  Try something like:</p>
 </code></pre>
 <p>As usual, you should also make some deliberate errors, and verify
 that the program catches them correctly.</p>
-<a class="header" href="#declaring-a-procedure" id="declaring-a-procedure"><h1>DECLARING A PROCEDURE</h1></a>
+<a class="header" href="#declaring-a-procedure" id="declaring-a-procedure"><h2>DECLARING A PROCEDURE</h2></a>
 <p>If you're satisfied that our little program works, then it's time
 to  deal  with  the  procedures.  Since we haven't  talked  about parameters yet, we'll begin by considering  only  procedures that
 have no parameter lists.</p>
@@ -924,7 +925,7 @@ help than that, it's pretty easy to add some logic to kick us out
 of the loop  once  the  main  program  has been processed.  Or we
 could  at least flag an error if someone  tries  to  include  two
 mains.</p>
-<a class="header" href="#calling-the-procedure" id="calling-the-procedure"><h1>CALLING THE PROCEDURE</h1></a>
+<a class="header" href="#calling-the-procedure" id="calling-the-procedure"><h2>CALLING THE PROCEDURE</h2></a>
 <p>If you're satisfied that  things  are  working, let's address the
 second half of the equation ... the call.</p>
 <p>Consider the BNF for a procedure call:</p>
@@ -1013,7 +1014,7 @@ variables  by  their  global names.  So at this point we have the
 equivalent of BASIC's GOSUB construct.  Not too bad ... after all
 lots of serious programs were written using GOSUBs, but we can do
 better, and we will.  That's the next step.</p>
-<a class="header" href="#passing-parameters" id="passing-parameters"><h1>PASSING PARAMETERS</h1></a>
+<a class="header" href="#passing-parameters" id="passing-parameters"><h2>PASSING PARAMETERS</h2></a>
 <p>Again, we all know the basic idea of passed parameters, but let's
 review them just to be safe.</p>
 <p>In general the procedure is given a parameter list, for example</p>
@@ -1177,7 +1178,7 @@ do  this.  We'll ignore the issue now if for no other reason than
 that the structure of our  symbol table doesn't currently give us
 a place to store the necessary information.  Later on, we'll have
 a place for that data and we can deal with the issue then.</p>
-<a class="header" href="#the-semantics-of-parameters" id="the-semantics-of-parameters"><h1>THE SEMANTICS OF PARAMETERS</h1></a>
+<a class="header" href="#the-semantics-of-parameters" id="the-semantics-of-parameters"><h2>THE SEMANTICS OF PARAMETERS</h2></a>
 <p>So  far we've dealt with the SYNTAX  of  parameter  passing,  and
 we've got the parsing mechanisms in place to handle it.  Next, we
 have to look at the SEMANTICS, i.e., the actions to be taken when
@@ -1325,7 +1326,7 @@ able to use either one as we need to.  It's worth mentioning that
 it's  going  to  be tough to use the C approach to pointers here,
 since a pointer is a different type and we haven't  studied types
 yet!</p>
-<a class="header" href="#pass-by-value" id="pass-by-value"><h1>PASS-BY-VALUE</h1></a>
+<a class="header" href="#pass-by-value" id="pass-by-value"><h2>PASS-BY-VALUE</h2></a>
 <p>Let's just try some simple-minded  things and see where they lead
 us.    Let's begin with the pass-by-value  case.    Consider  the
 procedure call:</p>
@@ -1610,7 +1611,7 @@ pass formal parameters from one procedure to another.  If  we had
 the  full  syntax  of the language here, you'd also be able to do
 things like read  or  write  formal  parameters  or  use  them in
 complicated expressions.</p>
-<a class="header" href="#whats-wrong" id="whats-wrong"><h1>WHAT'S WRONG?</h1></a>
+<a class="header" href="#whats-wrong" id="whats-wrong"><h2>WHAT'S WRONG?</h2></a>
 <p>At this point, you might be thinking: Surely there's more to this
 than a few pushes and  pops.    There  must  be  more  to passing
 parameters than this.</p>
@@ -1823,7 +1824,7 @@ procedures and procedure calls.  Within the limitation that there
 are no local variables  (yet)  and  that  no procedure nesting is
 allowed, this code is just what we need.</p>
 <p>There is still just one little small problem remaining:</p>
-<a class="header" href="#we-have-no-way-to-return-results-to-the-caller" id="we-have-no-way-to-return-results-to-the-caller"><h1>WE HAVE NO WAY TO RETURN RESULTS TO THE CALLER!</h1></a>
+<a class="header" href="#we-have-no-way-to-return-results-to-the-caller" id="we-have-no-way-to-return-results-to-the-caller"><h2>WE HAVE NO WAY TO RETURN RESULTS TO THE CALLER!</h2></a>
 <p>But  that,  of course, is not a  limitation  of  the  code  we're
 generating, but  one  inherent  in  the  call-by-value  protocol.
 Notice that we CAN use formal parameters in any  way  inside  the
@@ -1831,7 +1832,7 @@ procedure.  We  can  calculate  new  values for them, use them as
 loop counters (if we had loops, that is!), etc.   So  the code is
 doing what it's supposed to.   To  get over this last problem, we
 need to look at the alternative protocol.</p>
-<a class="header" href="#call-by-reference" id="call-by-reference"><h1>CALL-BY-REFERENCE</h1></a>
+<a class="header" href="#call-by-reference" id="call-by-reference"><h2>CALL-BY-REFERENCE</h2></a>
 <p>This  one is easy, now that we have  the  mechanisms  already  in
 place.    We  only  have  to  make  a few  changes  to  the  code
 generation.  Instead of  pushing  a value onto the stack, we must
@@ -1926,7 +1927,7 @@ only way procedures can ever return values to their caller.</p>
 <p>This, in fact, will be one of the differences  between  TINY  and
 KISS.  In the next version of TINY,  we'll  use pass-by-reference
 for all parameters.  KISS will support both methods.</p>
-<a class="header" href="#local-variables" id="local-variables"><h1>LOCAL VARIABLES</h1></a>
+<a class="header" href="#local-variables" id="local-variables"><h2>LOCAL VARIABLES</h2></a>
 <p>So  far,  we've  said  nothing  about  local  variables, and  our
 definition of procedures doesn't allow  for  them.    Needless to
 say, that's a big gap in our language, and one  that  needs to be
@@ -2130,7 +2131,7 @@ end;
 {--------------------------------------------------------------}
 </code></pre>
 <p>That should do it.  Add these changes and see how they work.</p>
-<a class="header" href="#conclusion" id="conclusion"><h1>CONCLUSION</h1></a>
+<a class="header" href="#conclusion" id="conclusion"><h2>CONCLUSION</h2></a>
 <p>At this point you know  how to compile procedure declarations and
 procedure calls,  with  parameters  passed  by  reference  and by
 value.  You can also handle local variables.  As you can see, the

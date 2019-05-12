@@ -136,14 +136,15 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#introduction" id="introduction"><h1>INTRODUCTION</h1></a>
+                        <a class="header" href="#part-xi-lexical-scan-revisited---3-june-1989" id="part-xi-lexical-scan-revisited---3-june-1989"><h1>Part XI: LEXICAL SCAN REVISITED - 3 June 1989</h1></a>
+<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
 <p>I've got some  good news and some bad news.  The bad news is that
 this installment is  not  the  one  I promised last time.  What's
 more, the one after this one won't be, either.</p>
 <p>The good news is the reason for this installment:  I've  found  a
 way  to simplify and improve the lexical  scanning  part  of  the
 compiler.  Let me explain.</p>
-<a class="header" href="#background" id="background"><h1>BACKGROUND</h1></a>
+<a class="header" href="#background" id="background"><h2>BACKGROUND</h2></a>
 <p>If  you'll remember, we talked at length  about  the  subject  of
 lexical  scanners in Part VII, and I left you with a design for a
 distributed scanner that I felt was about as simple  as  I  could
@@ -197,7 +198,7 @@ old one, and is very much like the more generic scanner  I showed
 you  earlier  in  Part VII.  Then I started trying to get clever,
 and I almost clevered myself clean out of business.   You'd think
 one day I'd learn: K-I-S-S!</p>
-<a class="header" href="#the-problem" id="the-problem"><h1>THE PROBLEM</h1></a>
+<a class="header" href="#the-problem" id="the-problem"><h2>THE PROBLEM</h2></a>
 <p>The problem begins to show  itself in procedure Block, which I've
 reproduced below:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -265,7 +266,7 @@ we've had with newline characters goes away.  We  can  just  lump
 them in as  whitespace  characters, which means that the handling
 of  newlines  becomes  very trivial, and MUCH less prone to error
 than we've had to deal with in the past.</p>
-<a class="header" href="#the-solution" id="the-solution"><h1>THE SOLUTION</h1></a>
+<a class="header" href="#the-solution" id="the-solution"><h2>THE SOLUTION</h2></a>
 <p>Let's  begin  to  fix  the  problem  by  re-introducing  the  two
 procedures:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -477,7 +478,7 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<a class="header" href="#fixing-up-the-compiler" id="fixing-up-the-compiler"><h1>FIXING UP THE COMPILER</h1></a>
+<a class="header" href="#fixing-up-the-compiler" id="fixing-up-the-compiler"><h2>FIXING UP THE COMPILER</h2></a>
 <p>Armed with these new scanner procedures, we can now begin  to fix
 the compiler to  use  them  properly.   The changes are all quite
 minor,  but  there  are quite a  few  places  where  changes  are
@@ -602,7 +603,7 @@ the addition of the  new  procedures  CompareExpression and
 NextExpression.</p>
 <p>(9)  I fixed an error in the Read routine ... the  earlier value
 did not check for a valid variable name.</p>
-<a class="header" href="#conclusion" id="conclusion"><h1>CONCLUSION</h1></a>
+<a class="header" href="#conclusion" id="conclusion"><h2>CONCLUSION</h2></a>
 <p>The resulting compiler for  TINY  is given below.  Other than the
 removal  of  the  keyword PROGRAM, it parses the same language as
 before.    It's  just  a  bit cleaner, and more importantly  it's
@@ -613,7 +614,7 @@ place.  THEN we'll press on  into  procedures and types.  Hang in
 there with me.  The addition of those features will go a long way
 towards removing KISS from  the  &quot;toy  language&quot; category.  We're
 getting very close to being able to write a serious compiler.</p>
-<a class="header" href="#tiny-version-11" id="tiny-version-11"><h1>TINY VERSION 1.1</h1></a>
+<a class="header" href="#tiny-version-11" id="tiny-version-11"><h2>TINY VERSION 1.1</h2></a>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 program Tiny11;
 

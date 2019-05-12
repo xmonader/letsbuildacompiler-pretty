@@ -137,7 +137,13 @@
                 <div id="content" class="content">
                     <main>
                         <p>This is a prettified and bit modern browsable version of <a href="https://compilers.iecc.com/crenshaw/">Let's Build a Compiler</a> by Jack Crenshaw. The fifteen-part series, written from 1988 to 1995, is a non-technical introduction to compiler construction. I hope you enjoy it :)</p>
-<a class="header" href="#introduction" id="introduction"><h1>INTRODUCTION</h1></a>
+<a class="header" href="#copyright" id="copyright"><h1>Copyright</h1></a>
+<p>The text sources are copyrighted to Jack W. Crenshaw</p>
+<pre><code>Copyright (C) 1988 Jack W. Crenshaw. All rights reserved.
+</code></pre>
+<p>So please tell me if I'm breaking it in anyway. </p>
+<a class="header" href="#part-i-introduction---24-july-1988" id="part-i-introduction---24-july-1988"><h1>Part I: INTRODUCTION - 24 July 1988</h1></a>
+<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
 <p>This series of articles is a tutorial on the theory  and practice
 of  developing language parsers and compilers.    Before  we  are
 finished,  we  will  have  covered  every   aspect   of  compiler
@@ -281,7 +287,7 @@ CPU such as the 80x86 will  be  quite obvious, though, so I don't
 see  a problem here.  In fact, I hope someone out there who knows
 the '86 language better than I do will offer  us  the  equivalent
 object code fragments as we need them.</p>
-<a class="header" href="#the-cradle" id="the-cradle"><h1>THE CRADLE</h1></a>
+<a class="header" href="#the-cradle" id="the-cradle"><h2>THE CRADLE</h2></a>
 <p>Every program needs some boiler  plate  ...  I/O  routines, error
 message routines, etc.   The  programs we develop here will be no
 exceptions.    I've  tried to hold  this  stuff  to  an  absolute
@@ -443,7 +449,8 @@ end.
 <p>That's it for this introduction.  Copy the code above into TP and
 compile it.  Make sure that it compiles and runs  correctly. Then
 proceed to the first lesson, which is on expression parsing.</p>
-<a class="header" href="#getting-started" id="getting-started"><h1>GETTING STARTED</h1></a>
+<a class="header" href="#part-ii-expression-parsing---24-july-1988" id="part-ii-expression-parsing---24-july-1988"><h1>Part II: EXPRESSION PARSING - 24 July 1988</h1></a>
+<a class="header" href="#introduction-1" id="introduction-1"><h2>Introduction</h2></a>
 <p>If you've read the introduction document to this series, you will
 already know what  we're  about.    You will also have copied the
 cradle software  into your Turbo Pascal system, and have compiled
@@ -458,7 +465,7 @@ That's  so  that  the beginners among you won't get totally lost.
 There are also  some  very  good  lessons to be learned early on,
 that will serve us well later.  For the more experienced readers:
 bear with me.  We'll get rolling soon enough.</p>
-<a class="header" href="#single-digits" id="single-digits"><h1>SINGLE DIGITS</h1></a>
+<a class="header" href="#single-digits" id="single-digits"><h2>SINGLE DIGITS</h2></a>
 <p>In keeping with the whole theme of this series (KISS, remember?),
 let's start with the absolutely most simple case we can think of.
 That, to me, is an expression consisting of a single digit.</p>
@@ -508,7 +515,7 @@ easier to deal with while we're experimenting.</p>
 <p>Also note that an expression must leave a result somewhere.  I've
 chosen the  68000  register  DO.    I  could have made some other
 choices, but this one makes sense.</p>
-<a class="header" href="#binary-expressions" id="binary-expressions"><h1>BINARY EXPRESSIONS</h1></a>
+<a class="header" href="#binary-expressions" id="binary-expressions"><h2>BINARY EXPRESSIONS</h2></a>
 <p>Now that we have that under our belt,  let's  branch  out  a bit.
 Admittedly, an &quot;expression&quot; consisting of only  one  character is
 not going to meet our needs for long, so let's see what we can do
@@ -635,7 +642,7 @@ telling  our  parser  that the only kinds of expressions that are
 legal are those  with  two  terms.    We  must  rewrite procedure
 Expression to be a lot more broadminded, and this is where things
 start to take the shape of a real parser.</p>
-<a class="header" href="#general-expressions" id="general-expressions"><h1>GENERAL EXPRESSIONS</h1></a>
+<a class="header" href="#general-expressions" id="general-expressions"><h2>GENERAL EXPRESSIONS</h2></a>
 <p>In the  REAL  world,  an  expression  can  consist of one or more
 terms, separated  by  &quot;addops&quot;  ('+'  or  '-').   In BNF, this is
 written <code>&lt;expression&gt; ::= &lt;term&gt; [&lt;addop&gt; &lt;term&gt;]*</code></p>
@@ -710,7 +717,7 @@ written <code>-(SP)</code> and a pop, <code>(SP)+</code> .</p>
 broken it.</p>
 <p>Once again, the generated code is less efficient than before, but
 it's a necessary step, as you'll see.</p>
-<a class="header" href="#multiplication-and-division" id="multiplication-and-division"><h1>MULTIPLICATION AND DIVISION</h1></a>
+<a class="header" href="#multiplication-and-division" id="multiplication-and-division"><h2>MULTIPLICATION AND DIVISION</h2></a>
 <p>Now let's get down to some REALLY serious business.  As  you  all
 know,  there  are  other  math   operators   than   &quot;addops&quot;  ...
 expressions can also have  multiply  and  divide operations.  You
@@ -828,7 +835,7 @@ end;
 of Pascal!  The output is starting to look really useful,  if you
 continue to overlook the inefficiency,  which  I  hope  you will.
 Remember, we're not trying to produce tight code here.</p>
-<a class="header" href="#parentheses" id="parentheses"><h1>PARENTHESES</h1></a>
+<a class="header" href="#parentheses" id="parentheses"><h2>PARENTHESES</h2></a>
 <p>We  can  wrap  up this part of the parser with  the  addition  of
 parentheses with  math expressions.  As you know, parentheses are
 a  mechanism to force a desired operator  precedence.    So,  for
@@ -871,7 +878,7 @@ Pascal code matches the BNF syntax.</p>
 <p>As usual, compile the new version and make sure that it correctly
 parses  legal sentences, and flags illegal  ones  with  an  error
 message.</p>
-<a class="header" href="#unary-minus" id="unary-minus"><h1>UNARY MINUS</h1></a>
+<a class="header" href="#unary-minus" id="unary-minus"><h2>UNARY MINUS</h2></a>
 <p>At  this  point,  we have a parser that can handle just about any
 expression, right?  OK, try this input sentence: <code>-1</code></p>
 <p>WOOPS!  It doesn't work, does it?   Procedure  Expression expects
@@ -937,7 +944,7 @@ our parser to take care of  these  things too, and I'll also show
 you just  how easily we can accomodate multicharacter numbers and
 variable names.  So you see,  we're  not  far at all from a truly
 useful parser.</p>
-<a class="header" href="#a-word-about-optimization" id="a-word-about-optimization"><h1>A WORD ABOUT OPTIMIZATION</h1></a>
+<a class="header" href="#a-word-about-optimization" id="a-word-about-optimization"><h2>A WORD ABOUT OPTIMIZATION</h2></a>
 <p>Earlier in this session, I promised to give you some hints  as to
 how we can improve the quality of the generated code.  As I said,
 the  production of tight code is not the  main  purpose  of  this
@@ -1042,7 +1049,8 @@ code quality without throwing away what we've done.</p>
 <p>Next lesson, I'll show you how to deal with variables factors and
 function calls.  I'll also show you just how easy it is to handle
 multicharacter tokens and embedded white space.</p>
-<a class="header" href="#introduction-1" id="introduction-1"><h1>INTRODUCTION</h1></a>
+<a class="header" href="#part-iii-more-expressions---4-aug-1988" id="part-iii-more-expressions---4-aug-1988"><h1>Part III: MORE EXPRESSIONS - 4 Aug 1988</h1></a>
+<a class="header" href="#introduction-2" id="introduction-2"><h2>INTRODUCTION</h2></a>
 <p>In the last installment, we examined the techniques used to parse
 and  translate a general math expression.  We  ended  up  with  a
 simple parser that  could handle arbitrarily complex expressions,
@@ -1064,7 +1072,7 @@ fundamental concepts.    As  you'll  see  in  a bit, it's an easy
 restriction to get rid of, so don't get  too  hung  up  about it.
 We'll use the trick when it serves us to do so, confident that we
 can discard it when we're ready to.</p>
-<a class="header" href="#variables" id="variables"><h1>VARIABLES</h1></a>
+<a class="header" href="#variables" id="variables"><h2>VARIABLES</h2></a>
 <p>Most expressions  that we see in practice involve variables, such
 as <code>b * b + 4 * a * c</code></p>
 <p>No  parser is much good without being able  to  deal  with  them.
@@ -1121,7 +1129,7 @@ extra lines of code.  Notice, too, how the if-else-else structure
 exactly parallels the BNF syntax equation.</p>
 <p>OK, compile and test this new version of the parser.  That didn't
 hurt too badly, did it?</p>
-<a class="header" href="#functions" id="functions"><h1>FUNCTIONS</h1></a>
+<a class="header" href="#functions" id="functions"><h2>FUNCTIONS</h2></a>
 <p>There is only one  other  common kind of factor supported by most
 languages: the function call.  It's really too early  for  us  to
 deal with functions well,  because  we  haven't yet addressed the
@@ -1206,7 +1214,7 @@ which kind of identifier it's dealing with.</p>
 should be used  whenever  you  encounter  an  ambiguous situation
 requiring further lookahead.   Even  if  you  had to look several
 tokens ahead, the principle would still work.</p>
-<a class="header" href="#more-on-error-handling" id="more-on-error-handling"><h1>MORE ON ERROR HANDLING</h1></a>
+<a class="header" href="#more-on-error-handling" id="more-on-error-handling"><h2>MORE ON ERROR HANDLING</h2></a>
 <p>As long as we're talking  philosophy,  there's  another important
 issue to point out:  error  handling.    Notice that although the
 parser correctly rejects (almost)  every malformed  expression we
@@ -1256,7 +1264,7 @@ define CR in the const statement:</p>
 </code></pre>
 <p>As usual, recompile the program and verify that it does what it's
 supposed to.</p>
-<a class="header" href="#assignment-statements" id="assignment-statements"><h1>ASSIGNMENT STATEMENTS</h1></a>
+<a class="header" href="#assignment-statements" id="assignment-statements"><h2>ASSIGNMENT STATEMENTS</h2></a>
 <p>OK,  at  this  point we have a parser that works very nicely. I'd
 like to  point  out  that  we  got  it  using  only  88  lines of
 executable code, not  counting  what  was  in  the  cradle.   The
@@ -1305,7 +1313,7 @@ language.      Compared  to  what  we've  already  done,  control
 statements  will be easy.  I'll be covering  them  in  the  fifth
 installment.  And the other statements will all fall in  line, as
 long as we remember to KISS.</p>
-<a class="header" href="#multi-character-tokens" id="multi-character-tokens"><h1>MULTI-CHARACTER TOKENS</h1></a>
+<a class="header" href="#multi-character-tokens" id="multi-character-tokens"><h2>MULTI-CHARACTER TOKENS</h2></a>
 <p>Throughout  this   series,   I've   been   carefully  restricting
 everything  we  do  to  single-character  tokens,  all  the while
 assuring  you  that  it wouldn't be difficult to extend to multi-
@@ -1387,7 +1395,7 @@ declared string[8].  (Clearly,  we  could  make the string length
 longer if we chose, but most assemblers limit the length anyhow.)
 Make  this  change,  and  then  recompile and test. <em>NOW</em> do  you
 believe that it's a simple change?</p>
-<a class="header" href="#white-space" id="white-space"><h1>WHITE SPACE</h1></a>
+<a class="header" href="#white-space" id="white-space"><h2>WHITE SPACE</h2></a>
 <p>Before we leave this parser for awhile, let's  address  the issue
 of  white  space.   As it stands now, the parser  will  barf  (or
 simply terminate) on a single space  character  embedded anywhere
@@ -1833,7 +1841,8 @@ the structure of the parser changes a bit as we change  what sort
 of action has to be taken.  The information we pick up there will
 serve  us in good stead later on, even if you have no interest in
 interpreters.  See you next time.</p>
-<a class="header" href="#introduction-2" id="introduction-2"><h1>INTRODUCTION</h1></a>
+<a class="header" href="#part-iv-interpreters---24-july-1988" id="part-iv-interpreters---24-july-1988"><h1>Part IV: INTERPRETERS - 24 July 1988</h1></a>
+<a class="header" href="#introduction-3" id="introduction-3"><h2>INTRODUCTION</h2></a>
 <p>In the first three installments of this series,  we've  looked at
 parsing and  compiling math expressions, and worked our way grad-
 ually and methodically from dealing  with  very  simple one-term,
@@ -1949,7 +1958,7 @@ should know that the parsing  routines  in  a  smarter translator
 will generally  return  things  to  their  caller,  and sometimes
 expect things as  well.    That's  the main reason for going over
 interpretation in this installment.</p>
-<a class="header" href="#the-interpreter" id="the-interpreter"><h1>THE INTERPRETER</h1></a>
+<a class="header" href="#the-interpreter" id="the-interpreter"><h2>THE INTERPRETER</h2></a>
 <p>OK, now that you know WHY we're going into all this, let's do it.
 Just to give you practice, we're going to start over with  a bare
 cradle and build up the translator all over again.  This time, of
@@ -2104,7 +2113,7 @@ end;
 </code></pre>
 <p>That was pretty easy, huh?  We're rapidly closing in on  a useful
 interpreter.</p>
-<a class="header" href="#a-little-philosophy" id="a-little-philosophy"><h1>A LITTLE PHILOSOPHY</h1></a>
+<a class="header" href="#a-little-philosophy" id="a-little-philosophy"><h2>A LITTLE PHILOSOPHY</h2></a>
 <p>Before going any further, there's something I'd like  to  call to
 your attention.  It's a concept that we've been making use  of in
 all these sessions, but I haven't explicitly mentioned it up till
@@ -2377,7 +2386,8 @@ taken  care  of, as we did in the last session.   This  time,  if
 you'd like to play around with these extensions, be my  guest ...
 they're  &quot;left as an exercise for the student.&quot;    See  you  next
 time.</p>
-<a class="header" href="#introduction-3" id="introduction-3"><h1>INTRODUCTION</h1></a>
+<a class="header" href="#part-v-control-constructs---19-august-1988" id="part-v-control-constructs---19-august-1988"><h1>Part V: CONTROL CONSTRUCTS - 19 August 1988</h1></a>
+<a class="header" href="#introduction-4" id="introduction-4"><h2>INTRODUCTION</h2></a>
 <p>In  the  first  four  installments  of  this  series, we've  been
 concentrating on the parsing of math  expressions  and assignment
 statements.  In  this  installment,  we'll  take off on a new and
@@ -2395,7 +2405,7 @@ Imagine my surprise to  discover  that it was far easier than the
 expression  parsing  I  had  already  been through.   I  remember
 thinking, &quot;Hey! This is EASY!&quot; After we've finished this session,
 I'll bet you'll be thinking so, too.</p>
-<a class="header" href="#the-plan" id="the-plan"><h1>THE PLAN</h1></a>
+<a class="header" href="#the-plan" id="the-plan"><h2>THE PLAN</h2></a>
 <p>In what follows, we'll be starting over again with a bare cradle,
 and as we've done twice before now, we'll build things up  one at
 a time.  We'll also  be retaining the concept of single-character
@@ -2487,7 +2497,7 @@ adding to it in a bit!)</p>
 Block in the main program, by  a  call  to DoProgram.  Now try it
 and  see  how  it works.  Well, it's still not  much,  but  we're
 getting closer.</p>
-<a class="header" href="#some-groundwork" id="some-groundwork"><h1>SOME GROUNDWORK</h1></a>
+<a class="header" href="#some-groundwork" id="some-groundwork"><h2>SOME GROUNDWORK</h2></a>
 <p>Before we begin to define the various control constructs, we need
 to  lay a bit more groundwork.  First, a word of warning: I won't
 be using the same syntax  for these constructs as you're familiar
@@ -2606,7 +2616,7 @@ for &quot;Branch on zero&quot; is BEQ.  So for our purposes here,</p>
 <p>It's the nature of the beast that most  of  the  branches  we see
 will  be  BEQ's  ...  we'll  be branching AROUND the code  that's
 supposed to be executed when the condition is true.</p>
-<a class="header" href="#the-if-statement" id="the-if-statement"><h1>THE IF STATEMENT</h1></a>
+<a class="header" href="#the-if-statement" id="the-if-statement"><h2>THE IF STATEMENT</h2></a>
 <p>With that bit of explanation out of the way, we're  finally ready
 to begin coding the IF-statement parser.  In  fact,  we've almost
 already  done  it!   As usual, I'll be using our single-character
@@ -2743,7 +2753,7 @@ less case, try</p>
 <p>Now try some nested IF's.  Try anything you like,  including some
 badly formed statements.   Just  remember that 'e' is not a legal
 &quot;other&quot; statement.</p>
-<a class="header" href="#the-while-statement" id="the-while-statement"><h1>THE WHILE STATEMENT</h1></a>
+<a class="header" href="#the-while-statement" id="the-while-statement"><h2>THE WHILE STATEMENT</h2></a>
 <p>The next type of statement should be easy, since we  already have
 the process  down  pat.    The  syntax  I've chosen for the WHILE
 statement is</p>
@@ -2827,7 +2837,7 @@ almost falls out  from  there,  and  it doesn't affect any of the
 other routines.  Once you've gotten the feel of the thing, you'll
 see that you  can  add  new  constructs  about as fast as you can
 dream them up.</p>
-<a class="header" href="#the-loop-statement" id="the-loop-statement"><h1>THE LOOP STATEMENT</h1></a>
+<a class="header" href="#the-loop-statement" id="the-loop-statement"><h2>THE LOOP STATEMENT</h2></a>
 <p>We could stop right here, and  have  a language that works.  It's
 been  shown  many  times that a high-order language with only two
 constructs, the IF and the WHILE, is sufficient  to  write struc-
@@ -2868,7 +2878,7 @@ end;
 </code></pre>
 <p>When you insert this routine, don't forget to add a line in Block
 to call it.</p>
-<a class="header" href="#repeat-until" id="repeat-until"><h1>REPEAT-UNTIL</h1></a>
+<a class="header" href="#repeat-until" id="repeat-until"><h2>REPEAT-UNTIL</h2></a>
 <p>Here's one construct that I lifted right from Pascal.  The syntax
 is</p>
 <pre><code> `REPEAT &lt;block&gt; UNTIL &lt;condition&gt;`  ,
@@ -2921,7 +2931,7 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<a class="header" href="#the-for-loop" id="the-for-loop"><h1>THE FOR LOOP</h1></a>
+<a class="header" href="#the-for-loop" id="the-for-loop"><h2>THE FOR LOOP</h2></a>
 <p>The FOR loop  is a very handy one to have around, but it's a bear
 to translate.  That's not so much because the construct itself is
 hard ... it's only a loop  after  all ... but simply because it's
@@ -3031,7 +3041,7 @@ Expression, a typical input line would look something like</p>
 </code></pre>
 <p>Well, it DOES generate a lot of code, doesn't it?    But at least
 it's the RIGHT code.</p>
-<a class="header" href="#the-do-statement" id="the-do-statement"><h1>THE DO STATEMENT</h1></a>
+<a class="header" href="#the-do-statement" id="the-do-statement"><h2>THE DO STATEMENT</h2></a>
 <p>All this made me wish for a simpler version of the FOR loop.  The
 reason for all the code  above  is  the  need  to  have  the loop
 counter accessible as a variable within the loop.  If all we need
@@ -3074,7 +3084,7 @@ end;
 </code></pre>
 <p>I think you'll have to agree, that's a whole lot simpler than the
 classical FOR.  Still, each construct has its place.</p>
-<a class="header" href="#the-break-statement" id="the-break-statement"><h1>THE BREAK STATEMENT</h1></a>
+<a class="header" href="#the-break-statement" id="the-break-statement"><h2>THE BREAK STATEMENT</h2></a>
 <p>Earlier I promised you a BREAK statement to accompany LOOP.  This
 is  one  I'm sort of proud of.  On the face of it a  BREAK  seems
 really  tricky.  My first approach was to just use it as an extra
@@ -3255,7 +3265,7 @@ end;
 </code></pre>
 <p>The  two  extra  instructions,  the  SUBQ and ADDQ, take care  of
 leaving the stack in the right shape.</p>
-<a class="header" href="#conclusion" id="conclusion"><h1>CONCLUSION</h1></a>
+<a class="header" href="#conclusion" id="conclusion"><h2>CONCLUSION</h2></a>
 <p>At this point we have created a number of control  constructs ...
 a richer set, really, than that provided by almost any other pro-
 gramming language.  And,  except  for the FOR loop, it was pretty
@@ -3678,7 +3688,8 @@ begin
 end.
 {--------------------------------------------------------------}
 </code></pre>
-<a class="header" href="#introduction-4" id="introduction-4"><h1>INTRODUCTION</h1></a>
+<a class="header" href="#part-vi-boolean-expressions---31-august-1988" id="part-vi-boolean-expressions---31-august-1988"><h1>Part VI: BOOLEAN EXPRESSIONS - 31 August 1988</h1></a>
+<a class="header" href="#introduction-5" id="introduction-5"><h2>INTRODUCTION</h2></a>
 <p>In Part V of this series,  we  took a look at control constructs,
 and developed parsing  routines  to  translate  them  into object
 code.    We  ended  up  with  a  nice,  relatively  rich  set  of
@@ -3690,7 +3701,7 @@ routine called Condition, which only served as a place-keeper for
 the real thing.</p>
 <p>One of the things we'll do in this session is  to  plug that hole
 by expanding Condition into a true parser/translator.</p>
-<a class="header" href="#the-plan-1" id="the-plan-1"><h1>THE PLAN</h1></a>
+<a class="header" href="#the-plan-1" id="the-plan-1"><h2>THE PLAN</h2></a>
 <p>We're going to  approach  this installment a bit differently than
 any of the others.    In those other installments, we started out
 immediately with experiments  using the Pascal compiler, building
@@ -3705,7 +3716,7 @@ languages  implement  logic  vary quite a bit  from  language  to
 language.  So before we begin serious coding,  we'd  better first
 make up our minds what it is we want.  And the way to do  that is
 at the level of the BNF syntax rules (the GRAMMAR).</p>
-<a class="header" href="#the-grammar" id="the-grammar"><h1>THE GRAMMAR</h1></a>
+<a class="header" href="#the-grammar" id="the-grammar"><h2>THE GRAMMAR</h2></a>
 <p>For some time  now,  we've been implementing BNF syntax equations
 for arithmetic expressions, without  ever  actually  writing them
 down all in one place.  It's time that we did so.  They are:</p>
@@ -3757,7 +3768,7 @@ once in a given term. So an expression like</p>
 <pre><code>                `a AND NOT b`
 </code></pre>
 <p>makes perfect sense, and the syntax shown allows for that.</p>
-<a class="header" href="#relops" id="relops"><h1>RELOPS</h1></a>
+<a class="header" href="#relops" id="relops"><h2>RELOPS</h2></a>
 <p>OK, assuming that you're willing to accept the grammar I've shown
 here,  we  now  have syntax rules for both arithmetic and Boolean
 algebra.    The  sticky part comes in when we have to combine the
@@ -3845,7 +3856,7 @@ technology.</p>
 <p>To  deal  with  this situation, compiler writers have had to make
 compromises  so  that  a  single  parser can handle  the  grammar
 without backtracking.</p>
-<a class="header" href="#fixing-the-grammar" id="fixing-the-grammar"><h1>FIXING THE GRAMMAR</h1></a>
+<a class="header" href="#fixing-the-grammar" id="fixing-the-grammar"><h2>FIXING THE GRAMMAR</h2></a>
 <p>The  problem  that  we've  encountered  comes   up   because  our
 definitions of both arithmetic and Boolean factors permit the use
 of   parenthesized  expressions.    Since  the  definitions   are
@@ -3933,7 +3944,7 @@ slow down the parser, because it has to wade through  more layers
 of procedure calls.  That's  one reason why Pascal compilers tend
 to compile faster than C compilers.  If it's raw speed  you want,
 stick with the Pascal syntax.</p>
-<a class="header" href="#the-parser" id="the-parser"><h1>THE PARSER</h1></a>
+<a class="header" href="#the-parser" id="the-parser"><h2>THE PARSER</h2></a>
 <p>Now that we've gotten through the decision-making process, we can
 press on with development of a parser.  You've done this  with me
 several times now, so you know  the  drill: we begin with a fresh
@@ -4442,7 +4453,7 @@ AND Boolean algebra, and things  that combine the two through the
 use of relops.   I suggest you file away a copy of this parser in
 a safe place for future reference, because in our next step we're
 going to be chopping it up.</p>
-<a class="header" href="#merging-with-control-constructs" id="merging-with-control-constructs"><h1>MERGING WITH CONTROL CONSTRUCTS</h1></a>
+<a class="header" href="#merging-with-control-constructs" id="merging-with-control-constructs"><h2>MERGING WITH CONTROL CONSTRUCTS</h2></a>
 <p>At this point, let's go back to the file we had  previously built
 that parses control  constructs.    Remember  those  little dummy
 procedures called Condition and  Expression?    Now you know what
@@ -4463,7 +4474,7 @@ that any letter not a keyword just gets echoed as a block.</p>
 <p>Try <code>ia=bxlye</code></p>
 <p>which stands for &quot;IF a=b X ELSE Y ENDIF&quot;.</p>
 <p>What do you think?  Did it work?  Try some others.</p>
-<a class="header" href="#adding-assignments" id="adding-assignments"><h1>ADDING ASSIGNMENTS</h1></a>
+<a class="header" href="#adding-assignments" id="adding-assignments"><h2>ADDING ASSIGNMENTS</h2></a>
 <p>As long as we're this far,  and  we already have the routines for
 expressions in place, we might  as well replace the &quot;blocks&quot; with
 real assignment statements.    We've already done that before, so
@@ -4563,7 +4574,8 @@ we've done and are ready to start fresh.</p>
 eliminate the single-character  barrier  once and for all.  We'll
 also write our first complete  compiler, based on what we've done
 in this session.  See you then.</p>
-<a class="header" href="#introduction-5" id="introduction-5"><h1>INTRODUCTION</h1></a>
+<a class="header" href="#part-vii-lexical-scanning----7-november-1988" id="part-vii-lexical-scanning----7-november-1988"><h1>Part VII: LEXICAL SCANNING -  7 November 1988</h1></a>
+<a class="header" href="#introduction-6" id="introduction-6"><h2>INTRODUCTION</h2></a>
 <p>In the last installment, I left you with a  compiler  that  would
 ALMOST  work,  except  that  we  were  still  limited to  single-
 character tokens.  The purpose of  this  session is to get rid of
@@ -4616,7 +4628,7 @@ we get back to our parser  from  the last installment.  Bear with
 me ... I think you'll find it's worth the wait.    In fact, since
 scanners have many applications  outside  of  compilers,  you may
 well find this to be the most useful session for you.</p>
-<a class="header" href="#lexical-scanning" id="lexical-scanning"><h1>LEXICAL SCANNING</h1></a>
+<a class="header" href="#lexical-scanning" id="lexical-scanning"><h2>LEXICAL SCANNING</h2></a>
 <p>Lexical scanning is the process of scanning the  stream  of input
 characters and separating it  into  strings  called tokens.  Most
 compiler  texts  start  here,  and  devote  several  chapters  to
@@ -4685,7 +4697,7 @@ lexical  scanner  deals  with  things  at  the  character  level,
 collecting characters into strings, etc., and passing  them along
 to the parser proper as indivisible tokens.  It's also considered
 normal to let the scanner have the job of identifying keywords.</p>
-<a class="header" href="#state-machines-and-alternatives" id="state-machines-and-alternatives"><h1>STATE MACHINES AND ALTERNATIVES</h1></a>
+<a class="header" href="#state-machines-and-alternatives" id="state-machines-and-alternatives"><h2>STATE MACHINES AND ALTERNATIVES</h2></a>
 <p>I  mentioned  that  the regular expressions can be parsed using a
 state machine.   In  most  compiler  texts,  and  indeed  in most
 compilers as well, you will find this taken literally.   There is
@@ -4723,7 +4735,7 @@ using procedures GetName and GetNum.</p>
 with, until the entire token is  read.    This leads us to a more
 localized  scanner; although,  as you will see,  the  idea  of  a
 distributed scanner still has its merits.</p>
-<a class="header" href="#some-experiments-in-scanning" id="some-experiments-in-scanning"><h1>SOME EXPERIMENTS IN SCANNING</h1></a>
+<a class="header" href="#some-experiments-in-scanning" id="some-experiments-in-scanning"><h2>SOME EXPERIMENTS IN SCANNING</h2></a>
 <p>Before  getting  back  to our compiler,  it  will  be  useful  to
 experiment a bit with the general concepts.</p>
 <p>Let's  begin with the two definitions most  often  seen  in  real
@@ -4789,7 +4801,7 @@ from the main program, as in</p>
 characters, since that's what we told GetName).   It  will reject
 anything else.</p>
 <p>Test the other routine similarly.</p>
-<a class="header" href="#white-space-1" id="white-space-1"><h1>WHITE SPACE</h1></a>
+<a class="header" href="#white-space-1" id="white-space-1"><h2>WHITE SPACE</h2></a>
 <p>We  also  have  dealt with embedded white space before, using the
 two  routines  IsWhite  and  SkipWhite.    Make  sure that  these
 routines are in your  current  version of the cradle, and add the
@@ -4834,7 +4846,7 @@ beginning of the program.  Make it any convenient length,  say 16
 characters.)</p>
 <p>Now,  run the program.  Note how the  input  string  is,  indeed,
 separated into distinct tokens.</p>
-<a class="header" href="#state-machines" id="state-machines"><h1>STATE MACHINES</h1></a>
+<a class="header" href="#state-machines" id="state-machines"><h2>STATE MACHINES</h2></a>
 <p>For  the  record,  a  parse  routine  like  GetName  does  indeed
 implement a state machine.  The state is implicit in  the current
 position in the code.  A very useful trick for visualizing what's
@@ -4877,7 +4889,7 @@ parent procedure, Scan.  Little machines make big machines.</p>
 implicit approach creates these  state  machines.    I personally
 prefer it a lot over the table-driven approach.  It  also results
 is a small, tight, and fast scanner.</p>
-<a class="header" href="#newlines" id="newlines"><h1>NEWLINES</h1></a>
+<a class="header" href="#newlines" id="newlines"><h2>NEWLINES</h2></a>
 <p>Moving right along, let's modify  our scanner to handle more than
 one line.  As I mentioned last time, the most straightforward way
 to  do  this  is to simply treat the newline characters, carriage
@@ -4972,7 +4984,7 @@ specific places, so I was somewhere in the middle ground.  In the
 rest of these sessions, I'll be picking ways  to  handle newlines
 that I happen to like, but I want you to know how to choose other
 ways for yourselves.</p>
-<a class="header" href="#operators" id="operators"><h1>OPERATORS</h1></a>
+<a class="header" href="#operators" id="operators"><h2>OPERATORS</h2></a>
 <p>We  could  stop now and have a  pretty  useful  scanner  for  our
 purposes.  In the fragments of KISS that we've built so  far, the
 only tokens that have multiple characters are the identifiers and
@@ -5026,7 +5038,7 @@ end;
 <p>Try the program now.  You  will  find that any code fragments you
 care  to throw at it will be neatly  broken  up  into  individual
 tokens.</p>
-<a class="header" href="#lists-commas-and-command-lines" id="lists-commas-and-command-lines"><h1>LISTS, COMMAS AND COMMAND LINES</h1></a>
+<a class="header" href="#lists-commas-and-command-lines" id="lists-commas-and-command-lines"><h2>LISTS, COMMAS AND COMMAND LINES</h2></a>
 <p>Before getting back to the main thrust of our study, I'd  like to
 get on my soapbox for a moment.</p>
 <p>How many times have you worked with a program or operating system
@@ -5078,7 +5090,7 @@ the syntax equations or  draw  the  railroad-track  diagrams, and
 code the parser using the techniques I've shown you here.  You'll
 end  up with a better program, and it will be easier to write, to
 boot.</p>
-<a class="header" href="#getting-fancy" id="getting-fancy"><h1>GETTING FANCY</h1></a>
+<a class="header" href="#getting-fancy" id="getting-fancy"><h2>GETTING FANCY</h2></a>
 <p>OK, at this point we have a pretty nice lexical scanner that will
 break  an  input stream up into tokens.  We could use  it  as  it
 stands and have a servicable compiler.  But there are  some other
@@ -5346,7 +5358,7 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<a class="header" href="#returning-a-character" id="returning-a-character"><h1>RETURNING A CHARACTER</h1></a>
+<a class="header" href="#returning-a-character" id="returning-a-character"><h2>RETURNING A CHARACTER</h2></a>
 <p>Essentially  every scanner I've ever seen  that  was  written  in
 Pascal  used  the  mechanism of an enumerated type that I've just
 described.  It is certainly  a workable mechanism, but it doesn't
@@ -5471,7 +5483,7 @@ end.
 <p>This program should  work  the  same  as the previous version.  A
 minor  difference  in  structure,  maybe,  but   it   seems  more
 straightforward to me.</p>
-<a class="header" href="#distributed-vs-centralized-scanners" id="distributed-vs-centralized-scanners"><h1>DISTRIBUTED vs CENTRALIZED SCANNERS</h1></a>
+<a class="header" href="#distributed-vs-centralized-scanners" id="distributed-vs-centralized-scanners"><h2>DISTRIBUTED vs CENTRALIZED SCANNERS</h2></a>
 <p>The structure for the lexical scanner that I've just shown you is
 very conventional, and  about  99% of all compilers use something
 very  close  to it.  This is  not,  however,  the  only  possible
@@ -5520,7 +5532,7 @@ rather  primitive  approach.   In fact, it is an improvement over
 the classical scanner, since we're  using  the  scanning routines
 only where they're really needed.  In places  where  keywords are
 not allowed, we don't slow things down by looking for them.</p>
-<a class="header" href="#merging-scanner-and-parser" id="merging-scanner-and-parser"><h1>MERGING SCANNER AND PARSER</h1></a>
+<a class="header" href="#merging-scanner-and-parser" id="merging-scanner-and-parser"><h2>MERGING SCANNER AND PARSER</h2></a>
 <p>Now that we've covered  all  of the theory and general aspects of
 lexical scanning that we'll be needing, I'm FINALLY ready to back
 up my claim that  we  can  accomodate multi-character tokens with
@@ -6583,7 +6595,8 @@ the next installment,  I'll  also  be  taking a look from the top
 down,  and  we'll  discuss how the structure of the translator is
 altered by changes in the language definition.</p>
 <p>See you then.</p>
-<a class="header" href="#introduction-6" id="introduction-6"><h1>INTRODUCTION</h1></a>
+<a class="header" href="#part-viii-a-little-philosophy---2-april-1989" id="part-viii-a-little-philosophy---2-april-1989"><h1>Part VIII: A LITTLE PHILOSOPHY - 2 April 1989</h1></a>
+<a class="header" href="#introduction-7" id="introduction-7"><h2>INTRODUCTION</h2></a>
 <p>This is going to be a  different  kind of session than the others
 in our series on  parsing  and  compiler  construction.  For this
 session, there won't be  any  experiments to do or code to write.
@@ -6597,7 +6610,7 @@ I'll bet you were the same.</p>
 with this series: what's coming up in future installments, and in
 general what all  this  is  about.   I'll also share some general
 thoughts concerning the usefulness of what we've been doing.</p>
-<a class="header" href="#the-road-home" id="the-road-home"><h1>THE ROAD HOME</h1></a>
+<a class="header" href="#the-road-home" id="the-road-home"><h2>THE ROAD HOME</h2></a>
 <p>So far, we've  covered  the parsing and translation of arithmetic
 expressions,  Boolean expressions, and combinations connected  by
 relational  operators.    We've also done the  same  for  control
@@ -6707,7 +6720,7 @@ news:  Things  never  get  much  harder than they've been so far.
 It's  possible  to  build a complete, working compiler for a real
 language, using nothing  but  the same kinds of techniques you've
 learned so far.  And THAT brings up some interesting questions.</p>
-<a class="header" href="#why-is-it-so-simple" id="why-is-it-so-simple"><h1>WHY IS IT SO SIMPLE?</h1></a>
+<a class="header" href="#why-is-it-so-simple" id="why-is-it-so-simple"><h2>WHY IS IT SO SIMPLE?</h2></a>
 <p>Before embarking  on this series, I always thought that compilers
 were just naturally complex computer  programs  ...  the ultimate
 challenge.  Yet the things we have done here have  usually turned
@@ -6980,7 +6993,7 @@ that, back when resources were tight, the structures people ended
 up  with  were  artificially warped to make them work under those
 conditions, and weren't optimum  structures  for  the  problem at
 hand.</p>
-<a class="header" href="#conclusion-1" id="conclusion-1"><h1>CONCLUSION</h1></a>
+<a class="header" href="#conclusion-1" id="conclusion-1"><h2>CONCLUSION</h2></a>
 <p>Anyway, that's my arm-waving  guess  as to how we've been able to
 keep things simple.  We started with something simple and  let it
 evolve  naturally,  without  trying  to   force   it   into  some
@@ -7001,7 +7014,8 @@ talked about how to put  it  all  together.    That  will  be the
 subject of our next  two  installments.  Then we'll press on into
 the new subjects I listed at the beginning of this installment.</p>
 <p>See you then.</p>
-<a class="header" href="#introduction-7" id="introduction-7"><h1>INTRODUCTION</h1></a>
+<a class="header" href="#part-ix-a-top-view---16-april-1989" id="part-ix-a-top-view---16-april-1989"><h1>Part IX: A TOP VIEW - 16 April 1989</h1></a>
+<a class="header" href="#introduction-8" id="introduction-8"><h2>INTRODUCTION</h2></a>
 <p>In  the  previous  installments,  we  have  learned  many of  the
 techniques required to  build  a full-blown compiler.  We've done
 both  assignment   statements   (with   Boolean   and  arithmetic
@@ -7043,7 +7057,7 @@ program structure.</p>
 we won't try.   But we can flesh out the top levels far enough so
 that you can see how it goes.</p>
 <p>Let's get started.</p>
-<a class="header" href="#the-top-level" id="the-top-level"><h1>THE TOP LEVEL</h1></a>
+<a class="header" href="#the-top-level" id="the-top-level"><h2>THE TOP LEVEL</h2></a>
 <p>One of the biggest  mistakes  people make in a top-down design is
 failing  to start at the true top.  They think they know what the
 overall structure of the  design  should be, so they go ahead and
@@ -7063,7 +7077,7 @@ a complete program.  Any definition of the  language,  written in
 BNF,  begins here.  What does the top level BNF look like?  Well,
 that depends quite a bit on the language to be translated.  Let's
 take a look at Pascal.</p>
-<a class="header" href="#the-structure-of-pascal" id="the-structure-of-pascal"><h1>THE STRUCTURE OF PASCAL</h1></a>
+<a class="header" href="#the-structure-of-pascal" id="the-structure-of-pascal"><h2>THE STRUCTURE OF PASCAL</h2></a>
 <p>Most  texts  for  Pascal  include  a   BNF   or  &quot;railroad-track&quot;
 definition of the language.  Here are the first few lines of one:</p>
 <pre><code>
@@ -7141,7 +7155,7 @@ machine.    From here on, then, we  need  only  add  features  by
 fleshing out the language constructs.  It's all  very  similar to
 what we've been doing all along, except that we're approaching it
 from the other end.</p>
-<a class="header" href="#fleshing-it-out" id="fleshing-it-out"><h1>FLESHING IT OUT</h1></a>
+<a class="header" href="#fleshing-it-out" id="fleshing-it-out"><h2>FLESHING IT OUT</h2></a>
 <p>To flesh out  the  compiler,  we  only have to deal with language
 features  one by one.  I like to start with a stub procedure that
 does  nothing, then add detail in  incremental  fashion.    Let's
@@ -7201,7 +7215,7 @@ program.</p>
 Statements.  Make them null procedures as we did before.</p>
 <p>Does the program  still run the same?  Then we can move on to the
 next stage.</p>
-<a class="header" href="#declarations" id="declarations"><h1>DECLARATIONS</h1></a>
+<a class="header" href="#declarations" id="declarations"><h2>DECLARATIONS</h2></a>
 <p>The BNF for Pascal declarations is:</p>
 <pre><code>     &lt;declarations&gt; ::= ( &lt;label list&gt;    |
                           &lt;constant list&gt; |
@@ -7387,7 +7401,7 @@ I'd rather  do  it  in  the context of KISS.  We're not trying to
 build a complete Pascal  compiler  just yet, so I'm going to stop
 the expansion of Pascal here.    Let's  take  a  look  at  a very
 different language.</p>
-<a class="header" href="#the-structure-of-c" id="the-structure-of-c"><h1>THE STRUCTURE OF C</h1></a>
+<a class="header" href="#the-structure-of-c" id="the-structure-of-c"><h2>THE STRUCTURE OF C</h2></a>
 <p>The C language is quite another matter, as you'll see.   Texts on
 C  rarely  include  a BNF definition of  the  language.  Probably
 that's because the language is quite hard to write BNF for.</p>
@@ -7637,7 +7651,8 @@ with me through the next installment.  There, I'll be leading you
 through the development of a complete compiler for TINY, a subset
 of KISS.</p>
 <p>See you then.</p>
-<a class="header" href="#introduction-8" id="introduction-8"><h1>INTRODUCTION</h1></a>
+<a class="header" href="#part-x-introducing-tiny---21-may-1989" id="part-x-introducing-tiny---21-may-1989"><h1>Part X: INTRODUCING &quot;TINY&quot; - 21 May 1989</h1></a>
+<a class="header" href="#introduction-9" id="introduction-9"><h2>INTRODUCTION</h2></a>
 <p>In the last installment, I showed you the general  idea  for  the
 top-down development of  a  compiler.    I gave you the first few
 steps  of  the process for compilers for  Pascal  and  C,  but  I
@@ -7679,7 +7694,7 @@ Second, I want you to see how the development can indeed  be done
 from the top down as outlined in the last installment.   Finally,
 we both need the practice.  Each time I go through this exercise,
 I get a little better at it, and you will, also.</p>
-<a class="header" href="#getting-started-1" id="getting-started-1"><h1>GETTING STARTED</h1></a>
+<a class="header" href="#getting-started" id="getting-started"><h2>GETTING STARTED</h2></a>
 <p>Many  years  ago  there were languages called  Tiny  BASIC,  Tiny
 Pascal, and Tiny C, each of which was a subset of its parent full
 language.  Tiny BASIC,  for  example,  had  only single-character
@@ -7885,7 +7900,7 @@ end;
 might try some deliberate errors here, like omitting  the  'b' or
 the 'e', and see what happens.  As always,  the  compiler  should
 flag all illegal inputs.</p>
-<a class="header" href="#declarations-1" id="declarations-1"><h1>DECLARATIONS</h1></a>
+<a class="header" href="#declarations-1" id="declarations-1"><h2>DECLARATIONS</h2></a>
 <p>The obvious next step is to decide what we mean by a declaration.
 My  intent  here  is to have two kinds of declarations: variables
 and  procedures/functions.    At  the  top  level,   only  global
@@ -7944,7 +7959,7 @@ in a separate VAR statement.</p>
 <p>OK,  now  we  can have any  number  of  data  declarations,  each
 starting with a 'v' for VAR,  before  the BEGIN-block.  Try a few
 cases and see what happens.</p>
-<a class="header" href="#declarations-and-symbols" id="declarations-and-symbols"><h1>DECLARATIONS AND SYMBOLS</h1></a>
+<a class="header" href="#declarations-and-symbols" id="declarations-and-symbols"><h2>DECLARATIONS AND SYMBOLS</h2></a>
 <p>That looks pretty good, but  we're still only generating the null
 program  for  output.    A  real compiler would  issue  assembler
 directives to allocate storage for  the  variables.    It's about
@@ -8011,7 +8026,7 @@ end;
 <p>OK, now compile this code and give it  a  try.    Try a number of
 lines of VAR declarations, try a list of several variables on one
 line, and try combinations of the two.  Does it work?</p>
-<a class="header" href="#initializers" id="initializers"><h1>INITIALIZERS</h1></a>
+<a class="header" href="#initializers" id="initializers"><h2>INITIALIZERS</h2></a>
 <p>As long as we're dealing with data declarations, one thing that's
 always  bothered  me  about  Pascal  is  that  it  doesn't  allow
 initializing  data items in the declaration.    That  feature  is
@@ -8094,7 +8109,7 @@ end;
 </code></pre>
 <p>Now  you should be able to  initialize  variables  with  negative
 and/or multi-digit values.</p>
-<a class="header" href="#the-symbol-table" id="the-symbol-table"><h1>THE SYMBOL TABLE</h1></a>
+<a class="header" href="#the-symbol-table" id="the-symbol-table"><h2>THE SYMBOL TABLE</h2></a>
 <p>There's one problem  with  the  compiler  as it stands so far: it
 doesn't do anything to record a variable when we declare it.   So
 the compiler is perfectly content to allocate storage for several
@@ -8144,7 +8159,7 @@ Alloc:</p>
 <p>That  should  do  it.  The  compiler  will  now  catch  duplicate
 declarations.  Later, we can  also  use  InTable  when generating
 references to the variables.</p>
-<a class="header" href="#executable-statements" id="executable-statements"><h1>EXECUTABLE STATEMENTS</h1></a>
+<a class="header" href="#executable-statements" id="executable-statements"><h2>EXECUTABLE STATEMENTS</h2></a>
 <p>At this point, we can generate a null program that has  some data
 variables  declared  and  possibly initialized.  But  so  far  we
 haven't arranged to generate the first line of executable code.</p>
@@ -8526,7 +8541,7 @@ end;
 check  it out.  You should  be  seeing  reasonable-looking  code,
 representing a complete program that will  assemble  and execute.
 We have a compiler!</p>
-<a class="header" href="#booleans" id="booleans"><h1>BOOLEANS</h1></a>
+<a class="header" href="#booleans" id="booleans"><h2>BOOLEANS</h2></a>
 <p>The next step should also  be  familiar  to  you.    We  must add
 Boolean  expressions  and relational operations.    Again,  since
 we've already dealt with them more than once,  I  won't elaborate
@@ -8837,7 +8852,7 @@ example:</p>
 
 </code></pre>
 <p>See how this assigns a Boolean value to X?</p>
-<a class="header" href="#control-structures" id="control-structures"><h1>CONTROL STRUCTURES</h1></a>
+<a class="header" href="#control-structures" id="control-structures"><h2>CONTROL STRUCTURES</h2></a>
 <p>We're almost home.   With  Boolean  expressions  in place, it's a
 simple  matter  to  add control structures.  For TINY, we'll only
 allow two kinds of them, the IF and the WHILE:</p>
@@ -8983,7 +8998,7 @@ the control constructs.  It's looking pretty good!</p>
 <p>As a matter  of  fact, except for the single-character limitation
 we've got a virtually complete version of TINY.  I call  it, with
 tongue planted firmly in cheek, TINY Version 0.1.</p>
-<a class="header" href="#lexical-scanning-1" id="lexical-scanning-1"><h1>LEXICAL SCANNING</h1></a>
+<a class="header" href="#lexical-scanning-1" id="lexical-scanning-1"><h2>LEXICAL SCANNING</h2></a>
 <p>Of course, you know what's next:  We have to convert  the program
 so that  it can deal with multi-character keywords, newlines, and
 whitespace.   We have just gone through all  that  in  Part  VII.
@@ -9310,7 +9325,7 @@ complete listing of the final form is given later.)</p>
 <p>Did it work?  If so, then we're just about home.  In fact, with a
 few minor  exceptions we've already got a compiler that's usable.
 There are still a few areas that need improvement.</p>
-<a class="header" href="#multi-character-variable-names" id="multi-character-variable-names"><h1>MULTI-CHARACTER VARIABLE NAMES</h1></a>
+<a class="header" href="#multi-character-variable-names" id="multi-character-variable-names"><h2>MULTI-CHARACTER VARIABLE NAMES</h2></a>
 <p>One of those is  the  restriction  that  we still have, requiring
 single-character variable names.    Now that we can handle multi-
 character keywords, this one  begins  to  look  very much like an
@@ -9405,7 +9420,7 @@ end;
 </code></pre>
 <p>That should do it.  Try it out and verify  that  you can, indeed,
 use multi-character variable names.</p>
-<a class="header" href="#more-relops" id="more-relops"><h1>MORE RELOPS</h1></a>
+<a class="header" href="#more-relops" id="more-relops"><h2>MORE RELOPS</h2></a>
 <p>We still have one remaining single-character restriction: the one
 on relops.  Some of the relops are indeed single  characters, but
 others  require two.  These are <code>'&lt;='</code> and <code>'&gt;='</code>.  I also prefer the
@@ -9508,7 +9523,7 @@ end;
 </code></pre>
 <p>That's all it takes.  Now  you  can  process all the relops.  Try
 it.</p>
-<a class="header" href="#inputoutput" id="inputoutput"><h1>INPUT/OUTPUT</h1></a>
+<a class="header" href="#inputoutput" id="inputoutput"><h2>INPUT/OUTPUT</h2></a>
 <p>We  now  have  a complete, working language, except for one minor
 embarassment: we have no way to get data in or out.  We need some
 I/O.</p>
@@ -9651,7 +9666,7 @@ end;
 {--------------------------------------------------------------}
 </code></pre>
 <p>That's all there is to it.  <em>NOW</em> we have a language!</p>
-<a class="header" href="#conclusion-2" id="conclusion-2"><h1>CONCLUSION</h1></a>
+<a class="header" href="#conclusion-2" id="conclusion-2"><h2>CONCLUSION</h2></a>
 <p>At this point we have TINY completely defined.  It's not much ...
 actually a toy  compiler.    TINY  has  only one data type and no
 subroutines  ... but it's a complete,  usable  language.    While
@@ -10808,14 +10823,15 @@ end.
 {--------------------------------------------------------------}
 
 </code></pre>
-<a class="header" href="#introduction-9" id="introduction-9"><h1>INTRODUCTION</h1></a>
+<a class="header" href="#part-xi-lexical-scan-revisited---3-june-1989" id="part-xi-lexical-scan-revisited---3-june-1989"><h1>Part XI: LEXICAL SCAN REVISITED - 3 June 1989</h1></a>
+<a class="header" href="#introduction-10" id="introduction-10"><h2>INTRODUCTION</h2></a>
 <p>I've got some  good news and some bad news.  The bad news is that
 this installment is  not  the  one  I promised last time.  What's
 more, the one after this one won't be, either.</p>
 <p>The good news is the reason for this installment:  I've  found  a
 way  to simplify and improve the lexical  scanning  part  of  the
 compiler.  Let me explain.</p>
-<a class="header" href="#background" id="background"><h1>BACKGROUND</h1></a>
+<a class="header" href="#background" id="background"><h2>BACKGROUND</h2></a>
 <p>If  you'll remember, we talked at length  about  the  subject  of
 lexical  scanners in Part VII, and I left you with a design for a
 distributed scanner that I felt was about as simple  as  I  could
@@ -10869,7 +10885,7 @@ old one, and is very much like the more generic scanner  I showed
 you  earlier  in  Part VII.  Then I started trying to get clever,
 and I almost clevered myself clean out of business.   You'd think
 one day I'd learn: K-I-S-S!</p>
-<a class="header" href="#the-problem" id="the-problem"><h1>THE PROBLEM</h1></a>
+<a class="header" href="#the-problem" id="the-problem"><h2>THE PROBLEM</h2></a>
 <p>The problem begins to show  itself in procedure Block, which I've
 reproduced below:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -10937,7 +10953,7 @@ we've had with newline characters goes away.  We  can  just  lump
 them in as  whitespace  characters, which means that the handling
 of  newlines  becomes  very trivial, and MUCH less prone to error
 than we've had to deal with in the past.</p>
-<a class="header" href="#the-solution" id="the-solution"><h1>THE SOLUTION</h1></a>
+<a class="header" href="#the-solution" id="the-solution"><h2>THE SOLUTION</h2></a>
 <p>Let's  begin  to  fix  the  problem  by  re-introducing  the  two
 procedures:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -11149,7 +11165,7 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<a class="header" href="#fixing-up-the-compiler" id="fixing-up-the-compiler"><h1>FIXING UP THE COMPILER</h1></a>
+<a class="header" href="#fixing-up-the-compiler" id="fixing-up-the-compiler"><h2>FIXING UP THE COMPILER</h2></a>
 <p>Armed with these new scanner procedures, we can now begin  to fix
 the compiler to  use  them  properly.   The changes are all quite
 minor,  but  there  are quite a  few  places  where  changes  are
@@ -11274,7 +11290,7 @@ the addition of the  new  procedures  CompareExpression and
 NextExpression.</p>
 <p>(9)  I fixed an error in the Read routine ... the  earlier value
 did not check for a valid variable name.</p>
-<a class="header" href="#conclusion-3" id="conclusion-3"><h1>CONCLUSION</h1></a>
+<a class="header" href="#conclusion-3" id="conclusion-3"><h2>CONCLUSION</h2></a>
 <p>The resulting compiler for  TINY  is given below.  Other than the
 removal  of  the  keyword PROGRAM, it parses the same language as
 before.    It's  just  a  bit cleaner, and more importantly  it's
@@ -11285,7 +11301,7 @@ place.  THEN we'll press on  into  procedures and types.  Hang in
 there with me.  The addition of those features will go a long way
 towards removing KISS from  the  &quot;toy  language&quot; category.  We're
 getting very close to being able to write a serious compiler.</p>
-<a class="header" href="#tiny-version-11" id="tiny-version-11"><h1>TINY VERSION 1.1</h1></a>
+<a class="header" href="#tiny-version-11" id="tiny-version-11"><h2>TINY VERSION 1.1</h2></a>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 program Tiny11;
 
@@ -12396,7 +12412,8 @@ begin
 end.
 {--------------------------------------------------------------}
 </code></pre>
-<a class="header" href="#introduction-10" id="introduction-10"><h1>INTRODUCTION</h1></a>
+<a class="header" href="#part-xii-miscellany---5-june-1989" id="part-xii-miscellany---5-june-1989"><h1>Part XII: MISCELLANY - 5 June 1989</h1></a>
+<a class="header" href="#introduction-11" id="introduction-11"><h2>INTRODUCTION</h2></a>
 <p>This installment is another one  of  those  excursions  into side
 alleys  that  don't  seem to fit  into  the  mainstream  of  this
 tutorial  series.    As I mentioned last time, it was while I was
@@ -12414,7 +12431,7 @@ about them, too, and  wondered  how things would change if we had
 to  deal with them.  Just so you can proceed with what's to come,
 without being  bothered by that nagging feeling that something is
 missing, we'll address such issues here.</p>
-<a class="header" href="#semicolons" id="semicolons"><h1>SEMICOLONS</h1></a>
+<a class="header" href="#semicolons" id="semicolons"><h2>SEMICOLONS</h2></a>
 <p>Ever since the introduction of Algol, semicolons have been a part
 of  almost every modern language.  We've all  used  them  to  the
 point that they are taken for  granted.   Yet I suspect that more
@@ -12489,7 +12506,7 @@ designing their own languages, which may  include  semicolons, or
 who  want to use the techniques of  these  tutorials  to  compile
 conventional languages like  C.    In  either case, we need to be
 able to deal with semicolons.</p>
-<a class="header" href="#syntactic-sugar" id="syntactic-sugar"><h1>SYNTACTIC SUGAR</h1></a>
+<a class="header" href="#syntactic-sugar" id="syntactic-sugar"><h2>SYNTACTIC SUGAR</h2></a>
 <p>This whole discussion brings  up  the  issue of &quot;syntactic sugar&quot;
 ... constructs that are added to a language, not because they are
 needed, but because they help make the programs look right to the
@@ -12567,7 +12584,7 @@ extra  insurance  that  it  brings.    If  you like  this  latter
 approach, things like that are easy to add.  Just  remember that,
 like  the semicolon, each item of sugar  is  something  that  can
 potentially cause a compile error by its omission.</p>
-<a class="header" href="#dealing-with-semicolons" id="dealing-with-semicolons"><h1>DEALING WITH SEMICOLONS</h1></a>
+<a class="header" href="#dealing-with-semicolons" id="dealing-with-semicolons"><h2>DEALING WITH SEMICOLONS</h2></a>
 <p>There  are  two  distinct  ways  in which semicolons are used  in
 popular  languages.    In Pascal, the semicolon is regarded as an
 statement SEPARATOR.  No semicolon  is  required  after  the last
@@ -12715,7 +12732,7 @@ end;
 </code></pre>
 <p>That  sure  didn't  hurt, did it?  We can now parse semicolons in
 Pascal-like fashion.</p>
-<a class="header" href="#a-compromise" id="a-compromise"><h1>A COMPROMISE</h1></a>
+<a class="header" href="#a-compromise" id="a-compromise"><h2>A COMPROMISE</h2></a>
 <p>Now that we know how to deal with semicolons, does that mean that
 I'm going to put them in KISS/TINY?  Well, yes and  no.    I like
 the extra sugar and the security that comes with knowing for sure
@@ -12740,7 +12757,7 @@ compiler won't complain.  The best of both worlds.</p>
 <p>Put this procedure in place in the first version of  your program
 (the  one for C/Ada syntax), and you have  the  makings  of  TINY
 Version 1.2.</p>
-<a class="header" href="#comments" id="comments"><h1>COMMENTS</h1></a>
+<a class="header" href="#comments" id="comments"><h2>COMMENTS</h2></a>
 <p>Up  until  now  I have carefully avoided the subject of comments.
 You would think that this would be an easy subject ... after all,
 the compiler doesn't have to deal with comments at all; it should
@@ -12751,7 +12768,7 @@ comments  are  intercepted  almost  the  instant  they  enter the
 compiler.  At the  other,  we can treat them as lexical elements.
 Things  tend to get interesting when  you  consider  things  like
 comment delimiters contained in quoted strings.</p>
-<a class="header" href="#single-character-delimiters" id="single-character-delimiters"><h1>SINGLE-CHARACTER DELIMITERS</h1></a>
+<a class="header" href="#single-character-delimiters" id="single-character-delimiters"><h2>SINGLE-CHARACTER DELIMITERS</h2></a>
 <p>Here's an example.  Suppose we assume the  Turbo  Pascal standard
 and use curly braces for comments.  In this case we  have single-
 character delimiters, so our parsing is a little easier.</p>
@@ -12870,7 +12887,7 @@ end;
 </code></pre>
 <p>That does it.  As  sophisticated a comment-handler as you'll ever
 need.</p>
-<a class="header" href="#multi-character-delimiters" id="multi-character-delimiters"><h1>MULTI-CHARACTER DELIMITERS</h1></a>
+<a class="header" href="#multi-character-delimiters" id="multi-character-delimiters"><h2>MULTI-CHARACTER DELIMITERS</h2></a>
 <p>That's all well and  good  for cases where a comment is delimited
 by single  characters,  but  what  about  the  cases such as C or
 standard Pascal, where two  characters  are  required?  Well, the
@@ -12952,7 +12969,7 @@ comment  characters  embedded  in  a  quoted  string,  by calling
 GetCharX  instead  of  GetChar  while  we're  within  the string.
 Finally,  note  that  we can again provide for nested comments by
 adding a single statement to SkipComment, just as we did before.</p>
-<a class="header" href="#one-sided-comments" id="one-sided-comments"><h1>ONE-SIDED COMMENTS</h1></a>
+<a class="header" href="#one-sided-comments" id="one-sided-comments"><h2>ONE-SIDED COMMENTS</h2></a>
 <p>So far I've shown you  how  to  deal  with  any  kind  of comment
 delimited on the left and the  right.   That only leaves the one-
 sided comments like those in assembler language or  in  Ada, that
@@ -12976,7 +12993,7 @@ assembly language, then we're essentially done.  If  it's  a two-
 character token, as in the '--'  of  Ada, we need only modify the
 tests  within  GetChar.   Either way, it's an easier problem than
 the balanced case.</p>
-<a class="header" href="#conclusion-4" id="conclusion-4"><h1>CONCLUSION</h1></a>
+<a class="header" href="#conclusion-4" id="conclusion-4"><h2>CONCLUSION</h2></a>
 <p>At this point we now have the ability to deal with  both comments
 and semicolons, as well as other kinds of syntactic sugar.   I've
 shown  you several ways to deal with  each,  depending  upon  the
@@ -12994,7 +13011,8 @@ You now have TINY Version 1.2.</p>
 finally get back into the mainstream.  In  the  next installment,
 we'll talk  about procedures and parameter passing, and we'll add
 these important features to TINY.  See you then.</p>
-<a class="header" href="#introduction-11" id="introduction-11"><h1>INTRODUCTION</h1></a>
+<a class="header" href="#part-xiii-procedures---27-august-1989" id="part-xiii-procedures---27-august-1989"><h1>Part XIII: PROCEDURES - 27 August 1989</h1></a>
+<a class="header" href="#introduction-12" id="introduction-12"><h2>INTRODUCTION</h2></a>
 <p>At last we get to the good part!</p>
 <p>At  this point we've studied almost all  the  basic  features  of
 compilers  and  parsing.    We  have  learned  how  to  translate
@@ -13025,7 +13043,7 @@ that required me to  digress  and deal with them.  Finally, we've
 been able to put all those issues to rest and can get on with the
 mainstream  of  things.    In   this   installment,   I'll  cover
 procedures.  Next time, we'll talk about the basic data types.</p>
-<a class="header" href="#one-last-digression" id="one-last-digression"><h1>ONE LAST DIGRESSION</h1></a>
+<a class="header" href="#one-last-digression" id="one-last-digression"><h2>ONE LAST DIGRESSION</h2></a>
 <p>This has  been an extraordinarily difficult installment for me to
 write.  The reason has nothing to do with the subject  itself ...
 I've  known  what I wanted to say for some time, and  in  fact  I
@@ -13078,7 +13096,7 @@ session, to merge the constructs into the TINY  compiler.   We'll
 save that for later.</p>
 <p>After all this time, you don't need more buildup  than  that,  so
 let's waste no more time and dive right in.</p>
-<a class="header" href="#the-basics" id="the-basics"><h1>THE BASICS</h1></a>
+<a class="header" href="#the-basics" id="the-basics"><h2>THE BASICS</h2></a>
 <p>All modern  CPU's provide direct support for procedure calls, and
 the  68000  is no exception.  For the 68000, the call  is  a  BSR
 (PC-relative version) or JSR, and the return is RTS.  All we have
@@ -13093,7 +13111,7 @@ we can of course borrow heavily on what people have done in other
 languages ... there's no need to reinvent the wheel here.  Of the
 three issues, that of parameter passing will occupy  most  of our
 attention, simply because there are so many options available.</p>
-<a class="header" href="#a-basis-for-experiments" id="a-basis-for-experiments"><h1>A BASIS FOR EXPERIMENTS</h1></a>
+<a class="header" href="#a-basis-for-experiments" id="a-basis-for-experiments"><h2>A BASIS FOR EXPERIMENTS</h2></a>
 <p>As always, we will need some software to  serve  as  a  basis for
 what  we are doing.  We don't need the full TINY compiler, but we
 do need enough of a program so that some of the  other constructs
@@ -13537,7 +13555,7 @@ and then a begin-block.  Try something like:</p>
 </code></pre>
 <p>As usual, you should also make some deliberate errors, and verify
 that the program catches them correctly.</p>
-<a class="header" href="#declaring-a-procedure" id="declaring-a-procedure"><h1>DECLARING A PROCEDURE</h1></a>
+<a class="header" href="#declaring-a-procedure" id="declaring-a-procedure"><h2>DECLARING A PROCEDURE</h2></a>
 <p>If you're satisfied that our little program works, then it's time
 to  deal  with  the  procedures.  Since we haven't  talked  about parameters yet, we'll begin by considering  only  procedures that
 have no parameter lists.</p>
@@ -13782,7 +13800,7 @@ help than that, it's pretty easy to add some logic to kick us out
 of the loop  once  the  main  program  has been processed.  Or we
 could  at least flag an error if someone  tries  to  include  two
 mains.</p>
-<a class="header" href="#calling-the-procedure" id="calling-the-procedure"><h1>CALLING THE PROCEDURE</h1></a>
+<a class="header" href="#calling-the-procedure" id="calling-the-procedure"><h2>CALLING THE PROCEDURE</h2></a>
 <p>If you're satisfied that  things  are  working, let's address the
 second half of the equation ... the call.</p>
 <p>Consider the BNF for a procedure call:</p>
@@ -13871,7 +13889,7 @@ variables  by  their  global names.  So at this point we have the
 equivalent of BASIC's GOSUB construct.  Not too bad ... after all
 lots of serious programs were written using GOSUBs, but we can do
 better, and we will.  That's the next step.</p>
-<a class="header" href="#passing-parameters" id="passing-parameters"><h1>PASSING PARAMETERS</h1></a>
+<a class="header" href="#passing-parameters" id="passing-parameters"><h2>PASSING PARAMETERS</h2></a>
 <p>Again, we all know the basic idea of passed parameters, but let's
 review them just to be safe.</p>
 <p>In general the procedure is given a parameter list, for example</p>
@@ -14035,7 +14053,7 @@ do  this.  We'll ignore the issue now if for no other reason than
 that the structure of our  symbol table doesn't currently give us
 a place to store the necessary information.  Later on, we'll have
 a place for that data and we can deal with the issue then.</p>
-<a class="header" href="#the-semantics-of-parameters" id="the-semantics-of-parameters"><h1>THE SEMANTICS OF PARAMETERS</h1></a>
+<a class="header" href="#the-semantics-of-parameters" id="the-semantics-of-parameters"><h2>THE SEMANTICS OF PARAMETERS</h2></a>
 <p>So  far we've dealt with the SYNTAX  of  parameter  passing,  and
 we've got the parsing mechanisms in place to handle it.  Next, we
 have to look at the SEMANTICS, i.e., the actions to be taken when
@@ -14183,7 +14201,7 @@ able to use either one as we need to.  It's worth mentioning that
 it's  going  to  be tough to use the C approach to pointers here,
 since a pointer is a different type and we haven't  studied types
 yet!</p>
-<a class="header" href="#pass-by-value" id="pass-by-value"><h1>PASS-BY-VALUE</h1></a>
+<a class="header" href="#pass-by-value" id="pass-by-value"><h2>PASS-BY-VALUE</h2></a>
 <p>Let's just try some simple-minded  things and see where they lead
 us.    Let's begin with the pass-by-value  case.    Consider  the
 procedure call:</p>
@@ -14468,7 +14486,7 @@ pass formal parameters from one procedure to another.  If  we had
 the  full  syntax  of the language here, you'd also be able to do
 things like read  or  write  formal  parameters  or  use  them in
 complicated expressions.</p>
-<a class="header" href="#whats-wrong" id="whats-wrong"><h1>WHAT'S WRONG?</h1></a>
+<a class="header" href="#whats-wrong" id="whats-wrong"><h2>WHAT'S WRONG?</h2></a>
 <p>At this point, you might be thinking: Surely there's more to this
 than a few pushes and  pops.    There  must  be  more  to passing
 parameters than this.</p>
@@ -14681,7 +14699,7 @@ procedures and procedure calls.  Within the limitation that there
 are no local variables  (yet)  and  that  no procedure nesting is
 allowed, this code is just what we need.</p>
 <p>There is still just one little small problem remaining:</p>
-<a class="header" href="#we-have-no-way-to-return-results-to-the-caller" id="we-have-no-way-to-return-results-to-the-caller"><h1>WE HAVE NO WAY TO RETURN RESULTS TO THE CALLER!</h1></a>
+<a class="header" href="#we-have-no-way-to-return-results-to-the-caller" id="we-have-no-way-to-return-results-to-the-caller"><h2>WE HAVE NO WAY TO RETURN RESULTS TO THE CALLER!</h2></a>
 <p>But  that,  of course, is not a  limitation  of  the  code  we're
 generating, but  one  inherent  in  the  call-by-value  protocol.
 Notice that we CAN use formal parameters in any  way  inside  the
@@ -14689,7 +14707,7 @@ procedure.  We  can  calculate  new  values for them, use them as
 loop counters (if we had loops, that is!), etc.   So  the code is
 doing what it's supposed to.   To  get over this last problem, we
 need to look at the alternative protocol.</p>
-<a class="header" href="#call-by-reference" id="call-by-reference"><h1>CALL-BY-REFERENCE</h1></a>
+<a class="header" href="#call-by-reference" id="call-by-reference"><h2>CALL-BY-REFERENCE</h2></a>
 <p>This  one is easy, now that we have  the  mechanisms  already  in
 place.    We  only  have  to  make  a few  changes  to  the  code
 generation.  Instead of  pushing  a value onto the stack, we must
@@ -14784,7 +14802,7 @@ only way procedures can ever return values to their caller.</p>
 <p>This, in fact, will be one of the differences  between  TINY  and
 KISS.  In the next version of TINY,  we'll  use pass-by-reference
 for all parameters.  KISS will support both methods.</p>
-<a class="header" href="#local-variables" id="local-variables"><h1>LOCAL VARIABLES</h1></a>
+<a class="header" href="#local-variables" id="local-variables"><h2>LOCAL VARIABLES</h2></a>
 <p>So  far,  we've  said  nothing  about  local  variables, and  our
 definition of procedures doesn't allow  for  them.    Needless to
 say, that's a big gap in our language, and one  that  needs to be
@@ -14988,7 +15006,7 @@ end;
 {--------------------------------------------------------------}
 </code></pre>
 <p>That should do it.  Add these changes and see how they work.</p>
-<a class="header" href="#conclusion-5" id="conclusion-5"><h1>CONCLUSION</h1></a>
+<a class="header" href="#conclusion-5" id="conclusion-5"><h2>CONCLUSION</h2></a>
 <p>At this point you know  how to compile procedure declarations and
 procedure calls,  with  parameters  passed  by  reference  and by
 value.  You can also handle local variables.  As you can see, the
@@ -15004,7 +15022,8 @@ save  that  one  until after we've  dealt  with  ways  to  handle
 different variable types.</p>
 <p>That will be the next installment, which will be coming soon to a
 Forum near you.  See you then.</p>
-<a class="header" href="#introduction-12" id="introduction-12"><h1>INTRODUCTION</h1></a>
+<a class="header" href="#part-xiv-types---26-may-1990" id="part-xiv-types---26-may-1990"><h1>Part XIV: TYPES - 26 May 1990</h1></a>
+<a class="header" href="#introduction-13" id="introduction-13"><h2>INTRODUCTION</h2></a>
 <p>In the  last installment (Part XIII: PROCEDURES) I mentioned that
 in that part and this one,  we  would cover the two features that
 tend  to  separate  the toy language from a real, usable one.  We
@@ -15050,7 +15069,7 @@ Keep It Simple.  But we can't avoid the complexity entirely.   As
 has so often has happened, we end up having to trade code quality
 against complexity,  and  as  usual  I  will  tend to opt for the
 simplest approach.</p>
-<a class="header" href="#whats-coming-next" id="whats-coming-next"><h1>WHAT'S COMING NEXT?</h1></a>
+<a class="header" href="#whats-coming-next" id="whats-coming-next"><h2>WHAT'S COMING NEXT?</h2></a>
 <p>Before diving into the tutorial, I think you'd like to know where
 we are going  from  here  ...  especially since it's been so long
 since the last installment.</p>
@@ -15122,7 +15141,7 @@ from the book that's upcoming.</p>
 said  earlier,  we'll  do  this  one  as  we  did  in   the  last
 installment:  by  performing experiments  using  single-character
 tokens.</p>
-<a class="header" href="#the-symbol-table-1" id="the-symbol-table-1"><h1>THE SYMBOL TABLE</h1></a>
+<a class="header" href="#the-symbol-table-1" id="the-symbol-table-1"><h2>THE SYMBOL TABLE</h2></a>
 <p>It should be apparent that, if we're going to deal with variables
 of different types, we're going  to need someplace to record what
 those  types are.  The obvious vehicle for  that  is  the  symbol
@@ -15438,7 +15457,7 @@ declaring some entries in the main program.  Try these:</p>
 </code></pre>
 <p>This time, when  you  run  the  program, you should get an output
 showing that the symbol table is working right.</p>
-<a class="header" href="#adding-entries" id="adding-entries"><h1>ADDING ENTRIES</h1></a>
+<a class="header" href="#adding-entries" id="adding-entries"><h2>ADDING ENTRIES</h2></a>
 <p>Of course, writing to the table directly is pretty poor practice,
 and not one that will  help  us  much  later.   What we need is a
 procedure to add entries to the table.  At the same time, we know
@@ -15493,7 +15512,7 @@ end;
 <p>and run the program again.  Did it work?  Then we have the symbol
 table routines needed to support our work on types.  In  the next
 section, we'll actually begin to use them.</p>
-<a class="header" href="#allocating-storage" id="allocating-storage"><h1>ALLOCATING STORAGE</h1></a>
+<a class="header" href="#allocating-storage" id="allocating-storage"><h2>ALLOCATING STORAGE</h2></a>
 <p>In  other programs like this one,  including  the  TINY  compiler
 itself, we have  already  addressed the issue of declaring global
 variables, and the  code  generated  for  them.    Let's  build a
@@ -15552,7 +15571,7 @@ look familiar.  Note from the code for TopDecls that  the program
 is ended by a terminating period.</p>
 <p>While you're at it,  try  declaring  two  variables with the same
 name, and verify that the parser catches the error.</p>
-<a class="header" href="#declaring-types" id="declaring-types"><h1>DECLARING TYPES</h1></a>
+<a class="header" href="#declaring-types" id="declaring-types"><h2>DECLARING TYPES</h2></a>
 <p>Allocating storage of different sizes  is  as  easy  as modifying
 procedure TopDecls to recognize more than one keyword.  There are
 a  number  of  decisions to be made here, in terms  of  what  the
@@ -15625,7 +15644,7 @@ in each case, we are allocating the proper storage  size.    Note
 from the dumped symbol table that the sizes are also recorded for
 later use.  What later use?  Well, that's the subject of the rest
 of this installment.</p>
-<a class="header" href="#assignments" id="assignments"><h1>ASSIGNMENTS</h1></a>
+<a class="header" href="#assignments" id="assignments"><h2>ASSIGNMENTS</h2></a>
 <p>Now that we can declare variables of different  sizes,  it stands
 to reason that we ought to be able  to  do  something  with them.
 For our first trick, let's just try loading them into our working
@@ -15865,7 +15884,7 @@ quality of the  generated  code,  and  as usual, we will take the
 path that keeps the  compiler  simple.  I think you'll find that,
 with this approach, we can keep the potential complexity in check
 rather nicely.</p>
-<a class="header" href="#the-cowards-way-out" id="the-cowards-way-out"><h1>THE COWARD'S WAY OUT</h1></a>
+<a class="header" href="#the-cowards-way-out" id="the-cowards-way-out"><h2>THE COWARD'S WAY OUT</h2></a>
 <p>Before we get into the details (and potential complexity) of type
 conversion,  I'd  like  you to see that there is one super-simple
 way to solve the problem: simply promote every variable to a long
@@ -15920,7 +15939,7 @@ end;
 </code></pre>
 <p>With this version, a byte is treated as unsigned  (as  in  Pascal
 and C), while a word is treated as signed.</p>
-<a class="header" href="#a-more-reasonable-solution" id="a-more-reasonable-solution"><h1>A MORE REASONABLE SOLUTION</h1></a>
+<a class="header" href="#a-more-reasonable-solution" id="a-more-reasonable-solution"><h2>A MORE REASONABLE SOLUTION</h2></a>
 <p>As we've seen, promoting  every  variable  to  long while it's in
 memory solves the problem, but it can hardly be called efficient,
 and  probably wouldn't be acceptable even for  those  of  us  who
@@ -16047,7 +16066,7 @@ and we could easily modify Convert to handle this case, too.</p>
 think you can see  that  we could easily fix up procedure Convert
 to deal with these types as well.  This is  &quot;left  as an exercise
 for the student.&quot;</p>
-<a class="header" href="#literal-arguments" id="literal-arguments"><h1>LITERAL ARGUMENTS</h1></a>
+<a class="header" href="#literal-arguments" id="literal-arguments"><h2>LITERAL ARGUMENTS</h2></a>
 <p>Sharp-eyed readers might have noticed, though, that we don't even
 have a proper form of a simple factor yet, because we don't allow
 for loading literal constants,  only  variables.   Let's fix that
@@ -16140,7 +16159,7 @@ the job.)</p>
 <p>OK,  compile  this code into your program  and  give  it  a  try.
 You'll see that it now works for either variables or constants as
 valid expressions.</p>
-<a class="header" href="#additive-expressions" id="additive-expressions"><h1>ADDITIVE EXPRESSIONS</h1></a>
+<a class="header" href="#additive-expressions" id="additive-expressions"><h2>ADDITIVE EXPRESSIONS</h2></a>
 <p>If you've been following this series from the beginning, I'm sure
 you  know  what's coming next:  We'll  expand  the  form  for  an
 expression   to   handle   first   additive   expressions,   then
@@ -16385,7 +16404,7 @@ Try mixing up variables  of  different  sizes, and also literals.
 Make sure that everything's working properly.  As  usual,  it's a
 good  idea  to  try  some  erroneous expressions and see how  the
 compiler handles them.</p>
-<a class="header" href="#why-so-many-procedures" id="why-so-many-procedures"><h1>WHY SO MANY PROCEDURES?</h1></a>
+<a class="header" href="#why-so-many-procedures" id="why-so-many-procedures"><h2>WHY SO MANY PROCEDURES?</h2></a>
 <p>At this point, you may think  I've  pretty much gone off the deep
 end in terms of deeply nested procedures.  There is  admittedly a
 lot of overhead here.  But there's a method in my madness.  As in
@@ -16397,7 +16416,7 @@ For example, in cases where the value pushed onto the  stack does
 add&quot;  instruction.    If we choose to test for such cases, we can
 embed the extra tests into  PopAdd  and  PopSub  without changing
 anything else much.</p>
-<a class="header" href="#multiplicative-expressions" id="multiplicative-expressions"><h1>MULTIPLICATIVE EXPRESSIONS</h1></a>
+<a class="header" href="#multiplicative-expressions" id="multiplicative-expressions"><h2>MULTIPLICATIVE EXPRESSIONS</h2></a>
 <p>The procedure for dealing with multiplicative  operators  is much
 the  same.    In  fact,  at  the  first  level,  they are  almost
 identical, so I'll just show them here without much fanfare.  The
@@ -16466,7 +16485,7 @@ If  you'd  like  to test the program before we get into that, you
 can build dummy versions of them, similar to  PopAdd  and PopSub.
 Again, the code won't be correct at this point,  but  the  parser
 should handle expressions of arbitrary complexity.</p>
-<a class="header" href="#multiplication" id="multiplication"><h1>MULTIPLICATION</h1></a>
+<a class="header" href="#multiplication" id="multiplication"><h2>MULTIPLICATION</h2></a>
 <p>Once you've  convinced yourself that the parser itself is working
 properly, we need to figure out what it will take to generate the
 right code.  This is where  things  begin to get a little sticky,
@@ -16584,7 +16603,7 @@ call one of the two code generator routines, and then  assign the
 result type.  Not too complicated, really.</p>
 <p>At this point, I suggest that you go ahead and test  the program.
 Try all combinations of operand sizes.</p>
-<a class="header" href="#division" id="division"><h1>DIVISION</h1></a>
+<a class="header" href="#division" id="division"><h2>DIVISION</h2></a>
 <p>The case of division is not nearly so  symmetric.    I  also have
 some bad news for you:</p>
 <p>All  modern  16-bit   CPU's   support   integer   divide.     The
@@ -16704,7 +16723,7 @@ end;
 <p>OK, install the new  procedures  for division.  At this point you
 should be able  to  generate  code  for  any  kind  of arithmetic
 expression.  Give it a whirl!</p>
-<a class="header" href="#beginning-to-wind-down" id="beginning-to-wind-down"><h1>BEGINNING TO WIND DOWN</h1></a>
+<a class="header" href="#beginning-to-wind-down" id="beginning-to-wind-down"><h2>BEGINNING TO WIND DOWN</h2></a>
 <p>At  last, in this installment, we've learned  how  to  deal  with
 variables (and literals) of different types.  As you can  see, it
 hasn't been too tough.  In  fact,  in  some ways most of the code
@@ -16753,7 +16772,7 @@ still not an unreasonably large number of procedures.</p>
 <p>What  we've  done  here is to collapse such a jump table into far
 fewer  procedures, simply by making use  of  symmetry  and  other
 simplifying rules.</p>
-<a class="header" href="#to-coerce-or-not-to-coerce" id="to-coerce-or-not-to-coerce"><h1>TO COERCE OR NOT TO COERCE</h1></a>
+<a class="header" href="#to-coerce-or-not-to-coerce" id="to-coerce-or-not-to-coerce"><h2>TO COERCE OR NOT TO COERCE</h2></a>
 <p>In case you haven't gotten this message yet, it sure appears that
 TINY and KISS will  probably  <em>NOT</em>  be strongly typed languages,
 since I've allowed for  automatic  mixing  and conversion of just
@@ -16893,7 +16912,7 @@ integers, I guess KISS  should,  also.    We've seen that logical
 operations  need to be able to extend  integers  in  an  unsigned
 fashion, so the unsigned conversion  procedures  are  required in
 any case.</p>
-<a class="header" href="#conclusion-6" id="conclusion-6"><h1>CONCLUSION</h1></a>
+<a class="header" href="#conclusion-6" id="conclusion-6"><h2>CONCLUSION</h2></a>
 <p>That wraps up our session on type conversions.  Sorry you  had to
 wait  so  long for it, but hope you feel that it  was  worth  the
 wait.</p>
@@ -16904,7 +16923,8 @@ part of the series.  After  that,  I'll give you the new versions
 of the TINY and KISS compilers,  and  then we'll start to look at
 optimization issues.</p>
 <p>See you then.</p>
-<a class="header" href="#introduction-13" id="introduction-13"><h1>INTRODUCTION</h1></a>
+<a class="header" href="#part-15-back-to-the-future---5-march-1994" id="part-15-back-to-the-future---5-march-1994"><h1>Part 15: BACK TO THE FUTURE - 5 March 1994</h1></a>
+<a class="header" href="#introduction-14" id="introduction-14"><h2>INTRODUCTION</h2></a>
 <p>Can it really have been four years since I wrote installment
 fourteen of this series?  Is it really possible that six long
 years have passed since I began it?  Funny how time flies when
@@ -16926,7 +16946,7 @@ film, and I intend to give it to them.  So, if you're one of those
 who's been waiting, more or less patiently, to see how this thing
 comes out, thanks for your patience.  I apologize for the delay.<br />
 Let's move on.</p>
-<a class="header" href="#new-starts-old-directions" id="new-starts-old-directions"><h1>NEW STARTS, OLD DIRECTIONS</h1></a>
+<a class="header" href="#new-starts-old-directions" id="new-starts-old-directions"><h2>NEW STARTS, OLD DIRECTIONS</h2></a>
 <p>Like many other things, programming languages and programming
 styles change with time.  In 1994, it seems a little anachronistic
 to be programming in Turbo Pascal, when the rest of the world
@@ -17035,7 +17055,7 @@ reduces the number of files by half, which isn't half bad.<br />
 Linking of the object files is also easy, because the Turbo
 compiler takes care of it without the need for make files or other
 mechanisms.</p>
-<a class="header" href="#starting-over" id="starting-over"><h1>STARTING OVER?</h1></a>
+<a class="header" href="#starting-over" id="starting-over"><h2>STARTING OVER?</h2></a>
 <p>Four years ago, in Installment 14, I promised you that our days of
 re-inventing the wheel, and recoding the same software over and
 over for each lesson, were over, and that from now on we'd stick
@@ -17079,7 +17099,7 @@ consistent.  I've tentatively created four directories:  SINGLE
 multi-character versions), TINY, and KISS.</p>
 <p>Enough said about philosophy and details.  Let's get on with the
 resurrection of the software.</p>
-<a class="header" href="#the-input-unit" id="the-input-unit"><h1>THE INPUT UNIT</h1></a>
+<a class="header" href="#the-input-unit" id="the-input-unit"><h2>THE INPUT UNIT</h2></a>
 <p>A key concept that we've used since Day 1 has been the idea of an
 input stream with one lookahead character.  All the parsing
 routines examine this character, without changing it, to decide
@@ -17178,7 +17198,7 @@ around as so much baggage.</p>
 the KISS compiler, using a true Windows application generated by
 Borland's OWL applications framework.  For now, though, we'll obey
 my #1 rule to live by:  Keep It Simple.</p>
-<a class="header" href="#the-output-unit" id="the-output-unit"><h1>THE OUTPUT UNIT</h1></a>
+<a class="header" href="#the-output-unit" id="the-output-unit"><h2>THE OUTPUT UNIT</h2></a>
 <p>Of course, every decent program should have output, and ours is no
 exception.  Our output routines included the Emit functions.  The
 code for the corresponding output unit is shown next:</p>
@@ -17292,7 +17312,7 @@ the pursuit of complexity is no virtue.  Another wise man once
 wrote, &quot;Any idiot can design a Rolls-Royce. It takes a genius to
 design a VW.&quot;  So the elegant, tab-friendly version of Output is
 history, and what you see is the simple, compact, VW version.</p>
-<a class="header" href="#the-error-unit" id="the-error-unit"><h1>THE ERROR UNIT</h1></a>
+<a class="header" href="#the-error-unit" id="the-error-unit"><h2>THE ERROR UNIT</h2></a>
 <p>Our next set of routines are those that handle errors.  To refresh
 your memory, we take the approach, pioneered by Borland in Turbo
 Pascal, of halting on the first error.  Not only does this greatly
@@ -17353,7 +17373,7 @@ getting longer?  That's OK. In the final version, the main program
 will only call procedures in our parser, so its use clause will
 only have a couple of entries. But for now, it's probably best to
 include all the units so we can test procedures in them.</p>
-<a class="header" href="#scanning-and-parsing" id="scanning-and-parsing"><h1>SCANNING AND PARSING</h1></a>
+<a class="header" href="#scanning-and-parsing" id="scanning-and-parsing"><h2>SCANNING AND PARSING</h2></a>
 <p>The classical compiler architecture consists of separate modules
 for the lexical scanner, which supplies tokens in the language,
 and the parser, which tries to make sense of the tokens as syntax
@@ -17504,7 +17524,7 @@ though, to add the name Scanner1 to the &quot;uses&quot; clause.</p>
 any digit.  The code should reject all other sentences, and give a
 meaningful error message. If it did, you're in good shape and we
 can proceed.</p>
-<a class="header" href="#the-scanner-unit" id="the-scanner-unit"><h1>THE SCANNER UNIT</h1></a>
+<a class="header" href="#the-scanner-unit" id="the-scanner-unit"><h2>THE SCANNER UNIT</h2></a>
 <p>The next, and by far the most important, version of the scanner is
 the one that handles the multi-character tokens that all real
 languages must have.  Only the two functions, GetName and
@@ -17615,7 +17635,7 @@ end.
 <p>The same test program will test this scanner, also. Simply change
 the &quot;uses&quot; clause to use Scanner instead of Scanner1.  Now you
 should be able to type multi-character names and numbers.</p>
-<a class="header" href="#decisions-decisions" id="decisions-decisions"><h1>DECISIONS, DECISIONS</h1></a>
+<a class="header" href="#decisions-decisions" id="decisions-decisions"><h2>DECISIONS, DECISIONS</h2></a>
 <p>In spite of the relative simplicity of both scanners, a lot of
 thought has gone into them, and a lot of decisions had to be made.<br />
 I'd like to share those thoughts with you now so you can make your
@@ -17702,7 +17722,7 @@ end;
 {--------------------------------------------------------------}
 </code></pre>
 <p>You might file this one away, as I intend to, for a rainy day.</p>
-<a class="header" href="#parsing" id="parsing"><h1>PARSING</h1></a>
+<a class="header" href="#parsing" id="parsing"><h2>PARSING</h2></a>
 <p>At this point, we have distributed all the routines that made up
 our Cradle into units that we can draw upon as we need them.<br />
 Obviously, they will evolve further as we continue the process of
@@ -17867,7 +17887,7 @@ make up a real language.  Since we've done this many times before
 in earlier installments, it shouldn't take long to get us back to
 where we were before the long hiatus.  We'll continue this process
 in Installment 16, coming soon.  See you then.</p>
-<a class="header" href="#references" id="references"><h1>REFERENCES</h1></a>
+<a class="header" href="#references" id="references"><h2>REFERENCES</h2></a>
 <ol>
 <li>
 <p>Crenshaw, J.W., &quot;Object-Oriented Design of Assemblers and
@@ -17884,7 +17904,8 @@ Freeman, San Francisco, CA, February 1991, pp. 143-155.</p>
 Francisco, CA, September 1991, pp. 45-60.</p>
 </li>
 </ol>
-<a class="header" href="#introduction-14" id="introduction-14"><h1>INTRODUCTION</h1></a>
+<a class="header" href="#part-16-unit-construction---29-may-1995" id="part-16-unit-construction---29-may-1995"><h2>Part 16: UNIT CONSTRUCTION - 29 May, 1995</h2></a>
+<a class="header" href="#introduction-15" id="introduction-15"><h2>INTRODUCTION</h2></a>
 <p>This series of tutorials promises to be perhaps one of the longest-
 running mini-series in history, rivalled only by the delay in Volume IV
 of Knuth.  Begun in 1988, the series ran into a four-year hiatus in 1990
@@ -17988,7 +18009,7 @@ Scanner).  Similarly, the code generator unit, CodeGen, contains all of
 the code dependent upon the target machine.  In this installment, we'll
 be continuing with the development of the functions in these two all-
 important units.</p>
-<a class="header" href="#just-like-classical" id="just-like-classical"><h1>JUST LIKE CLASSICAL?</h1></a>
+<a class="header" href="#just-like-classical" id="just-like-classical"><h2>JUST LIKE CLASSICAL?</h2></a>
 <p>Before we proceed, however, I think I should clarify the relationship<br />
 between, and the functionality of these units.  Those of you who are
 familiar with compiler theory as taught in universities will, of course,
@@ -18093,7 +18114,7 @@ separate pass, implemented in a back end. Frankly, I don't see that
 we'll ever find a need for this approach, but there is the connection,
 if you choose to follow it, between the classical and the current
 approaches.</p>
-<a class="header" href="#fleshing-out-the-parser" id="fleshing-out-the-parser"><h1>FLESHING OUT THE PARSER</h1></a>
+<a class="header" href="#fleshing-out-the-parser" id="fleshing-out-the-parser"><h2>FLESHING OUT THE PARSER</h2></a>
 <p>Though I promised you, somewhere along about Installment 14, that we'd
 never again write every single function from scratch, I ended up
 starting to do just that in Installment 15.  One reason: that long
@@ -18195,7 +18216,7 @@ follow John's advice, and our first step will not be to add a peephole
 optimizer or other after-the-fact device, but to improve the quality of
 the code emitted before optimization.  So make a note of SignedFactor as
 a good first candidate for attention, and for now we'll leave it be.</p>
-<a class="header" href="#terms-and-expressions" id="terms-and-expressions"><h1>TERMS AND EXPRESSIONS</h1></a>
+<a class="header" href="#terms-and-expressions" id="terms-and-expressions"><h2>TERMS AND EXPRESSIONS</h2></a>
 <p>I'm sure you know what's coming next: We must, yet again, create the
 rest of the procedures that implement the recursive-descent parsing of
 an expression.  We all know that the hierarchy of procedures for
@@ -18398,7 +18419,7 @@ end;
 <p>At this point, your &quot;compiler&quot; should be able to handle any legal
 expression you can throw at it.  Better yet, it should reject all
 illegal ones!</p>
-<a class="header" href="#assignments-1" id="assignments-1"><h1>ASSIGNMENTS</h1></a>
+<a class="header" href="#assignments-1" id="assignments-1"><h2>ASSIGNMENTS</h2></a>
 <p>As long as we're this close, we might as well create the code to deal
 with an assignment statement.  This code needs only to remember the name
 of the target variable where we are to store the result of an
@@ -18441,7 +18462,7 @@ did.  Here's the BNF:</p>
 &lt;expression&gt;  ::= &lt;signed_term&gt; (&lt;addop&gt; &lt;term&gt;)* 
 &lt;assignment&gt;  ::= &lt;variable&gt; '=' &lt;expression&gt; 
 </code></pre>
-<a class="header" href="#booleans-1" id="booleans-1"><h1>BOOLEANS</h1></a>
+<a class="header" href="#booleans-1" id="booleans-1"><h2>BOOLEANS</h2></a>
 <p>The next step, as we've learned several times before, is to add Boolean
 algebra.  In the past, this step has at least doubled the amount of code
 we've had to write.  As I've gone over this step in my mind, I've found
@@ -18622,7 +18643,7 @@ to prevent mixed-type arithmetic:  I won't.  For a language
 intended for systems programming, the fewer rules, the better. If
 you don't agree, and want to test for such conditions, we can do
 it once we have a symbol table.</p>
-<a class="header" href="#boolean-and" id="boolean-and"><h1>BOOLEAN &quot;AND&quot;</h1></a>
+<a class="header" href="#boolean-and" id="boolean-and"><h2>BOOLEAN &quot;AND&quot;</h2></a>
 <p>With that bit of philosophy out of the way, we can press on to the
 &quot;and&quot; operator, which goes into procedure Term. By now, you can
 probably do this without me, but here's the code, anyway:</p>

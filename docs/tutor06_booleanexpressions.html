@@ -136,7 +136,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#introduction" id="introduction"><h1>INTRODUCTION</h1></a>
+                        <a class="header" href="#part-vi-boolean-expressions---31-august-1988" id="part-vi-boolean-expressions---31-august-1988"><h1>Part VI: BOOLEAN EXPRESSIONS - 31 August 1988</h1></a>
+<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
 <p>In Part V of this series,  we  took a look at control constructs,
 and developed parsing  routines  to  translate  them  into object
 code.    We  ended  up  with  a  nice,  relatively  rich  set  of
@@ -148,7 +149,7 @@ routine called Condition, which only served as a place-keeper for
 the real thing.</p>
 <p>One of the things we'll do in this session is  to  plug that hole
 by expanding Condition into a true parser/translator.</p>
-<a class="header" href="#the-plan" id="the-plan"><h1>THE PLAN</h1></a>
+<a class="header" href="#the-plan" id="the-plan"><h2>THE PLAN</h2></a>
 <p>We're going to  approach  this installment a bit differently than
 any of the others.    In those other installments, we started out
 immediately with experiments  using the Pascal compiler, building
@@ -163,7 +164,7 @@ languages  implement  logic  vary quite a bit  from  language  to
 language.  So before we begin serious coding,  we'd  better first
 make up our minds what it is we want.  And the way to do  that is
 at the level of the BNF syntax rules (the GRAMMAR).</p>
-<a class="header" href="#the-grammar" id="the-grammar"><h1>THE GRAMMAR</h1></a>
+<a class="header" href="#the-grammar" id="the-grammar"><h2>THE GRAMMAR</h2></a>
 <p>For some time  now,  we've been implementing BNF syntax equations
 for arithmetic expressions, without  ever  actually  writing them
 down all in one place.  It's time that we did so.  They are:</p>
@@ -215,7 +216,7 @@ once in a given term. So an expression like</p>
 <pre><code>                `a AND NOT b`
 </code></pre>
 <p>makes perfect sense, and the syntax shown allows for that.</p>
-<a class="header" href="#relops" id="relops"><h1>RELOPS</h1></a>
+<a class="header" href="#relops" id="relops"><h2>RELOPS</h2></a>
 <p>OK, assuming that you're willing to accept the grammar I've shown
 here,  we  now  have syntax rules for both arithmetic and Boolean
 algebra.    The  sticky part comes in when we have to combine the
@@ -303,7 +304,7 @@ technology.</p>
 <p>To  deal  with  this situation, compiler writers have had to make
 compromises  so  that  a  single  parser can handle  the  grammar
 without backtracking.</p>
-<a class="header" href="#fixing-the-grammar" id="fixing-the-grammar"><h1>FIXING THE GRAMMAR</h1></a>
+<a class="header" href="#fixing-the-grammar" id="fixing-the-grammar"><h2>FIXING THE GRAMMAR</h2></a>
 <p>The  problem  that  we've  encountered  comes   up   because  our
 definitions of both arithmetic and Boolean factors permit the use
 of   parenthesized  expressions.    Since  the  definitions   are
@@ -391,7 +392,7 @@ slow down the parser, because it has to wade through  more layers
 of procedure calls.  That's  one reason why Pascal compilers tend
 to compile faster than C compilers.  If it's raw speed  you want,
 stick with the Pascal syntax.</p>
-<a class="header" href="#the-parser" id="the-parser"><h1>THE PARSER</h1></a>
+<a class="header" href="#the-parser" id="the-parser"><h2>THE PARSER</h2></a>
 <p>Now that we've gotten through the decision-making process, we can
 press on with development of a parser.  You've done this  with me
 several times now, so you know  the  drill: we begin with a fresh
@@ -900,7 +901,7 @@ AND Boolean algebra, and things  that combine the two through the
 use of relops.   I suggest you file away a copy of this parser in
 a safe place for future reference, because in our next step we're
 going to be chopping it up.</p>
-<a class="header" href="#merging-with-control-constructs" id="merging-with-control-constructs"><h1>MERGING WITH CONTROL CONSTRUCTS</h1></a>
+<a class="header" href="#merging-with-control-constructs" id="merging-with-control-constructs"><h2>MERGING WITH CONTROL CONSTRUCTS</h2></a>
 <p>At this point, let's go back to the file we had  previously built
 that parses control  constructs.    Remember  those  little dummy
 procedures called Condition and  Expression?    Now you know what
@@ -921,7 +922,7 @@ that any letter not a keyword just gets echoed as a block.</p>
 <p>Try <code>ia=bxlye</code></p>
 <p>which stands for &quot;IF a=b X ELSE Y ENDIF&quot;.</p>
 <p>What do you think?  Did it work?  Try some others.</p>
-<a class="header" href="#adding-assignments" id="adding-assignments"><h1>ADDING ASSIGNMENTS</h1></a>
+<a class="header" href="#adding-assignments" id="adding-assignments"><h2>ADDING ASSIGNMENTS</h2></a>
 <p>As long as we're this far,  and  we already have the routines for
 expressions in place, we might  as well replace the &quot;blocks&quot; with
 real assignment statements.    We've already done that before, so

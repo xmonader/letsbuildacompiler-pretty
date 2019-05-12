@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="tutor01_introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="tutor02_expressionparsing.html"><strong aria-hidden="true">2.</strong> Expression Parsing</a></li><li><a href="tutor03_moreexpressions.html"><strong aria-hidden="true">3.</strong> More Expressions</a></li><li><a href="tutor04_interpreters.html" class="active"><strong aria-hidden="true">4.</strong> Interpreters</a></li><li><a href="tutor05_controlstructs.html"><strong aria-hidden="true">5.</strong> Control Constructs</a></li><li><a href="tutor06_booleanexpressions.html"><strong aria-hidden="true">6.</strong> Boolean Expressions</a></li><li><a href="tutor07_lexicalscanning.html"><strong aria-hidden="true">7.</strong> Lexical Scanning</a></li><li><a href="tutor08_littlephilosophy.html"><strong aria-hidden="true">8.</strong> A Little Philosophy</a></li><li><a href="tutor09_atopview..html"><strong aria-hidden="true">9.</strong> A Top View</a></li><li><a href="tutor10_introducingtiny.html"><strong aria-hidden="true">10.</strong> Introducing Tiny</a></li><li><a href="tutor11_lexicalscanrevisit.html"><strong aria-hidden="true">11.</strong> Lexical Scan Revisit</a></li><li><a href="tutor12_miscellany.html"><strong aria-hidden="true">12.</strong> Miscellany</a></li><li><a href="tutor13_procedures.html"><strong aria-hidden="true">13.</strong> Procedures</a></li><li><a href="tutor14_types.html"><strong aria-hidden="true">14.</strong> Types</a></li><li><a href="tutor15_backtothefuture.html"><strong aria-hidden="true">15.</strong> Back to the Future</a></li><li><a href="tutor16_unitconstruction.html"><strong aria-hidden="true">16.</strong> Unit Construction</a></li></ol>
+            <ol class="chapter"><li class="affix"><a href="about.html">About this project</a></li><li class="affix"><a href="tutor01_introduction.html">Introduction</a></li><li class="affix"><a href="tutor02_expressionparsing.html">Expression Parsing</a></li><li class="affix"><a href="tutor03_moreexpressions.html">More Expressions</a></li><li class="affix"><a href="tutor04_interpreters.html" class="active">Interpreters</a></li><li class="affix"><a href="tutor05_controlstructs.html">Control Constructs</a></li><li class="affix"><a href="tutor06_booleanexpressions.html">Boolean Expressions</a></li><li class="affix"><a href="tutor07_lexicalscanning.html">Lexical Scanning</a></li><li class="affix"><a href="tutor08_littlephilosophy.html">A Little Philosophy</a></li><li class="affix"><a href="tutor09_atopview.html">A Top View</a></li><li class="affix"><a href="tutor10_introducingtiny.html">Introducing Tiny</a></li><li class="affix"><a href="tutor11_lexicalscanrevisit.html">Lexical Scan Revisit</a></li><li class="affix"><a href="tutor12_miscellany.html">Miscellany</a></li><li class="affix"><a href="tutor13_procedures.html">Procedures</a></li><li class="affix"><a href="tutor14_types.html">Types</a></li><li class="affix"><a href="tutor15_backtothefuture.html">Back to the Future</a></li><li class="affix"><a href="tutor16_unitconstruction.html">Unit Construction</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -136,7 +136,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#introduction" id="introduction"><h1>INTRODUCTION</h1></a>
+                        <a class="header" href="#part-iv-interpreters---24-july-1988" id="part-iv-interpreters---24-july-1988"><h1>Part IV: INTERPRETERS - 24 July 1988</h1></a>
+<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
 <p>In the first three installments of this series,  we've  looked at
 parsing and  compiling math expressions, and worked our way grad-
 ually and methodically from dealing  with  very  simple one-term,
@@ -252,7 +253,7 @@ should know that the parsing  routines  in  a  smarter translator
 will generally  return  things  to  their  caller,  and sometimes
 expect things as  well.    That's  the main reason for going over
 interpretation in this installment.</p>
-<a class="header" href="#the-interpreter" id="the-interpreter"><h1>THE INTERPRETER</h1></a>
+<a class="header" href="#the-interpreter" id="the-interpreter"><h2>THE INTERPRETER</h2></a>
 <p>OK, now that you know WHY we're going into all this, let's do it.
 Just to give you practice, we're going to start over with  a bare
 cradle and build up the translator all over again.  This time, of
@@ -407,7 +408,7 @@ end;
 </code></pre>
 <p>That was pretty easy, huh?  We're rapidly closing in on  a useful
 interpreter.</p>
-<a class="header" href="#a-little-philosophy" id="a-little-philosophy"><h1>A LITTLE PHILOSOPHY</h1></a>
+<a class="header" href="#a-little-philosophy" id="a-little-philosophy"><h2>A LITTLE PHILOSOPHY</h2></a>
 <p>Before going any further, there's something I'd like  to  call to
 your attention.  It's a concept that we've been making use  of in
 all these sessions, but I haven't explicitly mentioned it up till

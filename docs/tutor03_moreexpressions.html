@@ -136,7 +136,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#introduction" id="introduction"><h1>INTRODUCTION</h1></a>
+                        <a class="header" href="#part-iii-more-expressions---4-aug-1988" id="part-iii-more-expressions---4-aug-1988"><h1>Part III: MORE EXPRESSIONS - 4 Aug 1988</h1></a>
+<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
 <p>In the last installment, we examined the techniques used to parse
 and  translate a general math expression.  We  ended  up  with  a
 simple parser that  could handle arbitrarily complex expressions,
@@ -158,7 +159,7 @@ fundamental concepts.    As  you'll  see  in  a bit, it's an easy
 restriction to get rid of, so don't get  too  hung  up  about it.
 We'll use the trick when it serves us to do so, confident that we
 can discard it when we're ready to.</p>
-<a class="header" href="#variables" id="variables"><h1>VARIABLES</h1></a>
+<a class="header" href="#variables" id="variables"><h2>VARIABLES</h2></a>
 <p>Most expressions  that we see in practice involve variables, such
 as <code>b * b + 4 * a * c</code></p>
 <p>No  parser is much good without being able  to  deal  with  them.
@@ -215,7 +216,7 @@ extra lines of code.  Notice, too, how the if-else-else structure
 exactly parallels the BNF syntax equation.</p>
 <p>OK, compile and test this new version of the parser.  That didn't
 hurt too badly, did it?</p>
-<a class="header" href="#functions" id="functions"><h1>FUNCTIONS</h1></a>
+<a class="header" href="#functions" id="functions"><h2>FUNCTIONS</h2></a>
 <p>There is only one  other  common kind of factor supported by most
 languages: the function call.  It's really too early  for  us  to
 deal with functions well,  because  we  haven't yet addressed the
@@ -300,7 +301,7 @@ which kind of identifier it's dealing with.</p>
 should be used  whenever  you  encounter  an  ambiguous situation
 requiring further lookahead.   Even  if  you  had to look several
 tokens ahead, the principle would still work.</p>
-<a class="header" href="#more-on-error-handling" id="more-on-error-handling"><h1>MORE ON ERROR HANDLING</h1></a>
+<a class="header" href="#more-on-error-handling" id="more-on-error-handling"><h2>MORE ON ERROR HANDLING</h2></a>
 <p>As long as we're talking  philosophy,  there's  another important
 issue to point out:  error  handling.    Notice that although the
 parser correctly rejects (almost)  every malformed  expression we
@@ -350,7 +351,7 @@ define CR in the const statement:</p>
 </code></pre>
 <p>As usual, recompile the program and verify that it does what it's
 supposed to.</p>
-<a class="header" href="#assignment-statements" id="assignment-statements"><h1>ASSIGNMENT STATEMENTS</h1></a>
+<a class="header" href="#assignment-statements" id="assignment-statements"><h2>ASSIGNMENT STATEMENTS</h2></a>
 <p>OK,  at  this  point we have a parser that works very nicely. I'd
 like to  point  out  that  we  got  it  using  only  88  lines of
 executable code, not  counting  what  was  in  the  cradle.   The
@@ -399,7 +400,7 @@ language.      Compared  to  what  we've  already  done,  control
 statements  will be easy.  I'll be covering  them  in  the  fifth
 installment.  And the other statements will all fall in  line, as
 long as we remember to KISS.</p>
-<a class="header" href="#multi-character-tokens" id="multi-character-tokens"><h1>MULTI-CHARACTER TOKENS</h1></a>
+<a class="header" href="#multi-character-tokens" id="multi-character-tokens"><h2>MULTI-CHARACTER TOKENS</h2></a>
 <p>Throughout  this   series,   I've   been   carefully  restricting
 everything  we  do  to  single-character  tokens,  all  the while
 assuring  you  that  it wouldn't be difficult to extend to multi-
@@ -481,7 +482,7 @@ declared string[8].  (Clearly,  we  could  make the string length
 longer if we chose, but most assemblers limit the length anyhow.)
 Make  this  change,  and  then  recompile and test. <em>NOW</em> do  you
 believe that it's a simple change?</p>
-<a class="header" href="#white-space" id="white-space"><h1>WHITE SPACE</h1></a>
+<a class="header" href="#white-space" id="white-space"><h2>WHITE SPACE</h2></a>
 <p>Before we leave this parser for awhile, let's  address  the issue
 of  white  space.   As it stands now, the parser  will  barf  (or
 simply terminate) on a single space  character  embedded anywhere

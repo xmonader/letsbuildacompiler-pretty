@@ -136,7 +136,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#getting-started" id="getting-started"><h1>GETTING STARTED</h1></a>
+                        <a class="header" href="#part-ii-expression-parsing---24-july-1988" id="part-ii-expression-parsing---24-july-1988"><h1>Part II: EXPRESSION PARSING - 24 July 1988</h1></a>
+<a class="header" href="#introduction" id="introduction"><h2>Introduction</h2></a>
 <p>If you've read the introduction document to this series, you will
 already know what  we're  about.    You will also have copied the
 cradle software  into your Turbo Pascal system, and have compiled
@@ -151,7 +152,7 @@ That's  so  that  the beginners among you won't get totally lost.
 There are also  some  very  good  lessons to be learned early on,
 that will serve us well later.  For the more experienced readers:
 bear with me.  We'll get rolling soon enough.</p>
-<a class="header" href="#single-digits" id="single-digits"><h1>SINGLE DIGITS</h1></a>
+<a class="header" href="#single-digits" id="single-digits"><h2>SINGLE DIGITS</h2></a>
 <p>In keeping with the whole theme of this series (KISS, remember?),
 let's start with the absolutely most simple case we can think of.
 That, to me, is an expression consisting of a single digit.</p>
@@ -201,7 +202,7 @@ easier to deal with while we're experimenting.</p>
 <p>Also note that an expression must leave a result somewhere.  I've
 chosen the  68000  register  DO.    I  could have made some other
 choices, but this one makes sense.</p>
-<a class="header" href="#binary-expressions" id="binary-expressions"><h1>BINARY EXPRESSIONS</h1></a>
+<a class="header" href="#binary-expressions" id="binary-expressions"><h2>BINARY EXPRESSIONS</h2></a>
 <p>Now that we have that under our belt,  let's  branch  out  a bit.
 Admittedly, an &quot;expression&quot; consisting of only  one  character is
 not going to meet our needs for long, so let's see what we can do
@@ -328,7 +329,7 @@ telling  our  parser  that the only kinds of expressions that are
 legal are those  with  two  terms.    We  must  rewrite procedure
 Expression to be a lot more broadminded, and this is where things
 start to take the shape of a real parser.</p>
-<a class="header" href="#general-expressions" id="general-expressions"><h1>GENERAL EXPRESSIONS</h1></a>
+<a class="header" href="#general-expressions" id="general-expressions"><h2>GENERAL EXPRESSIONS</h2></a>
 <p>In the  REAL  world,  an  expression  can  consist of one or more
 terms, separated  by  &quot;addops&quot;  ('+'  or  '-').   In BNF, this is
 written <code>&lt;expression&gt; ::= &lt;term&gt; [&lt;addop&gt; &lt;term&gt;]*</code></p>
@@ -403,7 +404,7 @@ written <code>-(SP)</code> and a pop, <code>(SP)+</code> .</p>
 broken it.</p>
 <p>Once again, the generated code is less efficient than before, but
 it's a necessary step, as you'll see.</p>
-<a class="header" href="#multiplication-and-division" id="multiplication-and-division"><h1>MULTIPLICATION AND DIVISION</h1></a>
+<a class="header" href="#multiplication-and-division" id="multiplication-and-division"><h2>MULTIPLICATION AND DIVISION</h2></a>
 <p>Now let's get down to some REALLY serious business.  As  you  all
 know,  there  are  other  math   operators   than   &quot;addops&quot;  ...
 expressions can also have  multiply  and  divide operations.  You
@@ -521,7 +522,7 @@ end;
 of Pascal!  The output is starting to look really useful,  if you
 continue to overlook the inefficiency,  which  I  hope  you will.
 Remember, we're not trying to produce tight code here.</p>
-<a class="header" href="#parentheses" id="parentheses"><h1>PARENTHESES</h1></a>
+<a class="header" href="#parentheses" id="parentheses"><h2>PARENTHESES</h2></a>
 <p>We  can  wrap  up this part of the parser with  the  addition  of
 parentheses with  math expressions.  As you know, parentheses are
 a  mechanism to force a desired operator  precedence.    So,  for
@@ -564,7 +565,7 @@ Pascal code matches the BNF syntax.</p>
 <p>As usual, compile the new version and make sure that it correctly
 parses  legal sentences, and flags illegal  ones  with  an  error
 message.</p>
-<a class="header" href="#unary-minus" id="unary-minus"><h1>UNARY MINUS</h1></a>
+<a class="header" href="#unary-minus" id="unary-minus"><h2>UNARY MINUS</h2></a>
 <p>At  this  point,  we have a parser that can handle just about any
 expression, right?  OK, try this input sentence: <code>-1</code></p>
 <p>WOOPS!  It doesn't work, does it?   Procedure  Expression expects
@@ -630,7 +631,7 @@ our parser to take care of  these  things too, and I'll also show
 you just  how easily we can accomodate multicharacter numbers and
 variable names.  So you see,  we're  not  far at all from a truly
 useful parser.</p>
-<a class="header" href="#a-word-about-optimization" id="a-word-about-optimization"><h1>A WORD ABOUT OPTIMIZATION</h1></a>
+<a class="header" href="#a-word-about-optimization" id="a-word-about-optimization"><h2>A WORD ABOUT OPTIMIZATION</h2></a>
 <p>Earlier in this session, I promised to give you some hints  as to
 how we can improve the quality of the generated code.  As I said,
 the  production of tight code is not the  main  purpose  of  this

@@ -136,7 +136,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#introduction" id="introduction"><h1>INTRODUCTION</h1></a>
+                        <a class="header" href="#part-v-control-constructs---19-august-1988" id="part-v-control-constructs---19-august-1988"><h1>Part V: CONTROL CONSTRUCTS - 19 August 1988</h1></a>
+<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
 <p>In  the  first  four  installments  of  this  series, we've  been
 concentrating on the parsing of math  expressions  and assignment
 statements.  In  this  installment,  we'll  take off on a new and
@@ -154,7 +155,7 @@ Imagine my surprise to  discover  that it was far easier than the
 expression  parsing  I  had  already  been through.   I  remember
 thinking, &quot;Hey! This is EASY!&quot; After we've finished this session,
 I'll bet you'll be thinking so, too.</p>
-<a class="header" href="#the-plan" id="the-plan"><h1>THE PLAN</h1></a>
+<a class="header" href="#the-plan" id="the-plan"><h2>THE PLAN</h2></a>
 <p>In what follows, we'll be starting over again with a bare cradle,
 and as we've done twice before now, we'll build things up  one at
 a time.  We'll also  be retaining the concept of single-character
@@ -246,7 +247,7 @@ adding to it in a bit!)</p>
 Block in the main program, by  a  call  to DoProgram.  Now try it
 and  see  how  it works.  Well, it's still not  much,  but  we're
 getting closer.</p>
-<a class="header" href="#some-groundwork" id="some-groundwork"><h1>SOME GROUNDWORK</h1></a>
+<a class="header" href="#some-groundwork" id="some-groundwork"><h2>SOME GROUNDWORK</h2></a>
 <p>Before we begin to define the various control constructs, we need
 to  lay a bit more groundwork.  First, a word of warning: I won't
 be using the same syntax  for these constructs as you're familiar
@@ -365,7 +366,7 @@ for &quot;Branch on zero&quot; is BEQ.  So for our purposes here,</p>
 <p>It's the nature of the beast that most  of  the  branches  we see
 will  be  BEQ's  ...  we'll  be branching AROUND the code  that's
 supposed to be executed when the condition is true.</p>
-<a class="header" href="#the-if-statement" id="the-if-statement"><h1>THE IF STATEMENT</h1></a>
+<a class="header" href="#the-if-statement" id="the-if-statement"><h2>THE IF STATEMENT</h2></a>
 <p>With that bit of explanation out of the way, we're  finally ready
 to begin coding the IF-statement parser.  In  fact,  we've almost
 already  done  it!   As usual, I'll be using our single-character
@@ -502,7 +503,7 @@ less case, try</p>
 <p>Now try some nested IF's.  Try anything you like,  including some
 badly formed statements.   Just  remember that 'e' is not a legal
 &quot;other&quot; statement.</p>
-<a class="header" href="#the-while-statement" id="the-while-statement"><h1>THE WHILE STATEMENT</h1></a>
+<a class="header" href="#the-while-statement" id="the-while-statement"><h2>THE WHILE STATEMENT</h2></a>
 <p>The next type of statement should be easy, since we  already have
 the process  down  pat.    The  syntax  I've chosen for the WHILE
 statement is</p>
@@ -586,7 +587,7 @@ almost falls out  from  there,  and  it doesn't affect any of the
 other routines.  Once you've gotten the feel of the thing, you'll
 see that you  can  add  new  constructs  about as fast as you can
 dream them up.</p>
-<a class="header" href="#the-loop-statement" id="the-loop-statement"><h1>THE LOOP STATEMENT</h1></a>
+<a class="header" href="#the-loop-statement" id="the-loop-statement"><h2>THE LOOP STATEMENT</h2></a>
 <p>We could stop right here, and  have  a language that works.  It's
 been  shown  many  times that a high-order language with only two
 constructs, the IF and the WHILE, is sufficient  to  write struc-
@@ -627,7 +628,7 @@ end;
 </code></pre>
 <p>When you insert this routine, don't forget to add a line in Block
 to call it.</p>
-<a class="header" href="#repeat-until" id="repeat-until"><h1>REPEAT-UNTIL</h1></a>
+<a class="header" href="#repeat-until" id="repeat-until"><h2>REPEAT-UNTIL</h2></a>
 <p>Here's one construct that I lifted right from Pascal.  The syntax
 is</p>
 <pre><code> `REPEAT &lt;block&gt; UNTIL &lt;condition&gt;`  ,
@@ -680,7 +681,7 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<a class="header" href="#the-for-loop" id="the-for-loop"><h1>THE FOR LOOP</h1></a>
+<a class="header" href="#the-for-loop" id="the-for-loop"><h2>THE FOR LOOP</h2></a>
 <p>The FOR loop  is a very handy one to have around, but it's a bear
 to translate.  That's not so much because the construct itself is
 hard ... it's only a loop  after  all ... but simply because it's
@@ -790,7 +791,7 @@ Expression, a typical input line would look something like</p>
 </code></pre>
 <p>Well, it DOES generate a lot of code, doesn't it?    But at least
 it's the RIGHT code.</p>
-<a class="header" href="#the-do-statement" id="the-do-statement"><h1>THE DO STATEMENT</h1></a>
+<a class="header" href="#the-do-statement" id="the-do-statement"><h2>THE DO STATEMENT</h2></a>
 <p>All this made me wish for a simpler version of the FOR loop.  The
 reason for all the code  above  is  the  need  to  have  the loop
 counter accessible as a variable within the loop.  If all we need
@@ -833,7 +834,7 @@ end;
 </code></pre>
 <p>I think you'll have to agree, that's a whole lot simpler than the
 classical FOR.  Still, each construct has its place.</p>
-<a class="header" href="#the-break-statement" id="the-break-statement"><h1>THE BREAK STATEMENT</h1></a>
+<a class="header" href="#the-break-statement" id="the-break-statement"><h2>THE BREAK STATEMENT</h2></a>
 <p>Earlier I promised you a BREAK statement to accompany LOOP.  This
 is  one  I'm sort of proud of.  On the face of it a  BREAK  seems
 really  tricky.  My first approach was to just use it as an extra
@@ -1014,7 +1015,7 @@ end;
 </code></pre>
 <p>The  two  extra  instructions,  the  SUBQ and ADDQ, take care  of
 leaving the stack in the right shape.</p>
-<a class="header" href="#conclusion" id="conclusion"><h1>CONCLUSION</h1></a>
+<a class="header" href="#conclusion" id="conclusion"><h2>CONCLUSION</h2></a>
 <p>At this point we have created a number of control  constructs ...
 a richer set, really, than that provided by almost any other pro-
 gramming language.  And,  except  for the FOR loop, it was pretty

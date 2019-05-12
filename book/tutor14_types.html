@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="tutor01_introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="tutor02_expressionparsing.html"><strong aria-hidden="true">2.</strong> Expression Parsing</a></li><li><a href="tutor03_moreexpressions.html"><strong aria-hidden="true">3.</strong> More Expressions</a></li><li><a href="tutor04_interpreters.html"><strong aria-hidden="true">4.</strong> Interpreters</a></li><li><a href="tutor05_controlstructs.html"><strong aria-hidden="true">5.</strong> Control Constructs</a></li><li><a href="tutor06_booleanexpressions.html"><strong aria-hidden="true">6.</strong> Boolean Expressions</a></li><li><a href="tutor07_lexicalscanning.html"><strong aria-hidden="true">7.</strong> Lexical Scanning</a></li><li><a href="tutor08_littlephilosophy.html"><strong aria-hidden="true">8.</strong> A Little Philosophy</a></li><li><a href="tutor09_atopview..html"><strong aria-hidden="true">9.</strong> A Top View</a></li><li><a href="tutor10_introducingtiny.html"><strong aria-hidden="true">10.</strong> Introducing Tiny</a></li><li><a href="tutor11_lexicalscanrevisit.html"><strong aria-hidden="true">11.</strong> Lexical Scan Revisit</a></li><li><a href="tutor12_miscellany.html"><strong aria-hidden="true">12.</strong> Miscellany</a></li><li><a href="tutor13_procedures.html"><strong aria-hidden="true">13.</strong> Procedures</a></li><li><a href="tutor14_types.html" class="active"><strong aria-hidden="true">14.</strong> Types</a></li><li><a href="tutor15_backtothefuture.html"><strong aria-hidden="true">15.</strong> Back to the Future</a></li><li><a href="tutor16_unitconstruction.html"><strong aria-hidden="true">16.</strong> Unit Construction</a></li></ol>
+            <ol class="chapter"><li class="affix"><a href="about.html">About this project</a></li><li class="affix"><a href="tutor01_introduction.html">Introduction</a></li><li class="affix"><a href="tutor02_expressionparsing.html">Expression Parsing</a></li><li class="affix"><a href="tutor03_moreexpressions.html">More Expressions</a></li><li class="affix"><a href="tutor04_interpreters.html">Interpreters</a></li><li class="affix"><a href="tutor05_controlstructs.html">Control Constructs</a></li><li class="affix"><a href="tutor06_booleanexpressions.html">Boolean Expressions</a></li><li class="affix"><a href="tutor07_lexicalscanning.html">Lexical Scanning</a></li><li class="affix"><a href="tutor08_littlephilosophy.html">A Little Philosophy</a></li><li class="affix"><a href="tutor09_atopview.html">A Top View</a></li><li class="affix"><a href="tutor10_introducingtiny.html">Introducing Tiny</a></li><li class="affix"><a href="tutor11_lexicalscanrevisit.html">Lexical Scan Revisit</a></li><li class="affix"><a href="tutor12_miscellany.html">Miscellany</a></li><li class="affix"><a href="tutor13_procedures.html">Procedures</a></li><li class="affix"><a href="tutor14_types.html" class="active">Types</a></li><li class="affix"><a href="tutor15_backtothefuture.html">Back to the Future</a></li><li class="affix"><a href="tutor16_unitconstruction.html">Unit Construction</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -136,7 +136,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#introduction" id="introduction"><h1>INTRODUCTION</h1></a>
+                        <a class="header" href="#part-xiv-types---26-may-1990" id="part-xiv-types---26-may-1990"><h1>Part XIV: TYPES - 26 May 1990</h1></a>
+<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
 <p>In the  last installment (Part XIII: PROCEDURES) I mentioned that
 in that part and this one,  we  would cover the two features that
 tend  to  separate  the toy language from a real, usable one.  We
@@ -182,7 +183,7 @@ Keep It Simple.  But we can't avoid the complexity entirely.   As
 has so often has happened, we end up having to trade code quality
 against complexity,  and  as  usual  I  will  tend to opt for the
 simplest approach.</p>
-<a class="header" href="#whats-coming-next" id="whats-coming-next"><h1>WHAT'S COMING NEXT?</h1></a>
+<a class="header" href="#whats-coming-next" id="whats-coming-next"><h2>WHAT'S COMING NEXT?</h2></a>
 <p>Before diving into the tutorial, I think you'd like to know where
 we are going  from  here  ...  especially since it's been so long
 since the last installment.</p>
@@ -254,7 +255,7 @@ from the book that's upcoming.</p>
 said  earlier,  we'll  do  this  one  as  we  did  in   the  last
 installment:  by  performing experiments  using  single-character
 tokens.</p>
-<a class="header" href="#the-symbol-table" id="the-symbol-table"><h1>THE SYMBOL TABLE</h1></a>
+<a class="header" href="#the-symbol-table" id="the-symbol-table"><h2>THE SYMBOL TABLE</h2></a>
 <p>It should be apparent that, if we're going to deal with variables
 of different types, we're going  to need someplace to record what
 those  types are.  The obvious vehicle for  that  is  the  symbol
@@ -570,7 +571,7 @@ declaring some entries in the main program.  Try these:</p>
 </code></pre>
 <p>This time, when  you  run  the  program, you should get an output
 showing that the symbol table is working right.</p>
-<a class="header" href="#adding-entries" id="adding-entries"><h1>ADDING ENTRIES</h1></a>
+<a class="header" href="#adding-entries" id="adding-entries"><h2>ADDING ENTRIES</h2></a>
 <p>Of course, writing to the table directly is pretty poor practice,
 and not one that will  help  us  much  later.   What we need is a
 procedure to add entries to the table.  At the same time, we know
@@ -625,7 +626,7 @@ end;
 <p>and run the program again.  Did it work?  Then we have the symbol
 table routines needed to support our work on types.  In  the next
 section, we'll actually begin to use them.</p>
-<a class="header" href="#allocating-storage" id="allocating-storage"><h1>ALLOCATING STORAGE</h1></a>
+<a class="header" href="#allocating-storage" id="allocating-storage"><h2>ALLOCATING STORAGE</h2></a>
 <p>In  other programs like this one,  including  the  TINY  compiler
 itself, we have  already  addressed the issue of declaring global
 variables, and the  code  generated  for  them.    Let's  build a
@@ -684,7 +685,7 @@ look familiar.  Note from the code for TopDecls that  the program
 is ended by a terminating period.</p>
 <p>While you're at it,  try  declaring  two  variables with the same
 name, and verify that the parser catches the error.</p>
-<a class="header" href="#declaring-types" id="declaring-types"><h1>DECLARING TYPES</h1></a>
+<a class="header" href="#declaring-types" id="declaring-types"><h2>DECLARING TYPES</h2></a>
 <p>Allocating storage of different sizes  is  as  easy  as modifying
 procedure TopDecls to recognize more than one keyword.  There are
 a  number  of  decisions to be made here, in terms  of  what  the
@@ -757,7 +758,7 @@ in each case, we are allocating the proper storage  size.    Note
 from the dumped symbol table that the sizes are also recorded for
 later use.  What later use?  Well, that's the subject of the rest
 of this installment.</p>
-<a class="header" href="#assignments" id="assignments"><h1>ASSIGNMENTS</h1></a>
+<a class="header" href="#assignments" id="assignments"><h2>ASSIGNMENTS</h2></a>
 <p>Now that we can declare variables of different  sizes,  it stands
 to reason that we ought to be able  to  do  something  with them.
 For our first trick, let's just try loading them into our working
@@ -997,7 +998,7 @@ quality of the  generated  code,  and  as usual, we will take the
 path that keeps the  compiler  simple.  I think you'll find that,
 with this approach, we can keep the potential complexity in check
 rather nicely.</p>
-<a class="header" href="#the-cowards-way-out" id="the-cowards-way-out"><h1>THE COWARD'S WAY OUT</h1></a>
+<a class="header" href="#the-cowards-way-out" id="the-cowards-way-out"><h2>THE COWARD'S WAY OUT</h2></a>
 <p>Before we get into the details (and potential complexity) of type
 conversion,  I'd  like  you to see that there is one super-simple
 way to solve the problem: simply promote every variable to a long
@@ -1052,7 +1053,7 @@ end;
 </code></pre>
 <p>With this version, a byte is treated as unsigned  (as  in  Pascal
 and C), while a word is treated as signed.</p>
-<a class="header" href="#a-more-reasonable-solution" id="a-more-reasonable-solution"><h1>A MORE REASONABLE SOLUTION</h1></a>
+<a class="header" href="#a-more-reasonable-solution" id="a-more-reasonable-solution"><h2>A MORE REASONABLE SOLUTION</h2></a>
 <p>As we've seen, promoting  every  variable  to  long while it's in
 memory solves the problem, but it can hardly be called efficient,
 and  probably wouldn't be acceptable even for  those  of  us  who
@@ -1179,7 +1180,7 @@ and we could easily modify Convert to handle this case, too.</p>
 think you can see  that  we could easily fix up procedure Convert
 to deal with these types as well.  This is  &quot;left  as an exercise
 for the student.&quot;</p>
-<a class="header" href="#literal-arguments" id="literal-arguments"><h1>LITERAL ARGUMENTS</h1></a>
+<a class="header" href="#literal-arguments" id="literal-arguments"><h2>LITERAL ARGUMENTS</h2></a>
 <p>Sharp-eyed readers might have noticed, though, that we don't even
 have a proper form of a simple factor yet, because we don't allow
 for loading literal constants,  only  variables.   Let's fix that
@@ -1272,7 +1273,7 @@ the job.)</p>
 <p>OK,  compile  this code into your program  and  give  it  a  try.
 You'll see that it now works for either variables or constants as
 valid expressions.</p>
-<a class="header" href="#additive-expressions" id="additive-expressions"><h1>ADDITIVE EXPRESSIONS</h1></a>
+<a class="header" href="#additive-expressions" id="additive-expressions"><h2>ADDITIVE EXPRESSIONS</h2></a>
 <p>If you've been following this series from the beginning, I'm sure
 you  know  what's coming next:  We'll  expand  the  form  for  an
 expression   to   handle   first   additive   expressions,   then
@@ -1517,7 +1518,7 @@ Try mixing up variables  of  different  sizes, and also literals.
 Make sure that everything's working properly.  As  usual,  it's a
 good  idea  to  try  some  erroneous expressions and see how  the
 compiler handles them.</p>
-<a class="header" href="#why-so-many-procedures" id="why-so-many-procedures"><h1>WHY SO MANY PROCEDURES?</h1></a>
+<a class="header" href="#why-so-many-procedures" id="why-so-many-procedures"><h2>WHY SO MANY PROCEDURES?</h2></a>
 <p>At this point, you may think  I've  pretty much gone off the deep
 end in terms of deeply nested procedures.  There is  admittedly a
 lot of overhead here.  But there's a method in my madness.  As in
@@ -1529,7 +1530,7 @@ For example, in cases where the value pushed onto the  stack does
 add&quot;  instruction.    If we choose to test for such cases, we can
 embed the extra tests into  PopAdd  and  PopSub  without changing
 anything else much.</p>
-<a class="header" href="#multiplicative-expressions" id="multiplicative-expressions"><h1>MULTIPLICATIVE EXPRESSIONS</h1></a>
+<a class="header" href="#multiplicative-expressions" id="multiplicative-expressions"><h2>MULTIPLICATIVE EXPRESSIONS</h2></a>
 <p>The procedure for dealing with multiplicative  operators  is much
 the  same.    In  fact,  at  the  first  level,  they are  almost
 identical, so I'll just show them here without much fanfare.  The
@@ -1598,7 +1599,7 @@ If  you'd  like  to test the program before we get into that, you
 can build dummy versions of them, similar to  PopAdd  and PopSub.
 Again, the code won't be correct at this point,  but  the  parser
 should handle expressions of arbitrary complexity.</p>
-<a class="header" href="#multiplication" id="multiplication"><h1>MULTIPLICATION</h1></a>
+<a class="header" href="#multiplication" id="multiplication"><h2>MULTIPLICATION</h2></a>
 <p>Once you've  convinced yourself that the parser itself is working
 properly, we need to figure out what it will take to generate the
 right code.  This is where  things  begin to get a little sticky,
@@ -1649,28 +1650,24 @@ table:</p>
           | Result = L      | Result = L      | Result = L      |
           |                 |                 |                 |
 -----------------------------------------------------------------
-
-This table shows the actions to be taken for each  combination of
+</code></pre>
+<p>This table shows the actions to be taken for each  combination of
 operand types.  There are three things to note: First,  we assume
 a library routine  MUL32  which  performs  a  32  x  32 multiply,
 leaving a &gt;&gt; 32-bit &lt;&lt; (not 64-bit) product.    If  there  is any
 overflow in the process,  we  choose to ignore it and return only
-the lower 32 bits.
-
-Second, note that the  table  is  symmetric  ... the two operands
+the lower 32 bits.</p>
+<p>Second, note that the  table  is  symmetric  ... the two operands
 enter in the same way.  Finally, note that the product  is ALWAYS
 a longword, except when  both  operands  are  bytes.  (It's worth
 noting, in passing, that  this  means  that many expressions will
 end up being longwords, whether we  like  it or not.  Perhaps the
 idea  of  just  promoting  them  all  up  front wasn't  all  that
-outrageous, after all!)
-
-Now, clearly, we are going to have to generate different code for
+outrageous, after all!)</p>
+<p>Now, clearly, we are going to have to generate different code for
 the 16-bit and 32-bit multiplies.  This is best  done  by  having
-separate code generator routines for the two cases:
-
-```delphi
-{---------------------------------------------------------------}
+separate code generator routines for the two cases:</p>
+<pre><code class="language-delphi">{---------------------------------------------------------------}
 { Multiply Top of Stack by Primary (Word) }
 
 procedure GenMult;
@@ -1720,7 +1717,7 @@ call one of the two code generator routines, and then  assign the
 result type.  Not too complicated, really.</p>
 <p>At this point, I suggest that you go ahead and test  the program.
 Try all combinations of operand sizes.</p>
-<a class="header" href="#division" id="division"><h1>DIVISION</h1></a>
+<a class="header" href="#division" id="division"><h2>DIVISION</h2></a>
 <p>The case of division is not nearly so  symmetric.    I  also have
 some bad news for you:</p>
 <p>All  modern  16-bit   CPU's   support   integer   divide.     The
@@ -1840,7 +1837,7 @@ end;
 <p>OK, install the new  procedures  for division.  At this point you
 should be able  to  generate  code  for  any  kind  of arithmetic
 expression.  Give it a whirl!</p>
-<a class="header" href="#beginning-to-wind-down" id="beginning-to-wind-down"><h1>BEGINNING TO WIND DOWN</h1></a>
+<a class="header" href="#beginning-to-wind-down" id="beginning-to-wind-down"><h2>BEGINNING TO WIND DOWN</h2></a>
 <p>At  last, in this installment, we've learned  how  to  deal  with
 variables (and literals) of different types.  As you can  see, it
 hasn't been too tough.  In  fact,  in  some ways most of the code
@@ -1889,7 +1886,7 @@ still not an unreasonably large number of procedures.</p>
 <p>What  we've  done  here is to collapse such a jump table into far
 fewer  procedures, simply by making use  of  symmetry  and  other
 simplifying rules.</p>
-<a class="header" href="#to-coerce-or-not-to-coerce" id="to-coerce-or-not-to-coerce"><h1>TO COERCE OR NOT TO COERCE</h1></a>
+<a class="header" href="#to-coerce-or-not-to-coerce" id="to-coerce-or-not-to-coerce"><h2>TO COERCE OR NOT TO COERCE</h2></a>
 <p>In case you haven't gotten this message yet, it sure appears that
 TINY and KISS will  probably  <em>NOT</em>  be strongly typed languages,
 since I've allowed for  automatic  mixing  and conversion of just
@@ -2029,7 +2026,7 @@ integers, I guess KISS  should,  also.    We've seen that logical
 operations  need to be able to extend  integers  in  an  unsigned
 fashion, so the unsigned conversion  procedures  are  required in
 any case.</p>
-<a class="header" href="#conclusion" id="conclusion"><h1>CONCLUSION</h1></a>
+<a class="header" href="#conclusion" id="conclusion"><h2>CONCLUSION</h2></a>
 <p>That wraps up our session on type conversions.  Sorry you  had to
 wait  so  long for it, but hope you feel that it  was  worth  the
 wait.</p>

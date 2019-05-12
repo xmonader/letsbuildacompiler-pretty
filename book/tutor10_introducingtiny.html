@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="tutor01_introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><a href="tutor02_expressionparsing.html"><strong aria-hidden="true">2.</strong> Expression Parsing</a></li><li><a href="tutor03_moreexpressions.html"><strong aria-hidden="true">3.</strong> More Expressions</a></li><li><a href="tutor04_interpreters.html"><strong aria-hidden="true">4.</strong> Interpreters</a></li><li><a href="tutor05_controlstructs.html"><strong aria-hidden="true">5.</strong> Control Constructs</a></li><li><a href="tutor06_booleanexpressions.html"><strong aria-hidden="true">6.</strong> Boolean Expressions</a></li><li><a href="tutor07_lexicalscanning.html"><strong aria-hidden="true">7.</strong> Lexical Scanning</a></li><li><a href="tutor08_littlephilosophy.html"><strong aria-hidden="true">8.</strong> A Little Philosophy</a></li><li><a href="tutor09_atopview..html"><strong aria-hidden="true">9.</strong> A Top View</a></li><li><a href="tutor10_introducingtiny.html" class="active"><strong aria-hidden="true">10.</strong> Introducing Tiny</a></li><li><a href="tutor11_lexicalscanrevisit.html"><strong aria-hidden="true">11.</strong> Lexical Scan Revisit</a></li><li><a href="tutor12_miscellany.html"><strong aria-hidden="true">12.</strong> Miscellany</a></li><li><a href="tutor13_procedures.html"><strong aria-hidden="true">13.</strong> Procedures</a></li><li><a href="tutor14_types.html"><strong aria-hidden="true">14.</strong> Types</a></li><li><a href="tutor15_backtothefuture.html"><strong aria-hidden="true">15.</strong> Back to the Future</a></li><li><a href="tutor16_unitconstruction.html"><strong aria-hidden="true">16.</strong> Unit Construction</a></li></ol>
+            <ol class="chapter"><li class="affix"><a href="about.html">About this project</a></li><li class="affix"><a href="tutor01_introduction.html">Introduction</a></li><li class="affix"><a href="tutor02_expressionparsing.html">Expression Parsing</a></li><li class="affix"><a href="tutor03_moreexpressions.html">More Expressions</a></li><li class="affix"><a href="tutor04_interpreters.html">Interpreters</a></li><li class="affix"><a href="tutor05_controlstructs.html">Control Constructs</a></li><li class="affix"><a href="tutor06_booleanexpressions.html">Boolean Expressions</a></li><li class="affix"><a href="tutor07_lexicalscanning.html">Lexical Scanning</a></li><li class="affix"><a href="tutor08_littlephilosophy.html">A Little Philosophy</a></li><li class="affix"><a href="tutor09_atopview.html">A Top View</a></li><li class="affix"><a href="tutor10_introducingtiny.html" class="active">Introducing Tiny</a></li><li class="affix"><a href="tutor11_lexicalscanrevisit.html">Lexical Scan Revisit</a></li><li class="affix"><a href="tutor12_miscellany.html">Miscellany</a></li><li class="affix"><a href="tutor13_procedures.html">Procedures</a></li><li class="affix"><a href="tutor14_types.html">Types</a></li><li class="affix"><a href="tutor15_backtothefuture.html">Back to the Future</a></li><li class="affix"><a href="tutor16_unitconstruction.html">Unit Construction</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -136,7 +136,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#introduction" id="introduction"><h1>INTRODUCTION</h1></a>
+                        <a class="header" href="#part-x-introducing-tiny---21-may-1989" id="part-x-introducing-tiny---21-may-1989"><h1>Part X: INTRODUCING &quot;TINY&quot; - 21 May 1989</h1></a>
+<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
 <p>In the last installment, I showed you the general  idea  for  the
 top-down development of  a  compiler.    I gave you the first few
 steps  of  the process for compilers for  Pascal  and  C,  but  I
@@ -178,7 +179,7 @@ Second, I want you to see how the development can indeed  be done
 from the top down as outlined in the last installment.   Finally,
 we both need the practice.  Each time I go through this exercise,
 I get a little better at it, and you will, also.</p>
-<a class="header" href="#getting-started" id="getting-started"><h1>GETTING STARTED</h1></a>
+<a class="header" href="#getting-started" id="getting-started"><h2>GETTING STARTED</h2></a>
 <p>Many  years  ago  there were languages called  Tiny  BASIC,  Tiny
 Pascal, and Tiny C, each of which was a subset of its parent full
 language.  Tiny BASIC,  for  example,  had  only single-character
@@ -384,7 +385,7 @@ end;
 might try some deliberate errors here, like omitting  the  'b' or
 the 'e', and see what happens.  As always,  the  compiler  should
 flag all illegal inputs.</p>
-<a class="header" href="#declarations" id="declarations"><h1>DECLARATIONS</h1></a>
+<a class="header" href="#declarations" id="declarations"><h2>DECLARATIONS</h2></a>
 <p>The obvious next step is to decide what we mean by a declaration.
 My  intent  here  is to have two kinds of declarations: variables
 and  procedures/functions.    At  the  top  level,   only  global
@@ -443,7 +444,7 @@ in a separate VAR statement.</p>
 <p>OK,  now  we  can have any  number  of  data  declarations,  each
 starting with a 'v' for VAR,  before  the BEGIN-block.  Try a few
 cases and see what happens.</p>
-<a class="header" href="#declarations-and-symbols" id="declarations-and-symbols"><h1>DECLARATIONS AND SYMBOLS</h1></a>
+<a class="header" href="#declarations-and-symbols" id="declarations-and-symbols"><h2>DECLARATIONS AND SYMBOLS</h2></a>
 <p>That looks pretty good, but  we're still only generating the null
 program  for  output.    A  real compiler would  issue  assembler
 directives to allocate storage for  the  variables.    It's about
@@ -510,7 +511,7 @@ end;
 <p>OK, now compile this code and give it  a  try.    Try a number of
 lines of VAR declarations, try a list of several variables on one
 line, and try combinations of the two.  Does it work?</p>
-<a class="header" href="#initializers" id="initializers"><h1>INITIALIZERS</h1></a>
+<a class="header" href="#initializers" id="initializers"><h2>INITIALIZERS</h2></a>
 <p>As long as we're dealing with data declarations, one thing that's
 always  bothered  me  about  Pascal  is  that  it  doesn't  allow
 initializing  data items in the declaration.    That  feature  is
@@ -593,7 +594,7 @@ end;
 </code></pre>
 <p>Now  you should be able to  initialize  variables  with  negative
 and/or multi-digit values.</p>
-<a class="header" href="#the-symbol-table" id="the-symbol-table"><h1>THE SYMBOL TABLE</h1></a>
+<a class="header" href="#the-symbol-table" id="the-symbol-table"><h2>THE SYMBOL TABLE</h2></a>
 <p>There's one problem  with  the  compiler  as it stands so far: it
 doesn't do anything to record a variable when we declare it.   So
 the compiler is perfectly content to allocate storage for several
@@ -643,7 +644,7 @@ Alloc:</p>
 <p>That  should  do  it.  The  compiler  will  now  catch  duplicate
 declarations.  Later, we can  also  use  InTable  when generating
 references to the variables.</p>
-<a class="header" href="#executable-statements" id="executable-statements"><h1>EXECUTABLE STATEMENTS</h1></a>
+<a class="header" href="#executable-statements" id="executable-statements"><h2>EXECUTABLE STATEMENTS</h2></a>
 <p>At this point, we can generate a null program that has  some data
 variables  declared  and  possibly initialized.  But  so  far  we
 haven't arranged to generate the first line of executable code.</p>
@@ -1025,7 +1026,7 @@ end;
 check  it out.  You should  be  seeing  reasonable-looking  code,
 representing a complete program that will  assemble  and execute.
 We have a compiler!</p>
-<a class="header" href="#booleans" id="booleans"><h1>BOOLEANS</h1></a>
+<a class="header" href="#booleans" id="booleans"><h2>BOOLEANS</h2></a>
 <p>The next step should also  be  familiar  to  you.    We  must add
 Boolean  expressions  and relational operations.    Again,  since
 we've already dealt with them more than once,  I  won't elaborate
@@ -1336,7 +1337,7 @@ example:</p>
 
 </code></pre>
 <p>See how this assigns a Boolean value to X?</p>
-<a class="header" href="#control-structures" id="control-structures"><h1>CONTROL STRUCTURES</h1></a>
+<a class="header" href="#control-structures" id="control-structures"><h2>CONTROL STRUCTURES</h2></a>
 <p>We're almost home.   With  Boolean  expressions  in place, it's a
 simple  matter  to  add control structures.  For TINY, we'll only
 allow two kinds of them, the IF and the WHILE:</p>
@@ -1482,7 +1483,7 @@ the control constructs.  It's looking pretty good!</p>
 <p>As a matter  of  fact, except for the single-character limitation
 we've got a virtually complete version of TINY.  I call  it, with
 tongue planted firmly in cheek, TINY Version 0.1.</p>
-<a class="header" href="#lexical-scanning" id="lexical-scanning"><h1>LEXICAL SCANNING</h1></a>
+<a class="header" href="#lexical-scanning" id="lexical-scanning"><h2>LEXICAL SCANNING</h2></a>
 <p>Of course, you know what's next:  We have to convert  the program
 so that  it can deal with multi-character keywords, newlines, and
 whitespace.   We have just gone through all  that  in  Part  VII.
@@ -1809,7 +1810,7 @@ complete listing of the final form is given later.)</p>
 <p>Did it work?  If so, then we're just about home.  In fact, with a
 few minor  exceptions we've already got a compiler that's usable.
 There are still a few areas that need improvement.</p>
-<a class="header" href="#multi-character-variable-names" id="multi-character-variable-names"><h1>MULTI-CHARACTER VARIABLE NAMES</h1></a>
+<a class="header" href="#multi-character-variable-names" id="multi-character-variable-names"><h2>MULTI-CHARACTER VARIABLE NAMES</h2></a>
 <p>One of those is  the  restriction  that  we still have, requiring
 single-character variable names.    Now that we can handle multi-
 character keywords, this one  begins  to  look  very much like an
@@ -1904,7 +1905,7 @@ end;
 </code></pre>
 <p>That should do it.  Try it out and verify  that  you can, indeed,
 use multi-character variable names.</p>
-<a class="header" href="#more-relops" id="more-relops"><h1>MORE RELOPS</h1></a>
+<a class="header" href="#more-relops" id="more-relops"><h2>MORE RELOPS</h2></a>
 <p>We still have one remaining single-character restriction: the one
 on relops.  Some of the relops are indeed single  characters, but
 others  require two.  These are <code>'&lt;='</code> and <code>'&gt;='</code>.  I also prefer the
@@ -2007,7 +2008,7 @@ end;
 </code></pre>
 <p>That's all it takes.  Now  you  can  process all the relops.  Try
 it.</p>
-<a class="header" href="#inputoutput" id="inputoutput"><h1>INPUT/OUTPUT</h1></a>
+<a class="header" href="#inputoutput" id="inputoutput"><h2>INPUT/OUTPUT</h2></a>
 <p>We  now  have  a complete, working language, except for one minor
 embarassment: we have no way to get data in or out.  We need some
 I/O.</p>
@@ -2150,7 +2151,7 @@ end;
 {--------------------------------------------------------------}
 </code></pre>
 <p>That's all there is to it.  <em>NOW</em> we have a language!</p>
-<a class="header" href="#conclusion" id="conclusion"><h1>CONCLUSION</h1></a>
+<a class="header" href="#conclusion" id="conclusion"><h2>CONCLUSION</h2></a>
 <p>At this point we have TINY completely defined.  It's not much ...
 actually a toy  compiler.    TINY  has  only one data type and no
 subroutines  ... but it's a complete,  usable  language.    While
@@ -3313,7 +3314,7 @@ end.
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="tutor09_atopview..html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="tutor09_atopview.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
@@ -3331,7 +3332,7 @@ end.
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="tutor09_atopview..html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="tutor09_atopview.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 

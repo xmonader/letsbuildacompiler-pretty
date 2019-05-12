@@ -136,7 +136,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#introduction" id="introduction"><h1>INTRODUCTION</h1></a>
+                        <a class="header" href="#part-16-unit-construction---29-may-1995" id="part-16-unit-construction---29-may-1995"><h2>Part 16: UNIT CONSTRUCTION - 29 May, 1995</h2></a>
+<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
 <p>This series of tutorials promises to be perhaps one of the longest-
 running mini-series in history, rivalled only by the delay in Volume IV
 of Knuth.  Begun in 1988, the series ran into a four-year hiatus in 1990
@@ -240,7 +241,7 @@ Scanner).  Similarly, the code generator unit, CodeGen, contains all of
 the code dependent upon the target machine.  In this installment, we'll
 be continuing with the development of the functions in these two all-
 important units.</p>
-<a class="header" href="#just-like-classical" id="just-like-classical"><h1>JUST LIKE CLASSICAL?</h1></a>
+<a class="header" href="#just-like-classical" id="just-like-classical"><h2>JUST LIKE CLASSICAL?</h2></a>
 <p>Before we proceed, however, I think I should clarify the relationship<br />
 between, and the functionality of these units.  Those of you who are
 familiar with compiler theory as taught in universities will, of course,
@@ -345,7 +346,7 @@ separate pass, implemented in a back end. Frankly, I don't see that
 we'll ever find a need for this approach, but there is the connection,
 if you choose to follow it, between the classical and the current
 approaches.</p>
-<a class="header" href="#fleshing-out-the-parser" id="fleshing-out-the-parser"><h1>FLESHING OUT THE PARSER</h1></a>
+<a class="header" href="#fleshing-out-the-parser" id="fleshing-out-the-parser"><h2>FLESHING OUT THE PARSER</h2></a>
 <p>Though I promised you, somewhere along about Installment 14, that we'd
 never again write every single function from scratch, I ended up
 starting to do just that in Installment 15.  One reason: that long
@@ -447,7 +448,7 @@ follow John's advice, and our first step will not be to add a peephole
 optimizer or other after-the-fact device, but to improve the quality of
 the code emitted before optimization.  So make a note of SignedFactor as
 a good first candidate for attention, and for now we'll leave it be.</p>
-<a class="header" href="#terms-and-expressions" id="terms-and-expressions"><h1>TERMS AND EXPRESSIONS</h1></a>
+<a class="header" href="#terms-and-expressions" id="terms-and-expressions"><h2>TERMS AND EXPRESSIONS</h2></a>
 <p>I'm sure you know what's coming next: We must, yet again, create the
 rest of the procedures that implement the recursive-descent parsing of
 an expression.  We all know that the hierarchy of procedures for
@@ -650,7 +651,7 @@ end;
 <p>At this point, your &quot;compiler&quot; should be able to handle any legal
 expression you can throw at it.  Better yet, it should reject all
 illegal ones!</p>
-<a class="header" href="#assignments" id="assignments"><h1>ASSIGNMENTS</h1></a>
+<a class="header" href="#assignments" id="assignments"><h2>ASSIGNMENTS</h2></a>
 <p>As long as we're this close, we might as well create the code to deal
 with an assignment statement.  This code needs only to remember the name
 of the target variable where we are to store the result of an
@@ -693,7 +694,7 @@ did.  Here's the BNF:</p>
 &lt;expression&gt;  ::= &lt;signed_term&gt; (&lt;addop&gt; &lt;term&gt;)* 
 &lt;assignment&gt;  ::= &lt;variable&gt; '=' &lt;expression&gt; 
 </code></pre>
-<a class="header" href="#booleans" id="booleans"><h1>BOOLEANS</h1></a>
+<a class="header" href="#booleans" id="booleans"><h2>BOOLEANS</h2></a>
 <p>The next step, as we've learned several times before, is to add Boolean
 algebra.  In the past, this step has at least doubled the amount of code
 we've had to write.  As I've gone over this step in my mind, I've found
@@ -874,7 +875,7 @@ to prevent mixed-type arithmetic:  I won't.  For a language
 intended for systems programming, the fewer rules, the better. If
 you don't agree, and want to test for such conditions, we can do
 it once we have a symbol table.</p>
-<a class="header" href="#boolean-and" id="boolean-and"><h1>BOOLEAN &quot;AND&quot;</h1></a>
+<a class="header" href="#boolean-and" id="boolean-and"><h2>BOOLEAN &quot;AND&quot;</h2></a>
 <p>With that bit of philosophy out of the way, we can press on to the
 &quot;and&quot; operator, which goes into procedure Term. By now, you can
 probably do this without me, but here's the code, anyway:</p>
