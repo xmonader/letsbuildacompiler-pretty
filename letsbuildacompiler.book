@@ -1,0 +1,34 @@
+author: Jack Crenshaw
+title: Let's Build a Compiler
+lang: en
+
+## Output formats
+
+# Uncomment and fill to generate files
+# output.html: some_file.html
+# output.epub: some_file.epub
+# output.pdf: some_file.pdf
+
+# Or uncomment the following to generate PDF, HTML and EPUB files based on this file's name
+output: [pdf, epub, html]
+
+# Uncomment and fill to set cover image (for EPUB)
+# cover: some_cover.png
+
+## List of chapters
++ src/tutor01_introduction.md
++ src/tutor02_expressionparsing.md
++ src/tutor03_moreexpressions.md
++ src/tutor04_interpreters.md
++ src/tutor05_controlstructs.md
++ src/tutor06_booleanexpressions.md
++ src/tutor07_lexicalscanning.md
++ src/tutor08_littlephilosophy.md
++ src/tutor09_atopview.md
++ src/tutor10_introducingtiny.md
++ src/tutor11_lexicalscanrevisit.md
++ src/tutor12_miscellany.md
++ src/tutor13_procedures.md
++ src/tutor14_types.md
++ src/tutor15_backtothefuture.md
++ src/tutor16_unitconstruction.md
