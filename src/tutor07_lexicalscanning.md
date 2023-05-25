@@ -205,7 +205,7 @@ in brackets, and the '+', one or more.)
 We  have already dealt with similar  items  in  Installment  III.
 Let's begin (as usual) with a bare cradle.  Not  surprisingly, we
 are going to need a new recognizer:
-                              
+
 ```delphi
 {--------------------------------------------------------------}
 { Recognize an Alphanumeric Character }
@@ -465,7 +465,7 @@ end.
 Note the "guard"  test  preceding  the  call to Fin.  That's what
 makes the whole thing work, and ensures that we don't try to read
 a line ahead.
-                             
+
 Try the code now. I think you'll like it better.
 
 If you refer to the code  we  did in the last installment, you'll
@@ -518,7 +518,7 @@ them if necessary.
 
 Needless to say, we  can  handle operators very much the same way
 as the other tokens.  Let's start with a recognizer:
-                             
+
 ```delphi
 {--------------------------------------------------------------}
 { Recognize Any Operator }
@@ -572,7 +572,7 @@ tokens.
 
 Before getting back to the main thrust of our study, I'd  like to
 get on my soapbox for a moment.
-                             
+
 How many times have you worked with a program or operating system
 that had rigid rules about how you must separate items in a list?
 (Try,  the  last  time  you  used MSDOS!)  Some programs  require
@@ -734,7 +734,7 @@ Next, insert the following new function:
 
 { If the input string matches a table entry, return the entry
   index.  If not, return a zero.  }
-                             
+
 function Lookup(T: TabPtr; s: string; n: integer): integer;
 var i: integer;
     found: boolean;
@@ -787,7 +787,7 @@ and arrange to return a variable of this type.   Let's  give it a
 try.  Insert the line above into your type definitions.
 
 Now, add the two variable declarations:
-                             
+
 ```delphi
     Token: Symtype;          { Current Token  }
     Value: String[16];       { String Token of Look }
@@ -889,7 +889,7 @@ begin
    else
       Token := SymType(k-1);
 end;
-                             
+
 {--------------------------------------------------------------}
 { Get a Number }
 
@@ -942,7 +942,7 @@ begin
    SkipWhite;
 end;
 {--------------------------------------------------------------}
-```                        
+```
 
 ## RETURNING A CHARACTER
 
@@ -1092,7 +1092,7 @@ The structure for the lexical scanner that I've just shown you is
 very conventional, and  about  99% of all compilers use something
 very  close  to it.  This is  not,  however,  the  only  possible
 structure, or even always the best one.
-                             
+
 The problem with the  conventional  approach  is that the scanner
 has no knowledge of context.  For example,  it  can't distinguish
 between the assignment operator '=' and  the  relational operator
@@ -1201,7 +1201,7 @@ procedure GetChar;
 begin
    Read(Look);
 end;
-                             
+
 
 {--------------------------------------------------------------}
 { Report an Error }
@@ -1256,7 +1256,7 @@ function IsAlNum(c: char): boolean;
 begin
    IsAlNum := IsAlpha(c) or IsDigit(c);
 end;
-                             
+
 {--------------------------------------------------------------}
 { Recognize an Addop }
 
@@ -1365,7 +1365,7 @@ end;
 
 {--------------------------------------------------------------}
 { Output a String with Tab }
-                             
+
 procedure Emit(s: string);
 begin
    Write(TAB, s);
@@ -1474,7 +1474,7 @@ begin
       end;
    end;
 end;
-                             
+
 
 {---------------------------------------------------------------}
 { Parse and Translate a Math Term }
@@ -1584,7 +1584,7 @@ begin
    EmitLn('LEA ' + Name + '(PC),A0');
    EmitLn('MOVE D0,(A0)');
 end;
-                             
+
 
 {--------------------------------------------------------------}
 { Recognize and Translate a Statement Block }
@@ -1694,7 +1694,7 @@ Here is the program in its entirety:
 ```delphi
 {--------------------------------------------------------------}
 program KISS;
-                             
+
 {--------------------------------------------------------------}
 { Constant Declarations }
 
@@ -1911,7 +1911,7 @@ begin
    GetName;
    Token := KWcode[Lookup(Addr(KWlist), Value, 4) + 1];
 end;
-                             
+
 
 {--------------------------------------------------------------}
 { Match a Specific Input String }

@@ -529,7 +529,7 @@ Now change the three lines in the main program to read:
      AddEntry('A', 'a');
      AddEntry('P', 'b');
      AddEntry('X', 'c');
-```                         
+```
 
 and run the program again.  Did it work?  Then we have the symbol
 table routines needed to support our work on types.  In  the next
@@ -2018,7 +2018,7 @@ simplifying rules.
 In case you haven't gotten this message yet, it sure appears that
 TINY and KISS will  probably  _NOT_  be strongly typed languages,
 since I've allowed for  automatic  mixing  and conversion of just
-about any type.  Which brings up the next issue:  `Is this really what we want to do?` 
+about any type.  Which brings up the next issue:  `Is this really what we want to do?`
 
 The answer depends on what kind of language you want, and the way
 you'd like it to behave.  What we have not addressed is the issue

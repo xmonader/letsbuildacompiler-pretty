@@ -484,7 +484,7 @@ The assignment statement parallels what we did before:
 ```delphi
 {--------------------------------------------------------------}
 { Parse and Translate an Assignment Statement }
-                             
+
 
 
 procedure Assignment;
@@ -642,5 +642,3 @@ taken  care  of, as we did in the last session.   This  time,  if
 you'd like to play around with these extensions, be my  guest ...
 they're  "left as an exercise for the student."    See  you  next
 time.
-
-

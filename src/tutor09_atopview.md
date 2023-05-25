@@ -43,7 +43,7 @@ structure of the compiler depends very much on the language being
 translated, so the simplicity and  ease  of  construction  of the
 compiler  depends  very  much  on  letting the language  set  the
 program structure.
-                              
+
 It's  a bit much to produce a full C or Pascal compiler here, and
 we won't try.   But we can flesh out the top levels far enough so
 that you can see how it goes.
@@ -97,7 +97,7 @@ just as we've done before.  For each one, we'll use  our familiar
 single-character tokens to represent the input, then flesh things
 out a little at a time.    Let's begin with the first recognizer:
 the program itself.
-                              
+
 To translate this, we'll  start  with a fresh copy of the Cradle.
 Since we're back to single-character  names, we'll just use a 'p'
 to stand for 'PROGRAM.'
@@ -151,7 +151,7 @@ begin
    EmitLn('END ' + Name);
 end;
 {--------------------------------------------------------------}
-```                       
+```
 As usual, add  this  code  and  try  out the "compiler."  At this
 point, there is only one legal input:
 
@@ -259,7 +259,7 @@ The BNF for Pascal declarations is:
                           <variable list> |
                           <procedure>     |
                           <function>         )*
-                              
+
 ```
 (Note  that  I'm  using the more liberal definition used by Turbo
 Pascal.  In the standard Pascal definition, each  of  these parts
@@ -367,7 +367,7 @@ for it is:
 ```
 Note that statements can  begin  with  any identifier except END.
 So the first stub form of procedure Statements is:
-                              
+
 ```delphi
 {--------------------------------------------------------------}
 { Parse and Translate the Statement Part }
@@ -476,7 +476,7 @@ impress upon you these two facts:
      another.    It's  a very bad idea to try to  force  a  given
      structure upon the compiler.  Rather, you should let the BNF
      drive the structure, as we have done here.
-                             
+
  (2) A language that is hard to write BNF for  will  probably  be
      hard  to  write  a compiler for, as well.  C  is  a  popular
      language,  and  it  has  a  reputation  for  letting you  do
@@ -531,7 +531,7 @@ end;
 Note that I've had to use a ^Z to indicate the end of the source.
 C has no keyword such as END or the '.' to otherwise indicate the
 end.
-                             
+
 With full C,  things  aren't  even  this easy.  The problem comes
 about because in full C, functions can also have types.   So when
 the compiler sees a  keyword  like  "int,"  it still doesn't know

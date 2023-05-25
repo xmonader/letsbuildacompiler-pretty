@@ -42,7 +42,7 @@ and  use without a whole lot of understanding of how it works.  I
 hope to do much more  than  that.    I  hope to teach you HOW the
 things get done,  so that you can go off on your own and not only
 reproduce what I have done, but improve on it.
-                              
+
 This is admittedly an ambitious undertaking, and it won't be done
 in  one page.  I expect to do it in the course  of  a  number  of
 articles.    Each  article will cover a single aspect of compiler
@@ -91,7 +91,7 @@ recursive descent parsing, which is the  _ONLY_  technique that's
 at  all   amenable  to  hand-crafting  a  compiler.    The  other
 approaches are only useful if you have a tool like YACC, and also
 don't care how much memory space the final product uses.
-                              
+
 I  also take a page from the work of Ron Cain, the author of  the
 original Small C.  Whereas almost all other compiler authors have
 historically  used  an  intermediate  language  like  P-code  and
@@ -202,7 +202,7 @@ const TAB = ^I;
 { Variable Declarations }
 
 var Look: char;              { Lookahead Character }
-                              
+
 {--------------------------------------------------------------}
 { Read New Character From Input Stream }
 
@@ -256,7 +256,7 @@ function IsAlpha(c: char): boolean;
 begin
    IsAlpha := upcase(c) in ['A'..'Z'];
 end;
-                              
+
 
 {--------------------------------------------------------------}
 

@@ -152,7 +152,7 @@ end;
 
 The procedure Header just emits  the startup code required by the
 assembler:
-                              
+
 ```delphi
 {--------------------------------------------------------------}
 { Write Header Info }

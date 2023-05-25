@@ -7,4 +7,4 @@ The text sources are copyrighted to Jack W. Crenshaw
 ```
 Copyright (C) 1988 Jack W. Crenshaw. All rights reserved.
 ```
-So please tell me if I'm breaking it in anyway. 
+So please tell me if I'm breaking it in anyway.

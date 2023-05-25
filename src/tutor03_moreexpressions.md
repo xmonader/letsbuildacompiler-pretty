@@ -1,6 +1,6 @@
 # Part III: MORE EXPRESSIONS - 4 Aug 1988
 
-## INTRODUCTION 
+## INTRODUCTION
 
 In the last installment, we examined the techniques used to parse
 and  translate a general math expression.  We  ended  up  with  a
@@ -40,7 +40,7 @@ The '|' stands for "or", meaning of course that either form  is a
 legal form for a factor.   Remember,  too, that we had no trouble
 knowing which was which  ...  the  lookahead  character is a left
 paren '(' in one case, and a digit in the other.
-                              
+
 It probably won't come as too much of a surprise that  a variable
 is just another kind of factor.    So  we extend the BNF above to
 read:
@@ -93,7 +93,7 @@ exactly parallels the BNF syntax equation.
 
 OK, compile and test this new version of the parser.  That didn't
 hurt too badly, did it?
-                              
+
 
 ## FUNCTIONS
 
@@ -272,7 +272,7 @@ Of course, parsing an expression  is not much good without having
 something to do with it afterwards.  Expressions USUALLY (but not
 always) appear in assignment statements, in the form
 
-          `<Ident> = <Expression>` 
+          `<Ident> = <Expression>`
 
 We're only a breath  away  from being able to parse an assignment
 statement, so let's take that  last  step.  Just  after procedure
@@ -365,7 +365,7 @@ end;
 Add this function to your parser.  I put mine just after IsDigit.
 While you're  at  it,  might  as  well  include it as a permanent
 member of Cradle, too.
-                              
+
 Now, we need  to  modify  function  GetName  to  return  a string
 instead of a character:
 
@@ -528,7 +528,7 @@ functionality.)
 Finally, we need to skip over leading blanks where we  "prime the
 pump" in Init:
 
-```delphi                        
+```delphi
 {--------------------------------------------------------------}
 { Initialize }
 
@@ -583,7 +583,7 @@ end;
 
 {--------------------------------------------------------------}
 { Report Error and Halt }
-                             
+
 procedure Abort(s: string);
 begin
    Error(s);
@@ -638,7 +638,7 @@ end;
 
 {--------------------------------------------------------------}
 { Recognize White Space }
-                             
+
 function IsWhite(c: char): boolean;
 begin
    IsWhite := c in [' ', TAB];
@@ -855,7 +855,7 @@ end;
 
 {--------------------------------------------------------------}
 { Initialize }
-                             
+
 procedure Init;
 begin
    GetChar;

@@ -253,7 +253,7 @@ statement:
 
 These actions can be shown very concisely if we write  the syntax
 this way:
-                              
+
 ```
      IF
      <condition>    { Condition;
@@ -618,7 +618,7 @@ begin
    EmitLn('BRA ' + L);
 end;
 {--------------------------------------------------------------}
-```                         
+```
 
 When you insert this routine, don't forget to add a line in Block
 to call it.
@@ -726,7 +726,7 @@ adopt the point of view that the construct is equivalent to:
 
 Notice that with this definition of the loop, `<block>` will not be
 executed at all if `<expr1>` is initially larger than `<expr2>`.
-                             
+
 The 68000 code needed to do this is trickier than  anything we've
 done so far.  I had a couple  of  tries  at  it, putting both the
 counter  and  the    upper limit on the stack, both in registers,
@@ -835,7 +835,7 @@ there is a much easier solution.  The 68000 has a  "decrement and
 branch nonzero" instruction built in which is ideal for counting.
 For good measure, let's add this construct, too.   This  will  be
 the last of our loop structures.
-                             
+
 The syntax and its translation is:
 
 ```
@@ -889,7 +889,7 @@ likely place for a BREAK is right after an IF, which  would cause
 it to exit to the IF  construct,  not the enclosing loop.  WRONG.
 The  BREAK  has  to exit the inner LOOP, even if it's nested down
 into several levels of IFs.
-                             
+
 My next thought was that I would just store away, in  some global
 variable, the ending label of the innermost loop.    That doesn't
 work  either, because there may be a break  from  an  inner  loop
@@ -1082,7 +1082,7 @@ end;
 
 The  two  extra  instructions,  the  SUBQ and ADDQ, take care  of
 leaving the stack in the right shape.
-                             
+
 
 ## CONCLUSION
 
@@ -1188,7 +1188,7 @@ function IsDigit(c: char): boolean;
 begin
    IsDigit := c in ['0'..'9'];
 end;
-                             
+
 
 {--------------------------------------------------------------}
 { Recognize an Addop }
@@ -1291,7 +1291,7 @@ begin
    EmitLn('<condition>');
 end;
 
-                             
+
 
 
 {--------------------------------------------------------------}
@@ -1347,7 +1347,7 @@ begin
    EmitLn('BRA ' + L1);
    PostLabel(L2);
 end;
-                             
+
 
 {--------------------------------------------------------------}
 { Parse and Translate a LOOP Statement }

@@ -42,7 +42,7 @@ end;
 
 And add the  line  "Expression;"  to  the main program so that it
 reads:
-                              
+
 ```delphi
 {---------------------------------------------------------------}
 begin
@@ -94,7 +94,7 @@ to extend it. Suppose we want to handle expressions of the form:
 `1+2` or `4-3` or, in general, `<term> +/- <term>`
 
 (That's a bit of Backus-Naur Form, or BNF.)
-                              
+
 To do this we need a procedure that recognizes a term  and leaves
 its   result   somewhere,  and  another   that   recognizes   and
 distinguishes  between   a  '+'  and  a  '-'  and  generates  the
@@ -150,7 +150,7 @@ begin
    EmitLn('SUB D1,D0');
 end;
 {-------------------------------------------------------------}
-```                     
+```
 
 When you're finished with that,  the order of the routines should
 be:
@@ -301,7 +301,7 @@ now,  because  as  long as we deal with only the "addops" '+' and
 general that isn't true.  Consider, for example, the expression
 
                `1+(2-(3+(4-5)))`
-                              
+
 If we put the '1' in D1, where  do  we  put  the  `'2'`?    Since a
 general expression can have any degree of complexity, we're going
 to run out of registers fast!
@@ -487,7 +487,7 @@ etc., ad infinitum.
 
 Complicated or not, we can take care of this by adding just a few
 lines of Pascal to procedure Factor:
-                             
+
 ```delphi
 {---------------------------------------------------------------}
 { Parse and Translate a Math Factor }
@@ -587,7 +587,7 @@ starting  to  get  the  message  that we can  accomodate  further
 extensions  with  just  some  minor  changes to the parser.   You
 probably won't be  surprised  to  hear  that a variable or even a
 function call is just another kind of a factor.
-                             
+
 In  the next session, I'll show you just how easy it is to extend
 our parser to take care of  these  things too, and I'll also show
 you just  how easily we can accomodate multicharacter numbers and
@@ -643,7 +643,7 @@ There are two basic approaches we can take:
     few lines of output, and scan the buffer after each EmitLn.
 
   - Try to generate better code in the first place
-                             
+
     This approach calls for us to look for  special  cases BEFORE
     we Emit them.  As a trivial example,  we  should  be  able to
     identify a constant zero,  and  Emit a CLR instead of a load,
@@ -710,4 +710,3 @@ code quality without throwing away what we've done.
 Next lesson, I'll show you how to deal with variables factors and
 function calls.  I'll also show you just how easy it is to handle
 multicharacter tokens and embedded white space.
-

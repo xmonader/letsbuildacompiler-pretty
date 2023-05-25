@@ -96,7 +96,7 @@ KISS - The  language  I'm  building for my  own  use.    KISS  is
        have strong typing  or  fancy data structures, but it will
        support most of  the  things  I  want to do with a higher-
        order language (HOL), except perhaps writing compilers.
-                              
+
 I've also  been  toying  for  years  with  the idea of a HOL-like
 assembler,  with  structured  control  constructs   and  HOL-like
 assignment statements.  That, in  fact, was the impetus behind my
@@ -150,7 +150,7 @@ series,  I  wasn't  sure how far we would be able  to  go  before
 things got too complex to deal with in the ways  we  have so far.
 But at this point I've already  been  down the road far enough to
 see the end of it.  Guess what?
-                              
+
 
                      `THERE ARE NO HARD PARTS!`
 
@@ -260,7 +260,7 @@ past:
 
 
   -  Batch Processing
-                              
+
      In the early days, batch  processing was the only choice ...
      there was no interactive computing.   Even  today, compilers
      run in essentially batch mode.
