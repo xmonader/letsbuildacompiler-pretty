@@ -114,8 +114,8 @@ helpful in letting  me  understand what's going on without wading
 through a lot of boiler plate.  Chief among these  is  the use of
 single-character tokens, with no embedded spaces,  for  the early
 design work.  I figure that  if  I  can get a parser to recognize
-and deal with I-T-L, I can  get  it  to do the same with IF-THEN-
-ELSE.  And I can.  In the second "lesson,"   I'll  show  you just
+and deal with I-T-L, I can  get  it  to do the same with IF-THEN-ELSE.
+And I can.  In the second "lesson,"   I'll  show  you just
 how easy it  is  to  extend  a  simple parser to handle tokens of
 arbitrary length.  As another  trick,  I  completely  ignore file
 I/O, figuring that  if  I  can  read source from the keyboard and

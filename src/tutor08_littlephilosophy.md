@@ -94,8 +94,8 @@ TINY - A  minimal,  but  usable  language  on the order  of  Tiny
 KISS - The  language  I'm  building for my  own  use.    KISS  is
        intended to be  a  systems programming language.  It won't
        have strong typing  or  fancy data structures, but it will
-       support most of  the  things  I  want to do with a higher-
-       order language (HOL), except perhaps writing compilers.
+       support most of  the  things  I  want to do with a higher-order
+       language (HOL), except perhaps writing compilers.
 
 I've also  been  toying  for  years  with  the idea of a HOL-like
 assembler,  with  structured  control  constructs   and  HOL-like

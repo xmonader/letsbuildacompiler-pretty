@@ -219,8 +219,8 @@ language   is   involved.     You  can  learn  a  lot  about  the
 implementation by measuring  the  overhead  in  time  required to
 compile what should be a trivial case.  It's also  interesting to
 measure the amount of code produced.  In many compilers, the code
-can be fairly large, because they always include  the  whole run-
-time  library whether they need it or not.    Early  versions  of
+can be fairly large, because they always include  the  whole run-time
+library whether they need it or not.    Early  versions  of
 Turbo Pascal produced a 12K object file for  this  case.    VAX C
 generates 50K!
 
@@ -1427,8 +1427,8 @@ the  scanning, but in this case it seems a small price to pay for
 the added insurance.   Better  to find the errors at compile time
 rather than run time.
 
-One last thought:  The two constructs above each  have  the  non-
-terminals
+One last thought:  The two constructs above each  have  the
+non-terminals
 
 
       `<bool-expression> and <block>`
@@ -1576,8 +1576,8 @@ GetName, GetNum, and Match.    A call to SkipWhite in Init primes
 the pump in case there are leading spaces.
 
 Next, we need to deal with  newlines.   This is really a two-step
-process,  since  the  treatment  of  the  newlines  with  single-
-character tokens is different from that for multi-character ones.
+process,  since  the  treatment  of  the  newlines  with
+single-character tokens is different from that for multi-character ones.
 We can eliminate some work by doing both  steps  at  once,  but I
 feel safer taking things one step at a time.
 
@@ -1921,8 +1921,8 @@ There are still a few areas that need improvement.
 ## MULTI-CHARACTER VARIABLE NAMES
 
 One of those is  the  restriction  that  we still have, requiring
-single-character variable names.    Now that we can handle multi-
-character keywords, this one  begins  to  look  very much like an
+single-character variable names.    Now that we can handle
+multi-character keywords, this one  begins  to  look  very much like an
 arbitrary  and  unnecessary  limitation.    And  indeed   it  is.
 Basically, its only virtue is  that it permits a trivially simple
 implementation  of  the   symbol   table.    But  that's  just  a

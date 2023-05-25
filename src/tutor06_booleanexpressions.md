@@ -744,8 +744,8 @@ end;
 Now, that call to  Expression  looks familiar!  Here is where the
 editor of your system comes in handy.  We have  already generated
 code  for  Expression  and its buddies in previous sessions.  You
-can  copy  them  into your file now.  Remember to use the single-
-character  versions.  Just to be  certain,  I've  duplicated  the
+can  copy  them  into your file now.  Remember to use the
+single-character  versions.  Just to be  certain,  I've  duplicated  the
 arithmetic procedures below.  If  you're  observant,  you'll also
 see that I've changed them a little to make  them  correspond  to
 the latest version of the syntax.  This change is  NOT necessary,

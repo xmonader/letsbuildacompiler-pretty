@@ -4,8 +4,8 @@
 ## INTRODUCTION
 
 In the last installment, I left you with a  compiler  that  would
-ALMOST  work,  except  that  we  were  still  limited to  single-
-character tokens.  The purpose of  this  session is to get rid of
+ALMOST  work,  except  that  we  were  still  limited to
+single-character tokens.  The purpose of  this  session is to get rid of
 that restriction, once and for all.  This means that we must deal
 with the concept of the lexical scanner.
 
@@ -120,8 +120,8 @@ such as the definition of an identifier:
      `<ident> ::= <letter> [ <letter> | <digit> ]*`
 
 Since it takes a different kind of abstract machine to  parse the
-two  types  of  grammars, it makes sense to separate these lower-
-level functions into  a  separate  module,  the  lexical scanner,
+two  types  of  grammars, it makes sense to separate these lower-level
+functions into  a  separate  module,  the  lexical scanner,
 which is built around the idea of a state machine. The idea is to
 use the simplest parsing technique needed for the job.
 

@@ -185,10 +185,10 @@ lifetimes to the issue of code optimization, and there are indeed
 things that can be done to improve the quality  of  code  output.
 Some compilers do quite well, but  there  is a heavy price to pay
 in complexity, and it's  a  losing  battle  anyway ... there will
-probably never come a time when  a  good  assembler-language pro-
-grammer can't out-program a compiler.    Before  this  session is
-over, I'll briefly mention some ways that we can do a  little op-
-timization,  just  to  show you that we can indeed improve things
+probably never come a time when  a  good  assembler-language
+programmer can't out-program a compiler.    Before  this  session is
+over, I'll briefly mention some ways that we can do a  little
+optimization,  just  to  show you that we can indeed improve things
 without too much trouble.  But remember, we're here to learn, not
 to see how tight we can make  the  object  code.    For  now, and
 really throughout  this  series  of  articles,  we'll  studiously
@@ -590,7 +590,7 @@ function call is just another kind of a factor.
 
 In  the next session, I'll show you just how easy it is to extend
 our parser to take care of  these  things too, and I'll also show
-you just  how easily we can accomodate multicharacter numbers and
+you just  how easily we can accomodate multi-character numbers and
 variable names.  So you see,  we're  not  far at all from a truly
 useful parser.
 
@@ -709,4 +709,4 @@ code quality without throwing away what we've done.
 
 Next lesson, I'll show you how to deal with variables factors and
 function calls.  I'll also show you just how easy it is to handle
-multicharacter tokens and embedded white space.
+multi-character tokens and embedded white space.

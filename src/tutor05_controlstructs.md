@@ -38,8 +38,8 @@ statements other than branches, such as the assignment statements
 we've  been  working  on.  We've already demonstrated that we can
 handle them, so there's no point carrying them  around  as excess
 baggage during this exercise.  So what I'll do instead is  to use
-an  anonymous  statement,  "other", to take the place of the non-
-control statements and serve as a place-holder for them.  We have
+an  anonymous  statement,  "other", to take the place of the
+non-control statements and serve as a place-holder for them.  We have
 to generate some kind of object code for them  (we're  back  into
 compiling, not interpretation), so for want of anything else I'll
 just echo the character input.
@@ -239,8 +239,8 @@ Also, add the following extra initialization to Init:
 
 
 At this point I'd also like to show you a  new  kind of notation.
-If  you  compare  the form of the IF statement above with the as-
-sembler code that must be produced, you can see  that  there  are
+If  you  compare  the form of the IF statement above with the
+assembler code that must be produced, you can see  that  there  are
 certain  actions  associated  with each of the  keywords  in  the
 statement:
 
@@ -303,8 +303,8 @@ to begin coding the IF-statement parser.  In  fact,  we've almost
 already  done  it!   As usual, I'll be using our single-character
 approach, with the character 'i' for IF, and 'e'  for  ENDIF  (as
 well  as END ... that dual nature causes  no  confusion).    I'll
-also, for now, skip completely  the character for the branch con-
-dition, which we still have to define.
+also, for now, skip completely  the character for the branch
+condition, which we still have to define.
 
 The code for DoIf is:
 ```delphi
@@ -348,8 +348,8 @@ end;
 ```
 
 Notice the reference to procedure Condition.    Eventually, we'll
-write a routine that  can  parse  and  translate any Boolean con-
-dition we care to give it.  But  that's  a  whole  installment by
+write a routine that  can  parse  and  translate any Boolean
+condition we care to give it.  But  that's  a  whole  installment by
 itself (the next one, in fact).    For  now, let's just make it a
 dummy that emits some text.  Write the following routine:
 
@@ -454,8 +454,8 @@ Give it a try now.  Try something like
 
    `aiblcede`
 
-Did it work?  Now, just  to  be  sure we haven't broken the ELSE-
-less case, try
+Did it work?  Now, just  to  be  sure we haven't broken the ELSE-less
+case, try
 
    `aibece`
 
@@ -474,8 +474,8 @@ statement is
           `WHILE <condition> <block> ENDWHILE`
 
 
-I know,  I  know,  we  don't  REALLY  need separate kinds of ter-
-minators for each construct ... you can see that by the fact that
+I know,  I  know,  we  don't  REALLY  need separate kinds of
+terminators for each construct ... you can see that by the fact that
 in our one-character version, 'e' is used for all of them.  But I
 also remember  MANY debugging sessions in Pascal, trying to track
 down a wayward END that the compiler obviously thought I meant to
@@ -575,8 +575,8 @@ dream them up.
 
 We could stop right here, and  have  a language that works.  It's
 been  shown  many  times that a high-order language with only two
-constructs, the IF and the WHILE, is sufficient  to  write struc-
-tured  code.   But we're on a roll now, so let's  richen  up  the
+constructs, the IF and the WHILE, is sufficient  to  write structured
+code.   But we're on a roll now, so let's  richen  up  the
 repertoire a bit.
 
 This construct is even easier, since it has no condition  test at
@@ -1087,8 +1087,8 @@ leaving the stack in the right shape.
 ## CONCLUSION
 
 At this point we have created a number of control  constructs ...
-a richer set, really, than that provided by almost any other pro-
-gramming language.  And,  except  for the FOR loop, it was pretty
+a richer set, really, than that provided by almost any other
+programming language.  And,  except  for the FOR loop, it was pretty
 easy to do.  Even that one was tricky only because it's tricky in
 assembler language.
 

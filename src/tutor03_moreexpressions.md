@@ -324,8 +324,8 @@ long as we remember to KISS.
 
 Throughout  this   series,   I've   been   carefully  restricting
 everything  we  do  to  single-character  tokens,  all  the while
-assuring  you  that  it wouldn't be difficult to extend to multi-
-character ones.    I  don't  know if you believed me or not ... I
+assuring  you  that  it wouldn't be difficult to extend to
+multi-character ones.    I  don't  know if you believed me or not ... I
 wouldn't  really blame you if you were a  bit  skeptical.    I'll
 continue  to use  that approach in  the  sessions  which  follow,
 because it helps keep complexity away.    But I'd like to back up
@@ -334,8 +334,8 @@ showing you  just  how  easy  that  extension  really is.  In the
 process, we'll also provide for embedded white space.  Before you
 make  the  next  few changes, though, save the current version of
 the parser away under another name.  I have some more uses for it
-in  the  next  installment, and we'll be working with the single-
-character version.
+in  the  next  installment, and we'll be working with the
+single-character version.
 
 Most compilers separate out the handling of the input stream into
 a separate module called  the  lexical scanner.  The idea is that

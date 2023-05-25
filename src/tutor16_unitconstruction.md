@@ -2,8 +2,8 @@
 
 ## INTRODUCTION
 
-This series of tutorials promises to be perhaps one of the longest-
-running mini-series in history, rivalled only by the delay in Volume IV
+This series of tutorials promises to be perhaps one of the longest-running
+mini-series in history, rivalled only by the delay in Volume IV
 of Knuth.  Begun in 1988, the series ran into a four-year hiatus in 1990
 when the "cares of this world," changes in priorities and interests, and
 the need to make a living seemed to stall it out after Installment 14.
@@ -111,8 +111,8 @@ compiler that depend on the syntax of the compiled language (though, as
 we saw last time, a small amount of this syntax spills over into
 Scanner).  Similarly, the code generator unit, CodeGen, contains all of
 the code dependent upon the target machine.  In this installment, we'll
-be continuing with the development of the functions in these two all-
-important units.
+be continuing with the development of the functions in these two
+all-important units.
 
 
 
@@ -137,8 +137,8 @@ deals with the target machine-dependent parts of the problem.  In
 classical compilers, the two ends communicate via a file of instructions
 written in an intermediate language (IL).
 
-Typically, a classical scanner is a single procedure, operating as a co-
-procedure with the parser.  It "tokenizes" the source file, reading it
+Typically, a classical scanner is a single procedure, operating as a
+co-procedure with the parser.  It "tokenizes" the source file, reading it
 character by character, recognizing language elements, translating them
 into tokens, and passing them along to the parser.  You can think of the
 parser as an abstract machine, executing "op codes," which are the
@@ -183,8 +183,8 @@ that's the way it's always been done.
 -	Rejection of arbitrary constraints
 
 As I've reviewed the history of compiler construction, I've learned that
-virtually every production compiler in history has suffered from pre-
-imposed conditions that strongly influenced its design. The original
+virtually every production compiler in history has suffered from
+pre-imposed conditions that strongly influenced its design. The original
 FORTRAN compiler of John Backus, et al, had to compete with assembly
 language, and therefore was constrained to produce extremely efficient
 code.  The IBM compilers for the minicomputers of the 70's had to run in
@@ -941,8 +941,8 @@ address:
 	MOVE X,D0 (where X is the name of a variable)
 ```
 but you can't write in the same way.  To write, you must load an
-address register with the address of X.  The same is true for PC-
-relative addressing:
+address register with the address of X.  The same is true for
+PC-relative addressing:
 ```
 	MOVE X(PC),DO	(legal)
 	MOVE D0,X(PC)	(illegal)

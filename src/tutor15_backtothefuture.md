@@ -35,8 +35,8 @@ seems  to have gone bananas over C++.  It also seems a little
 strange to be programming in a classical style when the rest of
 the world has switched to object-oriented methods.  Still, in
 spite of the four-year hiatus, it would be entirely too wrenching
-a change, at this point, to switch to, say, C++ with object-
-orientation .  Anyway, Pascal is still not only a powerful
+a change, at this point, to switch to, say, C++ with
+object-orientation .  Anyway, Pascal is still not only a powerful
 programming language (more than ever, in fact), but it's a
 wonderful medium for teaching.  C is a notoriously difficult
 language to read ... it's often been accused, along with Forth, of
@@ -82,8 +82,8 @@ in compiler technology.  In fact, I've written papers on just this
 subject (Refs. 1-3).  But the architecture of a compiler which is
 based on object-oriented approaches is vastly different than that
 of the more classical compiler we've been building.  Again, it
-would seem to be entirely too much to change these horses in mid-
-stream.  As I said, programming styles change.  Who knows, it may
+would seem to be entirely too much to change these horses in
+mid-stream.  As I said, programming styles change.  Who knows, it may
 be another six years before we finish this thing, and if we keep
 changing the code every time programming style changes, we may
 NEVER finish.
@@ -184,8 +184,8 @@ newer, more capable ones.
 
 To deal with this problem, I suggest that you create different
 directories, with different versions of the units as needed.  If
-we do this properly, the code in each directory will remain self-
-consistent.  I've tentatively created four directories:  SINGLE
+we do this properly, the code in each directory will remain
+self-consistent.  I've tentatively created four directories:  SINGLE
 (for single-character experimentation), MULTI (for, of course,
 multi-character versions), TINY, and KISS.
 
@@ -269,8 +269,8 @@ Note also that we can access the lookahead character, even though
 it's not declared in the main program.  All variables declared
 within the interface section of a unit are global, but they're
 hidden from prying eyes; to that extent, we get a modicum of
-information hiding.  Of course, if we were writing in an object-
-oriented fashion, we should not allow outside modules to access
+information hiding.  Of course, if we were writing in an
+object-oriented fashion, we should not allow outside modules to access
 the units internal variables.  But, although Turbo units have a
 lot in common with objects, we're not doing object-oriented design
 or code here, so our use of Look is appropriate.
@@ -551,8 +551,8 @@ Now, recall that we've used two versions of the scanner routines:
 One that handled only single-character tokens, which we used for a
 number of our tests, and another that provided full support for
 multi-character tokens.  Now that we have our software separated
-into units, I don't anticipate getting much use out of the single-
-character version, but it doesn't cost us much to provide for
+into units, I don't anticipate getting much use out of the
+single-character version, but it doesn't cost us much to provide for
 both.  I've created two versions of the Scanner unit.  The first
 one, called Scanner1, contains the single-digit version of the
 recognizers:

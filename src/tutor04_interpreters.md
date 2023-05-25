@@ -3,8 +3,8 @@
 ## INTRODUCTION
 
 In the first three installments of this series,  we've  looked at
-parsing and  compiling math expressions, and worked our way grad-
-ually and methodically from dealing  with  very  simple one-term,
+parsing and  compiling math expressions, and worked our way
+gradually and methodically from dealing  with  very  simple one-term,
 one-character "expressions" up through more general ones, finally
 arriving at a very complete parser that could parse and translate
 complete  assignment  statements,  with  multi-character  tokens,
@@ -23,31 +23,31 @@ Consider the assignment statement
                `x = 2 * y + 3`
 
 In a compiler, we want the target CPU to execute  this assignment
-at EXECUTION time.  The translator itself doesn't  do  any arith-
-metic ... it only issues the object code that will cause  the CPU
+at EXECUTION time.  The translator itself doesn't  do  any arithmetic
+... it only issues the object code that will cause  the CPU
 to do it when the code is executed.  For  the  example above, the
 compiler would issue code to compute the expression and store the
 results in variable x.
 
-For an interpreter,  on  the  other  hand, no object code is gen-
-erated.   Instead, the arithmetic is computed immediately, as the
+For an interpreter,  on  the  other  hand, no object code is
+generated.   Instead, the arithmetic is computed immediately, as the
 parsing is going on.  For the example, by the time parsing of the
 statement is complete, x will have a new value.
 
 The approach we've been  taking  in  this  whole series is called
-"syntax-driven translation."  As you are aware by now, the struc-
-ture of the  parser  is  very  closely  tied to the syntax of the
-productions we parse.  We  have built Pascal procedures that rec-
-ognize every language  construct.   Associated with each of these
+"syntax-driven translation."  As you are aware by now, the structure
+of the  parser  is  very  closely  tied to the syntax of the
+productions we parse.  We  have built Pascal procedures that
+recognize every language  construct.   Associated with each of these
 constructs (and procedures) is  a  corresponding  "action," which
 does  whatever  makes  sense to do  once  a  construct  has  been
 recognized.    In  our  compiler  so far, every  action  involves
 emitting object code, to be executed later at execution time.  In
-an interpreter, every action  involves  something  to be done im-
-mediately.
+an interpreter, every action  involves  something  to be done
+immediately.
 
-What I'd like you to see here is that the  layout  ... the struc-
-ture ... of  the  parser  doesn't  change.  It's only the actions
+What I'd like you to see here is that the  layout  ... the structure
+... of  the  parser  doesn't  change.  It's only the actions
 that change.   So  if  you  can  write an interpreter for a given
 language, you can also write a compiler, and vice versa.  Yet, as
 you  will  see,  there  ARE  differences,  and  significant ones.
@@ -67,8 +67,8 @@ of translation.  In  the  real  world,  translators are rarely so
 pure, but tend to have bits of each technique.
 
 I can think of  several  examples.    I've already mentioned one:
-most interpreters, such as Microsoft BASIC,  for  example, trans-
-late the source code (tokenize it) into an  intermediate  form so
+most interpreters, such as Microsoft BASIC,  for  example, translate
+the source code (tokenize it) into an  intermediate  form so
 that it'll be easier to parse real time.
 
 Another example is an assembler.  The purpose of an assembler, of
@@ -93,8 +93,8 @@ The  idea is that you typically don't just  emit  code  at  every
 action.  In fact, at the extreme you don't emit anything  at all,
 until  you  absolutely  have to.  To accomplish this, the actions
 associated with the parsing routines  typically  don't  just emit
-code.  Sometimes  they  do,  but  often  they  simply  return in-
-formation back to the caller.  Armed with  such  information, the
+code.  Sometimes  they  do,  but  often  they  simply  return
+information back to the caller.  Armed with  such  information, the
 caller can then make a better choice of what to do.
 
 For example, given the statement
@@ -114,11 +114,11 @@ out that this is equivalent to
 
                `x = x`  ,
 
-which  calls  for  no  action  at  all.   We could reduce 18  in-
-structions to zero!
+which  calls  for  no  action  at  all.   We could reduce 18
+instructions to zero!
 
-Note that there is no chance of optimizing this way in our trans-
-lator as it stands, because every action takes place immediately.
+Note that there is no chance of optimizing this way in our translator
+as it stands, because every action takes place immediately.
 
 Lazy  expression  evaluation  can  produce  significantly  better
 object code than  we  have  been  able  to  so  far.  I warn you,
@@ -294,8 +294,8 @@ end;
 ```
 
 If you've compiled and  tested  this  version of the interpreter,
-the  next  step  is to install function Factor, complete with pa-
-renthesized  expressions.  We'll hold off a  bit  longer  on  the
+the  next  step  is to install function Factor, complete with
+parenthesized  expressions.  We'll hold off a  bit  longer  on  the
 variable  names.    First, change the references  to  GetNum,  in
 function Term, so that they call Factor instead.   Now  code  the
 following version of Factor:
@@ -335,8 +335,8 @@ powerful,  that  it  makes all the difference  between  a  parser
 that's trivially easy, and one that's too complex to deal with.
 
 In the early days of compiler technology, people  had  a terrible
-time  figuring  out  how to deal with things like operator prece-
-dence  ...  the  way  that  multiply  and  divide operators  take
+time  figuring  out  how to deal with things like operator precedence
+...  the  way  that  multiply  and  divide operators  take
 precedence over add and subtract, etc.  I remember a colleague of
 some  thirty years ago, and how excited he was to find out how to
 do it.  The technique used involved building two  stacks,    upon
@@ -380,8 +380,8 @@ returns when it's needed.
 For example,  function  Expression  contains  a  local  parameter
 called  Value, which it fills by a call to Term.  Suppose, in its
 next call to  Term  for  the  second  argument,  that  Term calls
-Factor, which recursively  calls  Expression  again.    That "in-
-stance" of Expression gets another value for its  copy  of Value.
+Factor, which recursively  calls  Expression  again.    That
+"instance" of Expression gets another value for its  copy  of Value.
 What happens  to  the  first  Value?    Answer: it's still on the
 stack, and  will  be  there  again  when  we return from our call
 sequence.
@@ -528,8 +528,8 @@ and line feed (LF).   At  the  end  of  each line, we need to eat
 these characters before processing the next one.   A  natural way
 to do this would  be  with  procedure  Match, except that Match's
 error  message  prints  the character, which of course for the CR
-and/or  LF won't look so great.  What we need is a special proce-
-dure for this, which we'll no doubt be using over and over.  Here
+and/or  LF won't look so great.  What we need is a special procedure
+for this, which we'll no doubt be using over and over.  Here
 it is:
 
 ```delphi
@@ -575,8 +575,8 @@ write it out.  Sure would help to have some I/O!
 
 Let's wrap this session  up,  then,  by  adding the I/O routines.
 Since we're  sticking to single-character tokens, I'll use '?' to
-stand for a read statement, and  '!'  for a write, with the char-
-acter  immediately  following  them  to  be used as  a  one-token
+stand for a read statement, and  '!'  for a write, with the character
+immediately  following  them  to  be used as  a  one-token
 "parameter list."  Here are the routines:
 
 ```delphi
@@ -636,8 +636,8 @@ learn  things.    The control statements, we'll cover in the next
 installment, and the subroutines soon  after.  I'm anxious to get
 on with that, so we'll leave the interpreter as it stands.
 
-I hope that by  now  you're convinced that the limitation of sin-
-gle-character names  and the processing of white space are easily
+I hope that by  now  you're convinced that the limitation of
+single-character names  and the processing of white space are easily
 taken  care  of, as we did in the last session.   This  time,  if
 you'd like to play around with these extensions, be my  guest ...
 they're  "left as an exercise for the student."    See  you  next

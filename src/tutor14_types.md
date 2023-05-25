@@ -696,8 +696,8 @@ to reason that we ought to be able  to  do  something  with them.
 For our first trick, let's just try loading them into our working
 register, D0.  It makes sense to use the same  idea  we used for
 Alloc; that is, make a load procedure that can load more than one
-size.    We  also  want  to continue to encapsulate the  machine-
-dependent stuff.  The load procedure looks like this:
+size.    We  also  want  to continue to encapsulate the
+machine-dependent stuff.  The load procedure looks like this:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -1020,8 +1020,8 @@ shown above).  Now the generated code turns out to be:
 In  this  case,  the CLR turns out not to be necessary, since the
 result is going into a byte-sized variable.  With a little bit of
 work, we can do better.  Still, this is not  bad,  and it typical
-of the kinds of inefficiencies  that we've seen before in simple-
-minded compilers.
+of the kinds of inefficiencies  that we've seen before in simple-minded
+compilers.
 
 I should point out that, by setting the high bits to zero, we are
 in effect treating the numbers as UNSIGNED integers.  If  we want

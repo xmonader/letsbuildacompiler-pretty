@@ -444,8 +444,8 @@ comment delimiters contained in quoted strings.
 ## SINGLE-CHARACTER DELIMITERS
 
 Here's an example.  Suppose we assume the  Turbo  Pascal standard
-and use curly braces for comments.  In this case we  have single-
-character delimiters, so our parsing is a little easier.
+and use curly braces for comments.  In this case we  have
+single-character delimiters, so our parsing is a little easier.
 
 One  approach  is  to  strip  the  comments  out the  instant  we
 encounter them in the input stream; that is,  right  in procedure
@@ -689,8 +689,8 @@ adding a single statement to SkipComment, just as we did before.
 ## ONE-SIDED COMMENTS
 
 So far I've shown you  how  to  deal  with  any  kind  of comment
-delimited on the left and the  right.   That only leaves the one-
-sided comments like those in assembler language or  in  Ada, that
+delimited on the left and the  right.   That only leaves the
+one-sided comments like those in assembler language or  in  Ada, that
 are terminated by the end of the line.  In a  way,  that  case is
 easier.   The only procedure that would need  to  be  changed  is
 SkipComment, which must now terminate at the newline characters:
@@ -710,8 +710,8 @@ end;
 ```
 
 If the leading character is  a  single  one,  as  in  the  ';' of
-assembly language, then we're essentially done.  If  it's  a two-
-character token, as in the '--'  of  Ada, we need only modify the
+assembly language, then we're essentially done.  If  it's  a
+two-character token, as in the '--'  of  Ada, we need only modify the
 tests  within  GetChar.   Either way, it's an easier problem than
 the balanced case.
 
