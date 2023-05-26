@@ -41,7 +41,7 @@ Pascal, and since the use of semicolons in Pascal is particularly
 tricky,  that one little character is still  by  far  my  biggest
 source of errors.
 
-When  I  began  developing  KISS,  I resolved to  question  EVERY
+When  I  began  developing  KISS,  I resolved to  question  _every_
 construct in other languages, and to try to avoid the most common
 problems that occur with them.  That puts the semicolon very high
 on my hit list.
@@ -70,10 +70,10 @@ to get away  from  line-oriented programs like FORTRAN and BASIC,
 and allow for free-form input.   This included the possibility of
 stringing multiple statements on a single line, as in
 `a=b; c=d; e=e+1;`.
-In cases like this,  the  semicolon is almost REQUIRED.  The same
+In cases like this,  the  semicolon is almost _required_.  The same
 line, without the semicolons, just looks "funny":
 `a=b c= d e=e+1`.
-I suspect that this is the major ... perhaps ONLY ...  reason for
+I suspect that this is the major ... perhaps _only_ ...  reason for
 semicolons: to keep programs from looking funny.
 
 But  the  idea  of stringing multiple statements  together  on  a
@@ -82,7 +82,7 @@ programming  style,  and  harks back to  the  days  when  it  was
 considered important to conserve cards.  In these  days  of CRT's
 and indented code, the clarity of programs is  far  better served
 by  keeping statements separate.  It's still  nice  to  have  the
-OPTION  of  multiple  statements,  but  it seems a shame to  keep
+_option_  of  multiple  statements,  but  it seems a shame to  keep
 programmers  in  slavery  to the semicolon, just to keep that one
 rare case from "looking funny."
 
@@ -99,7 +99,7 @@ they feel naked  without them.  I'm one of them.  Once I had KISS
 defined sufficiently well, I began to write a few sample programs
 in the language.    I  discovered,  somewhat to my horror, that I
 kept  putting  semicolons  in anyway.   So  now  I'm  facing  the
-prospect of a NEW  rash  of  compiler  errors, caused by UNWANTED
+prospect of a _new_  rash  of  compiler  errors, caused by _unwanted_
 semicolons.  Phooey!
 
 Perhaps more to the point, there are readers out  there  who  are
@@ -178,7 +178,7 @@ In  this  case  the compiler will get an error, all right, but it
 won't be very meaningful  since  it will be expecting an `=` sign
 after the `b` that really shouldn't be there.
 
-If, on the other hand, I include a semicolon after the  `b`, THEN
+If, on the other hand, I include a semicolon after the  `b`, _then_
 there  can  be no doubt where I  intend  the  statement  to  end.
 Syntactic  sugar,  then,  can  serve  a  very  useful purpose  by
 providing some additional insurance that we remain on track.
@@ -209,13 +209,13 @@ statement in a block.  The syntax is:
 <statement> ::= <assignment> | <if> | <while> ... | null
 ```
 
-(The null statement is IMPORTANT!)
+(The null statement is _important!_)
 
 Pascal  also defines some semicolons in  other  places,  such  as
 after the PROGRAM statement.
 
 In  C  and  Ada, on the other hand, the semicolon is considered a
-statement TERMINATOR,  and  follows  all  statements  (with  some
+statement _terminator_,  and  follows  all  statements  (with  some
 embarrassing and confusing  exceptions).   The syntax for this is
 simply:
 
@@ -230,7 +230,7 @@ every  statement  that  they tend to  type  one  after  the  last
 statement in a block, also.  That usually doesn't cause  any harm
 ...  it  just gets treated as a  null  statement.    Many  Pascal
 programmers, including yours truly,  do  just  that. But there is
-one  place you absolutely CANNOT type  a  semicolon,  and  that's
+one  place you absolutely _cannot_ type  a  semicolon,  and  that's
 right before an `ELSE`.  This little gotcha  has  cost  me  many an
 extra  compilation,  particularly  when  the  `ELSE`  is  added  to
 existing code.    So  the  C/Ada  choice  turns out to be better.
@@ -384,7 +384,7 @@ the extra sugar and the security that comes with knowing for sure
 where the  ends  of  statements  are.    But I haven't changed my
 dislike for the compilation errors associated with semicolons.
 
-So I have what I think is a nice compromise: Make them OPTIONAL!
+So I have what I think is a nice compromise: Make them _optional_!
 
 Consider the following version of Semi:
 
@@ -399,8 +399,8 @@ end;
 {--------------------------------------------------------------}
 ```
 
-This procedure will ACCEPT a semicolon whenever it is called, but
-it won't INSIST on one.  That means that when  you  choose to use
+This procedure will _accept_ a semicolon whenever it is called, but
+it won't _insist_ on one.  That means that when  you  choose to use
 semicolons, the compiler  will  use the extra information to help
 keep itself on track.  But if you omit one (or omit them all) the
 compiler won't complain.  The best of both worlds.
@@ -435,7 +435,7 @@ One  approach  is  to  strip  the  comments  out the  instant  we
 encounter them in the input stream; that is,  right  in procedure
 `GetChar`.    To  do  this,  first  change  the  name of `GetChar` to
 something else, say `GetCharX`.  (For the record, this is  going to
-be a TEMPORARY change, so best not do this with your only copy of
+be a _temporary_ change, so best not do this with your only copy of
 TINY.  I assume you understand that you should  always  do  these
 experiments with a working copy.)
 
@@ -479,14 +479,14 @@ end;
 Code this up  and  give  it  a  try.    You'll find that you can,
 indeed, bury comments anywhere you like.  The comments never even
 get into the parser proper ... every call to `GetChar` just returns
-any character that's NOT part of a comment.
+any character that's _not_ part of a comment.
 
 As a matter of fact, while  this  approach gets the job done, and
 may even be  perfectly  satisfactory  for  you, it does its job a
-little  TOO  well.    First  of all, most  programming  languages
+little  _too_  well.    First  of all, most  programming  languages
 specify that a comment should be treated like a  space,  so  that
 comments aren't allowed  to  be embedded in, say, variable names.
-This current version doesn't care WHERE you put comments.
+This current version doesn't care _where_ you put comments.
 
 Second, since the  rest  of  the  parser can't even receive a `{`
 character, you will not be allowed to put one in a quoted string.
@@ -615,7 +615,7 @@ end;
 ```
 
 As you can see, what this procedure does is  to  intercept  every
-occurrence of `/`.  It then examines the NEXT  character  in  the
+occurrence of `/`.  It then examines the _next_  character  in  the
 stream.  If the character  is  a  `*`,  then  we  have  found the
 beginning  of  a  comment,  and  `GetChar`  will  return  a  single
 character replacement for it.   (For  simplicity,  I'm  using the
@@ -624,7 +624,7 @@ compiler, you'd no doubt want to pick some other character that's
 not  used  elsewhere  in C.  Pick anything you like ... even `$FF`,
 anything that's unique.)
 
-If the character  following  the  `/`  is NOT a `*`, then `GetChar`
+If the character  following  the  `/`  is _not_ a `*`, then `GetChar`
 tucks it away in the new global TempChar, and  returns  the  `/`.
 
 Note that you need to declare this new variable and initialize it
@@ -711,13 +711,13 @@ conventions should we use in KISS/TINY?
 For the reasons that I've given as we went  along,  I'm  choosing
 the following:
 
-1. Semicolons are TERMINATORS, not separators
+1. Semicolons are _terminators_, not separators
 
-2. Semicolons are OPTIONAL
+2. Semicolons are _optional_
 
 3. Comments are delimited by curly braces
 
-4. Comments MAY be nested
+4. Comments _may_ be nested
 
 Put the code corresponding to these cases into your copy of TINY.
 You now have TINY Version 1.2.

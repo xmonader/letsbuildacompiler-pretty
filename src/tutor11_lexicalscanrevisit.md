@@ -27,7 +27,7 @@ kind that send a message that you might be doing something wrong.
 The  whole thing came to a head when I tried to address the issue
 of  semicolons.  Several people have asked  me  about  them,  and
 whether or not KISS will have them separating the statements.  My
-intention has been NOT to  use semicolons, simply because I don't
+intention has been _not_ to  use semicolons, simply because I don't
 like them and, as you can see, they have not proved necessary.
 
 But I know that many of you, like me, have  gotten  used to them,
@@ -123,7 +123,7 @@ adopted a convention that the lookahead character would always be
 prefetched.    That   is,   we  would  have  the  character  that
 corresponds to our  current  position in the input stream fetched
 into the global character Look, so that we could  examine  it  as
-many  times  as  needed.    The  rule  we  adopted was that EVERY
+many  times  as  needed.    The  rule  we  adopted was that _every_
 recognizer, if it found its target token, would  advance  Look to
 the next character in the input stream.
 
@@ -133,7 +133,7 @@ of sense to apply the same rule to multi-character tokens.
 
 But when we got into lexical scanning, I began  to  violate  that
 simple rule.  The scanner of [Part X](tutor10_introducingtiny.md)  did  indeed  advance  to the
-next token if it found an identifier or keyword, but it DIDN'T do
+next token if it found an identifier or keyword, but it _didn't_ do
 that if it found a carriage return, a whitespace character, or an
 operator.
 
@@ -144,13 +144,13 @@ it's  a keyword or the target of  an  assignment  statement,  the
 "cursor," as defined by the contents of Look,  has  been advanced
 to  the next token `OR` to the beginning of whitespace.  If, on the
 other  hand,  the  token  is  a  semicolon,  or if we have hit  a
-carriage return, the cursor has NOT advanced.
+carriage return, the cursor has _not_ advanced.
 
 Needless to say, we can add enough logic  to  keep  us  on track.
 But it's tricky, and makes the whole parser very fragile.
 
 There's a much  better  way,  and  that's just to adopt that same
-rule that's worked so well before, to apply to TOKENS as  well as
+rule that's worked so well before, to apply to _tokens_ as  well as
 single characters.  In other words, we'll prefetch tokens just as
 we've always done for  characters.   It seems so obvious once you
 think about it that way.
@@ -158,7 +158,7 @@ think about it that way.
 Interestingly enough, if we do things this way  the  problem that
 we've had with newline characters goes away.  We  can  just  lump
 them in as  whitespace  characters, which means that the handling
-of  newlines  becomes  very trivial, and MUCH less prone to error
+of  newlines  becomes  very trivial, and _much_ less prone to error
 than we've had to deal with in the past.
 
 
@@ -206,7 +206,7 @@ ones  I  showed  you in [Part VII](tutor12_miscellany.md).  They each  fetch  th
 token, either an identifier or a number, into  the  global string
 `Value`.    They  also  set  the  encoded  version, `Token`,  to  the
 appropriate code.  The input  stream is left with Look containing
-the first character NOT part of the token.
+the first character _not_ part of the token.
 
 We  can do the same thing  for  operators,  even  multi-character
 operators, with a procedure such as:
@@ -227,7 +227,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Note  that  `GetOp`  returns,  as  its  encoded  token,  the  FIRST
+Note  that  `GetOp`  returns,  as  its  encoded  token,  the  _first_
 character of the operator.  This is important,  because  it means
 that we can now use that single character to  drive  the  parser,
 instead of the lookahead character.
@@ -251,9 +251,9 @@ end;
 {--------------------------------------------------------------}
 ```
 
-***NOTE  that  here  I have put `SkipWhite` BEFORE the calls rather
+**NOTE**  that  here  I have put `SkipWhite` _before_ the calls rather
 than after.  This means that, in general, the variable  Look will
-NOT have a meaningful value in it, and therefore  we  should  NOT
+_not_ have a meaningful value in it, and therefore  we  should  _not_
 use it as a test value for parsing, as we have been doing so far.
 That's the big departure from our normal approach.
 
@@ -309,13 +309,13 @@ Compile  it and verify that you can separate  a  program  into  a
 series of tokens, and that you get the right  encoding  for  each
 token.
 
-This ALMOST works,  but  not  quite.    There  are  two potential
+This _almost_ works,  but  not  quite.    There  are  two potential
 problems:    First,  in KISS/TINY almost all of our operators are
 single-character operators.  The only exceptions  are  the relops
 `>=`, `<=`, and `<>`.  It seems  a  shame  to  treat  all  operators as
 strings and do a  string  compare,  when  only a single character
 compare  will  almost  always  suffice.   Second, and  much  more
-important, the  thing  doesn't  WORK  when  two  operators appear
+important, the  thing  doesn't  _work_  when  two  operators appear
 together, as in `(a+b)*(c+d)`.  Here the string following `b` would
 be interpreted as a single operator `)*(`.
 
@@ -369,8 +369,8 @@ for every identifier appearing in the code.  Not good.
 
 The  right  way  to  deal  with  that  is  to simply separate the
 functions  of  fetching  tokens and looking for  keywords.    The
-version of `Scan` shown below  does NOTHING but check for keywords.
-Notice that it operates on the current token and does NOT advance
+version of `Scan` shown below  does _nothing_ but check for keywords.
+Notice that it operates on the current token and does _not_ advance
 the input stream.
 
 ```delphi
@@ -394,7 +394,7 @@ characters by encoding each one  to a different character.  Right
 now we are definitely taking the lazy man's route.)
 
 The  following  version  of `MatchString` takes the  place  of  the
-character-oriented `Match`.  Note that, like `Match`, it DOES advance
+character-oriented `Match`.  Note that, like `Match`, it _does_ advance
 the input stream.
 
 ```delphi
@@ -514,7 +514,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-That's about the extent of the REQUIRED changes.  In  the listing
+That's about the extent of the _required_ changes.  In  the listing
 of TINY  Version  1.1  below,  I've  also  made a number of other
 "improvements" that  aren't really required.  Let me explain them
 briefly:
@@ -570,7 +570,7 @@ considerably more robust.  I feel good about it.
 
 The [next installment](tutor12_miscellany.md) will be another  digression:  the discussion
 of  semicolons  and  such that got me into this mess in the first
-place.  THEN we'll press on  into  procedures and types.  Hang in
+place.  _Then_ we'll press on  into  procedures and types.  Hang in
 there with me.  The addition of those features will go a long way
 towards removing KISS from  the  "toy  language" category.  We're
 getting very close to being able to write a serious compiler.

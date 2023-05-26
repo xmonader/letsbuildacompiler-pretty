@@ -11,7 +11,7 @@ still haven't  addressed procedure or function calls, but even so
 we  could  conceivably construct a  mini-language  without  them.
 I've  always  thought  it would be fun to see just  how  small  a
 language  one  could  build  that  would still be useful.   We're
-ALMOST in a position to do that now.  The  problem  is: though we
+_almost_ in a position to do that now.  The  problem  is: though we
 know  how  to  parse and translate the constructs, we still don't
 know quite how to put them all together into a language.
 
@@ -125,7 +125,7 @@ end;
 The procedures  `Prolog` and `Epilog` perform whatever is required to
 let the program interface with the operating system,  so  that it
 can execute as a program.  Needless to  say,  this  part  will be
-VERY OS-dependent.  Remember, I've been emitting code for a 68000
+_very_ OS-dependent.  Remember, I've been emitting code for a 68000
 running under the OS I use, which is SK*DOS.   I  realize most of
 you are using PC's  and  would rather see something else, but I'm
 in this thing too deep to change now!
@@ -590,10 +590,10 @@ end.
 For the first round, just make the three procedures stubs that do
 nothing _but_ call `GetChar`.
 
-Does this program work?  Well, it would be hard put NOT to, since
+Does this program work?  Well, it would be hard put _not_ to, since
 we're not really asking it to do anything.  It's been said that a
 C compiler will accept virtually any input without choking.  It's
-certainly true of THIS  compiler,  since in effect all it does is
+certainly true of _this_  compiler,  since in effect all it does is
 to eat input characters until it finds a ^Z.
 
 Next, let's make  `GetClass`  do something worthwhile.  Declare the
@@ -751,7 +751,7 @@ terminated only by the end of file.
 We  could  pursue  both  of  these structures much  farther,  but
 remember that our purpose here is  not  to  build a Pascal or a C
 compiler, but rather to study compilers in general.  For those of
-you  who DO want to deal with Pascal or C, I hope I've given  you
+you  who _do_ want to deal with Pascal or C, I hope I've given  you
 enough of a start so that you can  take  it  from  here (although
 you'll soon need some of the stuff we still haven't  covered yet,
 such as typing and procedure calls).    For the rest of you, stay

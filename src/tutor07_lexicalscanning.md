@@ -4,7 +4,7 @@
 ## Introduction
 
 In the [last installment](tutor06_booleanexpressions.md), I left you with a  compiler  that  would
-ALMOST  work,  except  that  we  were  still  limited to
+_almost_  work,  except  that  we  were  still  limited to
 single-character tokens.  The purpose of  this  session is to get rid of
 that restriction, once and for all.  This means that we must deal
 with the concept of the lexical scanner.
@@ -13,15 +13,15 @@ Maybe I should mention why we  need  a lexical scanner at all ...
 after all, we've been able to manage all right  without  one,  up
 till now, even when we provided for multi-character tokens.
 
-The ONLY reason, really, has to do with keywords.  It's a fact of
+The _only_ reason, really, has to do with keywords.  It's a fact of
 computer life that the syntax for a keyword has the same  form as
 that  for  any  other identifier.  We can't tell until we get the
-complete word whether or not it  IS  a keyword.  For example, the
+complete word whether or not it  _is_  a keyword.  For example, the
 variable `IFILE` and the keyword `IF` look just alike, until  you get
 to the third character.  In the examples to date, we  were always
 able to make  a  decision  based  upon the first character of the
 token, but that's  no  longer possible when keywords are present.
-We  need to know that a given string is a keyword BEFORE we begin
+We  need to know that a given string is a keyword _before_ we begin
 to process it.  And that's why we need a scanner.
 
 In the last session, I also promised that  we  would  be  able to
@@ -37,8 +37,8 @@ Up  till  now, I have studiously avoided  giving  you  a  lot  of
 theory,  and  certainly  not  alternatives.    I  generally don't
 respond well to the textbooks that give you twenty-five different
 ways  to do something, but no clue as to which way best fits your
-needs.  I've tried to avoid that pitfall by just showing  you ONE
-method, that WORKS.
+needs.  I've tried to avoid that pitfall by just showing  you _one_
+method, that _works_.
 
 But  this is an important area.  While  the  lexical  scanner  is
 hardly the most  exciting  part  of  a compiler, it often has the
@@ -46,14 +46,14 @@ most  profound  effect  on  the  general  "look  & feel"  of  the
 language, since after all it's the  part  closest to the user.  I
 have a particular structure in mind for the scanner  to  be  used
 with  KISS.    It fits the look &  feel  that  I  want  for  that
-language.  But it may not work at  all  for  the  language YOU'RE
+language.  But it may not work at  all  for  the  language _you're_
 cooking  up,  so  in this one case I feel that it's important for
 you to know your options.
 
 So I'm going to depart, again, from my  usual  format.    In this
 session we'll be getting  much  deeper  than usual into the basic
 theory of languages and  grammars.    I'll  also be talking about
-areas OTHER than compilers in  which  lexical  scanning  plays an
+areas _other_ than compilers in  which  lexical  scanning  plays an
 important role.  Finally, I will show you  some  alternatives for
 the structure of the lexical scanner.  Then, and only  then, will
 we get back to our parser  from  the [last installment](tutor06_booleanexpressions.md).  Bear with
@@ -174,10 +174,10 @@ code  (if  it's  Tuesday,  this  must be Belgium).  We've  relied
 heavily on the implicit approaches  before,  and  I  think you'll
 find that they work well here, too.
 
-In practice, it may not even be necessary to HAVE  a well-defined
+In practice, it may not even be necessary to _have_  a well-defined
 lexical scanner.  This isn't our first experience at dealing with
 multi-character tokens.   In  [Installment  III](tutor03_moreexpressions.md),  we  extended our
-parser to provide  for  them,  and  we didn't even NEED a lexical
+parser to provide  for  them,  and  we didn't even _need_ a lexical
 scanner.    That  was  because  in that narrow context, we  could
 always tell, just  by  looking at the single lookahead character,
 whether  we  were  dealing  with  a  number,  a variable,  or  an
@@ -473,7 +473,7 @@ this  point  I  would  urge  you  to  experiment  with  different
 arrangements  and  see  how  you  like  them.    If you want your
 language  to  be  truly  free-field,  then  newlines   should  be
 transparent.   In  this  case,  the  best  approach is to put the
-following lines at the BEGINNING of `Scan`:
+following lines at the _beginning_ of `Scan`:
 
 ```delphi
 while Look = CR do
@@ -527,7 +527,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-It's important to  note  that  we  DON'T  have  to  include every
+It's important to  note  that  we  _don't_  have  to  include every
 possible  operator in this list.   For  example,  the  parentheses
 aren't  included, nor is the terminating  period.    The  current
 version of `Scan` handles single-character operators  just  fine as
@@ -600,7 +600,7 @@ This eight-line procedure will skip over  a  delimiter consisting
 of any number (including zero)  of spaces, with zero or one comma
 embedded in the string.
 
-TEMPORARILY, change the call to `SkipWhite` in `Scan` to  a  call  to
+_Temporarily_, change the call to `SkipWhite` in `Scan` to  a  call  to
 `SkipComma`,  and  try  inputting some lists.   Works  nicely,  eh?
 Don't you wish more software authors knew about `SkipComma`?
 
@@ -1123,7 +1123,7 @@ This leads us  back  to  the  notion of a distributed scanner, in
 which various portions  of  the scanner are called depending upon
 the context.
 
-In KISS, as  in  most  languages,  keywords  ONLY  appear  at the
+In KISS, as  in  most  languages,  keywords  _only_  appear  at the
 beginning of a statement.  In places like  expressions,  they are
 not allowed.  Also, with one minor exception (the multi-character
 relops)  that  is  easily  handled,  all  operators   are  single
@@ -1134,7 +1134,7 @@ still always tell from the  current  lookahead  character exactly
 what kind of token is coming,  except  at the very beginning of a
 statement.
 
-Even at that point, the ONLY  kind  of  token we can accept is an
+Even at that point, the _only_  kind  of  token we can accept is an
 identifier.  We need only to determine if that  identifier  is  a
 keyword or the target of an assignment statement.
 
@@ -1151,7 +1151,7 @@ not allowed, we don't slow things down by looking for them.
 ## Merging Scanner and Parser
 
 Now that we've covered  all  of the theory and general aspects of
-lexical scanning that we'll be needing, I'm FINALLY ready to back
+lexical scanning that we'll be needing, I'm _finally_ ready to back
 up my claim that  we  can  accommodate multi-character tokens with
 minimal change to our previous work.  To keep  things  short  and
 simple I will restrict myself here to a subset of what we've done
@@ -1682,7 +1682,7 @@ the following changes:
 
 - Created  a  new  procedure,  `MatchString`,  that  looks  for  a
   specific keyword.  Note that, unlike  `Match`,  `MatchString` does
-  NOT read the next keyword.
+  _not_ read the next keyword.
 
 - Modified `Block` to call `Scan`.
 
@@ -2221,7 +2221,7 @@ At this point, you have learned how to parse  and  generate  code
 for expressions,  Boolean  expressions,  and  control structures.
 You have now learned how to develop lexical scanners, and  how to
 incorporate their elements into a translator.  You have still not
-seen ALL the elements combined into one program, but on the basis
+seen _all_ the elements combined into one program, but on the basis
 of  what  we've  done before you should find it a straightforward
 matter to extend our earlier programs to include scanners.
 

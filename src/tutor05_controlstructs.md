@@ -12,14 +12,14 @@ constructs such as `IF` statements.
 This subject is dear to my heart, because it represents a turning
 point  for  me.    I  had  been  playing  with  the   parsing  of
 expressions, just as  we  have  done  in this series, but I still
-felt that I was a LONG way from being able  to  handle a complete
-language.  After all, REAL  languages have branches and loops and
+felt that I was a _long_ way from being able  to  handle a complete
+language.  After all, _real_  languages have branches and loops and
 subroutines and all that.  Perhaps you've shared some of the same
 thoughts.    Awhile  back,  though,  I  had  to  produce  control
 constructs for a structured assembler preprocessor I was writing.
 Imagine my surprise to  discover  that it was far easier than the
 expression  parsing  I  had  already  been through.   I  remember
-thinking, "Hey! This is EASY!" After we've finished this session,
+thinking, "Hey! This is _easy_!" After we've finished this session,
 I'll bet you'll be thinking so, too.
 
 
@@ -131,7 +131,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-(From the form of the procedure, you just KNOW we're going  to be
+(From the form of the procedure, you just _know_ we're going  to be
 adding to it in a bit!)
 
 OK, enter these routines into your program.  Replace the  call to
@@ -237,7 +237,7 @@ Also, add the following extra initialization to Init:
 LCount := 0;
 ```
 
-(DON'T forget that, or your labels can look really strange!)
+(_Don't_ forget that, or your labels can look really strange!)
 
 
 At this point I'd also like to show you a  new  kind of notation.
@@ -265,7 +265,7 @@ ENDIF          { PostLabel(L) }
 
 This is an example  of  syntax-directed  translation.  We've been
 doing it all along ... we've just never written it down  this way
-before.  The stuff in curly brackets represents the ACTIONS to be
+before.  The stuff in curly brackets represents the _actions_ to be
 taken.  The nice part about this representation is  that  it  not
 only shows what  we  have  to  recognize, but also the actions we
 have to perform, and in which  order.   Once we have this syntax,
@@ -290,7 +290,7 @@ for "Branch on zero" is `BEQ`.  So for our purposes here,
 - `BNE` <=> Branch if true
 
 It's the nature of the beast that most  of  the  branches  we see
-will  be  `BEQ`'s  ...  we'll  be branching AROUND the code  that's
+will  be  `BEQ`'s  ...  we'll  be branching _around_ the code  that's
 supposed to be executed when the condition is true.
 
 
@@ -461,10 +461,10 @@ The next type of statement should be easy, since we  already have
 the process  down  pat.    The  syntax  I've chosen for the `WHILE`
 statement is `WHILE <condition> <block> ENDWHILE`.
 
-I know,  I  know,  we  don't  REALLY  need separate kinds of
+I know,  I  know,  we  don't  _really_  need separate kinds of
 terminators for each construct ... you can see that by the fact that
 in our one-character version, `e` is used for all of them.  But I
-also remember  MANY debugging sessions in Pascal, trying to track
+also remember  _many_ debugging sessions in Pascal, trying to track
 down a wayward `END` that the compiler obviously thought I meant to
 put  somewhere  else.   It's been my experience that specific and
 unique  keywords,  although  they add to the  vocabulary  of  the
@@ -540,7 +540,7 @@ end;
 No other changes are necessary.
 
 OK, try the new program.  Note that this  time,  the  `<condition>`
-code is INSIDE the upper label, which is just where we wanted it.
+code is _inside_ the upper label, which is just where we wanted it.
 Try some nested loops.  Try some loops within `IF`'s, and some `IF`'s
 within loops.  If you get  a  bit  confused as to what you should
 type, don't be discouraged:  you  write  bugs in other languages,
@@ -548,7 +548,7 @@ too, don't you?  It'll look a lot  more  meaningful  when  we get
 full keywords.
 
 I hope by now that you're beginning to  get  the  idea  that this
-really  IS easy.  All we have to do to accommodate a new construct
+really  _is_ easy.  All we have to do to accommodate a new construct
 is to work out  the  syntax-directed translation of it.  The code
 almost falls out  from  there,  and  it doesn't affect any of the
 other routines.  Once you've gotten the feel of the thing, you'll
@@ -794,8 +794,8 @@ Give it a try.  Once again,  don't  forget  to  add  the  call in
 `Expression`, a typical input line would look something like
 `afi=bece`.
 
-Well, it DOES generate a lot of code, doesn't it?    But at least
-it's the RIGHT code.
+Well, it _does_ generate a lot of code, doesn't it?    But at least
+it's the _right_ code.
 
 
 ## The DO Statement
@@ -860,7 +860,7 @@ as  I did with the `ELSE` half of an `IF`.  That  turns  out  not  to
 work, though, because the `BREAK` statement is almost certainly not
 going to show  up at the same level as the loop itself.  The most
 likely place for a `BREAK` is right after an `IF`, which  would cause
-it to exit to the `IF`  construct,  not the enclosing loop.  WRONG.
+it to exit to the `IF`  construct,  not the enclosing loop.  _Wrong_.
 The  `BREAK`  has  to exit the inner `LOOP`, even if it's nested down
 into several levels of `IF`s.
 
@@ -886,8 +886,8 @@ have  to  do  is to pass into  `Block`  the  exit  address  of  the
 innermost loop.  Then it can pass the address to the routine that
 translates the  break instruction.  Since an `IF` statement doesn't
 change the loop level, procedure `DoIf` doesn't need to do anything
-except  pass the label into ITS blocks (both  of  them).    Since
-loops DO change the level,  each  loop  construct  simply ignores
+except  pass the label into _its_ blocks (both  of  them).    Since
+loops _do_ change the level,  each  loop  construct  simply ignores
 whatever label is above it and passes its own exit label along.
 
 All  this  is easier to show you than it is to  describe.    I'll
@@ -1014,7 +1014,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-That  ALMOST takes care of everything.  Give it a try, see if you
+That  _almost_ takes care of everything.  Give it a try, see if you
 can "break" it `<pun>`.  Careful, though.  By this time  we've used
 so many letters, it's hard to think of characters that aren't now
 representing  reserved  words.    Remember:  before  you  try the
@@ -1022,7 +1022,7 @@ program, you're going to have to edit every occurrence of `Block` in
 the other loop constructs to include the new parameter.    Do  it
 just like I did for `LOOP`.
 
-I  said ALMOST above.  There is one slight problem: if you take a
+I  said _almost_ above.  There is one slight problem: if you take a
 hard  look  at  the code generated for `DO`, you'll see that if you
 break  out  of  this loop, the value of the loop counter is still
 left on the stack.  We're going to have to fix that!  A shame ...

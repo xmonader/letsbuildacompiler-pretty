@@ -22,7 +22,7 @@ not only the differences, but also the similarities.
 Consider the assignment statement `x = 2 * y + 3`.
 
 In a compiler, we want the target CPU to execute  this assignment
-at EXECUTION time.  The translator itself doesn't  do  any arithmetic
+at _execution_ time.  The translator itself doesn't  do  any arithmetic
 ... it only issues the object code that will cause  the CPU
 to do it when the code is executed.  For  the  example above, the
 compiler would issue code to compute the expression and store the
@@ -53,12 +53,12 @@ you  will  see,  there  ARE  differences,  and  significant ones.
 Because the actions are different,  the  procedures  that  do the
 recognizing end up being written differently.    Specifically, in
 the interpreter  the recognizing procedures end up being coded as
-FUNCTIONS that return numeric values to their callers.    None of
+_functions_ that return numeric values to their callers.    None of
 the parsing routines for our compiler did that.
 
 Our compiler, in fact,  is  what we might call a "pure" compiler.
 Each time a construct is recognized, the object  code  is emitted
-IMMEDIATELY.  (That's one reason the code is not very efficient.)
+_immediately_.  (That's one reason the code is not very efficient.)
 The interpreter we'll be building  here is a pure interpreter, in
 the sense that there is  no  translation,  such  as "tokenizing,"
 performed on the source code.  These represent  the  two extremes
@@ -130,7 +130,7 @@ interpretation in this installment.
 
 ## The Interpreter
 
-OK, now that you know WHY we're going into all this, let's do it.
+OK, now that you know _why_ we're going into all this, let's do it.
 Just to give you practice, we're going to start over with  a bare
 cradle and build up the translator all over again.  This time, of
 course, we can go a bit faster.
@@ -138,7 +138,7 @@ course, we can go a bit faster.
 Since we're now going  to  do arithmetic, the first thing we need
 to do is to change function `GetNum`, which up till now  has always
 returned a character  (or  string).    Now, it's better for it to
-return an integer.    MAKE  A  COPY of the cradle (for goodness's
+return an integer.    **Make  a  copy** of the cradle (for goodness's
 sake, don't change the version  in  `Cradle`  itself!!)  and modify
 `GetNum` as follows:
 
@@ -209,9 +209,9 @@ end;
 
 The structure of `Expression`, of  course,  parallels  what  we did
 before,  so  we  shouldn't have too much  trouble  debugging  it.
-There's  been  a  SIGNIFICANT  development, though, hasn't there?
+There's  been  a  _significant_  development, though, hasn't there?
 Procedures `Add` and `Subtract` went away!  The reason  is  that  the
-action to be taken  requires  BOTH arguments of the operation.  I
+action to be taken  requires  _both_ arguments of the operation.  I
 could have chosen to retain the procedures and pass into them the
 value of the expression to date,  which  is `Value`.  But it seemed
 cleaner to me to  keep  `Value` as strictly a local variable, which
@@ -339,7 +339,7 @@ parsing of an arithmetic statement should seem like child's play.
 How did we get so lucky?  And where did the precedence stacks go?
 
 A similar thing is going on  in  our interpreter above.  You just
-KNOW that in  order  for  it  to do the computation of arithmetic
+_know_ that in  order  for  it  to do the computation of arithmetic
 statements (as opposed to the parsing of them), there have  to be
 numbers pushed onto a stack somewhere.  But where is the stack?
 
@@ -424,7 +424,7 @@ end;
 ```
 
 You must also insert a call to `InitTable`, in procedure `Init`.
-DON'T FORGET to do that, or the results may surprise you!
+**Don't forget** to do that, or the results may surprise you!
 
 Now that we have an array  of  variables, we can modify `Factor` to
 use it.  Since we don't have a way (so far) to set the variables,
@@ -458,7 +458,7 @@ parse the complete expressions, as well as catch any badly formed
 expressions.
 
 I suppose you realize the next step: we need to do  an assignment
-statement so we can  put  something INTO the variables.  For now,
+statement so we can  put  something _into_ the variables.  For now,
 let's  stick  to  one-liners,  though  we will soon  be  handling
 multiple statements.
 
@@ -506,7 +506,7 @@ certainly seems uncool.
 
 What we need  is  a  termination  character.  I vote for Pascal's
 ending period (`.`).   A  minor  complication  is that Turbo ends
-every normal line  with  TWO characters, the carriage return (CR)
+every normal line  with  _two_ characters, the carriage return (CR)
 and line feed (LF).   At  the  end  of  each line, we need to eat
 these characters before processing the next one.   A  natural way
 to do this would  be  with  procedure  `Match`, except that `Match`'s

@@ -111,9 +111,9 @@ the  68000  is no exception.  For the 68000, the call  is  a  `BSR`
 to do is to arrange for  the  compiler to issue these commands at
 the proper place.
 
-Actually, there are really THREE things we have to address.   One
+Actually, there are really _three_ things we have to address.   One
 of  them  is  the  call/return  mechanism.    The second  is  the
-mechanism  for  DEFINING  the procedure in the first place.  And,
+mechanism  for  _defining_  the procedure in the first place.  And,
 finally, there is the issue of passing parameters  to  the called
 procedure.  None of these things are really  very  difficult, and
 we can of course borrow heavily on what people have done in other
@@ -667,7 +667,7 @@ statement in DoBlock:
 
 I should mention that  this  structure  for declarations, and the
 BNF that drives it, differs from standard Pascal.  In  the Jensen
-& Wirth  definition of Pascal, variable declarations, in fact ALL
+& Wirth  definition of Pascal, variable declarations, in fact _all_
 kinds of declarations,  must  appear in a specific sequence, i.e.
 labels,   constants,  types,  variables,  procedures,  and   main
 program.  To  follow  such  a  scheme, we should separate the two
@@ -684,8 +684,8 @@ require  that  order  and  let  you  freely  mix up  the  various
 declarations,  as  long  as  you  still  don't  try to  refer  to
 something  before  it's  declared.    Although  it  may  be  more
 aesthetically pleasing to declare all the global variables at the
-top of the  program,  it  certainly  doesn't do any HARM to allow
-them to be sprinkled around.   In  fact,  it may do some GOOD, in
+top of the  program,  it  certainly  doesn't do any _harm_ to allow
+them to be sprinkled around.   In  fact,  it may do some _good_, in
 the  sense  that it gives you the  opportunity  to  do  a  little
 rudimentary  information  hiding.     Variables  that  should  be
 accessed only by the main program, for example,  can  be declared
@@ -702,7 +702,7 @@ global level,  the  same  as  in  C.    There  has  been  quite a
 discussion about this point in  the  Computer  Language  Forum of
 CompuServe.  It turns out that there is a significant  penalty in
 complexity that must be paid for the luxury of nested procedures.
-What's  more,  this  penalty gets paid at RUN TIME, because extra
+What's  more,  this  penalty gets paid at _run time_, because extra
 code must be added and executed every time a procedure is called.
 I also happen to believe that nesting is not a good  idea, simply
 on the grounds that I have seen too many abuses of the feature.
@@ -743,7 +743,7 @@ a procedure  is signaled by the keyword `PROCEDURE` (abbreviated by
 a `p` here), while the main program gets no  keyword  other  than
 the `BEGIN` itself.
 
-And _that_ brings up an interesting question: WHY?
+And _that_ brings up an interesting question: _why_?
 
 If  we  look  at the structure of C programs, we  find  that  all
 functions are treated just  alike,  except  that the main program
@@ -850,7 +850,7 @@ willing to go to  protect  the programmer from dumb mistakes.  In
 the code that I've shown,  there's nothing to keep the programmer
 from adding code after  the  main  program  ... even another main
 program.   The code will just not be  accessible.    However,  we
-COULD access it via a `FORWARD` statement, which we'll be providing
+_could_ access it via a `FORWARD` statement, which we'll be providing
 later. As a  matter  of fact, many assembler language programmers
 like to use  the  area  just  after the program to declare large,
 uninitialized data blocks, so there may indeed be  some  value in
@@ -958,8 +958,8 @@ end;
 Well,  at  this  point  we  have  a  compiler  that can deal with
 procedures.    It's  worth  noting  that   procedures   can  call
 procedures to any depth.  So even though we  don't  allow  nested
-DECLARATIONS, there  is certainly nothing to keep us from nesting
-CALLS, just as  we  would  expect  to  do in any language.  We're
+_declarations_, there  is certainly nothing to keep us from nesting
+_calls_, just as  we  would  expect  to  do in any language.  We're
 getting there, and it wasn't too hard, was it?
 
 Of course, so far we can  only  deal with procedures that have no
@@ -1160,9 +1160,9 @@ a place for that data and we can deal with the issue then.
 
 ## The Semantics of Parameters
 
-So  far we've dealt with the SYNTAX  of  parameter  passing,  and
+So  far we've dealt with the _syntax_  of  parameter  passing,  and
 we've got the parsing mechanisms in place to handle it.  Next, we
-have to look at the SEMANTICS, i.e., the actions to be taken when
+have to look at the _semantics_, i.e., the actions to be taken when
 we encounter parameters. This brings  us  square  up  against the
 issue of the different ways parameters can be passed.
 
@@ -1260,7 +1260,7 @@ K, in the subroutine itself.
 
 Now suppose that, unbeknownst to the  programmer,  subroutine `FOO`
 actually modifies `K` to be, say, `-7`.  Suddenly, that literal  4 in
-the literal pool  gets  CHANGED,  to  a  `-7`.  From then on, every
+the literal pool  gets  _changed_,  to  a  `-7`.  From then on, every
 expression that uses  a  4  and  every subroutine that passes a 4
 will be using the value of `-7` instead!  Needless to say, this can
 lead to some  bizarre  and difficult-to-find behavior.  The whole
@@ -1271,7 +1271,7 @@ that led to the problem.
 In spite of  the  problem,  the  FORTRAN  approach  had  its good
 points.    Chief  among them is the fact that we  don't  have  to
 support  multiple  mechanisms.    The  same  scheme,  passing the
-address of  the argument, works for EVERY case, including arrays.
+address of  the argument, works for _every_ case, including arrays.
 So the size of the compiler can be reduced.
 
 Partly because of the FORTRAN  gotcha, and partly just because of
@@ -1285,7 +1285,7 @@ any way it likes.  The value in the caller will not be changed.
 
 It may seem at first that  this  is a bit inefficient, because of
 the need to copy the parameter.  But remember that we're going to
-have  to  fetch SOME value to pass  anyway,  whether  it  be  the
+have  to  fetch _some_ value to pass  anyway,  whether  it  be  the
 parameter  itself  or  an address for it.  Inside the subroutine,
 using  pass-by-value  is  definitely  more  efficient,  since  we
 eliminate one level of indirection.  Finally, we saw earlier that
@@ -1295,7 +1295,7 @@ variables.  All in all, pass-by-value is better.
 
 Except for one small little detail:  if all parameters are passed
 by value, there is no way for a called to  procedure  to return a
-result to its caller!  The parameter passed is NOT altered in the
+result to its caller!  The parameter passed is _not_ altered in the
 caller,  only  in  the called procedure.  Clearly, that won't get
 the job done.
 
@@ -1314,7 +1314,7 @@ are passed  by  value.    One  kind  of variable that C supports,
 however, is the pointer.  So  by  passing a pointer by value, you
 in effect pass what it points to by reference.  In some ways this
 works even better yet,  because  even  though  you can change the
-variable  pointed to all you like, you  still  CAN'T  change  the
+variable  pointed to all you like, you  still  _can't_  change  the
 pointer itself.  In a function such as strcpy, for example, where
 the  pointers are incremented as the string  is  copied,  we  are
 really only incrementing copies of the pointers, so the values of
@@ -1323,7 +1323,7 @@ were.  To modify a  pointer,  you  must  pass  a  pointer  to the
 pointer.
 
 Since we are simply  performing  experiments  here, we'll look at
-BOTH pass-by-value and pass-by-reference.    That  way,  we'll be
+_both_ pass-by-value and pass-by-reference.    That  way,  we'll be
 able to use either one as we need to.  It's worth mentioning that
 it's  going  to  be tough to use the C approach to pointers here,
 since a pointer is a different type and we haven't  studied types
@@ -1564,7 +1564,7 @@ end;
 
 Now, what about dealing with a formal parameter  when  it appears
 in the body of the procedure?  That takes a little more work.  We
-must first determine that it IS a formal parameter.  To  do this,
+must first determine that it _is_ a formal parameter.  To  do this,
 I've written a modified version of `TypeOf`:
 
 ```delphi
@@ -1665,7 +1665,7 @@ That's  it.  Add these changes to your program and give it a try.
 Try declaring one or two procedures, each with a formal parameter
 list.  Then do some assignments, using combinations of global and
 formal  parameters.    You  can  call one procedure  from  within
-another, but you cannot DECLARE a nested procedure.  You can even
+another, but you cannot _declare_ a nested procedure.  You can even
 pass formal parameters from one procedure to another.  If  we had
 the  full  syntax  of the language here, you'd also be able to do
 things like read  or  write  formal  parameters  or  use  them in
@@ -1684,9 +1684,9 @@ generating here leaves a lot to be desired in several respects.
 The most glaring oversight is that it's wrong!   If  you'll  look
 back at the code for a procedure call, you'll see that the caller
 pushes each actual parameter onto the stack before  it  calls the
-procedure.  The  procedure  USES that information, but it doesn't
+procedure.  The  procedure  _uses_ that information, but it doesn't
 change the stack  pointer.    That  means that the stuff is still
-there when we return. SOMEBODY needs to clean up  the  stack,  or
+there when we return. _Somebody_ needs to clean up  the  stack,  or
 we'll soon be in very hot water!
 
 Fortunately,  that's  easily fixed.  All we  have  to  do  is  to
@@ -1702,7 +1702,7 @@ return address so as not to lose it.
 I prefer letting  the  caller  clean  up, so that the callee need
 only execute a return.  Also, it seems a bit more balanced, since
 the caller is  the  one  who  "messed  up" the stack in the first
-place.  But  THAT  means  that  the caller must remember how many
+place.  But  _that_  means  that  the caller must remember how many
 items  it  pushed.    To  make  things  easy, I've  modified  the
 procedure  `ParamList` to be a function  instead  of  a  procedure,
 returning the number of bytes pushed:
@@ -1932,7 +1932,7 @@ WE HAVE NO WAY TO RETURN RESULTS TO THE CALLER!
 
 But  that,  of course, is not a  limitation  of  the  code  we're
 generating, but  one  inherent  in  the  call-by-value  protocol.
-Notice that we CAN use formal parameters in any  way  inside  the
+Notice that we _can_ use formal parameters in any  way  inside  the
 procedure.  We  can  calculate  new  values for them, use them as
 loop counters (if we had loops, that is!), etc.   So  the code is
 doing what it's supposed to.   To  get over this last problem, we
@@ -1950,7 +1950,7 @@ push an address.  As it turns out, the 68000 has  an instruction,
 We'll be  making  a  new  version  of  the test program for this.
 Before we do anything else,
 
-`>>>> MAKE A COPY <<<<` of  the program as it now stands, because  we'll  be  needing  it
+**MAKE A COPY** of  the program as it now stands, because  we'll  be  needing  it
 again later.
 
 Let's begin by looking at the code we'd like to see generated for
@@ -2049,11 +2049,11 @@ candidate for optimization, and press on.
 
 Now we've learned to process parameters  using  pass-by-value and
 pass-by-reference.  In the real world, of course, we'd like to be
-able  to  deal  with BOTH methods.  We can't do that yet, though,
+able  to  deal  with _both_ methods.  We can't do that yet, though,
 because we have not yet had a session on types,  and  that has to
 come first.
 
-If  we can only have ONE method, then of course it has to be  the
+If  we can only have _one_ method, then of course it has to be  the
 good ol' FORTRAN method of  pass-by-reference,  since  that's the
 only way procedures can ever return values to their caller.
 
@@ -2110,7 +2110,7 @@ early FORTRAN compilers  produced  a quality of code that's still
 rarely matched by modern compilers.   Even today, a given program
 written  in  FORTRAN  is likely to outperform  the  same  program
 written in C or Pascal, sometimes  by  wide margins. (Whew!  Am I
-going to hear about THAT statement!)
+going to hear about _that_ statement!)
 
 I've always supposed that the reason had to do with the  two main
 differences  between  FORTRAN  implementations  and  the  others:
@@ -2129,7 +2129,7 @@ addressing  anyway  ...  most  operating systems require position
 independent code.  And the 68000 instruction `MOVE 8(A6),D0`
 has exactly the same timing as `MOVE X(PC),D0`.
 
-So  I'm  convinced,  now, that there is no good reason NOT to use
+So  I'm  convinced,  now, that there is no good reason _not_ to use
 dynamic storage.
 
 Since this use of local variables fits so well into the scheme of

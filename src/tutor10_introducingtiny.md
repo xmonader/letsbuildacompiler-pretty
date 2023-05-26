@@ -25,7 +25,7 @@ since we can tailor the language  slightly  as we go, to keep the
 parsing easy.
 
 So in the development  that  follows,  we'll  actually be doing a
-top-down development of BOTH the  language and its compiler.  The
+top-down development of _both_ the  language and its compiler.  The
 BNF description will grow along with the compiler.
 
 In this process, there will be a number of decisions to  be made,
@@ -35,8 +35,8 @@ explain  the  decision  and the rationale behind my choice.  That
 way, if you happen to hold a different opinion and would prefer a
 different option, you can choose it instead.  You  now  have  the
 background  to  do  that.  I guess the important thing to note is
-that  nothing  we  do  here  is  cast  in  concrete.  When YOU'RE
-designing YOUR language, you should feel free to do it YOUR way.
+that  nothing  we  do  here  is  cast  in  concrete.  When _you're_
+designing _your_ language, you should feel free to do it _your_ way.
 
 Many of you may be asking at this point: Why bother starting over
 from  scratch?  We had a working subset of KISS as the outcome of
@@ -94,7 +94,7 @@ that  the parser will know where it's  going  without  having  to
 guess.
 
 One other ground rule:  As we go, I'd like  to  keep the compiler
-producing real, executable code.  Even though it may not  DO much
+producing real, executable code.  Even though it may not  _do_ much
 at the beginning, it will at least do it correctly.
 
 Finally,  I'll  use  a couple of Pascal  restrictions  that  make
@@ -224,7 +224,7 @@ generates 50K!
 The  smallest  null  programs  I've  seen are those  produced  by
 Modula-2 compilers, and they run about 200-800 bytes.
 
-In the case of TINY, we HAVE no run-time library  as  yet, so the
+In the case of TINY, we _have_ no run-time library  as  yet, so the
 object code is indeed tiny:  two  bytes.    That's  got  to  be a
 record, and it's  likely  to  remain  one since it is the minimum
 size required by the OS.
@@ -498,7 +498,7 @@ OK, try this  version  of  TINY  and verify that you can, indeed,
 give the variables initial values.
 
 By golly, this thing is starting to look  real!    Of  course, it
-still doesn't DO anything, but it looks good, doesn't it?
+still doesn't _do_ anything, but it looks good, doesn't it?
 
 Before leaving this section, I should point out  that  we've used
 two versions of function `GetNum`.  One, the earlier one, returns a
@@ -870,7 +870,7 @@ handle   negative  constant  values  efficiently.    It's   worth
 mentioning  here  that  we  have  often  seen  the advantages  of
 "tweaking"  the  BNF  as we go, to help make the language easy to
 parse.    What  you're looking at here is a bit different:  we've
-tweaked  the  BNF  to make the CODE  GENERATION  more  efficient!
+tweaked  the  BNF  to make the _code  generation_  more  efficient!
 That's a first for this series.
 
 Anyhow, the following code implements the BNF:
@@ -1205,7 +1205,7 @@ predefined by the language.
 The reason that I'm harping on this is that  I've  already  tried
 the alternative, which is to  include `TRUE` and `FALSE` as keywords.
 The problem with that approach is that it  then  requires lexical
-scanning for EVERY variable name  in every expression.  If you'll
+scanning for _every_ variable name  in every expression.  If you'll
 recall,  I pointed out in [Installment VII](tutor07_lexicalscanning.md)  that  this  slows  the
 compiler  down considerably.  As long as  keywords  can't  be  in
 expressions, we need to do the scanning only at the  beginning of
@@ -1586,11 +1586,11 @@ The next step is to insert calls to `NewLine` wherever we  decide a
 newline is permissible.  As I've pointed out before, this  can be
 very different in different languages.   In TINY, I've decided to
 allow them virtually anywhere.  This means that we need  calls to
-`NewLine` at the BEGINNING (not the end, as with `SkipWhite`)  of the
+`NewLine` at the _beginning_ (not the end, as with `SkipWhite`)  of the
 procedures `GetName`, `GetNum`, and `Match`.
 
 For procedures that have while loops, such as `TopDecl`, we  need a
-call  to `NewLine` at the beginning of the  procedure  AND  at  the
+call  to `NewLine` at the beginning of the  procedure  _and_  at  the
 bottom  of  each  loop.  That way, we can be assured that `NewLine`
 has just been called at the beginning of each  pass  through  the
 loop.
@@ -2147,7 +2147,7 @@ are built into the language because they are the  only  ones  for
 which  the  argument  list can have a variable number of entries.
 In C, we settle for kludges like scanf and printf, and  must pass
 the argument count to the called procedure.  In Ada and  Modula 2
-we must use the  awkward  (and SLOW!) approach of a separate call
+we must use the  awkward  (and _slow_!) approach of a separate call
 for each argument.
 
 So I think I prefer the  Pascal  approach of building the I/O in,

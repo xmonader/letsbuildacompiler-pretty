@@ -271,7 +271,7 @@ considering we weren't trying very  hard  to  save  either source
 code or object size.  We just stuck to the KISS principle.
 
 Of course, parsing an expression  is not much good without having
-something to do with it afterwards.  Expressions USUALLY (but not
+something to do with it afterwards.  Expressions _usually_ (but not
 always) appear in assignment statements, in the form
 `<Ident> = <Expression>`.
 

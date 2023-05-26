@@ -69,7 +69,7 @@ scale,  exactly  what  any larger compiler does:    it  correctly
 recognizes legal  statements in the input "language" that we have
 defined for it, and  it  produces  correct,  executable assembler
 code,  suitable  for  assembling  into  object  format.  Just  as
-importantly,  it correctly  recognizes  statements  that  are NOT
+importantly,  it correctly  recognizes  statements  that  are _not_
 legal, and gives a  meaningful  error message.  Who could ask for
 more?  As we expand our  parser,  we'd better make sure those two
 characteristics always hold true.
@@ -105,7 +105,7 @@ place.  We're  going  to  have  to  save the first result of `Term`
 somewhere before we get the next one.
 
 OK, basically what we want to  do  is have procedure `Term` do what
-`Expression` was doing before.  So just RENAME procedure `Expression`
+`Expression` was doing before.  So just _rename_ procedure `Expression`
 as `Term`, and enter the following new version of `Expression`:
 
 ```delphi
@@ -154,7 +154,7 @@ end;
 When you're finished with that,  the order of the routines should
 be:
 
-- `Term` (The RENAME Expression)
+- `Term` (The _old_ Expression)
 - `Add`
 - `Subtract`
 - `Expression`
@@ -166,7 +166,7 @@ Now  try  some  expressions with deliberate errors in them.  Does
 the parser catch the errors?
 
 Take  a  look  at the object  code  generated.    There  are  two
-observations we can make.  First, the code generated is  NOT what
+observations we can make.  First, the code generated is  _not_ what
 we would write ourselves.  The sequence
 
 ```asm
@@ -195,9 +195,9 @@ really throughout  this  series  of  articles,  we'll  studiously
 ignore optimization and  concentrate  on  getting  out  code that
 works.
 
-Speaking of which: ours DOESN'T!  The code is _wrong_!  As things
+Speaking of which: ours _doesn't_!  The code is _wrong_!  As things
 are working  now, the subtraction process subtracts `D1` (which has
-the FIRST argument in it) from `D0` (which has the second).  That's
+the _first_ argument in it) from `D0` (which has the second).  That's
 the wrong way, so we end up with the wrong  sign  for the result.
 So let's fix up procedure `Subtract` with a  sign-changer,  so that
 it reads
@@ -238,7 +238,7 @@ start to take the shape of a real parser.
 
 ## General Expressions
 
-In the  REAL  world,  an  expression  can  consist of one or more
+In the  _real_  world,  an  expression  can  consist of one or more
 terms, separated  by  "addops"  (`+`  or  `-`).   In BNF, this is
 written
 
@@ -268,7 +268,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-NOW we're getting somewhere!   This version handles any number of
+_Now_ we're getting somewhere!   This version handles any number of
 terms, and it only cost us two extra lines of code.  As we go on,
 you'll discover that this is characteristic  of  top-down parsers
 ... it only takes a few lines of code to accommodate extensions to
@@ -327,12 +327,12 @@ it's a necessary step, as you'll see.
 
 ## Multiplication and Division
 
-Now let's get down to some REALLY serious business.  As  you  all
+Now let's get down to some _really_ serious business.  As  you  all
 know,  there  are  other  math   operators   than   "addops"  ...
 expressions can also have  multiply  and  divide operations.  You
-also  know  that  there  is  an implied operator  PRECEDENCE,  or
+also  know  that  there  is  an implied operator  _precedence_,  or
 hierarchy, associated with expressions, so that in  an expression
-like `2 + 3 * 4`, we know that we're supposed to multiply FIRST, then  add.    (See
+like `2 + 3 * 4`, we know that we're supposed to multiply _first_, then  add.    (See
 why we needed the stack?)
 
 In the early days of compiler technology, people used some rather
@@ -342,7 +342,7 @@ necessary ... the rules can be accommodated quite  nicely  by our
 top-down  parsing technique.  Up till now,  the  only  form  that
 we've considered for a term is that of a  single  decimal  digit.
 
-More generally, we  can  define  a  term as a PRODUCT of FACTORS;
+More generally, we  can  define  a  term as a _product_ of _factors_;
 i.e.
 
 ```bnf
@@ -451,7 +451,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Hot dog!  A NEARLY functional parser/translator, in only 55 lines
+Hot dog!  A _nearly_ functional parser/translator, in only 55 lines
 of Pascal!  The output is starting to look really useful,  if you
 continue to overlook the inefficiency,  which  I  hope  you will.
 Remember, we're not trying to produce tight code here.
@@ -550,7 +550,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-I TOLD you that making changes  was  easy!   This time it cost us
+I _told_ you that making changes  was  easy!   This time it cost us
 only  three  new lines of Pascal.   Note  the  new  reference  to
 function `IsAddop`.  Since the test for an addop appeared  twice, I
 chose  to  embed  it in the new function.  The  form  of  `IsAddop`
@@ -600,7 +600,7 @@ series of articles.  But you need to at least know that we aren't
 just  wasting our time here ... that we  can  indeed  modify  the
 parser further to  make  it produce better code, without throwing
 away everything we've done to date.  As usual, it turns  out that
-SOME optimization is not that difficult to do ... it simply takes
+_some_ optimization is not that difficult to do ... it simply takes
 some extra code in the parser.
 
 There are two basic approaches we can take:
@@ -615,7 +615,7 @@ There are two basic approaches we can take:
   combinations, and replacing  them  by better ones.  It's sort
   of   a   macro   expansion,   in   reverse,   and   a  fairly
   straightforward  exercise  in   pattern-matching.   The  only
-  complication,  really, is that there may be  a  LOT  of  such
+  complication,  really, is that there may be  a  _lot_  of  such
   combinations to look for.  It's called  peephole optimization
   simply because it only looks at a small group of instructions
   at a time.  Peephole  optimization can have a dramatic effect
@@ -630,7 +630,7 @@ There are two basic approaches we can take:
   it's done as a second pass to the compiler.  The  output code
   is  written  to  disk,  and  then  the  optimizer  reads  and
   processes the disk file again.  As a matter of fact,  you can
-  see that the optimizer could  even be a separate PROGRAM from
+  see that the optimizer could  even be a separate _program_ from
   the compiler proper.  Since the optimizer only  looks  at the
   code through a  small  "window"  of  instructions  (hence the
   name), a better implementation would be to simply buffer up a
@@ -638,7 +638,7 @@ There are two basic approaches we can take:
 
 - Try to generate better code in the first place
 
-  This approach calls for us to look for  special  cases BEFORE
+  This approach calls for us to look for  special  cases _before_
   we `Emit` them.  As a trivial example,  we  should  be  able to
   identify a constant zero,  and  `Emit` a `CLR` instead of a load,
   or even do nothing at all, as in an add of zero, for example.
@@ -653,7 +653,7 @@ There are two basic approaches we can take:
   and tweak the thing to tighten up the code produced.   That's
   why there are Release 2.0's in the world.
 
-There IS one more type  of  optimization  worth  mentioning, that
+There _is_ one more type  of  optimization  worth  mentioning, that
 seems to promise pretty tight code without too much hassle.  It's
 my "invention" in the  sense  that I haven't seen it suggested in
 print anywhere, though I have  no  illusions  that  it's original
@@ -667,7 +667,7 @@ operations, the "stack" never needs more than two entries.
 
 Well,  the 68000 has eight data registers.  Why not use them as a
 privately managed stack?  The key is to recognize  that,  at  any
-point in its processing,  the  parser KNOWS how many items are on
+point in its processing,  the  parser _knows_ how many items are on
 the  stack, so it can indeed manage it properly.  We can define a
 private "stack pointer" that keeps  track  of  which  stack level
 we're at, and addresses the  corresponding  register.   Procedure
@@ -679,7 +679,7 @@ What we're doing in effect is to replace the CPU's RAM stack with
 a  locally  managed  stack  made  up  of  registers.    For  most
 expressions, the stack level  will  never  exceed eight, so we'll
 get pretty good code out.  Of course, we also  have  to deal with
-those  odd cases where the stack level  DOES  exceed  eight,  but
+those  odd cases where the stack level  _does_  exceed  eight,  but
 that's no problem  either.    We  simply let the stack spill over
 into the CPU  stack.    For  levels  beyond eight, the code is no
 worse  than  what  we're generating now, and for levels less than
@@ -696,7 +696,7 @@ improvement in code size for most expressions.
 
 So, you see, getting  better  code  isn't  that difficult, but it
 does add complexity to the our translator ...  complexity  we can
-do without at this point.  For that reason,  I  STRONGLY  suggest
+do without at this point.  For that reason,  I  _strongly_  suggest
 that we continue to ignore efficiency issues for the rest of this
 series,  secure  in  the knowledge that we can indeed improve the
 code quality without throwing away what we've done.

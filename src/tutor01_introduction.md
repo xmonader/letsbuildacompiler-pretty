@@ -40,7 +40,7 @@ many other uses!
 Some articles on compilers show you examples, or show you  (as in
 the case of Small-C) a finished product, which you can  then copy
 and  use without a whole lot of understanding of how it works.  I
-hope to do much more  than  that.    I  hope to teach you HOW the
+hope to do much more  than  that.    I  hope to teach you _how_ the
 things get done,  so that you can go off on your own and not only
 reproduce what I have done, but improve on it.
 
@@ -122,7 +122,7 @@ Experience  has  proven  that  once  a   translator   is  working
 correctly, it's a  straightforward  matter to redirect the I/O to
 files.    The last trick is that I make no attempt  to  do  error
 correction/recovery.   The   programs   we'll  be  building  will
-RECOGNIZE errors, and will not CRASH, but they  will  simply stop
+_recognize_ errors, and will not _crash_, but they  will  simply stop
 on the first error ... just like good ol' Turbo does.  There will
 be  other tricks that you'll see as you go. Most of them can't be
 found in any compiler textbook, but they work.
@@ -134,7 +134,7 @@ of the procedures we'll  be  working with will be more than about
 Simple, Sidney) school of software development.  I  try  to never
 do something tricky or  complex,  when  something simple will do.
 Inefficient?  Perhaps, but you'll like the  results.    As  Brian
-Kernighan has said,  FIRST  make  it  run, THEN make it run fast.
+Kernighan has said,  _first_  make  it  run, _then_ make it run fast.
 If, later on,  you want to go back and tighten up the code in one
 of  our products, you'll be able to do so, since the code will be
 quite understandable. If you  do  so, however, I urge you to wait

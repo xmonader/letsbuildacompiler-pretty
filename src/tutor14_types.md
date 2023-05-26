@@ -11,7 +11,7 @@ been  waiting patiently, since August '89, for  me  to  drop  the
 other shoe.  Well, here it is.
 
 In this installment, we'll talk  about how to deal with different
-data types.  As I did in the last segment, I will NOT incorporate
+data types.  As I did in the last segment, I will _not_ incorporate
 these  features directly into the TINY  compiler  at  this  time.
 Instead, I'll be using the same approach that has worked  so well
 for  us  in the past: using only  fragments  of  the  parser  and
@@ -22,7 +22,7 @@ dealing with multiple types occur in  the  arithmetic operations,
 that's where we'll concentrate our focus.
 
 A  few words of warning:  First, there are some types that I will
-NOT  be  covering in this installment.   Here  we  will  ONLY  be
+NOT  be  covering in this installment.   Here  we  will  _only_  be
 talking about the simple, predefined types.  We  won't  even deal
 with arrays, pointers or strings  in  this  installment;  I'll be
 covering them in the next few.
@@ -36,14 +36,14 @@ etc., just so that the series  will  be complete.  But whether or
 not they will be included as part of KISS is still an open issue.
 I am open to comments or suggestions on this question.
 
-Finally,  I  should  warn you: what we are about to  do  CAN  add
+Finally,  I  should  warn you: what we are about to  do  _can_  add
 considerable  extra  complication  to  both  the  parser  and the
 generated  code.    Handling  variables  of  different  types  is
 straightforward enough.  The complexity  comes  in  when  you add
 rules about conversion between types.  In general,  you  can make
 the  compiler  as  simple or as complex as you choose to make it,
 depending upon the  way  you  define  the  type-conversion rules.
-Even if you decide not to allow ANY type conversions (as  in Ada,
+Even if you decide not to allow _any_ type conversions (as  in Ada,
 for example) the problem is still there, and is  built  into  the
 mathematics.  When  you  multiply two short numbers, for example,
 you can get a long result.
@@ -97,7 +97,7 @@ from you readers.  Anyone want to vote for Turbo 5.5 and O-O?
 In any case, after  the  next few installments in the series, the
 plan  is  to  upload to you a complete set of Units, and complete
 functioning compilers as  well.    The  plan, in fact, is to have
-THREE compilers:  One for  a single-character version of TINY (to
+_three_ compilers:  One for  a single-character version of TINY (to
 use  for  our  experiments), one for TINY and one for KISS.  I've
 pretty much isolated the differences between TINY and KISS, which
 are these:
@@ -459,7 +459,7 @@ for i := 'A' to 'Z' do
 Now, run the program again.  What did you get?
 
 Well, that's even more  boring  than before!  There was no output
-at all, since at this point NONE of the names have been declared.
+at all, since at this point _none_ of the names have been declared.
 We  can  spice  things up a  bit  by  inserting  some  statements
 declaring some entries in the main program.  Try these:
 
@@ -775,10 +775,10 @@ end;
 {--------------------------------------------------------------}
 ```
 
-(NOTE to the  concerned:  I  know,  I  know, all this is all very
+(**Note** to the  concerned:  I  know,  I  know, all this is all very
 inefficient.  In a production  program,  we  probably  would take
 steps to avoid such deep nesting of procedure calls.  Don't worry
-about it.  This is an EXERCISE, remember?  It's more important to
+about it.  This is an _exercise_, remember?  It's more important to
 get it  right  and  understand  it, than it is to make it get the
 wrong  answer,  quickly.   If you get your compiler completed and
 find that you're unhappy  with  the speed, feel free to come back
@@ -827,7 +827,7 @@ end;
 
 You can test this one the same way as the loads.
 
-Now, of course, it's a RATHER  small  step to use these to handle
+Now, of course, it's a _rather_  small  step to use these to handle
 assignment  statements.  What we'll do is  to  create  a  special
 version   of  procedure  `Block`  that  supports  only   assignment
 statements, and also a  special  version  of `Expression` that only
@@ -932,7 +932,7 @@ loads a variable of the correct size, and stores one, also of the
 correct size.
 
 There's only one small  little  problem:    The generated code is
-WRONG!
+_wrong_!
 
 Look at the code for a=c above.  The code is:
 
@@ -955,15 +955,15 @@ LEA  C(PC),A0
 MOVE.L D0,(A0)
 ```
 
-This is  NOT  correct.    It will cause the byte variable `A` to be
+This is  _not_  correct.    It will cause the byte variable `A` to be
 stored into the lower eight bits  of  `D0`.  According to the rules
 for the 68000 processor,  the  upper 24 bits are unchanged.  This
 means  that when we store the entire 32  bits  into  C,  whatever
 garbage  that  was  in those high bits will also get stored.  Not
 good.
 
-So what  we  have  run  into here, early on, is the issue of TYPE
-CONVERSION, or COERCION.
+So what  we  have  run  into here, early on, is the issue of _type
+conversion_, or _coercion_.
 
 Before we do anything with  variables of different types, even if
 it's just to  copy  them, we have to face up to the issue.  It is
@@ -985,7 +985,7 @@ way to solve the problem: simply promote every variable to a long
 integer when we load it!
 
 This takes the addition of only one line to `LoadVar`,  although if
-we  are  not  going to COMPLETELY ignore efficiency, it should be
+we  are  not  going to _completely_ ignore efficiency, it should be
 guarded by an `IF` test.  Here is the modified version:
 
 ```delphi
@@ -1022,7 +1022,7 @@ of the kinds of inefficiencies  that we've seen before in simple-minded
 compilers.
 
 I should point out that, by setting the high bits to zero, we are
-in effect treating the numbers as UNSIGNED integers.  If  we want
+in effect treating the numbers as _unsigned_ integers.  If  we want
 to treat them as signed ones instead (the more  likely  case)  we
 should do a  sign  extension  after  the load, instead of a clear
 before it. Just  to  tie  this  part  of the discussion up with a
@@ -1054,7 +1054,7 @@ memory solves the problem, but it can hardly be called efficient,
 and  probably wouldn't be acceptable even for  those  of  us  who
 claim be unconcerned about  efficiency.    It  will mean that all
 arithmetic operations will be done to 32-bit accuracy, which will
-DOUBLE the run time  for  most operations, and make it even worse
+_double_ the run time  for  most operations, and make it even worse
 for multiplication  and division.  For those operations, we would
 need to call subroutines to do  them,  even if the data were byte
 or  word types.  The whole thing is sort of a cop-out, too, since
@@ -1064,7 +1064,7 @@ OK, so that solution's no good.  Is there still a relatively easy
 way to get data conversion?  Can we still Keep It Simple?
 
 Yes, indeed.   All we have to do is to make the conversion at the
-other end ... that is, we convert on the way _OUT_, when the data
+other end ... that is, we convert on the way _out_, when the data
 is stored, rather than on the way in.
 
 But, remember, the storage part  of the assignment is pretty much
@@ -1552,7 +1552,7 @@ simple.  All the two routines do is to pop the  top-of-stack into
 the code.
 
 Note  the  new  code generator routines `GenAdd` and `GenSub`.  These
-are vestigial forms of the ORIGINAL `PopAdd` and `PopSub`.   That is,
+are vestigial forms of the _original_ `PopAdd` and `PopSub`.   That is,
 they  are pure code generators, producing a  register-to-register
 add or subtract:
 
@@ -1744,12 +1744,12 @@ table:
 This table shows the actions to be taken for each  combination of
 operand types.  There are three things to note: First,  we assume
 a library routine  `MUL32`  which  performs  a  32  x  32 multiply,
-leaving a >> 32-bit << (not 64-bit) product.    If  there  is any
+leaving a **32-bit** (not 64-bit) product.    If  there  is any
 overflow in the process,  we  choose to ignore it and return only
 the lower 32 bits.
 
 Second, note that the  table  is  symmetric  ... the two operands
-enter in the same way.  Finally, note that the product  is ALWAYS
+enter in the same way.  Finally, note that the product  is _always_
 a longword, except when  both  operands  are  bytes.  (It's worth
 noting, in passing, that  this  means  that many expressions will
 end up being longwords, whether we  like  it or not.  Perhaps the
@@ -1836,7 +1836,7 @@ integer `1`.  You are guaranteed to get an overflow exception.
 
 The  problem is that the instruction  really  requires  that  the
 resulting quotient fit into a 16-bit result.   This  won't happen
-UNLESS the divisor is  sufficiently  large.    When any number is
+_unless_ the divisor is  sufficiently  large.    When any number is
 divided by unity, the quotient will of course be the same  as the
 dividend, which had better fit into a 16-bit word.
 
@@ -1979,13 +1979,13 @@ operators are  bitwise  operations,  so  they  are  symmetric and
 therefore work  in  the  same  fashion  as  `PopAdd`.  There is one
 difference,  however:    if  it  is necessary to extend the  word
 length for a logical variable, the extension should be done as an
-UNSIGNED  number.      Floating   point   numbers,   again,   are
+_unsigned_  number.      Floating   point   numbers,   again,   are
 straightforward  to  handle  ... just a few more procedures to be
 added to the run-time library, or perhaps instructions for a math
 chip.
 
 Perhaps more importantly, I have also skirted the  issue  of type
-CHECKING,  as  opposed  to  conversion.   In other  words,  we've
+_checking_,  as  opposed  to  conversion.   In other  words,  we've
 allowed for operations between variables of  all  combinations of
 types.  In general this will not be true ... certainly  you don't
 want to add an integer, for example, to a string.  Most languages
@@ -2026,7 +2026,7 @@ The answer depends on what kind of language you want, and the way
 you'd like it to behave.  What we have not addressed is the issue
 of when to allow and when to deny the use of operations involving
 different  data  types.   In other  words,  what  should  be  the
-SEMANTICS of our compiler?   Do we want automatic type conversion
+_semantics_ of our compiler?   Do we want automatic type conversion
 for all cases, for some cases, or not at all?
 
 Let's pause here to think about this a bit more.   To  do  so, it
@@ -2072,7 +2072,7 @@ data types, and you can mix them all  freely.    If  the implicit
 conversions of FORTRAN seemed good,  then  those  of  PL/I should
 have been Heaven, but it turned  out  to  be more like Hell!  The
 problem was that with so many data types, there had to be a large
-number  of  different conversions, AND  a  correspondingly  large
+number  of  different conversions, _and_  a  correspondingly  large
 number of rules about how  mixed  operands  should  be converted.
 These rules became so  complex  that  no  one could remember what
 they  were!  A lot of the errors in PL/I programs had to do  with
@@ -2081,13 +2081,13 @@ Thing can be bad for you!
 
 Pascal,  on  the  other hand, is a  language  which  is "strongly
 typed," which means that in general you can't mix types,  even if
-they differ only in _NAME_, and yet have the same base type!
+they differ only in _name_, and yet have the same base type!
 Niklaus Wirth made Pascal strongly typed to help keep programmers
 out of trouble, and  the  restrictions  have  indeed saved many a
 programmer from themself, because the compiler kept them from doing
 something dumb.  Better  to  find  the  bug in compilation rather
 than  the  debug  phase.    The same restrictions can also  cause
-frustration when you really  WANT  to mix types, and they tend to
+frustration when you really  _want_  to mix types, and they tend to
 drive an ex-C-programmer up the wall.
 
 Even so, Pascal does permit some implicit conversions.    You can
@@ -2127,27 +2127,27 @@ apparent that there could be a cost involved.
 I have been using another strongly-typed  language,  a delightful
 little  language  called  Whimsical,  by  John  Spray.   Although
 Whimsical is  intended as a systems programming language, it also
-requires explicit conversion EVERY time.    There  are  NEVER any
+requires explicit conversion _every_ time.    There  are  _never_ any
 automatic conversions, even the ones supported by Pascal.
 
 This approach does  have  certain advantages:  The compiler never
 has to guess what to do: the programmer always tells it precisely
 what  they  want.  As a result, there tends to be  a  more  nearly
 one-to-one correspondence between  source code and compiled code,
-and John's compiler produces VERY tight code.
+and John's compiler produces _very_ tight code.
 
 On the other hand, I sometimes find the  explicit  conversions to
 be a pain.  If I want, for example, to add one to a character, or
 AND it with a mask, there are a lot of conversions to make.  If I
 get  it  wrong,  the  only   error  message  is  "Types  are  not
 compatible."  As it happens, John's particular  implementation of
-the language in his compiler doesn't tell you exactly WHICH types
-are not compatible ... it only tells you which LINE the  error is
+the language in his compiler doesn't tell you exactly _which_ types
+are not compatible ... it only tells you which _line_ the  error is
 in.
 
 I must admit that most of my errors with this compiler tend to be
 errors of this type, and  I've  spent  a  lot  of  time  with the
-Whimsical compiler, trying to figure out just WHERE  in  the line
+Whimsical compiler, trying to figure out just _where_  in  the line
 I've offended it.   The only real way to fix the error is to keep
 trying things until something works.
 

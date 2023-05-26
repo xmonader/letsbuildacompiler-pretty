@@ -803,13 +803,13 @@ sort of think not.  I can think of many examples (though they
 might be frowned upon as "tricky" code) where the ability to mix
 the types might come in handy.  Example, the Dirac delta function,
 which could be coded in one simple line, `-(x=0)`,
-or the absolute value function (DEFINITELY tricky code!),
+or the absolute value function (_definitely_ tricky code!),
 `x*(1+2*(x<0))`.
 
 Please note, I'm not advocating coding like this as a way of life.
 I'd almost certainly write these functions in more readable form,
 using `IF`s, just to keep from confusing later maintainers.  Still,
-a moral question arises:  Do we have the right to ENFORCE our
+a moral question arises:  Do we have the right to _enforce_ our
 ideas of good coding practice on the programmer, but writing the
 language so they can't do anything else?  That's what Nicklaus Wirth
 did, in many places in Pascal, and Pascal has been criticized for

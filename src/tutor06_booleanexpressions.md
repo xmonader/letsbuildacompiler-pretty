@@ -33,7 +33,7 @@ for branches and  loops.    But  the  ways  in  which programming
 languages  implement  logic  vary quite a bit  from  language  to
 language.  So before we begin serious coding,  we'd  better first
 make up our minds what it is we want.  And the way to do  that is
-at the level of the BNF syntax rules (the GRAMMAR).
+at the level of the BNF syntax rules (the _grammar_).
 
 
 ## The Grammar
@@ -121,14 +121,14 @@ But more often, we see Boolean algebra show up in such things as
 `IF (x >= 0) and (x <= 100) THEN ...`.
 
 Here,  the  two  terms in parens are Boolean expressions, but the
-individual terms being compared:  `x`,  `0`, and `100`,  are NUMERIC in
-nature.  The RELATIONAL OPERATORS `>=` and `<=` are the  catalysts by
+individual terms being compared:  `x`,  `0`, and `100`,  are _numeric_ in
+nature.  The _relational operators_ `>=` and `<=` are the  catalysts by
 which the  Boolean  and  the  arithmetic  ingredients  get merged
 together.
 
 Now,  in the example above, the terms  being  compared  are  just
 that:  terms.    However,  in  general  each  side  can be a math
-expression.  So we can define a RELATION to be:
+expression.  So we can define a _relation_ to be:
 
 ```bnf
 <relation> ::= <expression> <relop> <expression>
@@ -150,10 +150,10 @@ expand the definition of a Boolean factor above to read:
                 | <relation>
 ```
 
-THAT's the connection!  The relops and the  relation  they define
+_That_'s the connection!  The relops and the  relation  they define
 serve to wed the two kinds of algebra.  It  is  worth noting that
 this implies a hierarchy  where  the  arithmetic expression has a
-HIGHER precedence that  a  Boolean factor, and therefore than all
+_higher_ precedence that  a  Boolean factor, and therefore than all
 the  Boolean operators.    If you write out the precedence levels
 for all the operators, you arrive at the following list:
 
@@ -177,7 +177,7 @@ code fragment `IF ((((((A + B + C) < 0 ) AND ...`.
 When the parser is parsing this code, it knows after it  sees the
 `IF` token that a Boolean expression is supposed to be next.  So it
 can set up to begin evaluating such an expression.  But the first
-expression in the example is an ARITHMETIC expression, `A + B + C`.
+expression in the example is an _arithmetic_ expression, `A + B + C`.
 What's worse, at the point that the parser has read this  much of
 the input line `IF ((((((A`,
 it  still has no way of knowing which  kind  of  expression  it's
@@ -209,7 +209,7 @@ it's dealing with.
 The  solution is simple, although it  ends  up  causing  profound
 changes to our  grammar.    We  can only allow parentheses in one
 kind  of factor.  The way to do  that  varies  considerably  from
-language  to  language.  This is one  place  where  there  is  NO
+language  to  language.  This is one  place  where  there  is  _no_
 agreement or convention to help us.
 
 When Niklaus Wirth designed Pascal, the desire was  to  limit the
@@ -226,13 +226,13 @@ Similarly, the AND is  treated  like  a  `Mulop` and processed with
 | 2     | term           | *, /, AND         |
 | 3     | expression     | +, -, OR          |
 
-Notice that there is only ONE set of syntax  rules,  applying  to
+Notice that there is only _one_ set of syntax  rules,  applying  to
 both  kinds  of  operators.    According to this  grammar,  then,
 expressions like `x + (y AND NOT z) DIV 3`
 are perfectly legal.  And, in  fact,  they  ARE ... as far as the
 parser  is  concerned.    Pascal  doesn't  allow  the  mixing  of
 arithmetic and Boolean variables, and things like this are caught
-at the SEMANTIC level, when it comes time to  generate  code  for
+at the _semantic_ level, when it comes time to  generate  code  for
 them, rather than at the syntax level.
 
 The authors of C took  a  diametrically  opposite  approach: they
@@ -241,7 +241,7 @@ akin  to our seven levels of precedence.  In fact, in C there are
 no fewer than 17 levels!  That's because C also has the operators
 `=`, `+=` and its kin, `<<`, `>>`, `++`, `--`, etc.   Ironically,
 although in C the  arithmetic  and  Boolean operators are treated
-separately, the variables are  NOT  ...  there  are no Boolean or
+separately, the variables are  _not_  ...  there  are no Boolean or
 logical variables in  C,  so  a  Boolean  test can be made on any
 integer value.
 
@@ -250,7 +250,7 @@ stick  mostly  with  the Pascal approach, since  that  seems  the
 simplest from an implementation point  of view, but it results in
 some funnies that I never liked very much, such as the fact that,
 in the expression `IF (c >= 'A') and (c <= 'Z') then ...`,
-the  parens  above  are REQUIRED.  I never understood why before,
+the  parens  above  are _required_.  I never understood why before,
 and  neither my compiler nor any human  ever  explained  it  very
 well, either.  But now, we  can  all see that the `and` operator,
 having the precedence of a multiply, has a higher  one  than  the
@@ -281,10 +281,10 @@ b-factor, and added the relation as a legal form of b-factor.
 There is one subtle but crucial difference, which  is  what makes
 the  whole  thing  work.    Notice  the  square brackets  in  the
 definition  of a relation.  This means that  the  relop  and  the
-second expression are OPTIONAL.
+second expression are _optional_.
 
 A strange consequence of this grammar (and one shared  by  C)  is
-that EVERY expression  is  potentially a Boolean expression.  The
+that _every_ expression  is  potentially a Boolean expression.  The
 parser will always be looking  for a Boolean expression, but will
 "settle" for an arithmetic one.  To be honest,  that's  going  to
 slow down the parser, because it has to wade through  more layers
@@ -518,7 +518,7 @@ end;
 
 You  might be wondering when I'm going  to  provide  for  Boolean
 variables and parenthesized Boolean expressions.  The  answer is,
-I'm NOT!   Remember,  we  took  those out of the grammar earlier.
+I'm _not_!   Remember,  we  took  those out of the grammar earlier.
 Right now all I'm  doing  is  encoding  the grammar we've already
 agreed  upon.    The compiler itself can't  tell  the  difference
 between a Boolean variable  or  expression  and an arithmetic one
@@ -584,9 +584,9 @@ Since the loop constructs operate only on the flags, it  would be
 nice (and also quite  efficient)  just to set up those flags, and
 not load  anything  into  `D0`  at all.  This would be fine for the
 loops  and  branches,  but remember that the relation can be used
-ANYWHERE a Boolean factor could be  used.   We may be storing its
+_anywhere_ a Boolean factor could be  used.   We may be storing its
 result to a Boolean variable.  Since we can't know at  this point
-how the result is going to be used, we must allow for BOTH cases.
+how the result is going to be used, we must allow for _both_ cases.
 
 Comparing numeric data  is  easy  enough  ...  the  68000  has an
 operation  for  that ... but it sets  the  flags,  not  a  value.
@@ -600,7 +600,7 @@ the  result  of  the  specified   condition.    If  we  make  the
 destination byte to be `D0`, we get the Boolean value needed.
 
 Unfortunately,  there's one  final  complication:  unlike  almost
-every other instruction in the 68000 set, `Scc` does NOT  reset the
+every other instruction in the 68000 set, `Scc` does _not_  reset the
 condition flags to match the data being stored.  So we have to do
 one last step, which is to test `D0` and set the flags to match it.
 It must seem to be a trip around the moon to get what we want: we
@@ -708,7 +708,7 @@ can  copy  them  into your file now.  Remember to use the
 single-character  versions.  Just to be  certain,  I've  duplicated  the
 arithmetic procedures below.  If  you're  observant,  you'll also
 see that I've changed them a little to make  them  correspond  to
-the latest version of the syntax.  This change is  NOT necessary,
+the latest version of the syntax.  This change is  _not_ necessary,
 so  you  may  prefer  to  hold  off  on  that  until you're  sure
 everything is working.
 
@@ -855,7 +855,7 @@ end;
 ```
 
 There you have it ... a parser that can  handle  both  arithmetic
-AND Boolean algebra, and things  that combine the two through the
+_and_ Boolean algebra, and things  that combine the two through the
 use of relops.   I suggest you file away a copy of this parser in
 a safe place for future reference, because in our next step we're
 going to be chopping it up.
@@ -907,12 +907,12 @@ C/Unix approach) is just to  treat them as additional white space
 characters  and  ignore  them.    That's actually not such a  bad
 approach,  but  it  does  sort  of produce funny results for  our
 parser as  it  stands  now.   If it were reading its input from a
-source file as  any  self-respecting  REAL  compiler  does, there
+source file as  any  self-respecting  _real_  compiler  does, there
 would be no problem.  But we're reading input from  the keyboard,
 and we're sort of conditioned  to expect something to happen when
 we hit the return key.  It won't, if we just skip over the CR and
 LF  (try it).  So I'm going to use a different method here, which
-is NOT necessarily the  best  approach in the long run.  Consider
+is _not_ necessarily the  best  approach in the long run.  Consider
 it a temporary kludge until we're further along.
 
 Instead of skipping the CR/LF,  We'll let the parser go ahead and
@@ -992,7 +992,7 @@ single-character tokens.  My original intention was to get rid of
 that limitation for you, too.  However, that's going to require a
 fairly major change to what we've  done  so  far.  We need a true
 lexical scanner, and that requires some structural changes.  They
-are not BIG changes that require us to  throw  away  all  of what
+are not _big_ changes that require us to  throw  away  all  of what
 we've done so far ... with care, it can be done with very minimal
 changes, in fact.  But it does require that care.
 

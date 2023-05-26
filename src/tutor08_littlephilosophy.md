@@ -128,7 +128,7 @@ ahead in most  of the areas that we will cover.  I have some good
 news:  Things  never  get  much  harder than they've been so far.
 It's  possible  to  build a complete, working compiler for a real
 language, using nothing  but  the same kinds of techniques you've
-learned so far.  And THAT brings up some interesting questions.
+learned so far.  And _that_ brings up some interesting questions.
 
 
 ## Why Is It So Simple?
@@ -159,7 +159,7 @@ To  some  extent,  that one is true.  In particular, my first few
 efforts at trying to improve efficiency introduced  complexity at
 an alarming rate.  But since then I've been tinkering around with
 some simple optimizations and I've found some that result in very
-respectable code quality, WITHOUT adding a lot of complexity.
+respectable code quality, _without_ adding a lot of complexity.
 
 Finally, I thought that  perhaps  the  saving  grace was the "toy
 compiler" nature of the study.   I  have made no pretense that we
@@ -310,14 +310,14 @@ past:
 - **Emphasis on Efficiency**
 
   John  Backus has stated that, when  he  and  his  colleagues
-  developed the original FORTRAN compiler, they KNEW that they
+  developed the original FORTRAN compiler, they _knew_ that they
   had to make it produce tight code.  In those days, there was
   a strong sentiment against HOLs  and  in  favor  of assembly
   language, and  efficiency was the reason.  If FORTRAN didn't
   produce very good  code  by  assembly  standards,  the users
   would simply refuse to use it.  For the record, that FORTRAN
   compiler turned out to  be  one  of  the most efficient ever
-  built, in terms of code quality.  But it WAS complex!
+  built, in terms of code quality.  But it _was_ complex!
 
   Today,  we have CPU power and RAM size  to  spare,  so  code
   efficiency is not  so  much  of  an  issue.    By studiously
@@ -404,7 +404,7 @@ that work in the context that  we  are in; that is, a single-user
 PC  with  rather  ample CPU power and RAM space.  We have limited
 ourselves to reasonable grammars that  are easy to parse, we have
 used the instruction set of the CPU to advantage, and we have not
-concerned ourselves with efficiency.  THAT's why it's been easy.
+concerned ourselves with efficiency.  _That_'s why it's been easy.
 
 Does this mean that we are forever doomed  to  be  able  to build
 only toy compilers?   No, I don't think so.  As I've said, we can
@@ -437,7 +437,7 @@ We're going to  press on with this.  I've given you a list of the
 areas  we'll  be  covering in future installments.    With  those
 installments, you  should  be  able  to  build  complete, working
 compilers for just about any occasion, and build them simply.  If
-you REALLY want to build production-quality compilers,  you'll be
+you _really_ want to build production-quality compilers,  you'll be
 able to do that, too.
 
 For those of you who are chafing at the bit for more parser code,

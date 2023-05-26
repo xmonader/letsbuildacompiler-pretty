@@ -87,7 +87,7 @@ would seem to be entirely too much to change these horses in
 mid-stream.  As I said, programming styles change.  Who knows, it may
 be another six years before we finish this thing, and if we keep
 changing the code every time programming style changes, we may
-NEVER finish.
+_never_ finish.
 
 So for now, at least, I've determined to continue the classical
 style in Pascal, though we might indeed discuss objects and object
