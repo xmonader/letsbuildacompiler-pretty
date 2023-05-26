@@ -404,9 +404,10 @@ will never see a CR.  Let's just use:
 OK, compile this  program  and  run  it.   Try a couple of lines,
 terminated by the period.  I used:
 
-
-     now is the time
-     for all good men.
+```
+now is the time
+for all good men.
+```
 
 Hey,  what  happened?   When I tried it, I didn't  get  the  last
 token, the period.  The program didn't halt.  What's more, when I

@@ -170,10 +170,9 @@ thing the differences are starting to fade away.
 Just  to make sure you get the message here, let me state it flat
 out:
 
-   USING THE TECHNIQUES WE'VE USED  HERE,  IT  IS  POSSIBLE TO
-   BUILD A PRODUCTION-QUALITY, WORKING COMPILER WITHOUT ADDING
-   A LOT OF COMPLEXITY TO WHAT WE'VE ALREADY DONE.
-
+USING THE TECHNIQUES WE'VE USED  HERE,  IT  IS  POSSIBLE TO
+BUILD A PRODUCTION-QUALITY, WORKING COMPILER WITHOUT ADDING
+A LOT OF COMPLEXITY TO WHAT WE'VE ALREADY DONE.
 
 Since  the series began I've received  some  comments  from  you.
 Most of them echo my own thoughts:  "This is easy!    Why  do the
