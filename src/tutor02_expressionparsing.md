@@ -108,8 +108,6 @@ OK, basically what we want to  do  is have procedure Term do what
 Expression was doing before.  So just RENAME procedure Expression
 as Term, and enter the following new version of Expression:
 
-
-
 ```delphi
 {---------------------------------------------------------------}
 { Parse and Translate an Expression }
@@ -175,6 +173,7 @@ we would write ourselves.  The sequence
 MOVE #n,D0
 MOVE D0,D1
 ```
+
 is inefficient.  If we were  writing  this code by hand, we would
 probably just load the data directly to D1.
 

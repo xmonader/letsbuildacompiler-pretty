@@ -63,10 +63,10 @@ Whenever  I  start a new design, I always like to do  it  at  the
 absolute beginning.   In  program design language (PDL), this top
 level looks something like:
 
-```delphi
-     begin
-        solve the problem
-     end
+```
+begin
+   solve the problem
+end
 ```
 
 OK, I grant  you that this doesn't give much of a hint as to what
@@ -84,13 +84,13 @@ take a look at Pascal.
 
 Most  texts  for  Pascal  include  a   BNF   or  "railroad-track"
 definition of the language.  Here are the first few lines of one:
-```
 
-     <program> ::= <program-header> <block> '.'
+```bnf
+<program> ::= <program-header> <block> '.'
 
-     <program-header> ::= PROGRAM <ident>
+<program-header> ::= PROGRAM <ident>
 
-     <block> ::= <declarations> <statements>
+<block> ::= <declarations> <statements>
 ```
 
 We can write recognizers  to  deal  with  each of these elements,
@@ -120,8 +120,8 @@ begin
    Epilog(Name);
 end;
 {--------------------------------------------------------------}
-
 ```
+
 The procedures  Prolog and Epilog perform whatever is required to
 let the program interface with the operating system,  so  that it
 can execute as a program.  Needless to  say,  this  part  will be
@@ -153,6 +153,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 As usual, add  this  code  and  try  out the "compiler."  At this
 point, there is only one legal input:
 `px.`   (where x is any single letter, the program name).
@@ -250,15 +251,15 @@ next stage.
 
 The BNF for Pascal declarations is:
 
+```bnf
+<declarations> ::= ( <label list>    |
+                     <constant list> |
+                     <type list>     |
+                     <variable list> |
+                     <procedure>     |
+                     <function>         )*
 ```
-     <declarations> ::= ( <label list>    |
-                          <constant list> |
-                          <type list>     |
-                          <variable list> |
-                          <procedure>     |
-                          <function>         )*
 
-```
 (Note  that  I'm  using the more liberal definition used by Turbo
 Pascal.  In the standard Pascal definition, each  of  these parts
 must be in a specific order relative to the rest.)
@@ -356,13 +357,13 @@ than those standing for the keywords.
 We can flesh out the statement  part  in  a similar way.  The BNF
 for it is:
 
-```
-     <statements> ::= <compound statement>
+```bnf
+<statements> ::= <compound statement>
 
-     <compound statement> ::= BEGIN <statement>
-                                   (';' <statement>) END
-
+<compound statement> ::= BEGIN <statement>
+                              (';' <statement>) END
 ```
+
 Note that statements can  begin  with  any identifier except END.
 So the first stub form of procedure Statements is:
 
@@ -378,8 +379,8 @@ begin
    Match('e');
 end;
 {--------------------------------------------------------------}
-
 ```
+
 At  this  point  the  compiler   will   accept   any   number  of
 declarations, followed by the  BEGIN  block  of the main program.
 This  block  itself  can contain any characters at all (except an
@@ -409,20 +410,20 @@ were to pursue this a bit longer, code would start to appear.
 The  next  step  in our expansion should  probably  be  procedure
 Statements.  The Pascal definition is:
 
+```bnf
+<statement> ::= <simple statement> | <structured statement>
+
+<simple statement> ::= <assignment> | <procedure call> | null
+
+<structured statement> ::= <compound statement> |
+                           <if statement>       |
+                           <case statement>     |
+                           <while statement>    |
+                           <repeat statement>   |
+                           <for statement>      |
+                           <with statement>
 ```
-    <statement> ::= <simple statement> | <structured statement>
 
-    <simple statement> ::= <assignment> | <procedure call> | null
-
-    <structured statement> ::= <compound statement> |
-                               <if statement>       |
-                               <case statement>     |
-                               <while statement>    |
-                               <repeat statement>   |
-                               <for statement>      |
-                               <with statement>
-
-```
 These  are  starting  to look familiar.  As a matter of fact, you
 have already gone  through  the process of parsing and generating
 code for both assignment statements and control structures.  This
@@ -482,23 +483,24 @@ A C program has  less  structure than its Pascal counterpart.  At
 the top level, everything in C is a static declaration, either of
 data or of a function.  We can capture this thought like this:
 
-```
-     <program> ::= ( <global declaration> )*
+```bnf
+<program> ::= ( <global declaration> )*
 
-     <global declaration> ::= <data declaration>  |
-                              <function>
+<global declaration> ::= <data declaration>  |
+                         <function>
 ```
+
 In Small C, functions  can  only have the default type int, which
 is not declared.  This makes  the  input easy to parse: the first
 token is either `int`, `char`, or the name  of  a  function.   In
 Small  C, the preprocessor commands are  also  processed  by  the
 compiler proper, so the syntax becomes:
 
-```
-     <global declaration> ::= '#' <preprocessor command>  |
-                              'int' <data list>           |
-                              'char' <data list>          |
-                              <ident> <function body>     |
+```bnf
+<global declaration> ::= '#' <preprocessor command>  |
+                         'int' <data list>           |
+                         'char' <data list>          |
+                         <ident> <function body>     |
 ```
 
 Although we're really more interested in full C  here,  I'll show
@@ -522,6 +524,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 Note that I've had to use a ^Z to indicate the end of the source.
 C has no keyword such as END or the `.` to otherwise indicate the
 end.
@@ -536,14 +539,14 @@ two.
 
 More specifically, the BNF for full C begins with:
 
-```
-     <program> ::= ( <top-level decl> )*
+```bnf
+<program> ::= ( <top-level decl> )*
 
-     <top-level decl> ::= <function def> | <data decl>
+<top-level decl> ::= <function def> | <data decl>
 
-     <data decl> ::= [<class>] <type> <decl-list>
+<data decl> ::= [<class>] <type> <decl-list>
 
-     <function def> ::= [<class>] [<type>] <function decl>
+<function def> ::= [<class>] [<type>] <function decl>
 ```
 
 You  can  now  see the problem:   The  first  two  parts  of  the
@@ -552,15 +555,15 @@ the  ambiguity  in  the grammar as  written  above,  it's  not  a
 suitable  grammar  for  a  recursive-descent  parser.     Can  we
 transform it into one that is suitable?  Yes, with a little work.
 Suppose we write it this way:
+
+```bnf
+<top-level decl> ::= [<class>] <decl>
+
+<decl> ::= <type> <typed decl> | <function decl>
+
+<typed decl> ::= <data list> | <function decl>
 ```
 
-     <top-level decl> ::= [<class>] <decl>
-
-     <decl> ::= <type> <typed decl> | <function decl>
-
-     <typed decl> ::= <data list> | <function decl>
-
-```
 We  can  build  a  parsing  routine  for  the   class   and  type
 definitions, and have them store away their findings  and  go on,
 without their ever having to "know" whether a function or  a data
@@ -646,6 +649,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 Note that you must add two more global variables, Sign and Typ.
 
 With these two procedures in place, the compiler will process the

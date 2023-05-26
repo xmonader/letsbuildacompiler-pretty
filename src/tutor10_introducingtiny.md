@@ -106,8 +106,8 @@ is at the end of the listing.
 
 The top-level definition will be similar to Pascal:
 
-```
-     <program> ::= PROGRAM <top-level decl> <main> '.'
+```bnf
+<program> ::= PROGRAM <top-level decl> <main> '.'
 ```
 
 Already, we've reached a decision point.  My first thought was to
@@ -232,8 +232,8 @@ size required by the OS.
 The  next step is to process the code for the main program.  I'll
 use the Pascal BEGIN-block:
 
-```
-     <main> ::= BEGIN <block> END
+```bnf
+<main> ::= BEGIN <block> END
 ```
 
 Here,  again,  we  have made a decision.  We could have chosen to
@@ -250,8 +250,8 @@ be to require a name for  the  program, and then bracket the main
 by
 
 ```
-     BEGIN <name>
-     END <name>
+BEGIN <name>
+END <name>
 ```
 
 similar to the convention of  Modula  2.    This  adds  a  bit of
@@ -260,6 +260,7 @@ add or change to your liking, if the language is your own design.
 
 To parse this definition of a main block,  change  procedure Prog
 to read:
+
 ```delphi
 {--------------------------------------------------------------}
 {  Parse and Translate a Program }
@@ -308,10 +309,10 @@ declarations are allowed, just as in C.
 For now, there  can  only be variable declarations, identified by
 the keyword VAR (abbreviated `v`):
 
-```
-     <top-level decls> ::= ( <data declaration> )*
+```bnf
+<top-level decls> ::= ( <data declaration> )*
 
-     <data declaration> ::= VAR <var-list>
+<data declaration> ::= VAR <var-list>
 ```
 
 Note that since there is only one variable type, there is no need
@@ -360,8 +361,8 @@ begin
       end;
 end;
 {--------------------------------------------------------------}
-
 ```
+
 Note that at this point, Decl  is  just  a stub.  It generates no
 code, and it doesn't process a list ... every variable must occur
 in a separate VAR statement.
@@ -428,8 +429,8 @@ permits a single variable.  That's easy to fix, too.
 
 The BNF for `<var-list>` is
 
-```
-     <var-list> ::= <ident> (, <ident>)*
+```bnf
+<var-list> ::= <ident> (, <ident>)*
 ```
 
 Adding this syntax to Decl gives this new version:
@@ -466,11 +467,12 @@ language that purports to  be  a minimal language.  But it's also
 SO easy to add that it seems a shame not  to  do  so.    The  BNF
 becomes:
 
-```
-     <var-list> ::= <var> ( <var> )*
+```bnf
+<var-list> ::= <var> ( <var> )*
 
-     <var> ::= <ident> [ = <integer> ]
+<var> ::= <ident> [ = <integer> ]
 ```
+
 Change Alloc as follows:
 
 ```delphi
@@ -523,6 +525,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 As a matter  of  fact,  strictly  speaking  we  should  allow for
 expressions in the data field of the initializer, or at  the very
 least  for  negative  values.  For  now,  let's  just  allow  for
@@ -581,7 +584,7 @@ it, first add the following  declaration at the beginning of your
 program:
 
 ```delphi
-     var ST: array['A'..'Z'] of char;
+var ST: array['A'..'Z'] of char;
 ```
 
 and insert the following function:
@@ -612,8 +615,8 @@ Finally,  insert  the  following two lines at  the  beginning  of
 Alloc:
 
 ```delphi
-   if InTable(N) then Abort('Duplicate Variable Name ' + N);
-   ST[N] := 'v';
+if InTable(N) then Abort('Duplicate Variable Name ' + N);
+ST[N] := 'v';
 ```
 
 That  should  do  it.  The  compiler  will  now  catch  duplicate
@@ -636,17 +639,17 @@ take us long to provide for them, as well.
 The BNF definition given earlier  for the main program included a
 statement block, which we have so far ignored:
 
-```
-     <main> ::= BEGIN <block> END
+```bnf
+<main> ::= BEGIN <block> END
 ```
 
 For now,  we  can  just  consider  a  block  to  be  a  series of
 assignment statements:
 
+```bnf
+<block> ::= (Assignment)*
 ```
-     <block> ::= (Assignment)*
 
-```
 Let's start things off by adding  a  parser for the block.  We'll
 begin with a stub for the assignment statement:
 
@@ -842,20 +845,21 @@ with the code generation, we  could just copy the procedures from
 them, but we will go a little faster than usual.
 
 The BNF for the assignment statement is:
-```
-     <assignment> ::= <ident> = <expression>
 
-     <expression> ::= <first term> ( <addop> <term> )*
+```bnf
+<assignment> ::= <ident> = <expression>
 
-     <first term> ::= <first factor> <rest>
+<expression> ::= <first term> ( <addop> <term> )*
 
-     <term> ::= <factor> <rest>
+<first term> ::= <first factor> <rest>
 
-     <rest> ::= ( <mulop> <factor> )*
+<term> ::= <factor> <rest>
 
-     <first factor> ::= [ <addop> ] <factor>
+<rest> ::= ( <mulop> <factor> )*
 
-     <factor> ::= <var> | <number> | ( <expression> )
+<first factor> ::= [ <addop> ] <factor>
+
+<factor> ::= <var> | <number> | ( <expression> )
 ```
 
 This version of the BNF is  also  a bit different than we've used
@@ -1165,17 +1169,18 @@ begin
 end;
 {---------------------------------------------------------------}
 ```
+
 All of this  gives us the tools we need.  The BNF for the Boolean
 expressions is:
 
-```
-     <bool-expr> ::= <bool-term> ( <orop> <bool-term> )*
+```bnf
+<bool-expr> ::= <bool-term> ( <orop> <bool-term> )*
 
-     <bool-term> ::= <not-factor> ( <andop> <not-factor> )*
+<bool-term> ::= <not-factor> ( <andop> <not-factor> )*
 
-     <not-factor> ::= [ '!' ] <relation>
+<not-factor> ::= [ '!' ] <relation>
 
-     <relation> ::= <expression> [ <relop> <expression> ]
+<relation> ::= <expression> [ <relop> <expression> ]
 ```
 
 Sharp-eyed readers might  note  that this syntax does not include
@@ -1188,9 +1193,9 @@ values ... we can just use -1 and 0, respectively.
 
 In C terminology, we could always use the defines:
 
-```
-     #define TRUE -1
-     #define FALSE 0
+```c
+#define TRUE -1
+#define FALSE 0
 ```
 
 (That is, if TINY had a  preprocessor.)   Later on, when we allow
@@ -1357,14 +1362,15 @@ whirl.    First,  make  sure  you  can  still parse  an  ordinary
 arithmetic expression.  Then, try a Boolean one.    Finally, make
 sure  that you can assign the results of  relations.    Try,  for
 example, `pvx,y,zbx=z>ye.`, which stands for:
-```
-     PROGRAM
-     VAR X,Y,Z
-     BEGIN
-     X = Z > Y
-     END.
 
 ```
+PROGRAM
+VAR X,Y,Z
+BEGIN
+X = Z > Y
+END.
+```
+
 See how this assigns a Boolean value to X?
 
 
@@ -1374,11 +1380,12 @@ We're almost home.   With  Boolean  expressions  in place, it's a
 simple  matter  to  add control structures.  For TINY, we'll only
 allow two kinds of them, the IF and the WHILE:
 
-```
-     <if> ::= IF <bool-expression> <block> [ ELSE <block>] ENDIF
+```bnf
+<if> ::= IF <bool-expression> <block> [ ELSE <block>] ENDIF
 
-     <while> ::= WHILE <bool-expression> <block> ENDWHILE
+<while> ::= WHILE <bool-expression> <block> ENDWHILE
 ```
+
 Once  again,  let  me  spell  out the decisions implicit in  this
 syntax, which departs strongly from that of C or Pascal.  In both
 of those languages, the "body" of an IF or WHILE is regarded as a
@@ -1421,6 +1428,7 @@ Use your best judgment as to which way to go.
 OK, with that bit of explanation let's proceed.  As  usual, we're
 going to need some new  code generation routines.  These generate
 the code for conditional and unconditional branches:
+
 ```delphi
 {---------------------------------------------------------------}
 { Branch Unconditional  }
@@ -1497,16 +1505,12 @@ To tie everything  together,  we need only modify procedure Block
 to recognize the "keywords" for the  IF  and WHILE.  As usual, we
 expand the definition of a block like so:
 
-```
-     <block> ::= ( <statement> )*
+```bnf
+<block> ::= ( <statement> )*
+
+<statement> ::= <if> | <while> | <assignment>
 ```
 
-where
-
-```
-     <statement> ::= <if> | <while> | <assignment>
-
-```
 The corresponding code is:
 
 ```delphi
@@ -1766,6 +1770,7 @@ Mostly, this  involves  deleting  calls  to  Match,  occasionally
 replacing calls to  Match  by calls to MatchString, and Replacing
 calls  to  NewLine  by  calls  to  Scan.    Here are the affected
 routines:
+
 ```delphi
 {---------------------------------------------------------------}
 { Recognize and Translate an IF Construct }
@@ -1920,7 +1925,7 @@ OK, here are the changes that  need  to  be made.  First, add the
 new typed constant:
 
 ```delphi
-      NEntry: integer = 0;
+NEntry: integer = 0;
 ```
 
 Then change the definition of the symbol table as follows:
@@ -1946,8 +1951,8 @@ begin
    InTable := Lookup(@ST, n, MaxEntry) <> 0;
 end;
 {--------------------------------------------------------------}
-
 ```
+
 We also need a new procedure, AddEntry, that adds a new  entry to
 the table:
 
@@ -1964,8 +1969,8 @@ begin
    SType[NEntry] := T;
 end;
 {--------------------------------------------------------------}
-
 ```
+
 This procedure is called by Alloc:
 
 ```delphi
@@ -2204,6 +2209,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 That takes care of that part.  Now, we also need to recognize the
 read  and  write  commands.  We can do this by  adding  two  more
 keywords to our list:
@@ -2288,6 +2294,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 That's all there is to it.  _NOW_ we have a language!
 
 
@@ -3453,5 +3460,4 @@ begin
    if Look <> CR then Abort('Unexpected data after ''.''');
 end.
 {--------------------------------------------------------------}
-
 ```

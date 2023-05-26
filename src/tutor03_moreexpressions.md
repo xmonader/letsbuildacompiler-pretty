@@ -246,14 +246,15 @@ See  how the space was treated as a terminator?  Now, to make the
 compiler properly flag this, add the line
 
 ```delphi
-               if Look <> CR then Expected('Newline');
+if Look <> CR then Expected('Newline');
 ```
+
 in the main  program,  just  after  the call to Expression.  That
 catches anything left over in the input stream.  Don't  forget to
 define CR in the const statement:
 
 ```delphi
-               CR = ^M;
+CR = ^M;
 ```
 
 As usual, recompile the program and verify that it does what it's
@@ -405,8 +406,7 @@ begin
    GetNum := Value;
 end;
 {--------------------------------------------------------------}
-
-````
+```
 
 Amazingly enough, that  is  virtually all the changes required to
 the  parser!  The local variable Name  in  procedures  Ident  and
@@ -522,6 +522,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 (Note  that  I  rearranged  Match  a  bit,  without changing  the
 functionality.)
 

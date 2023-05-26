@@ -551,8 +551,8 @@ begin
      BeginBlock;
 end.
 {--------------------------------------------------------------}
-
 ```
+
 Note  that we DO have a symbol table, and there is logic to check
 a variable name to make sure it's a legal one.    It's also worth
 noting that I  have  included  the  code  you've  seen  before to
@@ -562,14 +562,15 @@ main program is delimited, as usual, by BEGIN-END brackets.
 Once you've copied  the  program  to  Turbo, the first step is to
 compile it and make sure it  works.   Give it a few declarations,
 and then a begin-block.  Try something like:
+
 ```
-     va             (for VAR A)
-     vb             (for VAR B)
-     vc             (for VAR C)
-     b              (for BEGIN)
-     a=b
-     b=c
-     e.             (for END.)
+va             (for VAR A)
+vb             (for VAR B)
+vc             (for VAR C)
+b              (for BEGIN)
+a=b
+b=c
+e.             (for END.)
 ```
 
 As usual, you should also make some deliberate errors, and verify
@@ -585,25 +586,25 @@ have no parameter lists.
 As a start, let's consider a simple program with a procedure, and
 think about the code we'd like to see generated for it:
 
-```delphi
-     PROGRAM FOO;
-     .
-     .
-     PROCEDURE BAR;                     BAR:
-     BEGIN                                   .
-     .                                       .
-     .                                       .
-     END;                                    RTS
+```asm
+PROGRAM FOO;
+.
+.
+PROCEDURE BAR;                     BAR:
+BEGIN                                   .
+.                                       .
+.                                       .
+END;                                    RTS
 
-     BEGIN { MAIN PROGRAM }             MAIN:
-     .                                       .
-     .                                       .
-     FOO;                                    BSR BAR
-     .                                       .
-     .                                       .
-     END.                                    END MAIN
-
+BEGIN { MAIN PROGRAM }             MAIN:
+.                                       .
+.                                       .
+FOO;                                    BSR BAR
+.                                       .
+.                                       .
+END.                                    END MAIN
 ```
+
 Here I've shown  the  high-order language constructs on the left,
 and the desired assembler code on the right.  The first  thing to
 notice  is that we certainly don't have  much  code  to  generate
@@ -616,16 +617,16 @@ that  although a procedure may be quite  long,  declaring  it  is
 really no different than  declaring  a  variable.   It's just one
 more kind of declaration.  We can write the BNF:
 
-```delphi
-     <declaration> ::= <data decl> | <procedure>
+```bnf
+<declaration> ::= <data decl> | <procedure>
 ```
 
 This means that it should be easy to modify TopDecl to  deal with
 procedures.  What about the syntax of a procedure?   Well, here's
 a suggested syntax, which is essentially that of Pascal:
 
-```delphi
-     <procedure> ::= PROCEDURE <ident> <begin-block>
+```bnf
+<procedure> ::= PROCEDURE <ident> <begin-block>
 ```
 
 There is practically no code generation required, other than that
@@ -633,6 +634,7 @@ generated within the begin-block.    We need only emit a label at
 the beginning of the procedure, and an RTS at the end.
 
 Here's the required code:
+
 ```delphi
 {--------------------------------------------------------------}
 { Parse and Translate a Procedure Declaration }
@@ -660,7 +662,7 @@ To  finish  this  version, add the following line within the Case
 statement in DoBlock:
 
 ```delphi
-            'p': DoProc;
+'p': DoProc;
 ```
 
 I should mention that  this  structure  for declarations, and the
@@ -672,9 +674,9 @@ program.  To  follow  such  a  scheme, we should separate the two
 declarations, and have code in the main program something like
 
 ```delphi
-     DoVars;
-     DoProcs;
-     DoMain;
+DoVars;
+DoProcs;
+DoMain;
 ```
 
 However,  most implementations of Pascal, including Turbo,  don't
@@ -763,9 +765,9 @@ to  find the beginning of the main program at all.  This leads to
 conventions such as identifying it in comments:
 
 ```delphi
-     BEGIN { of MAIN }
-
+BEGIN { of MAIN }
 ```
+
 This  has  always  seemed  to  me to be a bit of a kludge.    The
 question comes up:    Why  should  the main program be treated so
 much  differently  than  a  procedure?   In fact, now that  we've
@@ -779,14 +781,12 @@ that  we  use  an explicit keyword, PROGRAM, to identify the main
 program (Note that this  means  that we can't start the file with
 it, as in Pascal).  In this case, our BNF becomes:
 
-```
-     <declaration> ::= <data decl> | <procedure> | <main program>
+```bnf
+<declaration> ::= <data decl> | <procedure> | <main program>
 
+<procedure> ::= PROCEDURE <ident> <begin-block>
 
-     <procedure> ::= PROCEDURE <ident> <begin-block>
-
-
-     <main program> ::= PROGRAM <ident> <begin-block>
+<main program> ::= PROGRAM <ident> <begin-block>
 ```
 
 The code  also  looks  much  better,  at  least in the sense that
@@ -871,16 +871,16 @@ second half of the equation ... the call.
 
 Consider the BNF for a procedure call:
 
-```
-     <proc_call> ::= <identifier>
+```bnf
+<proc_call> ::= <identifier>
 ```
 
 for an assignment statement, on the other hand, the BNF is:
 
+```bnf
+<assignment> ::= <identifier> '=' <expression>
 ```
-     <assignment> ::= <identifier> '=' <expression>
 
-```
 At this point we seem to  have  a problem. The two BNF statements
 both begin on the  right-hand  side  with the token `<identifier>`.
 How are we supposed to know, when we see the  identifier, whether
@@ -990,19 +990,20 @@ basis.
 
 The BNF for the syntax looks something like this:
 
-```
-     <procedure> ::= PROCEDURE <ident>
-                    '(' <param-list> ')' <begin-block>
+```bnf
+<procedure> ::= PROCEDURE <ident>
+               '(' <param-list> ')' <begin-block>
 
 
-     <param_list> ::= <parameter> ( ',' <parameter> )* | null
+<param_list> ::= <parameter> ( ',' <parameter> )* | null
 ```
+
 Similarly, the procedure call looks like:
 
+```bnf
+<proc call> ::= <ident> '(' <param-list> ')'
 ```
-     <proc call> ::= <ident> '(' <param-list> ')'
 
-```
 Note that there is already an implicit decision  built  into this
 syntax.  Some languages, such as Pascal and Ada, permit parameter
 lists to be  optional.    If  there are no parameters, you simply
@@ -1216,9 +1217,9 @@ Here the third  parameter  is  not  a  variable, and so it has no
 address.    The  earliest FORTRAN compilers did  not  allow  such
 things, so we had to resort to subterfuges like:
 
-```delphi
-     K = J + 1
-     CALL FOO(A, B, K)
+```fortran
+K = J + 1
+CALL FOO(A, B, K)
 ```
 
 Here again, there was copying required, and the burden was on the
@@ -1340,9 +1341,9 @@ CPU stack.  So the code we'd like  to  see  generated  might look
 something like this:
 
 ```asm
-     MOVE X(PC),-(SP)    ; Push X
-     MOVE Y(PC),-(SP)    ; Push Y
-     BSR FOO             ; Call FOO
+MOVE X(PC),-(SP)    ; Push X
+MOVE Y(PC),-(SP)    ; Push Y
+BSR FOO             ; Call FOO
 ```
 
 That certainly doesn't seem too complex!
@@ -1350,6 +1351,7 @@ That certainly doesn't seem too complex!
 When the BSR is executed, the CPU pushes the return  address onto
 the stack and jumps to FOO.    At  this point the stack will look
 like this:
+
 ```
           .
           .
@@ -1362,28 +1364,27 @@ So the values of  the  parameters  have  addresses that are fixed
 offsets from the stack pointer.  In this  example,  the addresses
 are:
 
-```
-     X:  6(SP)
-     Y:  4(SP)
-```
+- X:  6(SP)
+- Y:  4(SP)
 
 Now consider what the called procedure might look like:
 
-```delphi
-     PROCEDURE FOO(A, B)
-     BEGIN
-          A = B
-     END
 ```
+PROCEDURE FOO(A, B)
+BEGIN
+     A = B
+END
+```
+
 (Remember, the names  of  the formal parameters are arbitrary ...
 only the positions count.)
 
 The desired output code might look like:
 
 ```asm
-     FOO: MOVE 4(SP),D0
-          MOVE D0,6(SP)
-          RTS
+FOO: MOVE 4(SP),D0
+     MOVE D0,6(SP)
+     RTS
 ```
 
 Note that, in order to address the formal parameters, we're going
@@ -1395,14 +1396,14 @@ table for the formal parameters.
 Let's begin by declaring a new table:
 
 ```delphi
-     var Params: Array['A'..'Z'] of integer;
+var Params: Array['A'..'Z'] of integer;
 ```
 
 We  also  will  need to keep track of how many parameters a given
 procedure has:
 
 ```delphi
-     var NumParams: integer;
+var NumParams: integer;
 ```
 
 And we need to initialize the new table.  Now, remember  that the
@@ -1770,22 +1771,22 @@ the stack pointer.  That works fine in our simple examples, since
 with our rudimentary  form  of expressions nobody else is messing
 with the stack.  But consider a different example as simple as:
 
-```delphi
-     PROCEDURE FOO(A, B)
-     BEGIN
-          A = A + B
-     END
+```
+PROCEDURE FOO(A, B)
+BEGIN
+     A = A + B
+END
 ```
 
 The code generated by a simple-minded parser might be:
 
 ```asm
-     FOO: MOVE 6(SP),D0       ; Fetch A
-          MOVE D0,-(SP)       ; Push it
-          MOVE 4(SP),D0       ; Fetch B
-          ADD (SP)+,D0        ; Add A
-          MOVE D0,6(SP)       : Store A
-          RTS
+FOO: MOVE 6(SP),D0       ; Fetch A
+     MOVE D0,-(SP)       ; Push it
+     MOVE 4(SP),D0       ; Fetch B
+     ADD (SP)+,D0        ; Add A
+     MOVE D0,6(SP)       : Store A
+     RTS
 ```
 
 This  would  be  wrong.  When we push the first argument onto the
@@ -1825,14 +1826,14 @@ Using these two  instructions,  the code for the previous example
 becomes:
 
 ```asm
-     FOO: LINK A6,#0
-          MOVE 10(A6),D0      ; Fetch A
-          MOVE D0,-(SP)       ; Push it
-          MOVE 8(A6),D0       ; Fetch B
-          ADD (SP)+,D0        ; Add A
-          MOVE D0,10(A6)      : Store A
-          UNLK A6
-          RTS
+FOO: LINK A6,#0
+     MOVE 10(A6),D0      ; Fetch A
+     MOVE D0,-(SP)       ; Push it
+     MOVE 8(A6),D0       ; Fetch B
+     ADD (SP)+,D0        ; Add A
+     MOVE D0,10(A6)      : Store A
+     UNLK A6
+     RTS
 ```
 
 Fixing the compiler to generate this code is a lot easier than it
@@ -1913,8 +1914,8 @@ begin
      WriteLn(Offset, '(A6)');
 end;
 {--------------------------------------------------------------}
-
 ```
+
 (Note that the Offset computation  changes to allow for the extra
 push of A6.)
 
@@ -1955,16 +1956,16 @@ again later.
 Let's begin by looking at the code we'd like to see generated for
 the new case. Using the same example as before, we need the call
 
-```delphi
-     FOO(X, Y)
+```
+FOO(X, Y)
 ```
 
 to be translated to:
 
-```delphi
-     PEA X(PC)           ; Push the address of X
-     PEA Y(PC)           ; Push Y the address of Y
-     BSR FOO             ; Call FOO
+```asm
+PEA X(PC)           ; Push the address of X
+PEA Y(PC)           ; Push Y the address of Y
+BSR FOO             ; Call FOO
 ```
 
 That's a simple matter of a slight change to Param:
@@ -1987,17 +1988,17 @@ At the other end, the references to the formal parameters must be
 given one level of indirection:
 
 ```asm
-     FOO: LINK A6,#0
-          MOVE.L 12(A6),A0    ; Fetch the address of A
-          MOVE (A0),D0        ; Fetch A
-          MOVE D0,-(SP)       ; Push it
-          MOVE.L 8(A6),A0     ; Fetch the address of B
-          MOVE (A0),D0        ; Fetch B
-          ADD (SP)+,D0        ; Add A
-          MOVE.L 12(A6),A0    ; Fetch the address of A
-          MOVE D0,(A0)        : Store A
-          UNLK A6
-          RTS
+FOO: LINK A6,#0
+     MOVE.L 12(A6),A0    ; Fetch the address of A
+     MOVE (A0),D0        ; Fetch A
+     MOVE D0,-(SP)       ; Push it
+     MOVE.L 8(A6),A0     ; Fetch the address of B
+     MOVE (A0),D0        ; Fetch B
+     ADD (SP)+,D0        ; Add A
+     MOVE.L 12(A6),A0    ; Fetch the address of A
+     MOVE D0,(A0)        : Store A
+     UNLK A6
+     RTS
 ```
 
 All  of  this  can  be   handled  by  changes  to  LoadParam  and
@@ -2030,11 +2031,12 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 To  get  the  count  right,  we  must  also  change  one line  in
 ParamList:
 
 ```delphi
-     ParamList := 4 * N;
+ParamList := 4 * N;
 ```
 
 That  should  do it.  Give it a try and see  if  it's  generating
@@ -2145,8 +2147,9 @@ the whole thing.
 Let's start by creating a new variable, Base:
 
 ```delphi
-     var Base: integer;
+var Base: integer;
 ```
+
 We'll use this  variable,  instead of NumParams, to compute stack
 offsets.  That means changing  the two references to NumParams in
 LoadParam and StoreParam:

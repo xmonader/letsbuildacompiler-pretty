@@ -451,9 +451,9 @@ variables that have been defined.  We can eliminate the others by
 modifying DumpTable with an IF test.  Change the loop to read:
 
 ```delphi
-  for i := 'A' to 'Z' do
-     if ST[i] <> '?' then
-         WriteLn(i, ' ', ST[i]);
+for i := 'A' to 'Z' do
+   if ST[i] <> '?' then
+       WriteLn(i, ' ', ST[i]);
 ```
 
 Now, run the program again.  What did you get?
@@ -464,9 +464,9 @@ We  can  spice  things up a  bit  by  inserting  some  statements
 declaring some entries in the main program.  Try these:
 
 ```delphi
-     ST['A'] := 'a';
-     ST['P'] := 'b';
-     ST['X'] := 'c';
+ST['A'] := 'a';
+ST['P'] := 'b';
+ST['X'] := 'c';
 ```
 
 This time, when  you  run  the  program, you should get an output
@@ -527,9 +527,9 @@ end;
 Now change the three lines in the main program to read:
 
 ```delphi
-     AddEntry('A', 'a');
-     AddEntry('P', 'b');
-     AddEntry('X', 'c');
+AddEntry('A', 'a');
+AddEntry('P', 'b');
+AddEntry('X', 'c');
 ```
 
 and run the program again.  Did it work?  Then we have the symbol
@@ -546,8 +546,8 @@ vestigial version of a "compiler" here, whose only function is to
 allow  us   declare  variables.    Remember,  the  syntax  for  a
 declaration is:
 
-```
-     <data decl> ::= VAR <identifier>
+```bnf
+<data decl> ::= VAR <identifier>
 ```
 
 Again, we can lift a lot of the code from previous programs.  The
@@ -593,8 +593,8 @@ begin
    end;
 end;
 {--------------------------------------------------------------}
-
 ```
+
 Now, in the  main  program,  add  a  call to TopDecls and run the
 program.  Try allocating a  few variables, and note the resulting
 code generated.  This is old stuff for you, so the results should
@@ -614,15 +614,12 @@ syntax should be, etc., but for now I'm  going  to  duck  all the
 issues and simply declare by  executive fiat that our syntax will
 be:
 
-```
-     <data decl> ::= <typename>  <identifier>
-```
-where:
+```bnf
+<data decl> ::= <typename>  <identifier>
 
+<typename> ::= BYTE | WORD | LONG
 ```
-     <typename> ::= BYTE | WORD | LONG
 
-```
 (By  an amazing coincidence, the first  letters  of  these  names
 happen  to  be  the  same  as  the  68000  assembly  code  length
 specifications, so this choice saves us a little work.)
@@ -792,10 +789,10 @@ we don't have a  procedure  for  dealing  with assignments yet, I
 just added the lines:
 
 ```delphi
-     Load('A');
-     Load('B');
-     Load('C');
-     Load('X');
+Load('A');
+Load('B');
+Load('C');
+Load('X');
 ```
 
 to  the main program.  Thus, after  the  declaration  section  is
@@ -911,22 +908,22 @@ end.
 us out of Newline troubles.)
 
 OK, run this program.  Try the input:
-```
 
-     ba        { byte a }   *** DON'T TYPE THE COMMENTS!!! ***
-     wb        { word b }
-     lc        { long c }
-     B         { begin  }
-     a=a
-     a=b
-     a=c
-     b=a
-     b=b
-     b=c
-     c=a
-     c=b
-     c=c
-     .
+```
+ba        { byte a }   *** DON'T TYPE THE COMMENTS!!! ***
+wb        { word b }
+lc        { long c }
+B         { begin  }
+a=a
+a=b
+a=c
+b=a
+b=b
+b=c
+c=a
+c=b
+c=c
+.
 ```
 
 For  each  declaration,  you  should  get  code   generated  that
@@ -939,10 +936,10 @@ WRONG!
 
 Look at the code for a=c above.  The code is:
 
-```delphi
-     MOVE.L    C(PC),D0
-     LEA       A(PC),A0
-     MOVE.B    D0,(A0)
+```asm
+MOVE.L    C(PC),D0
+LEA       A(PC),A0
+MOVE.B    D0,(A0)
 ```
 
 This code is correct.  It will cause the lower eight bits of C to
@@ -952,10 +949,10 @@ we can expect to happen.
 But now, look at the opposite case.  For c=a, the  code generated
 is:
 
-```
-     MOVE.B A(PC),D0
-     LEA  C(PC),A0
-     MOVE.L D0,(A0)
+```asm
+MOVE.B A(PC),D0
+LEA  C(PC),A0
+MOVE.L D0,(A0)
 ```
 
 This is  `NOT`  correct.    It will cause the byte variable A to be
@@ -1010,11 +1007,12 @@ If you run some tests with  this  new version, you will find that
 everything  works correctly now, albeit sometimes  inefficiently.
 For example, consider the case  a=b  (for  the  same declarations
 shown above).  Now the generated code turns out to be:
-```
-     CLR.L D0
-     MOVE.W B(PC),D0
-     LEA  A(PC),A0
-     MOVE.B D0,(A0)
+
+```asm
+CLR.L D0
+MOVE.W B(PC),D0
+LEA  A(PC),A0
+MOVE.B D0,(A0)
 ```
 
 In  this  case,  the CLR turns out not to be necessary, since the
@@ -1177,6 +1175,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 Again, note how  incredibly  simple these two routines are. We've
 encapsulated  all the type logic into Load  and  Store,  and  the
 trick of  passing  the  type  around  makes  the rest of the work
@@ -1713,6 +1712,7 @@ same size.  It differs in two important respects:
 
 The actions that we have to take are best shown in  the following
 table:
+
 ```
 -----------------------------------------------------------------
   T1 -->  |                 |                 |                 |
@@ -1740,6 +1740,7 @@ table:
           |                 |                 |                 |
 -----------------------------------------------------------------
 ```
+
 This table shows the actions to be taken for each  combination of
 operand types.  There are three things to note: First,  we assume
 a library routine  MUL32  which  performs  a  32  x  32 multiply,
@@ -1860,6 +1861,8 @@ The implications are as follows:
 
 This  looks  like  a job for  another  table,  to  summarize  the
 required actions:
+
+```
 -----------------------------------------------------------------
   T1 -->  |                 |                 |                 |
           |                 |                 |                 |
@@ -1885,7 +1888,7 @@ required actions:
           | Result = B      | Result = W      | Result = L      |
           |                 |                 |                 |
 -----------------------------------------------------------------
-
+```
 
 (You may wonder why it's necessary to do a 32-bit  division, when
 the  dividend is, say, only a byte in the first place.  Since the

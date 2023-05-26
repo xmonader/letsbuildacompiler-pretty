@@ -197,10 +197,12 @@ experiment a bit with the general concepts.
 
 Let's  begin with the two definitions most  often  seen  in  real
 programming languages:
+
+```bnf
+<ident> ::= <letter> [ <letter> | <digit> ]*
+<number ::= [<digit>]+
 ```
-     <ident> ::= <letter> [ <letter> | <digit> ]*
-     <number ::= [<digit>]+
-```
+
 (Remember, the `*` indicates zero or more occurrences of the terms
 in brackets, and the `+`, one or more.)
 
@@ -333,14 +335,14 @@ them very sparingly, but  the  figure  below  should give you the
 idea:
 
 ```
-           |-----> Other---------------------------> Error
-           |
-   Start -------> Letter ---------------> Other -----> Finish
-           ^                        V
-           |                        |
-           |<----- Letter <---------|
-           |                        |
-           |<----- Digit  <----------
+        |-----> Other---------------------------> Error
+        |
+Start -------> Letter ---------------> Other -----> Finish
+        ^                        V
+        |                        |
+        |<----- Letter <---------|
+        |                        |
+        |<----- Digit  <----------
 ```
 
 As  you  can  see,  this  diagram  shows  how  the logic flows as
@@ -388,19 +390,17 @@ a feel for the results.
 To do this, simply modify the single executable  line  of IsWhite
 to read:
 
-
 ```delphi
-   IsWhite := c in [' ', TAB, CR, LF];
+IsWhite := c in [' ', TAB, CR, LF];
 ```
-
 
 We need to give the main  program  a new stop condition, since it
 will never see a CR.  Let's just use:
 
 ```delphi
-   until Token = '.';
-
+until Token = '.';
 ```
+
 OK, compile this  program  and  run  it.   Try a couple of lines,
 terminated by the period.  I used:
 
@@ -476,9 +476,8 @@ transparent.   In  this  case,  the  best  approach is to put the
 following lines at the BEGINNING of Scan:
 
 ```delphi
-
-          while Look = CR do
-             Fin;
+while Look = CR do
+   Fin;
 ```
 
 If, on the other  hand,  you  want  a line-oriented language like
@@ -487,8 +486,9 @@ comments terminated by newlines),  then  you'll  need for Scan to
 return CR's as tokens.  It  must  also  eat the trailing LF.  The
 best way to do that is to use this line,  again  at the beginning
 of Scan:
+
 ```delphi
-          if Look = LF then Fin;
+if Look = LF then Fin;
 ```
 
 For other conventions, you'll  have  to  use  other arrangements.
@@ -679,13 +679,15 @@ because standard Pascal  doesn't  allow  for  arrays  of variable
 lengths.   It's  a  real  bother  to  have to declare a different
 search routine for every table.    Standard  Pascal  also doesn't
 allow for initializing arrays, so you tend to see code like
+
 ```delphi
-     Table[1] := 'IF';
-     Table[2] := 'ELSE';
-     .
-     .
-     Table[n] := 'END';
+Table[1] := 'IF';
+Table[2] := 'ELSE';
+.
+.
+Table[n] := 'END';
 ```
+
 which can get pretty old if there are many keywords.
 
 Fortunately, Turbo Pascal 4.0 has extensions that  eliminate both
@@ -776,10 +778,12 @@ So what kind of code should we return?  There are really only two
 reasonable choices.  This seems like an ideal application for the
 Pascal enumerated type.   For  example,  you can define something
 like
+
 ```delphi
-     SymType = (IfSym, ElseSym, EndifSym, EndSym, Ident, Number,
-                    Operator);
+SymType = (IfSym, ElseSym, EndifSym, EndSym, Ident, Number,
+               Operator);
 ```
+
 and arrange to return a variable of this type.   Let's  give it a
 try.  Insert the line above into your type definitions.
 
@@ -978,7 +982,7 @@ needing that.  And you can change the type of Token to char.
 Next, to replace SymType, add the following constant string:
 
 ```delphi
-   const KWcode: string[5] = 'xilee';
+const KWcode: string[5] = 'xilee';
 ```
 
 (I'll be encoding all idents with the single character `x`.)
@@ -2206,6 +2210,7 @@ end.
 {--------------------------------------------------------------}
 
 ```
+
 Compare this program with its  single-character  counterpart.   I
 think you will agree that the differences are minor.
 

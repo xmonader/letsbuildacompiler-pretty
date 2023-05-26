@@ -226,8 +226,6 @@ It's not hard to  figure  out what procedure Term should now look
 like.  Change every call to GetNum in function  Expression  to  a
 call to Term, and then enter the following form for Term:
 
-
-
 ```delphi
 {---------------------------------------------------------------}
 { Parse and Translate a Math Term }
@@ -252,6 +250,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 Now, try it out.    Don't forget two things: first, we're dealing
 with integer division, so, for example, 1/3 should come out zero.
 Second, even  though we can output multi-digit results, our input
@@ -285,8 +284,6 @@ parenthesized  expressions.  We'll hold off a  bit  longer  on  the
 variable  names.    First, change the references  to  GetNum,  in
 function Term, so that they call Factor instead.   Now  code  the
 following version of Factor:
-
-
 
 ```delphi
 {---------------------------------------------------------------}
@@ -412,8 +409,6 @@ Table: Array['A'..'Z'] of integer;
 ```
 
 We also need to initialize the array, so add this procedure:
-
-
 
 ```delphi
 {---------------------------------------------------------------}
@@ -588,6 +583,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 They aren't very fancy, I admit ... no prompt character on input,
 for example ... but they get the job done.
 

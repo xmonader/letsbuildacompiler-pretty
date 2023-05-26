@@ -79,11 +79,13 @@ The first thing we need is the ability to deal with more than one
 statement, since a single-line branch  is pretty limited.  We did
 that in the last session on interpreting, but this time let's get
 a little more formal.  Consider the following BNF:
-```
-          <program> ::= <block> END
 
-          <block> ::= [ <statement> ]*
+```bnf
+<program> ::= <block> END
+
+<block> ::= [ <statement> ]*
 ```
+
 This says that, for our purposes here, a program is defined  as a
 block, followed by an END statement.  A block, in  turn, consists
 of zero or more statements.  We only have one kind  of statement,
@@ -96,6 +98,7 @@ statement.
 Armed with these ideas, we can proceed to build  up  our  parser.
 The code for a program (we  have  to call it DoProgram, or Pascal
 will complain, is:
+
 ```delphi
 {--------------------------------------------------------------}
 { Parse and Translate a Program }
@@ -179,11 +182,12 @@ transfer of control, which at the assembler-language  level means
 conditional  and/or  unconditional branches.   For  example,  the
 simple IF statement `IF <condition> A ENDIF B ...`
 must get translated into
-```
-          Branch if NOT condition to L
-          A
-     L:   B
-          ...
+
+```asm
+     Branch if NOT condition to L
+     A
+L:   B
+     ...
 ```
 
 It's clear, then, that we're going to need  some  more procedures
@@ -230,8 +234,9 @@ var Look  : char;              { Lookahead Character }
 Also, add the following extra initialization to Init:
 
 ```delphi
-   LCount := 0;
+LCount := 0;
 ```
+
 (DON'T forget that, or your labels can look really strange!)
 
 
@@ -250,12 +255,12 @@ These actions can be shown very concisely if we write  the syntax
 this way:
 
 ```
-     IF
-     <condition>    { Condition;
-                      L = NewLabel;
-                      Emit(Branch False to L); }
-     <block>
-     ENDIF          { PostLabel(L) }
+IF
+<condition>    { Condition;
+                 L = NewLabel;
+                 Emit(Branch False to L); }
+<block>
+ENDIF          { PostLabel(L) }
 ```
 
 This is an example  of  syntax-directed  translation.  We've been
@@ -300,6 +305,7 @@ also, for now, skip completely  the character for the branch
 condition, which we still have to define.
 
 The code for DoIf is:
+
 ```delphi
 {--------------------------------------------------------------}
 { Recognize and Translate an IF Construct }
@@ -382,29 +388,29 @@ which doesn't occur in the other constructs.
 
 The corresponding output code should be
 
-```
-          <condition>
-          BEQ L1
-          <block>
-          BRA L2
-     L1:  <block>
-     L2:  ...
+```asm
+     <condition>
+     BEQ L1
+     <block>
+     BRA L2
+L1:  <block>
+L2:  ...
 ```
 
 This leads us to the following syntax-directed translation:
-```
-
-     IF
-     <condition>    { L1 = NewLabel;
-                      L2 = NewLabel;
-                      Emit(BEQ L1) }
-     <block>
-     ELSE           { Emit(BRA L2);
-                      PostLabel(L1) }
-     <block>
-     ENDIF          { PostLabel(L2) }
 
 ```
+IF
+<condition>    { L1 = NewLabel;
+                 L2 = NewLabel;
+                 Emit(BEQ L1) }
+<block>
+ELSE           { Emit(BRA L2);
+                 PostLabel(L1) }
+<block>
+ENDIF          { PostLabel(L2) }
+```
+
 Comparing this with the case for an ELSE-less IF gives us  a clue
 as to how to handle both situations.   The  code  below  does it.
 (Note that I  use  an  `l`  for  the ELSE, since `e` is otherwise
@@ -468,26 +474,24 @@ work for the compiler writer.
 Now,  consider  what  the  WHILE  should be translated into.   It
 should be:
 
+```asm
+L1:  <condition>
+     BEQ L2
+     <block>
+     BRA L1
+L2:
 ```
-     L1:  <condition>
-          BEQ L2
-          <block>
-          BRA L1
-     L2:
-```
-
-
 
 As before, comparing the two representations gives us the actions
 needed at each point.
 
 ```
-     WHILE          { L1 = NewLabel;
-                      PostLabel(L1) }
-     <condition>    { Emit(BEQ L2) }
-     <block>
-     ENDWHILE       { Emit(BRA L1);
-                      PostLabel(L2) }
+WHILE          { L1 = NewLabel;
+                 PostLabel(L1) }
+<condition>    { Emit(BEQ L2) }
+<block>
+ENDWHILE       { Emit(BRA L1);
+                 PostLabel(L2) }
 ```
 
 The code follows immediately from the syntax:
@@ -571,10 +575,10 @@ The syntax is simply `LOOP <block> ENDLOOP`
 and the syntax-directed translation is:
 
 ```
-     LOOP           { L = NewLabel;
-                      PostLabel(L) }
-     <block>
-     ENDLOOP        { Emit(BRA L }
+LOOP           { L = NewLabel;
+                 PostLabel(L) }
+<block>
+ENDLOOP        { Emit(BRA L }
 ```
 
 The corresponding code is shown below.  Since  I've  already used
@@ -609,11 +613,11 @@ is `REPEAT <block> UNTIL <condition>`,
 and the syntax-directed translation is:
 
 ```
-     REPEAT         { L = NewLabel;
-                      PostLabel(L) }
-     <block>
-     UNTIL
-     <condition>    { Emit(BEQ L) }
+REPEAT         { L = NewLabel;
+                 PostLabel(L) }
+<block>
+UNTIL
+<condition>    { Emit(BEQ L) }
 ```
 
 As usual, the code falls out pretty easily:
@@ -676,7 +680,7 @@ easier to code), but I've chosen instead a syntax very  much like
 the one from good ol' BASIC:
 
 ```
-     FOR <ident> = <expr1> TO <expr2> <block> ENDFOR
+FOR <ident> = <expr1> TO <expr2> <block> ENDFOR
 ```
 
 The translation of a FOR loop  can  be just about as difficult as
@@ -688,11 +692,11 @@ at least once,  as  in  FORTRAN,  or  not? It gets simpler if you
 adopt the point of view that the construct is equivalent to:
 
 ```
-     <ident> = <expr1>
-     TEMP = <expr2>
-     WHILE <ident> <= TEMP
-     <block>
-     ENDWHILE
+<ident> = <expr1>
+TEMP = <expr2>
+WHILE <ident> <= TEMP
+<block>
+ENDWHILE
 ```
 
 Notice that with this definition of the loop, `<block>` will not be
@@ -706,24 +710,24 @@ loop counter is in memory (so that it can be accessed  within the
 loop), and the upper limit is on the stack.  The  translated code
 came out like this:
 
-```
-          <ident>             get name of loop counter
-          <expr1>             get initial value
-          LEA <ident>(PC),A0  address the loop counter
-          SUBQ #1,D0          predecrement it
-          MOVE D0,(A0)        save it
-          <expr1>             get upper limit
-          MOVE D0,-(SP)       save it on stack
+```asm
+     <ident>             get name of loop counter
+     <expr1>             get initial value
+     LEA <ident>(PC),A0  address the loop counter
+     SUBQ #1,D0          predecrement it
+     MOVE D0,(A0)        save it
+     <expr1>             get upper limit
+     MOVE D0,-(SP)       save it on stack
 
-     L1:  LEA <ident>(PC),A0  address loop counter
-          MOVE (A0),D0        fetch it to D0
-          ADDQ #1,D0          bump the counter
-          MOVE D0,(A0)        save new value
-          CMP (SP),D0         check for range
-          BLE L2              skip out if D0 > (SP)
-          <block>
-          BRA L1              loop for next pass
-     L2:  ADDQ #2,SP          clean up the stack
+L1:  LEA <ident>(PC),A0  address loop counter
+     MOVE (A0),D0        fetch it to D0
+     ADDQ #1,D0          bump the counter
+     MOVE D0,(A0)        save new value
+     CMP (SP),D0         check for range
+     BLE L2              skip out if D0 > (SP)
+     <block>
+     BRA L1              loop for next pass
+L2:  ADDQ #2,SP          clean up the stack
 ```
 
 Wow!    That  seems like a lot of code ...  the  line  containing
@@ -809,16 +813,16 @@ the last of our loop structures.
 The syntax and its translation is:
 
 ```
-     DO
-     <expr>         { Emit(SUBQ #1,D0);
-                      L = NewLabel;
-                      PostLabel(L);
-                      Emit(MOVE D0,-(SP) }
-     <block>
-     ENDDO          { Emit(MOVE (SP)+,D0;
-                      Emit(DBRA D0,L) }
-
+DO
+<expr>         { Emit(SUBQ #1,D0);
+                 L = NewLabel;
+                 PostLabel(L);
+                 Emit(MOVE D0,-(SP) }
+<block>
+ENDDO          { Emit(MOVE (SP)+,D0;
+                 Emit(DBRA D0,L) }
 ```
+
 That's quite a bit simpler!  The loop will execute  `<expr>` times.
 Here's the code:
 
@@ -943,6 +947,7 @@ into DoIf and  DoBreak.    The  loop  constructs  don't  need it,
 because they are going to pass their own label anyway.
 
 The new version of DoIf is:
+
 ```delphi
 {--------------------------------------------------------------}
 { Recognize and Translate an IF Construct }
@@ -1024,8 +1029,6 @@ left on the stack.  We're going to have to fix that!  A shame ...
 that was one  of  our  smaller  routines, but it can't be helped.
 Here's a version that doesn't have the problem:
 
-
-
 ```delphi
 {--------------------------------------------------------------}
 { Parse and Translate a DO Statement }
@@ -1074,8 +1077,6 @@ that we've used here.  See you then.
 
 For reference purposes, here is  the  completed  parser  for this
 session:
-
-
 
 ```delphi
 {--------------------------------------------------------------}

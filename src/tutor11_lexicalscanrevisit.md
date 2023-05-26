@@ -166,6 +166,7 @@ than we've had to deal with in the past.
 
 Let's  begin  to  fix  the  problem  by  re-introducing  the  two
 procedures:
+
 ```delphi
 {--------------------------------------------------------------}
 { Get an Identifier }
@@ -225,6 +226,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 Note  that  GetOp  returns,  as  its  encoded  token,  the  FIRST
 character of the operator.  This is important,  because  it means
 that we can now use that single character to  drive  the  parser,
@@ -343,8 +345,8 @@ begin
    GetChar;
 end;
 {--------------------------------------------------------------}
-
 ```
+
 Note that I still give the string Value a value.  If you're truly
 concerned about efficiency, you could leave this out.  When we're
 expecting an operator, we will only be testing  Token  anyhow, so

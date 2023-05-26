@@ -350,6 +350,7 @@ end.
 no begin-block.)
 
 Test this unit with the following main program:
+
 ```delphi
 {--------------------------------------------------------------}
 program Test;
@@ -360,6 +361,7 @@ begin
 end.
 {--------------------------------------------------------------}
 ```
+
 Did you see anything that surprised you?  You may have been
 surprised to see that you needed to type something, even though
 the main program requires no input.  That's because of the
@@ -388,15 +390,19 @@ myself changing my mind as often as a chameleon changes color.
 For the purposes we're going to be using, 99% of which will be
 examining the output code as it's displayed on a CRT, it would be
 nice to see neatly blocked out "object" code.  The line:
-```
+
+```asm
 SUB1:		MOVE	#4,D0
 ```
+
 just plain looks neater than the different, but functionally
 identical code,
-```
+
+```asm
 SUB1:
  MOVE #4,D0
 ```
+
 In test versions of my code, I included a more sophisticated
 version of the procedure PostLabel, that avoids having labels on
 separate lines, but rather defers the printing of a label so it
@@ -484,8 +490,6 @@ end.
 
 As usual, here's a test program:
 
-
-
 ```delphi
 {--------------------------------------------------------------}
 program Test;
@@ -496,6 +500,7 @@ begin
 end.
 {--------------------------------------------------------------}
 ```
+
 Have you noticed that the "uses" line in our main program keeps
 getting longer?  That's OK. In the final version, the main program
 will only call procedures in our parser, so its use clause will
@@ -648,12 +653,13 @@ The following code fragment of the main program provides a good
 test of the scanner.  For brevity, I'll only include the
 executable code here; the rest remains the same.  Don't forget,
 though, to add the name Scanner1 to the "uses" clause.
+
 ```delphi
-	Write(GetName);
-	Match('=');
-	Write(GetNumber);
-	Match('+');
-	WriteLn(GetName);
+Write(GetName);
+Match('=');
+Write(GetNumber);
+Match('+');
+WriteLn(GetName);
 ```
 
 This code will recognize all sentences of the form `x=0+y`
@@ -876,6 +882,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 You might file this one away, as I intend to, for a rainy day.
 
 
@@ -994,6 +1001,7 @@ that in the [next installment](tutor16_unitconstruction.md), but before I close,
 the parsing of a factor, just to satisfy ourselves that we still
 know how.  The final version of CodeGen includes the new
 procedure, LoadVariable:
+
 ```delphi
 {--------------------------------------------------------------}
 unit CodeGen;
@@ -1030,6 +1038,7 @@ end.
 
 The parser unit itself doesn't change, but we have a more complex
 version of procedure Factor:
+
 ```delphi
 {--------------------------------------------------------------}
 { Parse and Translate a Factor }

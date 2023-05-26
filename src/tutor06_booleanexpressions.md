@@ -42,11 +42,12 @@ For some time  now,  we've been implementing BNF syntax equations
 for arithmetic expressions, without  ever  actually  writing them
 down all in one place.  It's time that we did so.  They are:
 
+```bnf
+<expression> ::= <unary op> <term> [<addop> <term>]*
+<term>       ::= <factor> [<mulop> factor]*
+<factor>     ::= <integer> | <variable> | ( <expression> )
 ```
-     <expression> ::= <unary op> <term> [<addop> <term>]*
-     <term>       ::= <factor> [<mulop> factor]*
-     <factor>     ::= <integer> | <variable> | ( <expression> )
-```
+
 (Remember, the nice thing about  this grammar is that it enforces
 the operator precedence hierarchy  that  we  normally  expect for
 algebra.)
@@ -56,13 +57,13 @@ grammar a bit right now.   The  way we've handled the unary minus
 is  a  bit  awkward.  I've found that it's better  to  write  the
 grammar this way:
 
+```bnf
+<expression>    ::= <term> [<addop> <term>]*
+<term>          ::= <signed factor> [<mulop> factor]*
+<signed factor> ::= [<addop>] <factor>
+<factor>        ::= <integer> | <variable> | (<expression>)
 ```
-  <expression>    ::= <term> [<addop> <term>]*
-  <term>          ::= <signed factor> [<mulop> factor]*
-  <signed factor> ::= [<addop>] <factor>
-  <factor>        ::= <integer> | <variable> | (<expression>)
 
-```
 This puts the job of handling the unary minus onto  Factor, which
 is where it really belongs.
 
@@ -74,11 +75,11 @@ Now, it probably won't come as  a  shock  to you to learn that we
 can define an analogous grammar for Boolean algebra.    A typical
 set or rules is:
 
-```
- <b-expression>::= <b-term> [<orop> <b-term>]*
- <b-term>      ::= <not-factor> [AND <not-factor>]*
- <not-factor>  ::= [NOT] <b-factor>
- <b-factor>    ::= <b-literal> | <b-variable> | (<b-expression>)
+```bnf
+<b-expression>::= <b-term> [<orop> <b-term>]*
+<b-term>      ::= <not-factor> [AND <not-factor>]*
+<not-factor>  ::= [NOT] <b-factor>
+<b-factor>    ::= <b-literal> | <b-variable> | (<b-expression>)
 ```
 
 Notice that in this  grammar,  the  operator  AND is analogous to
@@ -142,11 +143,11 @@ of predicate has a single Boolean value, TRUE or  FALSE,  as  its
 result, it is  really  just  another  kind  of factor.  So we can
 expand the definition of a Boolean factor above to read:
 
-```
-    <b-factor> ::=    <b-literal>
-                    | <b-variable>
-                    | (<b-expression>)
-                    | <relation>
+```bnf
+<b-factor> ::=    <b-literal>
+                | <b-variable>
+                | (<b-expression>)
+                | <relation>
 ```
 
 THAT's the connection!  The relops and the  relation  they define
@@ -260,16 +261,16 @@ which doesn't make sense.
 In  any  case,  I've  elected  to  separate  the  operators  into
 different levels, although not as many as in C.
 
-```
- <b-expression> ::= <b-term> [<orop> <b-term>]*
- <b-term>       ::= <not-factor> [AND <not-factor>]*
- <not-factor>   ::= [NOT] <b-factor>
- <b-factor>     ::= <b-literal> | <b-variable> | <relation>
- <relation>     ::= | <expression> [<relop> <expression]
- <expression>   ::= <term> [<addop> <term>]*
- <term>         ::= <signed factor> [<mulop> factor]*
- <signed factor>::= [<addop>] <factor>
- <factor>       ::= <integer> | <variable> | (<b-expression>)
+```bnf
+<b-expression> ::= <b-term> [<orop> <b-term>]*
+<b-term>       ::= <not-factor> [AND <not-factor>]*
+<not-factor>   ::= [NOT] <b-factor>
+<b-factor>     ::= <b-literal> | <b-variable> | <relation>
+<relation>     ::= | <expression> [<relop> <expression]
+<expression>   ::= <term> [<addop> <term>]*
+<term>         ::= <signed factor> [<mulop> factor]*
+<signed factor>::= [<addop>] <factor>
+<factor>       ::= <integer> | <variable> | (<b-expression>)
 ```
 
 This grammar  results  in  the  same  set  of seven levels that I
@@ -333,10 +334,8 @@ Type  these routines into your program.  You  can  test  them  by
 adding into the main program the print statement
 
 ```delphi
-   WriteLn(GetBoolean);
-
+WriteLn(GetBoolean);
 ```
-
 
 OK, compile the program and test it.   As  usual,  it's  not very
 impressive so far, but it soon will be.
@@ -374,8 +373,8 @@ output code is starting to look more realistic.
 Next, of course, we have to expand the definition  of  a  Boolean
 expression.  We already have the BNF rule:
 
-```
- <b-expression> ::= <b-term> [<orop> <b-term>]*
+```bnf
+<b-expression> ::= <b-term> [<orop> <b-term>]*
 ```
 
 I prefer the Pascal versions of the "orops",  OR  and  XOR.   But
@@ -435,6 +434,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 OK, rename the old  version  of  BoolExpression to BoolTerm, then
 enter  the  code  above.  Compile and test this version.  At this
 point, the  output  code  is  starting  to  look pretty good.  Of
@@ -449,8 +449,6 @@ Rename the current procedure BoolTerm to NotFactor, and enter the
 following new version of BoolTerm.  Note that is is  much simpler
 than  the  numeric  version,  since  there  is  no equivalent  of
 division.
-
-
 
 ```delphi
 {---------------------------------------------------------------}
@@ -489,6 +487,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 And  rename  the  earlier procedure to BoolFactor.  Now try that.
 At this point  the  parser  should  be able to handle any Boolean
 expression you care to throw at it.  Does it?  Does it trap badly
@@ -543,6 +542,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 OK, key  in  this  code  and  give  it a try.  All the old things
 should still work ... you should be able to generate the code for
 ANDs, ORs, and  NOTs.    In  addition, if you type any alphabetic
@@ -553,8 +553,8 @@ move on to the full-blown version of Relation.
 To  get  that,  though, there is a bit of groundwork that we must
 lay first.  Recall that a relation has the form
 
-```
- <relation>     ::= | <expression> [<relop> <expression]
+```bnf
+<relation>     ::= | <expression> [<relop> <expression]
 ```
 
 Since  we have a new kind of operator, we're also going to need a
@@ -574,6 +574,7 @@ end;
 {--------------------------------------------------------------}
 
 ```
+
 Now, recall  that  we're  using  a zero or a -1 in register D0 to
 represent  a Boolean value, and also  that  the  loop  constructs
 expect the flags to be set to correspond.   In  implementing  all
@@ -699,6 +700,7 @@ begin
 end;
 {---------------------------------------------------------------}
 ```
+
 Now, that call to  Expression  looks familiar!  Here is where the
 editor of your system comes in handy.  We have  already generated
 code  for  Expression  and its buddies in previous sessions.  You
@@ -957,7 +959,6 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
-
 
 Now, you'll find that you  can use multiple-line "programs."  The
 only restriction is that you can't separate an IF or  WHILE token

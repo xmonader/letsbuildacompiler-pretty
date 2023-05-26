@@ -306,10 +306,12 @@ linker and make facility handle all the details?
 
 Yes, I know, the code isn't very efficient.  If we input a number, -3,
 the generated code is:
- ```
-	MOVE #3,D0
-	NEG D0
+
+```asm
+MOVE #3,D0
+NEG D0
 ```
+
 which is really, really dumb.  We can do better, of course, by simply
 pre-appending a minus sign to the string passed to LoadConstant, but it
 adds a few lines of code to SignedFactor, and I'm applying the KISS
@@ -328,11 +330,13 @@ system.
 
 For the record, one of my standard tests for any new compiler is to see
 how the compiler deals with a null program like:
-```delphi
-	program main;
-	begin
-	end.
+
 ```
+program main;
+begin
+end.
+```
+
 My test is to measure the time required to compile and link, and the
 size of the object file generated.  The undisputed _LOSER_ in the test
 is the DEC C compiler for the VAX, which took 60 seconds to compile, on
@@ -361,11 +365,13 @@ I'm sure you know what's coming next: We must, yet again, create the
 rest of the procedures that implement the recursive-descent parsing of
 an expression.  We all know that the hierarchy of procedures for
 arithmetic expressions is:
+
 ```
 expression
 	term
 		factor
 ```
+
 However, for now let's continue to do things one step at a time,
 and consider only expressions with additive terms in them.  The
 code to implement expressions, including a possibly signed first
@@ -421,8 +427,6 @@ routines.  As the name implies, procedure Push generates code to push
 the primary register (D0, in our 68000 implementation) to the stack.
 PopAdd and PopSub pop the top of the stack again, and add it to, or
 subtract it from, the primary register.  The code is shown next:
-
-
 
 ```delphi
 {--------------------------------------------------------------}
@@ -611,6 +615,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 The assignment calls for yet another code generation routine:
 
 ```delphi
@@ -633,7 +638,8 @@ And painless, too.
 In the past, we've always tried to show BNF relations to define the
 syntax we're developing. I haven't done that here, and it's high time I
 did.  Here's the BNF:
-```
+
+```bnf
 <factor>      ::= <variable> | <constant> | '(' <expression> ')'
 <signed_term> ::= [<addop>] <term>
 <term>        ::= <factor> (<mulop> <factor>)*
@@ -732,6 +738,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 And, finally, the new code generator procedures:
 
 ```delphi
@@ -752,6 +759,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 Now, let's test the translator (you might want to change the call
 in Main back to a call to Expression, just to avoid having to type
 "x=" for an assignment every time).
@@ -812,16 +820,20 @@ Motorola 68000 design.  Though Motorola brags loudly about the
 orthogonality of their instruction set, the fact is that it's far
 from orthogonal.  For example, you can read a variable from its
 address:
+
+```asm
+MOVE X,D0 (where X is the name of a variable)
 ```
-	MOVE X,D0 (where X is the name of a variable)
-```
+
 but you can't write in the same way.  To write, you must load an
 address register with the address of X.  The same is true for
 PC-relative addressing:
+
+```asm
+MOVE X(PC),DO	(legal)
+MOVE D0,X(PC)	(illegal)
 ```
-	MOVE X(PC),DO	(legal)
-	MOVE D0,X(PC)	(illegal)
-```
+
 When you begin asking how such non-orthogonal behavior came about,
 you find that someone in Motorola had some theories about how
 software should be written.  Specifically, in this case, they
@@ -858,6 +870,7 @@ With that bit of philosophy out of the way, we can press on to the
 probably do this without me, but here's the code, anyway:
 
 In Scanner,
+
 ```delphi
 {--------------------------------------------------------------}
 function IsMulop(c: char): boolean;
@@ -866,6 +879,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 In Parser,
 
 ```delphi
@@ -893,6 +907,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 and in CodeGen,
 
 ```delphi
@@ -905,6 +920,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 Your parser should now be able to process almost any sort of logical
 expression, and (should you be so inclined), mixed-mode expressions as
 well.
@@ -1015,20 +1031,22 @@ Try this now, with a few simple cases. In fact, try that exclusive or
 example, `a&!b|!a&b`.
 
 You should get the code (without the comments, of course):
+
+```asm
+MOVE A(PC),DO		; load a
+MOVE D0,-(SP)		; push it
+MOVE B(PC),DO		; load b
+EOR #-1,D0		; not it
+AND (SP)+,D0		; and with a
+MOVE D0,-(SP)		; push result
+MOVE A(PC),DO		; load a
+EOR #-1,D0		; not it
+MOVE D0,-(SP)		; push it
+MOVE B(PC),DO		; load b
+AND (SP)+,D0		; and with !a
+OR (SP)+,D0		; or with first term
 ```
- MOVE A(PC),DO    ; load a
- MOVE D0,-(SP)		; push it
- MOVE B(PC),DO		; load b
- EOR #-1,D0		; not it
- AND (SP)+,D0		; and with a
- MOVE D0,-(SP)		; push result
- MOVE A(PC),DO		; load a
- EOR #-1,D0		; not it
- MOVE D0,-(SP)		; push it
- MOVE B(PC),DO		; load b
- AND (SP)+,D0		; and with !a
- OR (SP)+,D0		; or with first term
-```
+
 That's precisely what we'd like to get.  So, at least for both
 arithmetic and logical operators, our new precedence and new, slimmer
 syntax hang together.  Even the peculiar, but legal, expression with
@@ -1040,7 +1058,7 @@ which is equal to x.
 When we look at the BNF we've created, we find that our boolean algebra
 now adds only one extra line:
 
-```
+```bnf
 <not_factor> 	::= [!] <factor>
 <factor>      	::= <variable> | <constant> | '(' <expression> ')'
 <signed_term> 	::= [<addop>] <term>

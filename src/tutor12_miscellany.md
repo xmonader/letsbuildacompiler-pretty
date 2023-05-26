@@ -203,12 +203,12 @@ popular  languages.    In Pascal, the semicolon is regarded as an
 statement SEPARATOR.  No semicolon  is  required  after  the last
 statement in a block.  The syntax is:
 
-```
-     <block> ::= <statement> ( ';' <statement>)*
+```bnf
+<block> ::= <statement> ( ';' <statement>)*
 
-     <statement> ::= <assignment> | <if> | <while> ... | null
-
+<statement> ::= <assignment> | <if> | <while> ... | null
 ```
+
 (The null statement is IMPORTANT!)
 
 Pascal  also defines some semicolons in  other  places,  such  as
@@ -219,10 +219,10 @@ statement TERMINATOR,  and  follows  all  statements  (with  some
 embarrassing and confusing  exceptions).   The syntax for this is
 simply:
 
+```bnf
+<block> ::= ( <statement> ';')*
 ```
-     <block> ::= ( <statement> ';')*
 
-```
 Of  the two syntaxes, the Pascal one seems on the face of it more
 rational, but experience has shown  that it leads to some strange
 difficulties.  People get  so  used  to  typing a semicolon after
@@ -453,8 +453,8 @@ begin
    GetCharX;
 end;
 {--------------------------------------------------------------}
-
 ```
+
 Clearly, what this procedure is going to do is to simply read and
 discard characters from the input  stream, until it finds a right
 curly brace.  Then it reads one more character and returns  it in
@@ -632,9 +632,9 @@ to ` `.  I like to do  things  like  that  using the Turbo "typed
 constant" construct:
 
 ```delphi
-     const TempChar: char = ' ';
-
+const TempChar: char = ' ';
 ```
+
 Now we need a new version of SkipComment:
 
 ```delphi
