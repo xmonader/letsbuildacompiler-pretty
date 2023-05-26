@@ -123,7 +123,7 @@ One feature of Turbo Pascal units is their initialization block.
 As with an Ada package, any code in the main begin-end block of a
 unit gets executed as the program is initialized.  As you'll see
 later, this sometimes gives us neat simplifications in the code.
-Our procedure Init, which has been with us since Installment 1,
+Our procedure `Init`, which has been with us since Installment 1,
 goes away entirely when we use units.  The various routines in the
 Cradle, another key features of our approach, will get distributed
 among the units.
@@ -200,10 +200,10 @@ A key concept that we've used since Day 1 has been the idea of an
 input stream with one lookahead character.  All the parsing
 routines examine this character, without changing it, to decide
 what they should do next.  (Compare this approach with the C/Unix
-approach using getchar and unget, and I think you'll agree that
+approach using `getchar` and `unget`, and I think you'll agree that
 our approach is simpler). We'll begin our hike into the future by
 translating this concept into our new, unit-based organization.
-The first unit, appropriately called Input, is shown below:
+The first unit, appropriately called `Input`, is shown below:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -238,7 +238,7 @@ single procedure.  But already, we can see how the use of units
 gives us advantages.  Note the executable code in the
 initialization block.  This code "primes the pump" of the input
 stream for us, something we've always had to do before, by
-inserting the call to GetChar in line, or in procedure Init.  This
+inserting the call to `GetChar` in line, or in procedure `Init`.  This
 time, the call happens without any special reference to it on our
 part, except within the unit itself. As I predicted earlier, this
 mechanism is going to make our lives much simpler as we proceed.
@@ -248,7 +248,7 @@ Pascal, and I lean on it heavily.
 Copy this unit into your compiler's IDE, and compile it. To test
 the software, of course, we always need a main program.  I used
 the following, really complex test program, which we'll later
-evolve into the Main for our compiler:
+evolve into the `Main` for our compiler:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -263,7 +263,7 @@ end.
 Note the use of the Borland-supplied unit, WinCRT.  This unit is
 necessary if you intend to use the standard Pascal I/O routines,
 Read, ReadLn, Write, and WriteLn, which of course we intend to do.
-If you forget to include this unit in the "uses" clause, you will
+If you forget to include this unit in the `uses` clause, you will
 get a really bizarre and indecipherable error message at run time.
 
 Note also that we can access the lookahead character, even though
@@ -276,7 +276,7 @@ the units internal variables.  But, although Turbo units have a
 lot in common with objects, we're not doing object-oriented design
 or code here, so our use of Look is appropriate.
 
-Go ahead and save the test program as Main.pas.  To make life
+Go ahead and save the test program as `Main.pas`.  To make life
 easier as we get more and more files, you might want to take this
 opportunity to declare this file as the compiler's Primary file.
 That way, you can execute the program from any file.  Otherwise,
@@ -285,7 +285,7 @@ you'll get an error message.  You set the primary file using the
 main submenu, "Compile," in the Turbo IDE.
 
 I hasten to point out, as I've done before, that the function of
-unit Input is, and always has been, considered to be a dummy
+unit `Input` is, and always has been, considered to be a dummy
 version of the real thing.  In a production version of a compiler,
 the input stream will, of course, come from a file rather than
 from the keyboard.  And it will almost certainly include line
@@ -310,7 +310,7 @@ my #1 rule to live by:  Keep It Simple.
 ## The Output Unit
 
 Of course, every decent program should have output, and ours is no
-exception.  Our output routines included the Emit functions.  The
+exception.  Our output routines included the `Emit` functions.  The
 code for the corresponding output unit is shown next:
 
 ```delphi
@@ -365,7 +365,7 @@ end.
 Did you see anything that surprised you?  You may have been
 surprised to see that you needed to type something, even though
 the main program requires no input.  That's because of the
-initialization in unit Input, which still requires something to
+initialization in unit `Input`, which still requires something to
 put into the lookahead character.  Sorry, there's no way out of
 that box, or rather, we don't _want_ to get out. Except for simple
 test cases such as this, we will always want a valid lookahead
@@ -382,7 +382,7 @@ we can't do is to simply ignore it.  Every assembler I've ever
 used reserves column 1 for labels, and will rebel to see
 instructions starting there.  So, at the very least, we must space
 the instructions over one column to keep the assembler happy.  .
-That's easy enough to do:  Simply change, in procedure Emit, the
+That's easy enough to do:  Simply change, in procedure `Emit`, the
 line `Write(TAB, s);` by `Write(' ', s);`.
 
 I must admit that I've wrestled with this problem before, and find
@@ -404,10 +404,10 @@ SUB1:
 ```
 
 In test versions of my code, I included a more sophisticated
-version of the procedure PostLabel, that avoids having labels on
+version of the procedure `PostLabel`, that avoids having labels on
 separate lines, but rather defers the printing of a label so it
 can end up on the same line as the associated instruction.  As
-recently as an hour ago, my version of unit Output provided full
+recently as an hour ago, my version of unit `Output` provided full
 support for tabs, using an internal column count variable and
 software to manage it.  I had, if I do say so myself, some rather
 elegant code to support the tab mechanism, with a minimum of code
@@ -417,7 +417,7 @@ version, if for no other reason than to show off the elegance.
 Nevertheless, the code of the "elegant" version was considerably
 more complex and larger.  Since then, I've had second thoughts. In
 spite of our desire to see pretty output, the inescapable fact is
-that the two versions of the MAIN: code fragment shown above are
+that the two versions of the `MAIN`: code fragment shown above are
 functionally identical; the assembler, which is the ultimate
 destination of the code, couldn't care less which version it gets,
 except that the prettier version will contain more characters,
@@ -433,7 +433,7 @@ all my elegant little tricks to implement tabbing, I had to remind
 myself that, to paraphrase Senator Barry Goldwater, elegance in
 the pursuit of complexity is no virtue.  Another wise man once
 wrote, "Any idiot can design a Rolls-Royce. It takes a genius to
-design a VW."  So the elegant, tab-friendly version of Output is
+design a VW."  So the elegant, tab-friendly version of `Output` is
 history, and what you see is the simple, compact, VW version.
 
 
@@ -450,10 +450,10 @@ program to be an anachronism, a holdover from the days of batch
 processing.  It's time to scuttle the practice.  So there.
 
 In our original Cradle, we had two error-handling procedures:
-Error, which didn't halt, and Abort, which did.  But I don't think
+`Error`, which didn't halt, and `Abort`, which did.  But I don't think
 we ever found a use for the procedure that didn't halt, so in the
-new, lean and mean unit Errors, shown next, procedure Error takes
-the place of Abort.
+new, lean and mean unit `Errors`, shown next, procedure `Error` takes
+the place of `Abort`.
 
 ```delphi
 {--------------------------------------------------------------}
@@ -501,7 +501,7 @@ end.
 {--------------------------------------------------------------}
 ```
 
-Have you noticed that the "uses" line in our main program keeps
+Have you noticed that the `uses` line in our main program keeps
 getting longer?  That's OK. In the final version, the main program
 will only call procedures in our parser, so its use clause will
 only have a couple of entries. But for now, it's probably best to
@@ -521,20 +521,20 @@ lookahead character.  Therefore, we found no need to prefetch
 tokens, as a scanner would do.
 
 But, even though there is no functional procedure called
-"Scanner," it still makes sense to separate the scanning functions
+`Scanner`, it still makes sense to separate the scanning functions
 from the parsing functions.  So I've created two more units
-called, amazingly enough, Scanner and Parser.  The Scanner unit
+called, amazingly enough, `Scanner` and `Parser`.  The `Scanner` unit
 contains all of the routines known as recognizers.  Some of these,
-such as IsAlpha, are pure boolean routines which operate on the
+such as `IsAlpha`, are pure boolean routines which operate on the
 lookahead character only.  The other routines are those which
 collect tokens, such as identifiers and numeric constants. The
-Parser unit will contain all of the routines making up the
+`Parser` unit will contain all of the routines making up the
 recursive-descent parser.  The general rule should be that unit
 Parser contains all of the information that is language-specific;
 in other words, the syntax of the language should be wholly
-contained in Parser.  In an ideal world, this rule should be true
+contained in `Parser`.  In an ideal world, this rule should be true
 to the extent that we can change the compiler to compile a
-different language, merely by replacing the single unit, Parser.
+different language, merely by replacing the single unit, `Parser`.
 
 In practice, things are almost never this pure.  There's always a
 small amount of "leakage" of syntax rules into the scanner as
@@ -552,8 +552,8 @@ number of our tests, and another that provided full support for
 multi-character tokens.  Now that we have our software separated
 into units, I don't anticipate getting much use out of the
 single-character version, but it doesn't cost us much to provide for
-both.  I've created two versions of the Scanner unit.  The first
-one, called Scanner1, contains the single-digit version of the
+both.  I've created two versions of the `Scanner` unit.  The first
+one, called `Scanner1`, contains the single-digit version of the
 recognizers:
 
 ```delphi
@@ -652,7 +652,7 @@ end.
 The following code fragment of the main program provides a good
 test of the scanner.  For brevity, I'll only include the
 executable code here; the rest remains the same.  Don't forget,
-though, to add the name Scanner1 to the "uses" clause.
+though, to add the name `Scanner1` to the `uses` clause.
 
 ```delphi
 Write(GetName);
@@ -663,7 +663,7 @@ WriteLn(GetName);
 ```
 
 This code will recognize all sentences of the form `x=0+y`
-where x and y can be any single-character variable names, and 0
+where `x` and `y` can be any single-character variable names, and `0`
 any digit.  The code should reject all other sentences, and give a
 meaningful error message. If it did, you're in good shape and we
 can proceed.
@@ -673,10 +673,10 @@ can proceed.
 
 The next, and by far the most important, version of the scanner is
 the one that handles the multi-character tokens that all real
-languages must have.  Only the two functions, GetName and
-GetNumber, change between the two units, but just to be sure there
+languages must have.  Only the two functions, `GetName` and
+`GetNumber`, change between the two units, but just to be sure there
 are no mistakes, I've reproduced the entire unit here.  This is
-unit Scanner:
+unit `Scanner`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -782,7 +782,7 @@ end.
 ```
 
 The same test program will test this scanner, also. Simply change
-the "uses" clause to use Scanner instead of Scanner1.  Now you
+the `uses` clause to use `Scanner` instead of `Scanner1`.  Now you
 should be able to type multi-character names and numbers.
 
 
@@ -792,7 +792,7 @@ In spite of the relative simplicity of both scanners, a lot of
 thought has gone into them, and a lot of decisions had to be made.
 I'd like to share those thoughts with you now so you can make your
 own educated decision, appropriate for your application.  First,
-note that both versions of GetName translate the input characters
+note that both versions of `GetName` translate the input characters
 to upper case.  Obviously, there was a design decision made here,
 and this is one of those cases where the language syntax splatters
 over into the scanner.  In the C language, the case of characters
@@ -804,14 +804,14 @@ map all identifiers to upper case in the scanner, so we don't have
 to worry later on when we're comparing strings for equality.
 
 We could have even gone a step further, and map the characters to
-upper case right as they come in, in GetChar.  This approach works
+upper case right as they come in, in `GetChar`.  This approach works
 too, and I've used it in the past, but it's too confining.
 Specifically, it will also map characters that may be part of
 quoted strings, which is not a good idea.  So if you're going to
-map to upper case at all, GetName is the proper place to do it.
+map to upper case at all, `GetName` is the proper place to do it.
 
-Note that the function GetNumber in this scanner returns a string,
-just as GetName does.  This is another one of those things I've
+Note that the function `GetNumber` in this scanner returns a string,
+just as `GetName` does.  This is another one of those things I've
 oscillated about almost daily, and the last swing was all of ten
 minutes ago.  The alternative approach, and one I've used many
 times in past installments, returns an integer result.
@@ -903,8 +903,7 @@ have created a code generator unit, as well.
 
 Remember the very [first installment](tutor01_introduction.md) of this series?  We read an
 integer value, say n, and generated the code to load it into the
-D0 register via an immediate move: `MOVE #n,D0`.
-
+`D0` register via an immediate move: `MOVE #n,D0`.
 Shortly afterwards, we repeated the process for a variable,
 `MOVE X(PC),D0`
 and then for a factor that could be either constant or variable.
@@ -934,19 +933,19 @@ end.
 {--------------------------------------------------------------}
 ```
 
-As you can see, this unit calls a procedure, LoadConstant, which
+As you can see, this unit calls a procedure, `LoadConstant`, which
 actually effects the output of the assembly-language code.  The
-unit also uses a new unit, CodeGen.  This step represents the last
+unit also uses a new unit, `CodeGen`.  This step represents the last
 major change in our architecture, from earlier installments: The
 removal of the machine-dependent code to a separate unit. If I
 have my way, there will not be a single line of code, outside of
-CodeGen, that betrays the fact that we're targeting the 68000 CPU.
+`CodeGen`, that betrays the fact that we're targeting the 68000 CPU.
 And this is one place I think that having my way is quite
 feasible.
 
 For those of you who wish I were using the 80x86 architecture (or
 any other one) instead of the 68000, here's your answer:  Merely
-replace CodeGen with one suitable for your CPU of choice.
+replace `CodeGen` with one suitable for your CPU of choice.
 
 So far, our code generator has only one procedure in it.  Here's
 the unit:
@@ -999,8 +998,8 @@ powerful allies.  What remains to be done is to flesh out the
 units to match the capabilities of earlier installments.  We'll do
 that in the [next installment](tutor16_unitconstruction.md), but before I close, let's finish out
 the parsing of a factor, just to satisfy ourselves that we still
-know how.  The final version of CodeGen includes the new
-procedure, LoadVariable:
+know how.  The final version of `CodeGen` includes the new
+procedure, `LoadVariable`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1037,7 +1036,7 @@ end.
 ```
 
 The parser unit itself doesn't change, but we have a more complex
-version of procedure Factor:
+version of procedure `Factor`:
 
 ```delphi
 {--------------------------------------------------------------}

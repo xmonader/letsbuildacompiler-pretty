@@ -106,8 +106,8 @@ let's waste no more time and dive right in.
 ## The Basics
 
 All modern  CPU's provide direct support for procedure calls, and
-the  68000  is no exception.  For the 68000, the call  is  a  BSR
-(PC-relative version) or JSR, and the return is RTS.  All we have
+the  68000  is no exception.  For the 68000, the call  is  a  `BSR`
+(PC-relative version) or `JSR`, and the return is `RTS`.  All we have
 to do is to arrange for  the  compiler to issue these commands at
 the proper place.
 
@@ -621,7 +621,7 @@ more kind of declaration.  We can write the BNF:
 <declaration> ::= <data decl> | <procedure>
 ```
 
-This means that it should be easy to modify TopDecl to  deal with
+This means that it should be easy to modify `TopDecl` to  deal with
 procedures.  What about the syntax of a procedure?   Well, here's
 a suggested syntax, which is essentially that of Pascal:
 
@@ -631,7 +631,7 @@ a suggested syntax, which is essentially that of Pascal:
 
 There is practically no code generation required, other than that
 generated within the begin-block.    We need only emit a label at
-the beginning of the procedure, and an RTS at the end.
+the beginning of the procedure, and an `RTS` at the end.
 
 Here's the required code:
 
@@ -655,7 +655,7 @@ end;
 ```
 
 Note that I've added a new code generation routine, Return, which
-merely emits an RTS instruction.  The creation of that routine is
+merely emits an `RTS` instruction.  The creation of that routine is
 "left as an exercise for the student."
 
 To  finish  this  version, add the following line within the Case
@@ -693,7 +693,7 @@ just before it and will thus be inaccessible by the procedures.
 
 OK, try this new version out.  Note that we  can  declare as many
 procedures as we choose (as long  as  we don't run out of
-single-character names!), and the  labels  and RTS's all come out in the
+single-character names!), and the  labels  and `RTS`'s all come out in the
 right places.
 
 It's  worth  noting  here  that  I  do  _not_  allow  for  nested
@@ -708,7 +708,7 @@ I also happen to believe that nesting is not a good  idea, simply
 on the grounds that I have seen too many abuses of the feature.
 Before going on to the next step, it's also worth noting that the
 "main program" as it stands  is incomplete, since it doesn't have
-the label and END statement.  Let's fix that little oversight:
+the label and `END` statement.  Let's fix that little oversight:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -737,11 +737,11 @@ end.
 {--------------------------------------------------------------}
 ```
 
-Note  that  DoProc  and DoMain are not quite symmetrical.  DoProc
-uses a call to BeginBlock, whereas DoMain cannot.  That's because
-a procedure  is signaled by the keyword PROCEDURE (abbreviated by
+Note  that  `DoProc`  and `DoMain` are not quite symmetrical.  `DoProc`
+uses a call to `BeginBlock`, whereas `DoMain` cannot.  That's because
+a procedure  is signaled by the keyword `PROCEDURE` (abbreviated by
 a `p` here), while the main program gets no  keyword  other  than
-the BEGIN itself.
+the `BEGIN` itself.
 
 And _that_ brings up an interesting question: WHY?
 
@@ -756,7 +756,7 @@ be declared before they're  used,  which  means  that there is no
 point putting anything after the  main program ... it could never
 be accessed.  The "main program" is not identified at  all, other
 than  being that part of the code that  comes  after  the  global
-BEGIN.  In other words, if it ain't anything else, it must be the
+`BEGIN`.  In other words, if it ain't anything else, it must be the
 main program.
 
 This  causes  no  small  amount   of   confusion   for  beginning
@@ -777,7 +777,7 @@ declaration, also?
 
 The answer is yes, and by  treating  it that way, we can simplify
 the code and make  it  considerably  more  orthogonal.  I propose
-that  we  use  an explicit keyword, PROGRAM, to identify the main
+that  we  use  an explicit keyword, `PROGRAM`, to identify the main
 program (Note that this  means  that we can't start the file with
 it, as in Pascal).  In this case, our BNF becomes:
 
@@ -790,7 +790,7 @@ it, as in Pascal).  In this case, our BNF becomes:
 ```
 
 The code  also  looks  much  better,  at  least in the sense that
-DoMain and DoProc look more alike:
+`DoMain` and `DoProc` look more alike:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -839,7 +839,7 @@ end.
 ```
 
 Since the declaration of the main program is now within  the loop
-of  TopDecl,  that  does  present  some difficulties.  How do  we
+of  `TopDecl`,  that  does  present  some difficulties.  How do  we
 ensure that it's  the last thing in the file?  And how do we ever
 exit  from  the  loop?  My answer for the second question, as you
 can see, was to bring back our old friend the  period.   Once the
@@ -850,7 +850,7 @@ willing to go to  protect  the programmer from dumb mistakes.  In
 the code that I've shown,  there's nothing to keep the programmer
 from adding code after  the  main  program  ... even another main
 program.   The code will just not be  accessible.    However,  we
-COULD access it via a FORWARD statement, which we'll be providing
+COULD access it via a `FORWARD` statement, which we'll be providing
 later. As a  matter  of fact, many assembler language programmers
 like to use  the  area  just  after the program to declare large,
 uninitialized data blocks, so there may indeed be  some  value in
@@ -936,12 +936,12 @@ end;
 {--------------------------------------------------------------}
 ```
 
-As you can see, procedure Block now calls AssignOrProc instead of
-Assignment.  The function of this new procedure is to simply read
+As you can see, procedure `Block` now calls `AssignOrProc` instead of
+`Assignment`.  The function of this new procedure is to simply read
 the identifier,  determine  its  type,  and  then  call whichever
 procedure  is  appropriate  for  that  type.  Since the name  has
 already been read,  we  must  pass  it to the two procedures, and
-modify Assignment to match.   Procedure CallProc is a simple code
+modify `Assignment` to match.   Procedure `CallProc` is a simple code
 generation routine:
 
 ```delphi
@@ -965,8 +965,8 @@ getting there, and it wasn't too hard, was it?
 Of course, so far we can  only  deal with procedures that have no
 parameters.    The  procedures  can  only operate on  the  global
 variables  by  their  global names.  So at this point we have the
-equivalent of BASIC's GOSUB construct.  Not too bad ... after all
-lots of serious programs were written using GOSUBs, but we can do
+equivalent of BASIC's `GOSUB` construct.  Not too bad ... after all
+lots of serious programs were written using `GOSUB`s, but we can do
 better, and we will.  That's the next step.
 
 
@@ -1042,7 +1042,7 @@ Before we go any further, let's alter the translator to  handle a
 (possibly empty) parameter list.  For now we  won't  generate any
 extra code ... just parse the syntax.  The  code  for  processing
 the declaration has very  much  the  same  form we've seen before
-when dealing with VAR-lists:
+when dealing with `VAR`-lists:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1063,7 +1063,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Procedure DoProc needs to have a line added to call FormalList:
+Procedure `DoProc` needs to have a line added to call `FormalList`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1085,7 +1085,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-For now, the code for FormalParam is just a dummy one that simply
+For now, the code for `FormalParam` is just a dummy one that simply
 skips the parameter name:
 
 ```delphi
@@ -1197,7 +1197,7 @@ access to all variables that appeared in the parameter list.
 Many  times,  we  didn't want to actually change a parameter, but
 only use it as an input.  For example, we  might  pass an element
 count  to a subroutine, and wish we could  then  use  that  count
-within a DO-loop.    To  avoid  changing the value in the calling
+within a `DO`-loop.    To  avoid  changing the value in the calling
 program, we had to make a local copy of the input  parameter, and
 operate only on the  copy.    Some  FORTRAN programmers, in fact,
 made it a practice to copy ALL parameters except those  that were
@@ -1252,17 +1252,17 @@ literal.    That  combination  of  design  decisions:     passing
 expressions, optimization for literals as a special case, and use
 of a literal pool, is what led to disaster.
 
-To  see  how  it works, imagine that we call subroutine FOO as in
+To  see  how  it works, imagine that we call subroutine `FOO` as in
 the example above, passing  it  a literal 4.  Actually, what gets
 passed  is  the  address of the literal 4, which is stored in the
 literal pool.   This address corresponds to the formal parameter,
 K, in the subroutine itself.
 
-Now suppose that, unbeknownst to the  programmer,  subroutine FOO
-actually modifies K to be, say, -7.  Suddenly, that literal  4 in
-the literal pool  gets  CHANGED,  to  a  -7.  From then on, every
+Now suppose that, unbeknownst to the  programmer,  subroutine `FOO`
+actually modifies `K` to be, say, `-7`.  Suddenly, that literal  4 in
+the literal pool  gets  CHANGED,  to  a  `-7`.  From then on, every
 expression that uses  a  4  and  every subroutine that passes a 4
-will be using the value of -7 instead!  Needless to say, this can
+will be using the value of `-7` instead!  Needless to say, this can
 lead to some  bizarre  and difficult-to-find behavior.  The whole
 thing gave  the concept of pass-by-reference a bad name, although
 as we have seen, it was really a combination of  design decisions
@@ -1300,8 +1300,8 @@ caller,  only  in  the called procedure.  Clearly, that won't get
 the job done.
 
 There  have  been   two   answers  to  this  problem,  which  are
-equivalent.   In Pascal, Wirth provides for VAR parameters, which
-are  passed-by-reference.    What a VAR parameter is, in fact, is
+equivalent.   In Pascal, Wirth provides for `VAR` parameters, which
+are  passed-by-reference.    What a `VAR` parameter is, in fact, is
 none other than our old friend the FORTRAN parameter, with  a new
 name and paint job for disguise.  Wirth neatly  gets  around  the
 "changing a literal"  problem  as  well  as  the  "address  of an
@@ -1348,8 +1348,8 @@ BSR FOO             ; Call FOO
 
 That certainly doesn't seem too complex!
 
-When the BSR is executed, the CPU pushes the return  address onto
-the stack and jumps to FOO.    At  this point the stack will look
+When the `BSR` is executed, the CPU pushes the return  address onto
+the stack and jumps to `FOO`.    At  this point the stack will look
 like this:
 
 ```
@@ -1425,8 +1425,8 @@ end;
 {--------------------------------------------------------------}
 ```
 
-We'll put a call to this procedure in Init, and  also  at the end
-of DoProc:
+We'll put a call to this procedure in `Init`, and  also  at the end
+of `DoProc`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1465,12 +1465,12 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Note that the call  within  DoProc ensures that the table will be
+Note that the call  within  `DoProc` ensures that the table will be
 clear when we're in the main program.
 
 
 OK, now  we  need  a  few procedures to work with the table.  The
-next few functions are  essentially  copies  of  InTable, TypeOf,
+next few functions are  essentially  copies  of  `InTable`, `TypeOf`,
 etc.:
 
 ```delphi
@@ -1565,7 +1565,7 @@ end;
 Now, what about dealing with a formal parameter  when  it appears
 in the body of the procedure?  That takes a little more work.  We
 must first determine that it IS a formal parameter.  To  do this,
-I've written a modified version of TypeOf:
+I've written a modified version of `TypeOf`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1581,10 +1581,10 @@ end;
 {--------------------------------------------------------------}
 ```
 
-(Note that, since  TypeOf  now  calls  IsParam, it may need to be
+(Note that, since  `TypeOf`  now  calls  `IsParam`, it may need to be
 relocated in your source.)
 
-We also must modify AssignOrProc to deal with this new type:
+We also must modify `AssignOrProc` to deal with this new type:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1643,8 +1643,8 @@ As you can see, these procedures will treat  every  variable name
 encountered as either a  formal  parameter  or a global variable,
 depending  on  whether  or not it appears in the parameter symbol
 table.   Remember  that  we  are  using  only a vestigial form of
-Expression.  In the  final  program,  the  change shown here will
-have to be added to Factor, not Expression.
+`Expression`.  In the  final  program,  the  change shown here will
+have to be added to `Factor`, not `Expression`.
 
 The rest is easy.  We need only add the  semantics  to the actual
 procedure call, which we can do with one new line of code:
@@ -1704,7 +1704,7 @@ only execute a return.  Also, it seems a bit more balanced, since
 the caller is  the  one  who  "messed  up" the stack in the first
 place.  But  THAT  means  that  the caller must remember how many
 items  it  pushed.    To  make  things  easy, I've  modified  the
-procedure  ParamList to be a function  instead  of  a  procedure,
+procedure  `ParamList` to be a function  instead  of  a  procedure,
 returning the number of bytes pushed:
 
 ```delphi
@@ -1731,7 +1731,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Procedure CallProc then uses this to clean up the stack:
+Procedure `CallProc` then uses this to clean up the stack:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1811,15 +1811,15 @@ parameters.  The solution is to define some _other_ register, and
 use  it instead.  This register is typically  set  equal  to  the
 original stack pointer, and is called the frame pointer.
 
-The  68000 instruction set LINK lets you  declare  such  a  frame
+The  68000 instruction set `LINK` lets you  declare  such  a  frame
 pointer, and  sets  it  equal  to  the  stack pointer, all in one
 instruction.  As a matter of  fact,  it does even more than that.
 Since this register may have been in use for  something  else  in
-the calling procedure, LINK also pushes the current value of that
+the calling procedure, `LINK` also pushes the current value of that
 register onto the stack.  It  can  also  add a value to the stack
 pointer, to make room for local variables.
 
-The complement of LINK is UNLK, which simply  restores  the stack
+The complement of `LINK` is `UNLK`, which simply  restores  the stack
 pointer and pops the old value back into the register.
 
 Using these two  instructions,  the code for the previous example
@@ -1838,9 +1838,9 @@ FOO: LINK A6,#0
 
 Fixing the compiler to generate this code is a lot easier than it
 is  to  explain  it.    All we need to do is to modify  the  code
-generation created by DoProc.  Since that makes the code a little
+generation created by `DoProc`.  Since that makes the code a little
 more than one line, I've created new procedures to deal  with it,
-paralleling the Prolog and Epilog procedures called by DoMain:
+paralleling the `Prolog` and `Epilog` procedures called by `DoMain`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1864,7 +1864,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Procedure DoProc now just calls these:
+Procedure `DoProc` now just calls these:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1887,8 +1887,8 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Finally, we need to  change  the  references  to SP in procedures
-LoadParam and StoreParam:
+Finally, we need to  change  the  references  to `SP` in procedures
+`LoadParam` and `StoreParam`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1916,8 +1916,8 @@ end;
 {--------------------------------------------------------------}
 ```
 
-(Note that the Offset computation  changes to allow for the extra
-push of A6.)
+(Note that the `Offset` computation  changes to allow for the extra
+push of `A6`.)
 
 That's all it takes.  Try this out and see how you like it.
 
@@ -1945,7 +1945,7 @@ This  one is easy, now that we have  the  mechanisms  already  in
 place.    We  only  have  to  make  a few  changes  to  the  code
 generation.  Instead of  pushing  a value onto the stack, we must
 push an address.  As it turns out, the 68000 has  an instruction,
-PEA, that does just that.
+`PEA`, that does just that.
 
 We'll be  making  a  new  version  of  the test program for this.
 Before we do anything else,
@@ -1982,7 +1982,7 @@ end;
 ```
 
 (Note that with pass-by-reference, we can't  have  expressions in
-the calling list, so Param can just read the name directly.)
+the calling list, so `Param` can just read the name directly.)
 
 At the other end, the references to the formal parameters must be
 given one level of indirection:
@@ -2001,8 +2001,8 @@ FOO: LINK A6,#0
      RTS
 ```
 
-All  of  this  can  be   handled  by  changes  to  LoadParam  and
-StoreParam:
+All  of  this  can  be   handled  by  changes  to  `LoadParam`  and
+`StoreParam`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -2033,7 +2033,7 @@ end;
 ```
 
 To  get  the  count  right,  we  must  also  change  one line  in
-ParamList:
+`ParamList`:
 
 ```delphi
 ParamList := 4 * N;
@@ -2099,7 +2099,7 @@ mechanisms  already  for  doing this.  In fact, the same routines
 that  deal with passed (by value) parameters  on  the  stack  can
 easily deal  with  local  variables  as  well  ... the code to be
 generated  is  the  same.  The purpose of the offset in the 68000
-LINK instruction is there just for that reason:  we can use it to
+`LINK` instruction is there just for that reason:  we can use it to
 adjust the stack  pointer  to  make  room  for  locals.   Dynamic
 storage, of course, inherently supports recursion.
 
@@ -2137,7 +2137,7 @@ pass-by-value  parameters,  we'll  use   that   version   of  the
 translator to illustrate it. (I _sure_ hope you kept a copy!)
 
 The general idea is to keep track of how  many  local  parameters
-there  are.    Then we use the integer in the LINK instruction to
+there  are.    Then we use the integer in the `LINK` instruction to
 adjust the stack pointer downward to make room for them.   Formal
 parameters are  addressed  as  positive  offsets  from  the frame
 pointer, and locals as negative offsets.  With a  little  bit  of
@@ -2151,8 +2151,8 @@ var Base: integer;
 ```
 
 We'll use this  variable,  instead of NumParams, to compute stack
-offsets.  That means changing  the two references to NumParams in
-LoadParam and StoreParam:
+offsets.  That means changing  the two references to `NumParams` in
+`LoadParam` and `StoreParam`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -2183,7 +2183,7 @@ end;
 The idea is that the value of Base will be  frozen  after we have
 processed the formal parameters, and  won't  increase  further as
 the new, local variables, are inserted in the symbol table.  This
-is taken care of at the end of FormalList:
+is taken care of at the end of `FormalList`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -2213,7 +2213,7 @@ the locals.)
 
 About all we  need  to  do  next  is to install the semantics for
 declaring local variables into the parser.  The routines are very
-similar to Decl and TopDecls:
+similar to `Decl` and `TopDecls`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -2246,10 +2246,10 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Note that LocDecls is a  FUNCTION, returning the number of locals
-to DoProc.
+Note that `LocDecls` is a  `FUNCTION`, returning the number of locals
+to `DoProc`.
 
-Next, we modify DoProc to use this information:
+Next, we modify `DoProc` to use this information:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -2275,12 +2275,12 @@ end;
 
 (I've  made   a  couple  of  changes  here  that  weren't  really
 necessary.  Aside from rearranging things a bit, I moved the call
-to  Fin  to  within FormalList, and placed one inside LocDecls as
-well.   Don't forget to put one at the end of FormalList, so that
+to  `Fin`  to  within `FormalList`, and placed one inside `LocDecls` as
+well.   Don't forget to put one at the end of `FormalList`, so that
 we're together here.)
 
-Note the change in the call  to  ProcProlog.  The new argument is
-the number of WORDS (not bytes) to allocate space  for.    Here's
+Note the change in the call  to  `ProcProlog`.  The new argument is
+the number of `WORDS` (not bytes) to allocate space  for.    Here's
 the new version of ProcProlog:
 
 ```delphi

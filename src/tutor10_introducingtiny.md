@@ -117,7 +117,7 @@ we're  allowing  for  multiple modules, linked together.    As  a
 matter of fact,  I intend to allow for this in KISS.  But then we
 begin  to open up a can of worms that I'd rather leave closed for
 now.  For example, the  term `PROGRAM` really becomes a misnomer.
-The MODULE of Modula-2 or the Unit of Turbo Pascal would  be more
+The `MODULE` of Modula-2 or the `Unit` of Turbo Pascal would  be more
 appropriate.  Second,  what  about  scope  rules?    We'd  need a
 convention for  dealing  with  name  visibility  across  modules.
 Better  for  now  to  just  keep  it  simple  and ignore the idea
@@ -151,7 +151,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The procedure Header just emits  the startup code required by the
+The procedure `Header` just emits  the startup code required by the
 assembler:
 
 ```delphi
@@ -165,7 +165,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The procedures Prolog and  Epilog  emit  the code for identifying
+The procedures `Prolog` and  `Epilog`  emit  the code for identifying
 the main program, and for returning to the OS:
 
 ```delphi
@@ -189,7 +189,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The  main program just calls Prog, and then  looks  for  a  clean
+The  main program just calls `Prog`, and then  looks  for  a  clean
 ending:
 
 ```delphi
@@ -230,7 +230,7 @@ record, and it's  likely  to  remain  one since it is the minimum
 size required by the OS.
 
 The  next step is to process the code for the main program.  I'll
-use the Pascal BEGIN-block:
+use the Pascal `BEGIN`-block:
 
 ```bnf
 <main> ::= BEGIN <block> END
@@ -258,7 +258,7 @@ similar to the convention of  Modula  2.    This  adds  a  bit of
 "syntactic sugar" to the language.  Things like this are  easy to
 add or change to your liking, if the language is your own design.
 
-To parse this definition of a main block,  change  procedure Prog
+To parse this definition of a main block,  change  procedure `Prog`
 to read:
 
 ```delphi
@@ -307,7 +307,7 @@ and  procedures/functions.    At  the  top  level,   only  global
 declarations are allowed, just as in C.
 
 For now, there  can  only be variable declarations, identified by
-the keyword VAR (abbreviated `v`):
+the keyword `VAR` (abbreviated `v`):
 
 ```bnf
 <top-level decls> ::= ( <data declaration> )*
@@ -319,7 +319,7 @@ Note that since there is only one variable type, there is no need
 to  declare the type.  Later on, for full KISS, we can easily add
 a type description.
 
-The procedure Prog becomes:
+The procedure `Prog` becomes:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -363,12 +363,12 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Note that at this point, Decl  is  just  a stub.  It generates no
+Note that at this point, `Decl`  is  just  a stub.  It generates no
 code, and it doesn't process a list ... every variable must occur
-in a separate VAR statement.
+in a separate `VAR` statement.
 
 OK,  now  we  can have any  number  of  data  declarations,  each
-starting with a `v` for VAR,  before  the BEGIN-block.  Try a few
+starting with a `v` for `VAR`,  before  the `BEGIN`-block.  Try a few
 cases and see what happens.
 
 
@@ -380,7 +380,7 @@ directives to allocate storage for  the  variables.    It's about
 time we actually produced some code.
 
 With  a  little  extra  code,  that's  an  easy  thing to do from
-procedure Decl.  Modify it as follows:
+procedure `Decl`.  Modify it as follows:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -395,7 +395,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The procedure Alloc just  issues  a  command  to the assembler to
+The procedure `Alloc` just  issues  a  command  to the assembler to
 allocate storage:
 
 ```delphi
@@ -433,7 +433,7 @@ The BNF for `<var-list>` is
 <var-list> ::= <ident> (, <ident>)*
 ```
 
-Adding this syntax to Decl gives this new version:
+Adding this syntax to `Decl` gives this new version:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -453,7 +453,7 @@ end;
 ```
 
 OK, now compile this code and give it  a  try.    Try a number of
-lines of VAR declarations, try a list of several variables on one
+lines of `VAR` declarations, try a list of several variables on one
 line, and try combinations of the two.  Does it work?
 
 
@@ -473,7 +473,7 @@ becomes:
 <var> ::= <ident> [ = <integer> ]
 ```
 
-Change Alloc as follows:
+Change `Alloc` as follows:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -501,7 +501,7 @@ By golly, this thing is starting to look  real!    Of  course, it
 still doesn't DO anything, but it looks good, doesn't it?
 
 Before leaving this section, I should point out  that  we've used
-two versions of function GetNum.  One, the earlier one, returns a
+two versions of function `GetNum`.  One, the earlier one, returns a
 character value, a single digit.  The other accepts a multi-digit
 integer and returns an integer value.  Either one will work here,
 since WriteLn will handle either type.  But there's no  reason to
@@ -529,7 +529,7 @@ end;
 As a matter  of  fact,  strictly  speaking  we  should  allow for
 expressions in the data field of the initializer, or at  the very
 least  for  negative  values.  For  now,  let's  just  allow  for
-negative values by changing the code for Alloc as follows:
+negative values by changing the code for `Alloc` as follows:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -566,7 +566,7 @@ the compiler is perfectly content to allocate storage for several
 variables with the same name.  You can easily verify this with an
 input like `pvavavabe.`.
 
-Here we've declared the variable A three times.  As you  can see,
+Here we've declared the variable `A` three times.  As you  can see,
 the compiler will  cheerfully  accept  that,  and  generate three
 identical labels.  Not good.
 
@@ -601,7 +601,7 @@ end;
 ```
 
 We  also  need  to initialize the  table  to  all  blanks.    The
-following lines in Init will do the job:
+following lines in `Init` will do the job:
 
 ```delphi
 var i: char;
@@ -612,7 +612,7 @@ begin
 ```
 
 Finally,  insert  the  following two lines at  the  beginning  of
-Alloc:
+`Alloc`:
 
 ```delphi
 if InTable(N) then Abort('Duplicate Variable Name ' + N);
@@ -620,7 +620,7 @@ ST[N] := 'v';
 ```
 
 That  should  do  it.  The  compiler  will  now  catch  duplicate
-declarations.  Later, we can  also  use  InTable  when generating
+declarations.  Later, we can  also  use  `InTable`  when generating
 references to the variables.
 
 
@@ -674,7 +674,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Modify procedure Main to call Block as shown below:
+Modify procedure `Main` to call `Block` as shown below:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -819,8 +819,8 @@ retarget  the compiler to a new CPU  simply  by  rewriting  these
 that we can improve the code quality by tweaking these routines a
 bit, without having to modify the compiler proper.
 
-Note that both LoadVar  and  Store check the symbol table to make
-sure that the variable is defined.  The  error  handler Undefined
+Note that both `LoadVar`  and  `Store` check the symbol table to make
+sure that the variable is defined.  The  error  handler `Undefined`
 simply calls Abort:
 
 ```delphi
@@ -836,7 +836,7 @@ end;
 
 OK, we are now finally ready to begin processing executable code.
 We'll  do  that  by  replacing  the  stub  version  of  procedure
-Assignment.
+`Assignment`.
 
 We've been down this  road  many times before, so this should all
 be familiar to you.    In fact, except for the changes associated
@@ -1051,10 +1051,10 @@ done before.  Again, we won't just copy from other  files because
 I've changed a few things just a bit.  Most  of  the changes just
 involve encapsulating the machine-dependent parts as  we  did for
 the   arithmetic  operations.    I've  also  modified   procedure
-NotFactor  somewhat,  to  parallel  the structure of FirstFactor.
+`NotFactor`  somewhat,  to  parallel  the structure of `FirstFactor`.
 Finally,  I  corrected  an  error  in  the  object code  for  the
-relational operators:  The Scc instruction I used  only  sets the
-low 8 bits of D0.  We want all 16 bits set for a logical true, so
+relational operators:  The `Scc` instruction I used  only  sets the
+low 8 bits of `D0`.  We want all 16 bits set for a logical true, so
 I've added an instruction to sign-extend the low byte.
 
 To begin, we're going to need some more recognizers:
@@ -1185,8 +1185,8 @@ expressions is:
 
 Sharp-eyed readers might  note  that this syntax does not include
 the non-terminal  "bool-factor" used in earlier versions.  It was
-needed then because I also allowed for the Boolean constants TRUE
-and FALSE.   But  remember  that  in TINY there is no distinction
+needed then because I also allowed for the Boolean constants `TRUE`
+and `FALSE`.   But  remember  that  in TINY there is no distinction
 made between Boolean and arithmetic  types ... they can be freely
 intermixed.   So there is really no  need  for  these  predefined
 values ... we can just use -1 and 0, respectively.
@@ -1203,7 +1203,7 @@ for  declarations  of  constants,  these  two   values   will  be
 predefined by the language.
 
 The reason that I'm harping on this is that  I've  already  tried
-the alternative, which is to  include TRUE and FALSE as keywords.
+the alternative, which is to  include `TRUE` and `FALSE` as keywords.
 The problem with that approach is that it  then  requires lexical
 scanning for EVERY variable name  in every expression.  If you'll
 recall,  I pointed out in [Installment VII](tutor07_lexicalscanning.md)  that  this  slows  the
@@ -1354,8 +1354,8 @@ end;
 ```
 
 To tie it all together, don't forget to change the  references to
-Expression in  procedures Factor and Assignment so that they call
-BoolExpression instead.
+`Expression` in  procedures `Factor` and `Assignment` so that they call
+`BoolExpression` instead.
 
 OK, if  you've  got  all  that typed in, compile it and give it a
 whirl.    First,  make  sure  you  can  still parse  an  ordinary
@@ -1371,14 +1371,14 @@ X = Z > Y
 END.
 ```
 
-See how this assigns a Boolean value to X?
+See how this assigns a Boolean value to `X`?
 
 
 ## Control Structures
 
 We're almost home.   With  Boolean  expressions  in place, it's a
 simple  matter  to  add control structures.  For TINY, we'll only
-allow two kinds of them, the IF and the WHILE:
+allow two kinds of them, the `IF` and the `WHILE`:
 
 ```bnf
 <if> ::= IF <bool-expression> <block> [ ELSE <block>] ENDIF
@@ -1388,9 +1388,9 @@ allow two kinds of them, the IF and the WHILE:
 
 Once  again,  let  me  spell  out the decisions implicit in  this
 syntax, which departs strongly from that of C or Pascal.  In both
-of those languages, the "body" of an IF or WHILE is regarded as a
+of those languages, the "body" of an `IF` or `WHILE` is regarded as a
 single  statement.  If you intend to use a block of more than one
-statement, you have to build a compound statement using BEGIN-END
+statement, you have to build a compound statement using `BEGIN`-`END`
 (in Pascal) or  `{}` (in C).  In TINY (and KISS) there is no such
 thing as a compound statement  ... single or multiple they're all
 just blocks to these languages.
@@ -1401,7 +1401,7 @@ confusion as to where things begin  and  end.  This is the modern
 approach, used in such respected languages as Ada  and  Modula 2,
 and it completely eliminates the problem of the "dangling else."
 
-Note  that I could have chosen to use the same keyword END to end
+Note  that I could have chosen to use the same keyword `END` to end
 all  the constructs, as is done in Pascal.  (The closing `}` in C
 serves the same purpose.)  But this has always led  to confusion,
 which is why Pascal programmers tend to write things like
@@ -1419,7 +1419,7 @@ juxtaposed with no separating keyword.  In Pascal we would expect
 the keywords THEN and DO in these locations.
 
 I have no problem with leaving out these keywords, and the parser
-has no trouble either, ON CONDITION that we make no errors in the
+has no trouble either, _on condition_ that we make no errors in the
 bool-expression part.  On  the  other hand, if we were to include
 these extra keywords we would get yet one more level of insurance
 at very little  cost,  and  I  have no problem with that, either.
@@ -1501,8 +1501,8 @@ end;
 {--------------------------------------------------------------}
 ```
 
-To tie everything  together,  we need only modify procedure Block
-to recognize the "keywords" for the  IF  and WHILE.  As usual, we
+To tie everything  together,  we need only modify procedure `Block`
+to recognize the "keywords" for the  `IF`  and `WHILE`.  As usual, we
 expand the definition of a block like so:
 
 ```bnf
@@ -1549,8 +1549,8 @@ that  installment.    The  actual  implementation  is   a  little
 different because the way I'm handling newlines is different.
 
 To begin with, let's simply  allow for whitespace.  This involves
-only adding calls to SkipWhite at the end of the  three routines,
-GetName, GetNum, and Match.    A call to SkipWhite in Init primes
+only adding calls to `SkipWhite` at the end of the  three routines,
+`GetName`, `GetNum`, and `Match`.    A call to `SkipWhite` in `Init` primes
 the pump in case there are leading spaces.
 
 Next, we need to deal with  newlines.   This is really a two-step
@@ -1577,21 +1577,21 @@ end;
 ```
 
 Note that  we  have  seen  this  procedure  before in the form of
-Procedure Fin.  I've changed the name since this  new  one  seems
+Procedure `Fin`.  I've changed the name since this  new  one  seems
 more descriptive of the actual function.  I've  also  changed the
 code  to  allow  for multiple newlines and lines with nothing but
 white space.
 
-The next step is to insert calls to NewLine wherever we  decide a
+The next step is to insert calls to `NewLine` wherever we  decide a
 newline is permissible.  As I've pointed out before, this  can be
 very different in different languages.   In TINY, I've decided to
 allow them virtually anywhere.  This means that we need  calls to
-NewLine at the BEGINNING (not the end, as with SkipWhite)  of the
-procedures GetName, GetNum, and Match.
+`NewLine` at the BEGINNING (not the end, as with `SkipWhite`)  of the
+procedures `GetName`, `GetNum`, and `Match`.
 
-For procedures that have while loops, such as TopDecl, we  need a
-call  to NewLine at the beginning of the  procedure  AND  at  the
-bottom  of  each  loop.  That way, we can be assured that NewLine
+For procedures that have while loops, such as `TopDecl`, we  need a
+call  to `NewLine` at the beginning of the  procedure  AND  at  the
+bottom  of  each  loop.  That way, we can be assured that `NewLine`
 has just been called at the beginning of each  pass  through  the
 loop.
 
@@ -1681,7 +1681,7 @@ end;
 
 Now, we have to make a  fairly  large number of subtle changes to
 the remaining procedures.  First,  we  must  change  the function
-GetName to a procedure, again as we did in [Part VII](tutor07_lexicalscanning.md):
+`GetName` to a procedure, again as we did in [Part VII](tutor07_lexicalscanning.md):
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1702,10 +1702,10 @@ end;
 ```
 
 Note that this procedure leaves its result in  the  global string
-Value.
+`Value`.
 
-Next, we have to change every reference to GetName to reflect its
-new form. These occur in Factor, Assignment, and Decl:
+Next, we have to change every reference to `GetName` to reflect its
+new form. These occur in `Factor`, `Assignment`, and `Decl`:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -1764,11 +1764,11 @@ end;
 names,  so we take the easy way out here and simply use the first
 character of the string.)
 
-Finally, we must make the changes to use Token instead of Look as
-the  test  character  and to call Scan at the appropriate places.
-Mostly, this  involves  deleting  calls  to  Match,  occasionally
-replacing calls to  Match  by calls to MatchString, and Replacing
-calls  to  NewLine  by  calls  to  Scan.    Here are the affected
+Finally, we must make the changes to use `Token` instead of `Look` as
+the  test  character  and to call `Scan` at the appropriate places.
+Mostly, this  involves  deleting  calls  to  `Match`,  occasionally
+replacing calls to  `Match`  by calls to `MatchString`, and replacing
+calls  to  `NewLine`  by  calls  to  `Scan`.    Here are the affected
 routines:
 
 ```delphi
@@ -1916,7 +1916,7 @@ declaring a record type, and making the symbol table an  array of
 such records.  Here, though, we don't really need  a  type  field
 yet  (there is only one kind of entry allowed so far), so we only
 need an array of symbols.  This has the advantage that we can use
-the existing procedure Lookup to  search the symbol table as well
+the existing procedure `Lookup` to  search the symbol table as well
 as the  keyword  list.    As it turns out, even when we need more
 fields we can still use the same approach, simply by  storing the
 other fields in separate arrays.
@@ -1936,11 +1936,11 @@ const MaxEntry = 100;
 var ST   : array[1..MaxEntry] of Symbol;
 ```
 
-(Note that ST is _not_ declared as a SymTab.  That declaration is
-a phony one to get Lookup to work.  A SymTab  would  take  up too
+(Note that `ST` is _not_ declared as a `SymTab`.  That declaration is
+a phony one to get `Lookup` to work.  A `SymTab`  would  take  up too
 much RAM space, and so one is never actually allocated.)
 
-Next, we need to replace InTable:
+Next, we need to replace `InTable`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1953,7 +1953,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-We also need a new procedure, AddEntry, that adds a new  entry to
+We also need a new procedure, `AddEntry`, that adds a new  entry to
 the table:
 
 ```delphi
@@ -1971,7 +1971,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-This procedure is called by Alloc:
+This procedure is called by `Alloc`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1988,11 +1988,11 @@ begin
 ```
 
 Finally, we must change all the routines that currently treat the
-variable name as a single character.  These include   LoadVar and
-Store (just change the  type  from  char  to string), and Factor,
-Assignment, and Decl (just change Value[1] to Value).
+variable name as a single character.  These include   `LoadVar` and
+`Store` (just change the  type  from  `char`  to `string`), and `Factor`,
+`Assignment`, and `Decl` (just change `Value[1]` to `Value`).
 
-One  last  thing:  change  procedure  Init to clear the array  as
+One  last  thing:  change  procedure  `Init` to clear the array  as
 shown:
 
 ```delphi
@@ -2036,7 +2036,7 @@ It's easy to just treat them as special cases and handle  them in
 an ad hoc manner.
 
 The changes required affect only the code generation routines and
-procedures Relation and friends.   First, we're going to need two
+procedures `Relation` and friends.   First, we're going to need two
 more code generation routines:
 
 ```delphi
@@ -2178,8 +2178,8 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The idea is that READ loads the value from input  to  the D0, and
-WRITE outputs it from there.
+The idea is that `READ` loads the value from input  to  the `D0`, and
+`WRITE` outputs it from there.
 
 These two procedures represent  our  first  encounter with a need
 for library procedures ... the components of a  Run  Time Library
@@ -2189,13 +2189,13 @@ even bother  showing the routines here, since these are obviously
 very much OS-dependent.   I  _will_  simply  say that for SK*DOS,
 they  are  particularly  simple ... almost trivial.  One reason I
 won't show them here is that  you  can add all kinds of fanciness
-to the things, for  example  by prompting in READ for the inputs,
+to the things, for  example  by prompting in `READ` for the inputs,
 and by giving the user a chance to reenter a bad input.
 
 But that is really separate from compiler design, so for now I'll
-just assume that a library call TINYLIB.LIB exists.  Since we now
+just assume that a library call `TINYLIB.LIB` exists.  Since we now
 need  it  loaded,  we need to add a statement to  include  it  in
-procedure Header:
+procedure `Header`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -2271,7 +2271,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Finally,  we  must  expand  procedure  Block  to  handle the  new
+Finally,  we  must  expand  procedure  `Block`  to  handle the  new
 statement types:
 
 ```delphi

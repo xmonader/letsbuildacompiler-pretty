@@ -125,12 +125,12 @@ we should do so.    Particularly if the constructs don't add much
 to the complexity of the language or its compiler.
 
 The  semicolon  could  be considered an example,  but  there  are
-plenty of others, such as the `THEN` in a IF-statement,  the `DO`
-in a WHILE-statement,  and  even the `PROGRAM` statement, which I
+plenty of others, such as the `THEN` in a `IF`-statement,  the `DO`
+in a `WHILE`-statement,  and  even the `PROGRAM` statement, which I
 came within a gnat's eyelash of leaving out  of  TINY.    None of
 these tokens  add  much  to  the  syntax  of the language ... the
 compiler can figure out  what's  going on without them.  But some
-folks feel that they  DO  add to the readability of programs, and
+folks feel that they  `DO`  add to the readability of programs, and
 that can be very important.
 
 There are two schools of thought on this subject, which  are well
@@ -231,8 +231,8 @@ statement in a block, also.  That usually doesn't cause  any harm
 ...  it  just gets treated as a  null  statement.    Many  Pascal
 programmers, including yours truly,  do  just  that. But there is
 one  place you absolutely CANNOT type  a  semicolon,  and  that's
-right before an ELSE.  This little gotcha  has  cost  me  many an
-extra  compilation,  particularly  when  the  ELSE  is  added  to
+right before an `ELSE`.  This little gotcha  has  cost  me  many an
+extra  compilation,  particularly  when  the  `ELSE`  is  added  to
 existing code.    So  the  C/Ada  choice  turns out to be better.
 Apparently Nicklaus Wirth thinks so, too:  In his  Modula  2,  he
 abandoned the Pascal approach.
@@ -254,11 +254,11 @@ end;
 {--------------------------------------------------------------}
 ```
 
-This procedure works very much like our old Match.  It insists on
+This procedure works very much like our old `Match`.  It insists on
 finding a semicolon as the next token.  Having found it, it skips
 to the next one.
 
-Since a  semicolon follows a statement, procedure Block is almost
+Since a  semicolon follows a statement, procedure `Block` is almost
 the only one we need to change:
 
 ```delphi
@@ -284,12 +284,12 @@ end;
 ```
 
 Note carefully the subtle change in the case statement.  The call
-to  Assignment  is now guarded by a test on Token.   This  is  to
-avoid calling Assignment when the  token  is  a  semicolon (which
+to  `Assignment`  is now guarded by a test on `Token`.   This  is  to
+avoid calling `Assignment` when the  token  is  a  semicolon (which
 could happen if the statement is null).
 
 Since declarations are also  statements,  we  also  need to add a
-call to Semi within procedure TopDecls:
+call to `Semi` within procedure `TopDecls`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -308,7 +308,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Finally, we need one for the PROGRAM statement:
+Finally, we need one for the `PROGRAM` statement:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -333,7 +333,7 @@ It's as easy as that.  Try it with a copy of TINY and see how you
 like it.
 
 The Pascal version  is  a  little  trickier,  but  it  still only
-requires  minor  changes,  and those only to procedure Block.  To
+requires  minor  changes,  and those only to procedure `Block`.  To
 keep things as simple as possible, let's split the procedure into
 two parts.  The following procedure handles just one statement:
 
@@ -355,7 +355,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Using this procedure, we can now rewrite Block like this:
+Using this procedure, we can now rewrite `Block` like this:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -433,8 +433,8 @@ single-character delimiters, so our parsing is a little easier.
 
 One  approach  is  to  strip  the  comments  out the  instant  we
 encounter them in the input stream; that is,  right  in procedure
-GetChar.    To  do  this,  first  change  the  name of GetChar to
-something else, say GetCharX.  (For the record, this is  going to
+`GetChar`.    To  do  this,  first  change  the  name of `GetChar` to
+something else, say `GetCharX`.  (For the record, this is  going to
 be a TEMPORARY change, so best not do this with your only copy of
 TINY.  I assume you understand that you should  always  do  these
 experiments with a working copy.)
@@ -460,7 +460,7 @@ discard characters from the input  stream, until it finds a right
 curly brace.  Then it reads one more character and returns  it in
 Look.
 
-Now we can  write  a  new  version of GetChar that SkipComment to
+Now we can  write  a  new  version of `GetChar` that `SkipComment` to
 strip out comments:
 
 ```delphi
@@ -478,7 +478,7 @@ end;
 
 Code this up  and  give  it  a  try.    You'll find that you can,
 indeed, bury comments anywhere you like.  The comments never even
-get into the parser proper ... every call to GetChar just returns
+get into the parser proper ... every call to `GetChar` just returns
 any character that's NOT part of a comment.
 
 As a matter of fact, while  this  approach gets the job done, and
@@ -503,8 +503,8 @@ But,  if  you  want  to  be  picky  about it  and  stick  to  the
 conventional treatment, then we  need  to  move  the interception
 point downstream a little further.
 
-To  do  this,  first change GetChar back to the way  it  was  and
-change the name called in SkipComment.  Then, let's add  the left
+To  do  this,  first change `GetChar` back to the way  it  was  and
+change the name called in `SkipComment`.  Then, let's add  the left
 brace as a possible whitespace character:
 
 ```delphi
@@ -518,7 +518,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Now, we can deal with comments in procedure SkipWhite:
+Now, we can deal with comments in procedure `SkipWhite`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -536,7 +536,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Note  that SkipWhite is written so that we  will  skip  over  any
+Note  that `SkipWhite` is written so that we  will  skip  over  any
 combination of whitespace characters and comments, in one call.
 
 OK, give this one a try, too.   You'll  find  that  it will let a
@@ -545,13 +545,13 @@ approach also gives us the  ability to handle curly braces within
 quoted strings, since within such  strings we will not be testing
 for or skipping over whitespace.
 
-There's one last  item  to  deal  with:  Nested  comments.   Some
+There's one last  item  to  deal  with:  `Nested`  comments.   Some
 programmers like the idea  of  nesting  comments, since it allows
 you to comment out code during debugging.  The  code  I've  given
 here won't allow that and, again, neither will Turbo Pascal.
 
 But the fix is incredibly easy.  All  we  need  to  do is to make
-SkipComment recursive:
+`SkipComment` recursive:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -582,13 +582,13 @@ quite a bit.  I'm sure it won't surprise you to learn that things
 get harder in this case.
 
 For the multi-character situation, the  easiest thing to do is to
-intercept the left delimiter  back  at the GetChar stage.  We can
+intercept the left delimiter  back  at the `GetChar` stage.  We can
 "tokenize" it right there, replacing it by a single character.
 
 Let's assume we're using the C delimiters `/*` and `*/`.   First,
 we  need  to  go back to the `GetCharX` approach.  In yet another
-copy of your compiler, rename  GetChar to GetCharX and then enter
-the following new procedure GetChar:
+copy of your compiler, rename  `GetChar` to `GetCharX` and then enter
+the following new procedure `GetChar`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -617,14 +617,14 @@ end;
 As you can see, what this procedure does is  to  intercept  every
 occurrence of `/`.  It then examines the NEXT  character  in  the
 stream.  If the character  is  a  `*`,  then  we  have  found the
-beginning  of  a  comment,  and  GetChar  will  return  a  single
+beginning  of  a  comment,  and  `GetChar`  will  return  a  single
 character replacement for it.   (For  simplicity,  I'm  using the
 same `{` character  as I did for Pascal.  If you were writing a C
 compiler, you'd no doubt want to pick some other character that's
-not  used  elsewhere  in C.  Pick anything you like ... even $FF,
+not  used  elsewhere  in C.  Pick anything you like ... even `$FF`,
 anything that's unique.)
 
-If the character  following  the  `/`  is NOT a `*`, then GetChar
+If the character  following  the  `/`  is NOT a `*`, then `GetChar`
 tucks it away in the new global TempChar, and  returns  the  `/`.
 
 Note that you need to declare this new variable and initialize it
@@ -635,7 +635,7 @@ constant" construct:
 const TempChar: char = ' ';
 ```
 
-Now we need a new version of SkipComment:
+Now we need a new version of `SkipComment`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -654,20 +654,20 @@ end;
 {--------------------------------------------------------------}
 ```
 
-A  few  things  to  note:  first  of  all, function  IsWhite  and
-procedure SkipWhite  don't  need  to  be  changed,  since GetChar
+A  few  things  to  note:  first  of  all, function  `IsWhite`  and
+procedure `SkipWhite`  don't  need  to  be  changed,  since `GetChar`
 returns the `{` token.  If you change that token  character, then
 of  course you also need to change the  character  in  those  two
 routines.
 
-Second, note that  SkipComment  doesn't call GetChar in its loop,
-but  GetCharX.    That  means   that  the  trailing  `/`  is  not
-intercepted and  is seen by SkipComment.  Third, although GetChar
+Second, note that  `SkipComment`  doesn't call `GetChar` in its loop,
+but  `GetCharX`.    That  means   that  the  trailing  `/`  is  not
+intercepted and  is seen by `SkipComment`.  Third, although `GetChar`
 is the  procedure  doing  the  work,  we  can still deal with the
 comment  characters  embedded  in  a  quoted  string,  by calling
-GetCharX  instead  of  GetChar  while  we're  within  the string.
+`GetCharX`  instead  of  `GetChar`  while  we're  within  the string.
 Finally,  note  that  we can again provide for nested comments by
-adding a single statement to SkipComment, just as we did before.
+adding a single statement to `SkipComment`, just as we did before.
 
 
 ## One-Sided Comments
@@ -677,7 +677,7 @@ delimited on the left and the  right.   That only leaves the
 one-sided comments like those in assembler language or  in  Ada, that
 are terminated by the end of the line.  In a  way,  that  case is
 easier.   The only procedure that would need  to  be  changed  is
-SkipComment, which must now terminate at the newline characters:
+`SkipComment`, which must now terminate at the newline characters:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -696,7 +696,7 @@ end;
 If the leading character is  a  single  one,  as  in  the  `;` of
 assembly language, then we're essentially done.  If  it's  a
 two-character token, as in the `--`  of  Ada, we need only modify the
-tests  within  GetChar.   Either way, it's an easier problem than
+tests  within  `GetChar`.   Either way, it's an easier problem than
 the balanced case.
 
 

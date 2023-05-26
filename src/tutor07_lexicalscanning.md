@@ -17,7 +17,7 @@ The ONLY reason, really, has to do with keywords.  It's a fact of
 computer life that the syntax for a keyword has the same  form as
 that  for  any  other identifier.  We can't tell until we get the
 complete word whether or not it  IS  a keyword.  For example, the
-variable IFILE and the keyword IF look just alike, until  you get
+variable `IFILE` and the keyword `IF` look just alike, until  you get
 to the third character.  In the examples to date, we  were always
 able to make  a  decision  based  upon the first character of the
 token, but that's  no  longer possible when keywords are present.
@@ -131,7 +131,7 @@ There is another, more practical  reason  for  separating scanner
 from  parser.   We like to think of the input source  file  as  a
 stream  of characters, which we process  right  to  left  without
 backtracking.  In practice that  isn't  possible.    Almost every
-language has certain keywords such as  IF,  WHILE, and END.  As I
+language has certain keywords such as  `IF`,  `WHILE`, and `END`.  As I
 mentioned  earlier,    we  can't  really  know  whether  a  given
 character string is a keyword, until we've reached the end of it,
 as defined by a space or other delimiter.  So  in  that sense, we
@@ -182,7 +182,7 @@ scanner.    That  was  because  in that narrow context, we  could
 always tell, just  by  looking at the single lookahead character,
 whether  we  were  dealing  with  a  number,  a variable,  or  an
 operator.  In effect, we  built  a  distributed  lexical scanner,
-using procedures GetName and GetNum.
+using procedures `GetName` and `GetNum`.
 
 With keywords present,  we  can't know anymore what we're dealing
 with, until the entire token is  read.    This leads us to a more
@@ -258,14 +258,14 @@ end;
 {--------------------------------------------------------------}
 ```
 
-(Notice  that this version of GetNum returns  a  string,  not  an
+(Notice  that this version of `GetNum` returns  a  string,  not  an
 integer as before.)
 
 You  can  easily  verify that these routines work by calling them
 from the main program, as in `WriteLn(GetName);`.
 
 This  program  will  print any legal name typed in (maximum eight
-characters, since that's what we told GetName).   It  will reject
+characters, since that's what we told `GetName`).   It  will reject
 anything else.
 
 Test the other routine similarly.
@@ -274,9 +274,9 @@ Test the other routine similarly.
 ## White Space
 
 We  also  have  dealt with embedded white space before, using the
-two  routines  IsWhite  and  SkipWhite.    Make  sure that  these
+two  routines  `IsWhite`  and  `SkipWhite`.    Make  sure that  these
 routines are in your  current  version of the cradle, and add the
-the line `SkipWhite;` at the end of both GetName and GetNum.
+the line `SkipWhite;` at the end of both `GetName` and `GetNum`.
 
 Now, let's define the new procedure:
 
@@ -316,7 +316,7 @@ end.
 {--------------------------------------------------------------}
 ```
 
-(You will have to add the declaration of the string Token  at the
+(You will have to add the declaration of the string `Token`  at the
 beginning of the program.  Make it any convenient length,  say 16
 characters.)
 
@@ -326,7 +326,7 @@ separated into distinct tokens.
 
 ## State Machines
 
-For  the  record,  a  parse  routine  like  GetName  does  indeed
+For  the  record,  a  parse  routine  like  `GetName`  does  indeed
 implement a state machine.  The state is implicit in  the current
 position in the code.  A very useful trick for visualizing what's
 going on is  the  syntax  diagram,  or  "railroad-track" diagram.
@@ -363,13 +363,13 @@ this medium, I'll continue to  stick to syntax equations from now
 on.  But I highly recommend the diagrams to you for  anything you
 do that involves parsing.  After a little practice you  can begin
 to  see  how  to  write  a  parser  directly from  the  diagrams.
-Parallel paths get coded into guarded actions (guarded by IF's or
-CASE statements),  serial  paths  into  sequential  calls.   It's
+Parallel paths get coded into guarded actions (guarded by `IF`'s or
+`CASE` statements),  serial  paths  into  sequential  calls.   It's
 almost like working from a schematic.
 
-We didn't even discuss SkipWhite, which  was  introduced earlier,
-but it also is a simple state machine, as is GetNum.  So is their
-parent procedure, Scan.  Little machines make big machines.
+We didn't even discuss `SkipWhite`, which  was  introduced earlier,
+but it also is a simple state machine, as is `GetNum`.  So is their
+parent procedure, `Scan`.  Little machines make big machines.
 
 The neat thing that I'd like  you  to note is how painlessly this
 implicit approach creates these  state  machines.    I personally
@@ -383,11 +383,11 @@ Moving right along, let's modify  our scanner to handle more than
 one line.  As I mentioned last time, the most straightforward way
 to  do  this  is to simply treat the newline characters, carriage
 return  and line feed, as white space.  This is, in fact, the way
-the  C  standard  library  routine,  iswhite, works.   We  didn't
+the  C  standard  library  routine,  `iswhite`, works.   We  didn't
 actually try this  before.  I'd like to do it now, so you can get
 a feel for the results.
 
-To do this, simply modify the single executable  line  of IsWhite
+To do this, simply modify the single executable  line  of `IsWhite`
 to read:
 
 ```delphi
@@ -418,13 +418,13 @@ If you're still stuck in your program, you'll find that  typing a
 period on a new line will terminate it.
 
 What's going on here?  The answer is  that  we're  hanging  up in
-SkipWhite.  A quick look at  that  routine will show that as long
+`SkipWhite`.  A quick look at  that  routine will show that as long
 as we're typing null lines, we're going to just continue to loop.
-After SkipWhite encounters an LF,  it tries to execute a GetChar.
-But since the input buffer is now empty, GetChar's read statement
-insists  on  having  another  line.    Procedure  Scan  gets  the
-terminating period, all right,  but  it  calls SkipWhite to clean
-up, and SkipWhite won't return until it gets a non-null line.
+After `SkipWhite` encounters an LF,  it tries to execute a `GetChar`.
+But since the input buffer is now empty, `GetChar`'s read statement
+insists  on  having  another  line.    Procedure  `Scan`  gets  the
+terminating period, all right,  but  it  calls `SkipWhite` to clean
+up, and `SkipWhite` won't return until it gets a non-null line.
 
 This kind of behavior is not quite as bad as it seems.  In a real
 compiler,  we'd  be  reading  from  an input file instead of  the
@@ -437,8 +437,8 @@ character.    The  code that the Bell  wizards  have  implemented
 doesn't use that convention, which is why they need `ungetc`.
 
 OK, let's fix the problem.  To do that, we need to go back to the
-old definition of IsWhite (delete the CR and  LF  characters) and
-make  use  of  the procedure Fin that I introduced last time.  If
+old definition of `IsWhite` (delete the CR and  LF  characters) and
+make  use  of  the procedure `Fin` that I introduced last time.  If
 it's not in your current version of the cradle, put it there now.
 
 Also, modify the main program to read:
@@ -459,21 +459,21 @@ end.
 {--------------------------------------------------------------}
 ```
 
-Note the "guard"  test  preceding  the  call to Fin.  That's what
+Note the "guard"  test  preceding  the  call to `Fin`.  That's what
 makes the whole thing work, and ensures that we don't try to read
 a line ahead.
 
 Try the code now. I think you'll like it better.
 
 If you refer to the code  we  did in the [last installment](tutor06_booleanexpressions.md), you'll
-find that I quietly sprinkled calls to Fin  throughout  the code,
+find that I quietly sprinkled calls to `Fin`  throughout  the code,
 wherever  a line break was appropriate.  This  is  one  of  those
 areas that really affects the look  &  feel that I mentioned.  At
 this  point  I  would  urge  you  to  experiment  with  different
 arrangements  and  see  how  you  like  them.    If you want your
 language  to  be  truly  free-field,  then  newlines   should  be
 transparent.   In  this  case,  the  best  approach is to put the
-following lines at the BEGINNING of Scan:
+following lines at the BEGINNING of `Scan`:
 
 ```delphi
 while Look = CR do
@@ -482,10 +482,10 @@ while Look = CR do
 
 If, on the other  hand,  you  want  a line-oriented language like
 Assembler, BASIC, or FORTRAN  (or  even  Ada...  note that it has
-comments terminated by newlines),  then  you'll  need for Scan to
+comments terminated by newlines),  then  you'll  need for `Scan` to
 return CR's as tokens.  It  must  also  eat the trailing LF.  The
 best way to do that is to use this line,  again  at the beginning
-of Scan:
+of `Scan`:
 
 ```delphi
 if Look = LF then Fin;
@@ -505,7 +505,7 @@ We  could  stop now and have a  pretty  useful  scanner  for  our
 purposes.  In the fragments of KISS that we've built so  far, the
 only tokens that have multiple characters are the identifiers and
 numbers.    All  operators  were  single  characters.   The  only
-exception I can think of is the relops <=, >=,  and  <>, but they
+exception I can think of is the relops `<=`, `>=`,  and  `<>`, but they
 could be dealt with as special cases.
 
 Still, other languages have  multi-character  operators,  such as
@@ -530,12 +530,12 @@ end;
 It's important to  note  that  we  DON'T  have  to  include every
 possible  operator in this list.   For  example,  the  parentheses
 aren't  included, nor is the terminating  period.    The  current
-version of Scan handles single-character operators  just  fine as
+version of `Scan` handles single-character operators  just  fine as
 it is.  The list above includes only those  characters  that  can
 appear in multi-character operators.  (For specific languages, of
 course, the list can always be edited.)
 
-Now, let's modify Scan to read:
+Now, let's modify `Scan` to read:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -600,11 +600,11 @@ This eight-line procedure will skip over  a  delimiter consisting
 of any number (including zero)  of spaces, with zero or one comma
 embedded in the string.
 
-TEMPORARILY, change the call to SkipWhite in Scan to  a  call  to
-SkipComma,  and  try  inputting some lists.   Works  nicely,  eh?
-Don't you wish more software authors knew about SkipComma?
+TEMPORARILY, change the call to `SkipWhite` in `Scan` to  a  call  to
+`SkipComma`,  and  try  inputting some lists.   Works  nicely,  eh?
+Don't you wish more software authors knew about `SkipComma`?
 
-For the record, I found that adding the  equivalent  of SkipComma
+For the record, I found that adding the  equivalent  of `SkipComma`
 to my Z80 assembler-language programs took all of  6  (six) extra
 bytes of  code.    Even  in a 64K machine, that's not a very high
 price to pay for user-friendliness!
@@ -641,7 +641,7 @@ were dealing  with  single-character  tokens,  every  test  was a
 comparison of a single character, Look, with a byte constant.  We
 also used the Case statement heavily.
 
-With the multi-character tokens being returned by Scan, all those
+With the multi-character tokens being returned by `Scan`, all those
 tests now become string comparisons.  Much slower.  And  not only
 slower, but more awkward, since  there is no string equivalent of
 the  Case  statement  in Pascal.  It seems especially wasteful to
@@ -670,7 +670,7 @@ we  just return a code that says what kind of token they are, and
 save the actual string somewhere else.
 
 One  of the first things we're going to need is a way to identify
-keywords.  We can always do  it  with successive IF tests, but it
+keywords.  We can always do  it  with successive `IF` tests, but it
 surely would be nice  if  we  had  a general-purpose routine that
 could compare a given string with  a  table of keywords.  (By the
 way, we're also going  to  need such a routine later, for dealing
@@ -765,10 +765,10 @@ end.
 {--------------------------------------------------------------}
 ```
 
-Notice how Lookup is called: The Addr function sets up  a pointer
-to KWList, which gets passed to Lookup.
+Notice how `Lookup` is called: The `Addr` function sets up  a pointer
+to `KWList`, which gets passed to `Lookup`.
 
-OK, give this  a  try.    Since we're bypassing Scan here, you'll
+OK, give this  a  try.    Since we're bypassing `Scan` here, you'll
 have to type the keywords in upper case to get any matches.
 
 Now that we can recognize keywords, the next thing is  to arrange
@@ -856,20 +856,20 @@ end.
 {--------------------------------------------------------------}
 ```
 
-What we've done here is to replace the string Token  used earlier
-with an enumerated type. Scan returns the type in variable Token,
-and returns the string itself in the new variable Value.
+What we've done here is to replace the string `Token`  used earlier
+with an enumerated type. `Scan` returns the type in variable `Token`,
+and returns the string itself in the new variable `Value`.
 
 OK, compile this and give it a whirl.  If everything  goes right,
 you should see that we are now recognizing keywords.
 
 What  we  have  now is working right, and it was easy to generate
 from what  we  had  earlier.    However,  it still seems a little
-"busy" to me.  We can  simplify  things a bit by letting GetName,
-GetNum, GetOp, and Scan be  procedures  working  with  the global
-variables Token and Value, thereby eliminating the  local copies.
+"busy" to me.  We can  simplify  things a bit by letting `GetName`,
+`GetNum`, `GetOp`, and `Scan` be  procedures  working  with  the global
+variables `Token` and `Value`, thereby eliminating the  local copies.
 It  also seems a little cleaner to move  the  table  lookup  into
-GetName.  The new form for the four procedures is, then:
+`GetName`.  The new form for the four procedures is, then:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -976,10 +976,10 @@ multi-character operators like `<=`.   If you choose to stay with
 the  enumerated  type,  fine.  For the rest, I'd like to show you
 how to change what we've done above to support that approach.
 
-First, you can delete the SymType declaration now ... we won't be
-needing that.  And you can change the type of Token to char.
+First, you can delete the `SymType` declaration now ... we won't be
+needing that.  And you can change the type of `Token` to `char`.
 
-Next, to replace SymType, add the following constant string:
+Next, to replace `SymType`, add the following constant string:
 
 ```delphi
 const KWcode: string[5] = 'xilee';
@@ -988,7 +988,7 @@ const KWcode: string[5] = 'xilee';
 (I'll be encoding all idents with the single character `x`.)
 
 
-Lastly, modify Scan and its relatives as follows:
+Lastly, modify `Scan` and its relatives as follows:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1127,7 +1127,7 @@ In KISS, as  in  most  languages,  keywords  ONLY  appear  at the
 beginning of a statement.  In places like  expressions,  they are
 not allowed.  Also, with one minor exception (the multi-character
 relops)  that  is  easily  handled,  all  operators   are  single
-characters, which means that we don't need GetOp at all.
+characters, which means that we don't need `GetOp` at all.
 
 So it turns out  that  even  with  multi-character tokens, we can
 still always tell from the  current  lookahead  character exactly
@@ -1138,7 +1138,7 @@ Even at that point, the ONLY  kind  of  token we can accept is an
 identifier.  We need only to determine if that  identifier  is  a
 keyword or the target of an assignment statement.
 
-We end up, then, still needing only GetName and GetNum, which are
+We end up, then, still needing only `GetName` and `GetNum`, which are
 used very much as we've used them in earlier installments.
 
 It may seem  at first to you that this is a step backwards, and a
@@ -1155,7 +1155,7 @@ lexical scanning that we'll be needing, I'm FINALLY ready to back
 up my claim that  we  can  accommodate multi-character tokens with
 minimal change to our previous work.  To keep  things  short  and
 simple I will restrict myself here to a subset of what we've done
-before; I'm allowing only one control construct (the  IF)  and no
+before; I'm allowing only one control construct (the  `IF`)  and no
 Boolean expressions.  That's enough to demonstrate the parsing of
 both keywords and expressions.  The extension to the full  set of
 constructs should be  pretty  apparent  from  what  we've already
@@ -1637,57 +1637,57 @@ end.
 
 A couple of comments:
 
-1. The form for the expression parser,  using  FirstTerm, etc.,
+1. The form for the expression parser,  using  `FirstTerm`, etc.,
    is  a  little  different from what you've seen before.  It's
    yet another variation on the same theme.  Don't let it throw
    you ... the change is not required for what follows.
 
-2. Note that, as usual, I had to add calls to Fin  at strategic
+2. Note that, as usual, I had to add calls to `Fin`  at strategic
    spots to allow for multiple lines.
 
 Before we proceed to adding the scanner, first copy this file and
 verify that it does indeed  parse things correctly.  Don't forget
-the "codes": `i` for IF, `l` for ELSE, and `e` for END or ENDIF.
+the "codes": `i` for `IF`, `l` for `ELSE`, and `e` for `END` or `ENDIF`.
 
 If the program works, then let's press on.  In adding the scanner
 modules to the program, it helps  to  have a systematic plan.  In
 all  the  parsers  we've  written  to  date,  we've  stuck  to  a
 convention that the current lookahead character should  always be
 a non-blank character.  We  preload  the  lookahead  character in
-Init, and keep the "pump primed"  after  that.  To keep the thing
+`Init`, and keep the "pump primed"  after  that.  To keep the thing
 working right at newlines, we had to modify this a bit  and treat
 the newline as a legal token.
 
 In the  multi-character version, the rule is similar: The current
-lookahead character should always be left at the BEGINNING of the
+lookahead character should always be left at the _beginning_ of the
 next token, or at a newline.
 
 The multi-character version is shown next.  To get it,  I've made
 the following changes:
 
-- Added the variables Token  and Value, and the type definitions
-  needed by Lookup.
+- Added the variables `Token`  and `Value`, and the type definitions
+  needed by `Lookup`.
 
-- Added the definitions of KWList and KWcode.
+- Added the definitions of `KWList` and `KWcode`.
 
-- Added Lookup.
+- Added `Lookup`.
 
-- Replaced GetName and GetNum by their multi-character versions.
-  (Note that the call  to  Lookup has been moved out of GetName,
+- Replaced `GetName` and `GetNum` by their multi-character versions.
+  (Note that the call  to  `Lookup` has been moved out of `GetName`,
   so  that  it  will  not   be  executed  for  calls  within  an
   expression.)
 
-- Created a new,  vestigial  Scan that calls GetName, then scans
+- Created a new,  vestigial  `Scan` that calls `GetName`, then scans
   for keywords.
 
-- Created  a  new  procedure,  MatchString,  that  looks  for  a
-  specific keyword.  Note that, unlike  Match,  MatchString does
+- Created  a  new  procedure,  `MatchString`,  that  looks  for  a
+  specific keyword.  Note that, unlike  `Match`,  `MatchString` does
   NOT read the next keyword.
 
-- Modified Block to call Scan.
+- Modified `Block` to call `Scan`.
 
-- Changed the calls  to  Fin  a  bit.   Fin is now called within
-  GetName.
+- Changed the calls  to  `Fin`  a  bit.   `Fin` is now called within
+  `GetName`.
 
 Here is the program in its entirety:
 

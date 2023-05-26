@@ -11,11 +11,11 @@ constructs.
 As we left  the  parser,  though,  there  was one big hole in our
 capabilities:  we  did  not  address  the  issue  of  the  branch
 condition.  To fill the void,  I  introduced to you a dummy parse
-routine called Condition, which only served as a place-keeper for
+routine called `Condition`, which only served as a place-keeper for
 the real thing.
 
 One of the things we'll do in this session is  to  plug that hole
-by expanding Condition into a true parser/translator.
+by expanding `Condition` into a true parser/translator.
 
 
 ## The Plan
@@ -64,7 +64,7 @@ grammar this way:
 <factor>        ::= <integer> | <variable> | (<expression>)
 ```
 
-This puts the job of handling the unary minus onto  Factor, which
+This puts the job of handling the unary minus onto  `Factor`, which
 is where it really belongs.
 
 This  doesn't  mean  that  you  have  to  go  back and recode the
@@ -106,11 +106,11 @@ here,  we  now  have syntax rules for both arithmetic and Boolean
 algebra.    The  sticky part comes in when we have to combine the
 two.  Why do we have to do that?  Well, the whole subject came up
 because of the  need  to  process  the  "predicates" (conditions)
-associated with control statements such as the IF.  The predicate
+associated with control statements such as the `IF`.  The predicate
 is required to have a Boolean value; that is, it must evaluate to
-either TRUE or FALSE.  The branch is  then  taken  or  not taken,
+either `TRUE` or `FALSE`.  The branch is  then  taken  or  not taken,
 depending  on  that  value.  What we expect to see  going  on  in
-procedure  Condition,  then,  is  the  evaluation  of  a  Boolean
+procedure  `Condition`,  then,  is  the  evaluation  of  a  Boolean
 expression.
 
 But there's more to it than that.  A pure Boolean  expression can
@@ -121,8 +121,8 @@ But more often, we see Boolean algebra show up in such things as
 `IF (x >= 0) and (x <= 100) THEN ...`.
 
 Here,  the  two  terms in parens are Boolean expressions, but the
-individual terms being compared:  x,  0, and 100,  are NUMERIC in
-nature.  The RELATIONAL OPERATORS >= and <= are the  catalysts by
+individual terms being compared:  `x`,  `0`, and `100`,  are NUMERIC in
+nature.  The RELATIONAL OPERATORS `>=` and `<=` are the  catalysts by
 which the  Boolean  and  the  arithmetic  ingredients  get merged
 together.
 
@@ -139,7 +139,7 @@ numeric type, and the relops are any of the usual symbols
 `=`, `<>` (or `!=`), `<`, `>`, `<=`, and `>=`.
 
 If you think about it a  bit,  you'll agree that, since this kind
-of predicate has a single Boolean value, TRUE or  FALSE,  as  its
+of predicate has a single Boolean value, `TRUE` or  `FALSE`,  as  its
 result, it is  really  just  another  kind  of factor.  So we can
 expand the definition of a Boolean factor above to read:
 
@@ -175,9 +175,9 @@ practice of a top-down parser.  To see the problem,  consider the
 code fragment `IF ((((((A + B + C) < 0 ) AND ...`.
 
 When the parser is parsing this code, it knows after it  sees the
-IF token that a Boolean expression is supposed to be next.  So it
+`IF` token that a Boolean expression is supposed to be next.  So it
 can set up to begin evaluating such an expression.  But the first
-expression in the example is an ARITHMETIC expression, A + B + C.
+expression in the example is an ARITHMETIC expression, `A + B + C`.
 What's worse, at the point that the parser has read this  much of
 the input line `IF ((((((A`,
 it  still has no way of knowing which  kind  of  expression  it's
@@ -215,9 +215,9 @@ agreement or convention to help us.
 When Niklaus Wirth designed Pascal, the desire was  to  limit the
 number of levels of precedence (fewer parse routines, after all).
 So the OR  and  exclusive  OR  operators are treated just like an
-Addop  and  processed   at   the  level  of  a  math  expression.
-Similarly, the AND is  treated  like  a  Mulop and processed with
-Term.  The precedence levels are
+`Addop`  and  processed   at   the  level  of  a  math  expression.
+Similarly, the AND is  treated  like  a  `Mulop` and processed with
+`Term`.  The precedence levels are
 
 | Level | Syntax Element | Operator          |
 | ----- | -------------- | ----------------- |
@@ -341,12 +341,12 @@ OK, compile the program and test it.   As  usual,  it's  not very
 impressive so far, but it soon will be.
 
 Now, when we were dealing with numeric data we had to  arrange to
-generate code to load the values into D0.  We need to do the same
+generate code to load the values into `D0`.  We need to do the same
 for Boolean data.   The  usual way to encode Boolean variables is
-to let 0 stand for FALSE,  and  some  other value for TRUE.  Many
-languages, such as C, use an  integer  1  to represent it.  But I
-prefer FFFF hex  (or  -1),  because  a bitwise NOT also becomes a
-Boolean  NOT.  So now we need to emit the right assembler code to
+to let `0` stand for `FALSE`,  and  some  other value for `TRUE`.  Many
+languages, such as C, use an  integer  `1`  to represent it.  But I
+prefer `FFFF` hex  (or  `-1`),  because  a bitwise `NOT` also becomes a
+Boolean  `NOT`.  So now we need to emit the right assembler code to
 load  those  values.    The  first cut at the Boolean  expression
 parser (BoolExpression, of course) is:
 
@@ -377,10 +377,10 @@ expression.  We already have the BNF rule:
 <b-expression> ::= <b-term> [<orop> <b-term>]*
 ```
 
-I prefer the Pascal versions of the "orops",  OR  and  XOR.   But
+I prefer the Pascal versions of the "orops",  `OR`  and  `XOR`.   But
 since we are keeping to single-character tokens here, I'll encode
-those with `|` and  `~`.  The  next  version of BoolExpression is
-almost a direct copy of the arithmetic procedure Expression:
+those with `|` and  `~`.  The  next  version of `BoolExpression` is
+almost a direct copy of the arithmetic procedure `Expression`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -421,8 +421,8 @@ end;
 {---------------------------------------------------------------}
 ```
 
-Note the new recognizer  IsOrOp,  which is also a copy, this time
-of IsAddOp:
+Note the new recognizer `IsOrOp`, which is also a copy, this time
+of `IsAddOp`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -435,7 +435,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-OK, rename the old  version  of  BoolExpression to BoolTerm, then
+OK, rename the old  version  of  `BoolExpression` to `BoolTerm`, then
 enter  the  code  above.  Compile and test this version.  At this
 point, the  output  code  is  starting  to  look pretty good.  Of
 course, it doesn't make much sense to do a lot of Boolean algebra
@@ -443,10 +443,10 @@ on  constant values, but we'll soon be  expanding  the  types  of
 Booleans we deal with.
 
 You've  probably  already  guessed  what  the next step  is:  The
-Boolean version of Term.
+Boolean version of `Term`.
 
-Rename the current procedure BoolTerm to NotFactor, and enter the
-following new version of BoolTerm.  Note that is is  much simpler
+Rename the current procedure `BoolTerm` to `NotFactor`, and enter the
+following new version of `BoolTerm`.  Note that is is  much simpler
 than  the  numeric  version,  since  there  is  no equivalent  of
 division.
 
@@ -488,7 +488,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-And  rename  the  earlier procedure to BoolFactor.  Now try that.
+And  rename  the  earlier procedure to `BoolFactor`.  Now try that.
 At this point  the  parser  should  be able to handle any Boolean
 expression you care to throw at it.  Does it?  Does it trap badly
 formed expressions?
@@ -498,7 +498,7 @@ expressions, you know  that  what  we  did next was to expand the
 definition of a factor to include variables and parens.  We don't
 have  to do that for the Boolean  factor,  because  those  little
 items get taken care of by the next step.  It  takes  just  a one
-line addition to BoolFactor to take care of relations:
+line addition to `BoolFactor` to take care of relations:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -522,13 +522,13 @@ I'm NOT!   Remember,  we  took  those out of the grammar earlier.
 Right now all I'm  doing  is  encoding  the grammar we've already
 agreed  upon.    The compiler itself can't  tell  the  difference
 between a Boolean variable  or  expression  and an arithmetic one
-... all of those will be handled by Relation, either way.
+... all of those will be handled by `Relation`, either way.
 
 
-Of course, it would help to have some code for Relation.  I don't
+Of course, it would help to have some code for `Relation`.  I don't
 feel comfortable, though,  adding  any  more  code  without first
 checking out what we already have.  So for now let's just write a
-dummy  version  of  Relation  that  does nothing except  eat  the
+dummy  version  of  `Relation`  that  does nothing except  eat  the
 current character, and write a little message:
 
 ```delphi
@@ -546,9 +546,9 @@ end;
 OK, key  in  this  code  and  give  it a try.  All the old things
 should still work ... you should be able to generate the code for
 ANDs, ORs, and  NOTs.    In  addition, if you type any alphabetic
-character you should get a little <Relation>  place-holder, where
+character you should get a little `<Relation>`  place-holder, where
 a  Boolean factor should be.  Did you get that?  Fine, then let's
-move on to the full-blown version of Relation.
+move on to the full-blown version of `Relation`.
 
 To  get  that,  though, there is a bit of groundwork that we must
 lay first.  Recall that a relation has the form
@@ -575,14 +575,14 @@ end;
 
 ```
 
-Now, recall  that  we're  using  a zero or a -1 in register D0 to
+Now, recall  that  we're  using  a zero or a `-1` in register `D0` to
 represent  a Boolean value, and also  that  the  loop  constructs
 expect the flags to be set to correspond.   In  implementing  all
 this on the 68000, things get a a little bit tricky.
 
 Since the loop constructs operate only on the flags, it  would be
 nice (and also quite  efficient)  just to set up those flags, and
-not load  anything  into  D0  at all.  This would be fine for the
+not load  anything  into  `D0`  at all.  This would be fine for the
 loops  and  branches,  but remember that the relation can be used
 ANYWHERE a Boolean factor could be  used.   We may be storing its
 result to a Boolean variable.  Since we can't know at  this point
@@ -595,17 +595,17 @@ equal, etc.), while we need the zero flag set differently for the
 each of the different relops.
 
 The solution is found in the 68000 instruction Scc, which  sets a
-byte value to 0000 or FFFF (funny how that works!) depending upon
+byte value to `0000` or `FFFF` (funny how that works!) depending upon
 the  result  of  the  specified   condition.    If  we  make  the
-destination byte to be D0, we get the Boolean value needed.
+destination byte to be `D0`, we get the Boolean value needed.
 
 Unfortunately,  there's one  final  complication:  unlike  almost
-every other instruction in the 68000 set, Scc does NOT  reset the
+every other instruction in the 68000 set, `Scc` does NOT  reset the
 condition flags to match the data being stored.  So we have to do
-one last step, which is to test D0 and set the flags to match it.
+one last step, which is to test `D0` and set the flags to match it.
 It must seem to be a trip around the moon to get what we want: we
-first perform the test, then test the flags to set data  into D0,
-then test D0 to set the flags again.  It  is  sort of roundabout,
+first perform the test, then test the flags to set data  into `D0`,
+then test `D0` to set the flags again.  It  is  sort of roundabout,
 but it's the most straightforward way to get the flags right, and
 after all it's only a couple of instructions.
 
@@ -616,7 +616,7 @@ have  seen  already  that  we  lose   efficiency   in  arithmetic
 operations, although later I plan to show you how to improve that
 a  bit.    We've also seen that the control constructs themselves
 can be done quite efficiently  ... it's usually very difficult to
-improve  on  the  code generated for an  IF  or  a  WHILE.    But
+improve  on  the  code generated for an  `IF`  or  a  `WHILE`.    But
 virtually every compiler I've ever seen generates  terrible code,
 compared to assembler, for the computation of a Boolean function,
 and particularly for relations.    The  reason  is just what I've
@@ -630,7 +630,7 @@ generate  the  code  in a very strict order, and it often ends up
 loading  the  result  as  a  Boolean  that  never gets  used  for
 anything.
 
-In  any  case,  we're now ready to look at the code for Relation.
+In  any  case,  we're now ready to look at the code for `Relation`.
 It's shown below with its companion procedures:
 
 ```delphi
@@ -701,9 +701,9 @@ end;
 {---------------------------------------------------------------}
 ```
 
-Now, that call to  Expression  looks familiar!  Here is where the
+Now, that call to  `Expression`  looks familiar!  Here is where the
 editor of your system comes in handy.  We have  already generated
-code  for  Expression  and its buddies in previous sessions.  You
+code  for  `Expression`  and its buddies in previous sessions.  You
 can  copy  them  into your file now.  Remember to use the
 single-character  versions.  Just to be  certain,  I've  duplicated  the
 arithmetic procedures below.  If  you're  observant,  you'll also
@@ -865,22 +865,22 @@ going to be chopping it up.
 
 At this point, let's go back to the file we had  previously built
 that parses control  constructs.    Remember  those  little dummy
-procedures called Condition and  Expression?    Now you know what
+procedures called `Condition` and  `Expression`?    Now you know what
 goes in their places!
 
 I  warn you, you're going to have to  do  some  creative  editing
 here, so take your time and get it right.  What you need to do is
-to copy all of  the  procedures from the logic parser, from Ident
-through  BoolExpression, into the parser for control  constructs.
-Insert  them  at  the current location of Condition.  Then delete
-that  procedure,  as  well as the dummy Expression.  Next, change
-every call  to  Condition  to  refer  to  BoolExpression instead.
-Finally, copy the procedures IsMulop, IsOrOp, IsRelop, IsBoolean,
-and GetBoolean into place.  That should do it.
+to copy all of  the  procedures from the logic parser, from `Ident`
+through  `BoolExpression`, into the parser for control  constructs.
+Insert  them  at  the current location of `Condition`.  Then delete
+that  procedure,  as  well as the dummy `Expression`.  Next, change
+every call  to  `Condition`  to  refer  to  `BoolExpression` instead.
+Finally, copy the procedures `IsMulop`, `IsOrOp`, `IsRelop`, `IsBoolean`,
+and `GetBoolean` into place.  That should do it.
 
 Compile  the  resulting program and give it  a  try.    Since  we
 haven't  used  this  program in awhile, don't forget that we used
-single-character tokens for IF,  WHILE,  etc.   Also don't forget
+single-character tokens for `IF`,  `WHILE`,  etc.   Also don't forget
 that any letter not a keyword just gets echoed as a block.
 
 Try `ia=bxlye`, which stands for `IF a=b X ELSE Y ENDIF`.
@@ -917,7 +917,7 @@ it a temporary kludge until we're further along.
 
 Instead of skipping the CR/LF,  We'll let the parser go ahead and
 catch them, then  introduce  a  special  procedure,  analogous to
-SkipWhite, that skips them only in specified "legal" spots.
+`SkipWhite`, that skips them only in specified "legal" spots.
 
 Here's the procedure:
 
@@ -934,7 +934,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Now, add two calls to Fin in procedure Block, like this:
+Now, add two calls to `Fin` in procedure `Block`, like this:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -961,14 +961,14 @@ end;
 ```
 
 Now, you'll find that you  can use multiple-line "programs."  The
-only restriction is that you can't separate an IF or  WHILE token
+only restriction is that you can't separate an `IF` or  `WHILE` token
 from its predicate.
 
 Now we're ready to include  the  assignment  statements.   Simply
-change  that  call  to  Other  in  procedure  Block  to a call to
-Assignment, and add  the  following procedure, copied from one of
-our  earlier  programs.     Note   that   Assignment   now  calls
-BoolExpression, so that we can assign Boolean variables.
+change  that  call  to  `Other`  in  procedure  `Block`  to a call to
+`Assignment`, and add  the  following procedure, copied from one of
+our  earlier  programs.     Note   that   `Assignment`   now  calls
+`BoolExpression`, so that we can assign Boolean variables.
 
 ```delphi
 {--------------------------------------------------------------}

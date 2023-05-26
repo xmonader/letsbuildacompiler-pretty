@@ -108,9 +108,9 @@ are these:
   useless.   KISS will support all  the  usual  simple  types,
   including arrays and even floating point.
 
-- TINY will only have two control constructs, the  IF  and the
-  WHILE.  KISS will  support  a  very  rich set of constructs,
-  including one we haven't discussed here before ... the CASE.
+- TINY will only have two control constructs, the  `IF`  and the
+  `WHILE`.  KISS will  support  a  very  rich set of constructs,
+  including one we haven't discussed here before ... the `CASE`.
 
 - KISS will support separately compilable modules.
 
@@ -157,7 +157,7 @@ var Look: char;              { Lookahead Character }
 ```
 
 Next, we need to make sure it's initialized as part  of procedure
-Init:
+`Init`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -448,7 +448,7 @@ start.
 
 Of course, in general we  only  want  to  see  the  types  of the
 variables that have been defined.  We can eliminate the others by
-modifying DumpTable with an IF test.  Change the loop to read:
+modifying `DumpTable` with an `IF` test.  Change the loop to read:
 
 ```delphi
 for i := 'A' to 'Z' do
@@ -553,8 +553,8 @@ declaration is:
 Again, we can lift a lot of the code from previous programs.  The
 following are stripped-down versions of those  procedures.   They
 are greatly simplified  since  I  have  eliminated  niceties like
-variable lists and  initializers.   In procedure Alloc, note that
-the  new call to AddEntry will also  take  care  of  checking for
+variable lists and  initializers.   In procedure `Alloc`, note that
+the  new call to `AddEntry` will also  take  care  of  checking for
 duplicate declarations:
 
 ```delphi
@@ -595,10 +595,10 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Now, in the  main  program,  add  a  call to TopDecls and run the
+Now, in the  main  program,  add  a  call to `TopDecls` and run the
 program.  Try allocating a  few variables, and note the resulting
 code generated.  This is old stuff for you, so the results should
-look familiar.  Note from the code for TopDecls that  the program
+look familiar.  Note from the code for `TopDecls` that  the program
 is ended by a terminating period.
 
 While you're at it,  try  declaring  two  variables with the same
@@ -608,7 +608,7 @@ name, and verify that the parser catches the error.
 ## Declaring Types
 
 Allocating storage of different sizes  is  as  easy  as modifying
-procedure TopDecls to recognize more than one keyword.  There are
+procedure `TopDecls` to recognize more than one keyword.  There are
 a  number  of  decisions to be made here, in terms  of  what  the
 syntax should be, etc., but for now I'm  going  to  duck  all the
 issues and simply declare by  executive fiat that our syntax will
@@ -626,7 +626,7 @@ specifications, so this choice saves us a little work.)
 
 We can create the code to take care of  these  declarations  with
 only slight modifications.  In the routines below, note that I've
-separated  the  code  generation parts of Alloc  from  the  logic
+separated  the  code  generation parts of `Alloc`  from  the  logic
 parts.  This  is  in  keeping  with our desire to encapsulate the
 machine-dependent part of the compiler.
 
@@ -691,7 +691,7 @@ of this installment.
 Now that we can declare variables of different  sizes,  it stands
 to reason that we ought to be able  to  do  something  with them.
 For our first trick, let's just try loading them into our working
-register, D0.  It makes sense to use the same  idea  we used for
+register, `D0`.  It makes sense to use the same  idea  we used for
 Alloc; that is, make a load procedure that can load more than one
 size.    We  also  want  to continue to encapsulate the
 machine-dependent stuff.  The load procedure looks like this:
@@ -708,7 +708,7 @@ end;
 ```
 
 On  the  68000,  at least, it happens that many instructions turn
-out to be MOVE's.  It turns out to be useful to create a separate
+out to be `MOVE`'s.  It turns out to be useful to create a separate
 code generator just for these instructions, and then  call  it as
 needed:
 
@@ -829,8 +829,8 @@ You can test this one the same way as the loads.
 
 Now, of course, it's a RATHER  small  step to use these to handle
 assignment  statements.  What we'll do is  to  create  a  special
-version   of  procedure  Block  that  supports  only   assignment
-statements, and also a  special  version  of Expression that only
+version   of  procedure  `Block`  that  supports  only   assignment
+statements, and also a  special  version  of `Expression` that only
 supports single variables as legal expressions.  Here they are:
 
 ```delphi
@@ -876,14 +876,14 @@ cleaner than what we've seen before.  This is  mostly  thanks  to
 our efforts to encapsulate the code generator procedures.)
 
 There is one small, nagging problem.  Before, we used  the Pascal
-terminating period to get us out of procedure TopDecls.   This is
-now the wrong  character  ...  it's  used to terminate Block.  In
-previous programs, we've used the BEGIN symbol  (abbreviated `b`)
+terminating period to get us out of procedure `TopDecls`.   This is
+now the wrong  character  ...  it's  used to terminate `Block`.  In
+previous programs, we've used the `BEGIN` symbol  (abbreviated `b`)
 to get us out.  But that is now used as a type symbol.
 
 The solution, while somewhat of a kludge, is easy enough.   We'll
-use  an  UPPER CASE `B` to stand for the BEGIN.   So  change  the
-character in the WHILE loop within TopDecls, from `.` to `B`, and
+use  an  upper-case `B` to stand for the `BEGIN`.   So  change  the
+character in the `WHILE` loop within `TopDecls`, from `.` to `B`, and
 everything will be fine.
 
 Now, we can  complete  the  task  by changing the main program to
@@ -904,7 +904,7 @@ end.
 {--------------------------------------------------------------}
 ```
 
-(Note  that I've had to sprinkle a few calls to Fin around to get
+(Note  that I've had to sprinkle a few calls to `Fin` around to get
 us out of Newline troubles.)
 
 OK, run this program.  Try the input:
@@ -946,7 +946,7 @@ This code is correct.  It will cause the lower eight bits of C to
 be stored into A, which is a reasonable behavior.  It's about all
 we can expect to happen.
 
-But now, look at the opposite case.  For c=a, the  code generated
+But now, look at the opposite case.  For `c=a`, the  code generated
 is:
 
 ```asm
@@ -955,8 +955,8 @@ LEA  C(PC),A0
 MOVE.L D0,(A0)
 ```
 
-This is  `NOT`  correct.    It will cause the byte variable A to be
-stored into the lower eight bits  of  D0.  According to the rules
+This is  NOT  correct.    It will cause the byte variable `A` to be
+stored into the lower eight bits  of  `D0`.  According to the rules
 for the 68000 processor,  the  upper 24 bits are unchanged.  This
 means  that when we store the entire 32  bits  into  C,  whatever
 garbage  that  was  in those high bits will also get stored.  Not
@@ -984,9 +984,9 @@ conversion,  I'd  like  you to see that there is one super-simple
 way to solve the problem: simply promote every variable to a long
 integer when we load it!
 
-This takes the addition of only one line to LoadVar,  although if
+This takes the addition of only one line to `LoadVar`,  although if
 we  are  not  going to COMPLETELY ignore efficiency, it should be
-guarded by an IF test.  Here is the modified version:
+guarded by an `IF` test.  Here is the modified version:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -1001,11 +1001,11 @@ end;
 {---------------------------------------------------------------}
 ```
 
-(Note that StoreVar needs no similar change.)
+(Note that `StoreVar` needs no similar change.)
 
 If you run some tests with  this  new version, you will find that
 everything  works correctly now, albeit sometimes  inefficiently.
-For example, consider the case  a=b  (for  the  same declarations
+For example, consider the case  `a=b`  (for  the  same declarations
 shown above).  Now the generated code turns out to be:
 
 ```asm
@@ -1015,7 +1015,7 @@ LEA  A(PC),A0
 MOVE.B D0,(A0)
 ```
 
-In  this  case,  the CLR turns out not to be necessary, since the
+In  this  case,  the `CLR` turns out not to be necessary, since the
 result is going into a byte-sized variable.  With a little bit of
 work, we can do better.  Still, this is not  bad,  and it typical
 of the kinds of inefficiencies  that we've seen before in simple-minded
@@ -1026,7 +1026,7 @@ in effect treating the numbers as UNSIGNED integers.  If  we want
 to treat them as signed ones instead (the more  likely  case)  we
 should do a  sign  extension  after  the load, instead of a clear
 before it. Just  to  tie  this  part  of the discussion up with a
-nice, red ribbon, let's change LoadVar as shown below:
+nice, red ribbon, let's change `LoadVar` as shown below:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -1069,16 +1069,16 @@ is stored, rather than on the way in.
 
 But, remember, the storage part  of the assignment is pretty much
 independent of the data load, which is taken care of by procedure
-Expression.    In  general  the  expression  may  be  arbitrarily
-complex, so how can procedure Assignment know what  type  of data
-is left in register D0?
+`Expression`.    In  general  the  expression  may  be  arbitrarily
+complex, so how can procedure `Assignment` know what  type  of data
+is left in register `D0`?
 
 Again,  the  answer  is  simple:    We'll  just  _ask_  procedure
-Expression!  The answer can be returned as a function value.
+`Expression`!  The answer can be returned as a function value.
 
 All of this requires several procedures to be  modified,  but the
 mods, like the method, are quite simple.  First of all,  since we
-aren't requiring LoadVar to do  all the work of conversion, let's
+aren't requiring `LoadVar` to do  all the work of conversion, let's
 go back to the simple version:
 
 ```delphi
@@ -1141,17 +1141,17 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Note that Load is a function, which not only emits the code for a
+Note that `Load` is a function, which not only emits the code for a
 load, but also returns the variable type.  In this way, we always
 know what type of data we  are  dealing  with.  When we execute a
-Store,  we pass it the current type of the variable in D0.  Since
-Store also knows the  type  of  the  destination variable, it can
+`Store`,  we pass it the current type of the variable in `D0`.  Since
+`Store` also knows the  type  of  the  destination variable, it can
 convert as necessary.
 
 Armed  with all these new routines,  the  implementation  of  our
 rudimentary   assignment   statement  is   essentially   trivial.
-Procedure Expression now becomes a  function,  which  returns its
-type to procedure Assignment:
+Procedure `Expression` now becomes a  function,  which  returns its
+type to procedure `Assignment`:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -1177,22 +1177,22 @@ end;
 ```
 
 Again, note how  incredibly  simple these two routines are. We've
-encapsulated  all the type logic into Load  and  Store,  and  the
+encapsulated  all the type logic into `Load`  and  `Store`,  and  the
 trick of  passing  the  type  around  makes  the rest of the work
 extremely easy.    Of  course,  all  of  this is for our special,
-trivial case of Expression.  Naturally, for the  general  case it
+trivial case of `Expression`.  Naturally, for the  general  case it
 will have to get more complex.  But  you're  looking  now  at the
-FINAL version of procedure Assignment!
+_final_ version of procedure `Assignment`!
 
 All this seems like a very  simple  and clean solution, and it is
 indeed.   Compile this program and run the  same  test  cases  as
 before.    You will see that all  types  of  data  are  converted
 properly, and there are few if any wasted instructions.  Only the
 byte-to-long conversion uses two instructions where one would do,
-and we could easily modify Convert to handle this case, too.
+and we could easily modify `Convert` to handle this case, too.
 
 Although we haven't considered unsigned variables in this case, I
-think you can see  that  we could easily fix up procedure Convert
+think you can see  that  we could easily fix up procedure `Convert`
 to deal with these types as well.  This is  "left  as an exercise
 for the student."
 
@@ -1204,11 +1204,11 @@ have a proper form of a simple factor yet, because we don't allow
 for loading literal constants,  only  variables.   Let's fix that
 now.
 
-To begin with, we'll need a GetNum function.  We've  seen several
+To begin with, we'll need a `GetNum` function.  We've  seen several
 versions of this, some returning  only a single character, some a
 string, and some an integer.   The  one needed here will return a
-LongInt, so that it can handle anything we  throw  at  it.   Note
-that no type information is returned here: GetNum doesn't concern
+`LongInt`, so that it can handle anything we  throw  at  it.   Note
+that no type information is returned here: `GetNum` doesn't concern
 itself with how the number will be used:
 
 ```delphi
@@ -1233,7 +1233,7 @@ end;
 Now, when dealing with  literal  data,  we  have one little small
 problem.   With variables, we know what  type  things  should  be
 because they've been declared to be  that  type.  We have no such
-type information for  literals.   When the programmer says, "-1,"
+type information for  literals.   When the programmer says, `-1`,
 does that mean a byte, word, or longword  version?    We  have no
 clue.  The obvious thing to do would be to  use  the largest type
 possible, i.e. a longword.    But that's a bad idea, because when
@@ -1263,12 +1263,12 @@ end;
 ```
 
 (I know, I know, the number base isn't really symmetric.  You can
-store -128 in a single byte,  and  -32768  in a word.  But that's
+store `-128` in a single byte,  and  `-32768`  in a word.  But that's
 easily fixed, and not  worth  the time or the added complexity to
 fool with it here.  It's the thought that counts.)
 
-Note  that  LoadNum  calls  a  new version of the code  generator
-routine  LoadConst, which has an added  argument  to  define  the
+Note  that  `LoadNum`  calls  a  new version of the code  generator
+routine  `LoadConst`, which has an added  argument  to  define  the
 type:
 
 ```delphi
@@ -1284,7 +1284,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Now  we can modify procedure Expression  to  accommodate  the  two
+Now  we can modify procedure `Expression`  to  accommodate  the  two
 possible kinds of factors:
 
 ```delphi
@@ -1318,13 +1318,13 @@ multiplicative, then general expressions with parentheses.
 
 The nice part is that we already have a pattern for  dealing with
 these more complex expressions.  All we have  to  do  is  to make
-sure that  all the procedures called by Expression (Term, Factor,
+sure that  all the procedures called by `Expression` (`Term`, `Factor`,
 etc.)  always  return a type identifier.   If  we  do  that,  the
 program structure gets changed hardly at all.
 
 The  first  step  is  easy:  We can rename our existing  function
-Expression  to  Term,  as  we've  done so many times before,  and
-create the new version of Expression:
+`Expression`  to  `Term`,  as  we've  done so many times before,  and
+create the new version of `Expression`:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -1353,7 +1353,7 @@ Note  in  this  routine how each  procedure  call  has  become  a
 function call, and how  the  local  variable  Typ gets updated at
 each pass.
 
-Note also the new call to a function  Unop,  which  lets  us deal
+Note also the new call to a function  `Unop`,  which  lets  us deal
 with a leading unary minus.  This change is not necessary  ... we
 could  still  use  a form more like what we've done before.  I've
 chosen  to  introduce  UnOp as a separate routine because it will
@@ -1376,7 +1376,7 @@ end;
 {---------------------------------------------------------------}
 ```
 
-Procedure  Push  is  a code-generator routine, and now has a type
+Procedure  `Push`  is  a code-generator routine, and now has a type
 argument:
 
 ```delphi
@@ -1390,9 +1390,9 @@ end;
 {---------------------------------------------------------------}
 ```
 
-Now, let's take a look at functions Add  and  Subtract.    In the
+Now, let's take a look at functions `Add`  and  `Subtract`.    In the
 older versions of these routines, we let them call code generator
-routines PopAdd and PopSub.    We'll  continue  to do that, which
+routines `PopAdd` and `PopSub`.    We'll  continue  to do that, which
 makes the functions themselves extremely simple:
 
 ```delphi
@@ -1418,7 +1418,7 @@ end;
 ```
 
 The simplicity is  deceptive,  though, because what we've done is
-to defer all the logic to PopAdd and PopSub, which are  no longer
+to defer all the logic to `PopAdd` and `PopSub`, which are  no longer
 just code generation routines.    They must also now take care of
 the type conversions required.
 
@@ -1438,12 +1438,12 @@ lovely  "pop  the  data and do something  with  it"  instructions
 thoughtfully provided by Motorola.
 
 The alternative is to assign  a  secondary  register,  which I've
-chosen to be R7.  (Why not R1?  Because I  have  later  plans for
+chosen to be `R7`.  (Why not `R1`?  Because I  have  later  plans for
 the other registers.)
 
-The  first  step in this new structure  is  to  introduce  a  Pop
-procedure analogous to the Push.   This procedure will always Pop
-the top element of the stack into D7:
+The  first  step in this new structure  is  to  introduce  a  `Pop`
+procedure analogous to the `Push`.   This procedure will always `Pop`
+the top element of the stack into `D7`:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -1459,7 +1459,7 @@ end;
 The general idea is that all the "Pop-Op" routines can  call this
 one.    When  this is done, we will then have  both  operands  in
 registers, so we can promote whichever  one  we need to.  To deal
-with this, procedure Convert needs another argument, the register
+with this, procedure `Convert` needs another argument, the register
 name:
 
 ```delphi
@@ -1479,7 +1479,7 @@ end;
 ```
 
 The next function does a conversion, but only if the current type
-T1  is  smaller  in size than the desired  type  T2.    It  is  a
+`T1`  is  smaller  in size than the desired  type  `T2`.    It  is  a
 function, returning the final type to let us know what it decided
 to do:
 
@@ -1517,7 +1517,7 @@ end;
 ```
 
 These new routines give us the ammunition we need  to  flesh  out
-PopAdd and PopSub:
+`PopAdd` and `PopSub`:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -1548,11 +1548,11 @@ end;
 After  all   the   buildup,   the   final   results   are  almost
 anticlimactic.  Once  again,  you can see that the logic is quite
 simple.  All the two routines do is to pop the  top-of-stack into
-D7, force the two operands to be the same size, and then generate
+`D7`, force the two operands to be the same size, and then generate
 the code.
 
-Note  the  new  code generator routines GenAdd and GenSub.  These
-are vestigial forms of the ORIGINAL PopAdd and PopSub.   That is,
+Note  the  new  code generator routines `GenAdd` and `GenSub`.  These
+are vestigial forms of the ORIGINAL `PopAdd` and `PopSub`.   That is,
 they  are pure code generators, producing a  register-to-register
 add or subtract:
 
@@ -1581,14 +1581,14 @@ OK,  I grant you:  I've thrown a lot of routines at you since  we
 last tested the code.   But  you  have  to  admit  that  each new
 routine is pretty simple and transparent.  If you (like me) don't
 like to test so many new  routines  at  once, that's OK.  You can
-stub out routines like Convert, Promote, and SameType, since they
+stub out routines like `Convert`, `Promote`, and `SameType`, since they
 don't  read  any inputs.  You won't  get  the  correct  code,  of
 course, but things should work.  Then flesh  them  out  one  at a
 time.
 
 When testing the program,  don't  forget  that  you first have to
 declare some variables, and then  start the "body" of the program
-with an upper-case  `B`  (for  BEGIN).   You should find that the
+with an upper-case  `B`  (for  `BEGIN`).   You should find that the
 parser  will  handle  any  additive  expressions.  Once  all  the
 conversion routines are in, you should see that the  correct code
 is  generated,  with  type  conversions inserted where necessary.
@@ -1603,13 +1603,13 @@ compiler handles them.
 At this point, you may think  I've  pretty much gone off the deep
 end in terms of deeply nested procedures.  There is  admittedly a
 lot of overhead here.  But there's a method in my madness.  As in
-the case of UnOp, I'm looking ahead to the time when  we're going
+the case of `UnOp`, I'm looking ahead to the time when  we're going
 to want better code  generation.   The way the code is organized,
 we can achieve  this  without major modifications to the program.
 For example, in cases where the value pushed onto the  stack does
 _not_ have to be converted, it's still better to use the "pop and
 add"  instruction.    If we choose to test for such cases, we can
-embed the extra tests into  PopAdd  and  PopSub  without changing
+embed the extra tests into  `PopAdd`  and  `PopSub`  without changing
 anything else much.
 
 
@@ -1618,7 +1618,7 @@ anything else much.
 The procedure for dealing with multiplicative  operators  is much
 the  same.    In  fact,  at  the  first  level,  they are  almost
 identical, so I'll just show them here without much fanfare.  The
-first  one  is  our  general  form  for  Factor,  which  includes
+first  one  is  our  general  form  for  `Factor`,  which  includes
 parenthetical subexpressions:
 
 ```delphi
@@ -1681,9 +1681,9 @@ end;
 ```
 
 These routines parallel the additive  ones  almost  exactly.   As
-before, the complexity is encapsulated within PopMul  and PopDiv.
+before, the complexity is encapsulated within `PopMul`  and `PopDiv`.
 If  you'd  like  to test the program before we get into that, you
-can build dummy versions of them, similar to  PopAdd  and PopSub.
+can build dummy versions of them, similar to  `PopAdd`  and `PopSub`.
 Again, the code won't be correct at this point,  but  the  parser
 should handle expressions of arbitrary complexity.
 
@@ -1743,7 +1743,7 @@ table:
 
 This table shows the actions to be taken for each  combination of
 operand types.  There are three things to note: First,  we assume
-a library routine  MUL32  which  performs  a  32  x  32 multiply,
+a library routine  `MUL32`  which  performs  a  32  x  32 multiply,
 leaving a >> 32-bit << (not 64-bit) product.    If  there  is any
 overflow in the process,  we  choose to ignore it and return only
 the lower 32 bits.
@@ -1780,7 +1780,7 @@ end;
 {---------------------------------------------------------------}
 ```
 
-An examination of the code below for PopMul  should  convince you
+An examination of the code below for `PopMul`  should  convince you
 that the conditions in the table are met:
 
 ```delphi
@@ -1806,8 +1806,8 @@ end;
 {---------------------------------------------------------------}
 ```
 
-As you can see, the routine starts off just like PopAdd.  The two
-arguments are forced to the same type.  The two calls  to Convert
+As you can see, the routine starts off just like `PopAdd`.  The two
+arguments are forced to the same type.  The two calls  to `Convert`
 take  care  of  the case where both operands are bytes.  The data
 themselves are promoted  to  words, but the routine remembers the
 type so as to assign the correct type to the result.  Finally, we
@@ -1832,7 +1832,7 @@ THEY'RE LYING TO YOU!!!
 
 If you don't believe  it,  try  dividing  any large 32-bit number
 (meaning that it has non-zero bits  in  the upper 16 bits) by the
-integer 1.  You are guaranteed to get an overflow exception.
+integer `1`.  You are guaranteed to get an overflow exception.
 
 The  problem is that the instruction  really  requires  that  the
 resulting quotient fit into a 16-bit result.   This  won't happen
@@ -1946,7 +1946,7 @@ end;
 
 ```
 
-Note  that  we  assume that DIV32 leaves the (longword) result in
+Note  that  we  assume that `DIV32` leaves the (longword) result in
 `D0`.
 
 OK, install the new  procedures  for division.  At this point you
@@ -1964,7 +1964,7 @@ the  multiplication  and  division  operators  require  a  little
 thinking and planning.
 
 The main concept that  made  things  easy  was that of converting
-procedures such as Expression into functions that return the type
+procedures such as `Expression` into functions that return the type
 of the result.  Once this  was  done,  we were able to retain the
 same general structure of the compiler.
 
@@ -1976,7 +1976,7 @@ challenges, just extra possibilities to test for.
 I've also ignored the  logical  operators And, Or, etc.  It turns
 out  that  these are pretty easy to  handle.    All  the  logical
 operators are  bitwise  operations,  so  they  are  symmetric and
-therefore work  in  the  same  fashion  as  PopAdd.  There is one
+therefore work  in  the  same  fashion  as  `PopAdd`.  There is one
 difference,  however:    if  it  is necessary to extend the  word
 length for a logical variable, the extension should be done as an
 UNSIGNED  number.      Floating   point   numbers,   again,   are
@@ -2032,8 +2032,8 @@ for all cases, for some cases, or not at all?
 Let's pause here to think about this a bit more.   To  do  so, it
 will help to look at a bit of history.
 
-FORTRAN  II supported only two simple  data  types:  Integer  and
-Real.    It  allowed implicit type conversion  between  real  and
+FORTRAN  II supported only two simple  data  types:  `Integer`  and
+`Real`.    It  allowed implicit type conversion  between  real  and
 integer types during assignment, but not within expressions.  All
 data items (including literal constants) on  the  right-hand side
 of an assignment statement had to be of the same type.  That made
@@ -2092,28 +2092,28 @@ drive an ex-C-programmer up the wall.
 
 Even so, Pascal does permit some implicit conversions.    You can
 assign  an integer to a real value.  You can also mix integer and
-real types in  expressions  of  type  Real.  The integers will be
+real types in  expressions  of  type  `Real`.  The integers will be
 automatically coerced to real, just as in FORTRAN  (and  with the
 same hidden cost in run-time overhead).
 
 You can't, however, convert the  other way, from real to integer,
-without applying an explicit  conversion  function,  Trunc.   The
+without applying an explicit  conversion  function,  `Trunc`.   The
 theory here is that,  since  the numerical value of a real number
 is  necessarily  going  to  be  changed  by  the conversion  (the
 fractional  part will be lost), you really  shouldn't  do  it  in
 "secret."
 
 In the spirit of strong typing, Pascal will not allow you  to mix
-Char  and  Integer   variables,  without  applying  the  explicit
+`Char`  and  `Integer`   variables,  without  applying  the  explicit
 coercion functions Chr and Ord.
 
-Turbo Pascal also includes the  types  Byte,  Word,  and LongInt.
+Turbo Pascal also includes the  types  `Byte`,  `Word`,  and `LongInt`.
 The first two are basically the same as unsigned  integers.    In
 Turbo,  these can be freely intermixed  with  variables  of  type
-Integer,  and  Turbo will automatically  handle  the  conversion.
+`Integer`,  and  Turbo will automatically  handle  the  conversion.
 There are run-time  checks,  though, to keep you from overflowing
 or otherwise getting the wrong  answer. Note that you still can't
-mix Byte and Char types, even though they  are  stored internally
+mix `Byte` and `Char` types, even though they  are  stored internally
 in the same representation.
 
 The ultimate in a  strongly-typed  language  is Ada, which allows
@@ -2152,13 +2152,13 @@ I've offended it.   The only real way to fix the error is to keep
 trying things until something works.
 
 So what should we do in TINY and KISS?  For the first one, I have
-the answer:  TINY  will  support only the types Char and Integer,
+the answer:  TINY  will  support only the types `Char` and `Integer`,
 and  we'll  use  the  C  trick  of  promoting Chars  to  Integers
 internally.  That means  that  the  TINY  compiler will be _much_
 simpler  than  what  we've  already  done.    Type conversion  in
 expressions is sort of moot, since none will be required!   Since
-longwords will not be supported, we also won't need the MUL32 and
-DIV32 run-time routines, nor the logic to figure out when to call
+longwords will not be supported, we also won't need the `MUL32` and
+`DIV32` run-time routines, nor the logic to figure out when to call
 them.  I _like_ it!
 
 KISS, on the other hand, will support the type Long.

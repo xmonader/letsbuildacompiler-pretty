@@ -40,7 +40,7 @@ fact it was darned difficult.
 I guess I should have  realized that something was wrong, because
 of the issue  of  newlines.    In the last couple of installments
 we've addressed that issue,  and  I've shown you how to deal with
-newlines with a  procedure called, appropriately enough, NewLine.
+newlines with a  procedure called, appropriately enough, `NewLine`.
 In  TINY  Version  1.0,  I  sprinkled calls to this procedure  in
 strategic spots in the code.
 
@@ -81,7 +81,7 @@ one day I'd learn: K-I-S-S!
 
 ## The Problem
 
-The problem begins to show  itself in procedure Block, which I've
+The problem begins to show  itself in procedure `Block`, which I've
 reproduced below:
 
 ```delphi
@@ -105,13 +105,13 @@ end;
 {--------------------------------------------------------------}
 ```
 
-As  you   can  see,  Block  is  oriented  to  individual  program
+As  you   can  see,  `Block`  is  oriented  to  individual  program
 statements.  At each pass through  the  loop, we know that we are
 at  the beginning of a statement.  We exit the block when we have
-scanned an END or an ELSE.
+scanned an `END` or an `ELSE`.
 
 But suppose that we see a semicolon instead.   The  procedure  as
-it's shown above  can't  handle that, because procedure Scan only
+it's shown above  can't  handle that, because procedure `Scan` only
 expects and can only accept tokens that begin with a letter.
 
 I  tinkered  around for quite awhile to come up with a  fix.    I
@@ -138,11 +138,11 @@ that if it found a carriage return, a whitespace character, or an
 operator.
 
 Now, that sort of mixed-mode  operation gets us into deep trouble
-in procedure Block, because whether or not the  input  stream has
+in procedure `Block`, because whether or not the  input  stream has
 been advanced depends upon the kind of token we  encounter.    If
 it's  a keyword or the target of  an  assignment  statement,  the
 "cursor," as defined by the contents of Look,  has  been advanced
-to  the next token OR to the beginning of whitespace.  If, on the
+to  the next token `OR` to the beginning of whitespace.  If, on the
 other  hand,  the  token  is  a  semicolon,  or if we have hit  a
 carriage return, the cursor has NOT advanced.
 
@@ -204,7 +204,7 @@ end;
 These two procedures are  functionally  almost  identical  to the
 ones  I  showed  you in [Part VII](tutor12_miscellany.md).  They each  fetch  the  current
 token, either an identifier or a number, into  the  global string
-Value.    They  also  set  the  encoded  version, Token,  to  the
+`Value`.    They  also  set  the  encoded  version, `Token`,  to  the
 appropriate code.  The input  stream is left with Look containing
 the first character NOT part of the token.
 
@@ -227,7 +227,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Note  that  GetOp  returns,  as  its  encoded  token,  the  FIRST
+Note  that  `GetOp`  returns,  as  its  encoded  token,  the  FIRST
 character of the operator.  This is important,  because  it means
 that we can now use that single character to  drive  the  parser,
 instead of the lookahead character.
@@ -251,7 +251,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-***NOTE  that  here  I have put SkipWhite BEFORE the calls rather
+***NOTE  that  here  I have put `SkipWhite` BEFORE the calls rather
 than after.  This means that, in general, the variable  Look will
 NOT have a meaningful value in it, and therefore  we  should  NOT
 use it as a test value for parsing, as we have been doing so far.
@@ -259,22 +259,22 @@ That's the big departure from our normal approach.
 
 Now, remember that before I was careful not to treat the carriage
 return (CR) and line  feed  (LF) characters as white space.  This
-was  because,  with  SkipWhite  called  as the last thing in  the
+was  because,  with  `SkipWhite`  called  as the last thing in  the
 scanner, the encounter with  LF  would  trigger a read statement.
 If we were on the last line of the program,  we  couldn't get out
 until we input another line with a non-white  character.   That's
-why I needed the second procedure, NewLine, to handle the CRLF's.
+why I needed the second procedure, `NewLine`, to handle the CRLF's.
 
-But now, with the call  to SkipWhite coming first, that's exactly
+But now, with the call  to `SkipWhite` coming first, that's exactly
 the behavior we want.    The  compiler  must know there's another
-token coming or it wouldn't be calling Next.  In other words,  it
-hasn't found the terminating  END  yet.  So we're going to insist
+token coming or it wouldn't be calling `Next`.  In other words,  it
+hasn't found the terminating  `END`  yet.  So we're going to insist
 on more data until we find something.
 
 All this means that we can greatly simplify both the  program and
 the concepts, by treating CR and LF as whitespace characters, and
-eliminating NewLine.  You  can  do  that  simply by modifying the
-function IsWhite:
+eliminating `NewLine`.  You  can  do  that  simply by modifying the
+function `IsWhite`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -289,7 +289,7 @@ end;
 
 We've already tried similar routines in [Part VII](tutor12_miscellany.md),  but  you might
 as well try these new ones out.  Add them to a copy of the Cradle
-and call Next with the following main program:
+and call `Next` with the following main program:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -312,26 +312,26 @@ token.
 This ALMOST works,  but  not  quite.    There  are  two potential
 problems:    First,  in KISS/TINY almost all of our operators are
 single-character operators.  The only exceptions  are  the relops
->=, <=, and <>.  It seems  a  shame  to  treat  all  operators as
+`>=`, `<=`, and `<>`.  It seems  a  shame  to  treat  all  operators as
 strings and do a  string  compare,  when  only a single character
 compare  will  almost  always  suffice.   Second, and  much  more
 important, the  thing  doesn't  WORK  when  two  operators appear
-together, as in (a+b)*(c+d).  Here the string following `b` would
+together, as in `(a+b)*(c+d)`.  Here the string following `b` would
 be interpreted as a single operator `)*(`.
 
 It's possible to fix that problem.  For example,  we  could  just
-give GetOp a  list  of  legal  characters, and we could treat the
+give `GetOp` a  list  of  legal  characters, and we could treat the
 parentheses as different operator types  than  the  others.   But
 this begins to get messy.
 
 Fortunately, there's a  better  way that solves all the problems.
 Since almost  all the operators are single characters, let's just
-treat  them  that  way, and let GetOp get only one character at a
-time.  This not only simplifies GetOp, but also speeds  things up
+treat  them  that  way, and let `GetOp` get only one character at a
+time.  This not only simplifies `GetOp`, but also speeds  things up
 quite a  bit.    We  still have the problem of the relops, but we
 were treating them as special cases anyway.
 
-So here's the final version of GetOp:
+So here's the final version of `GetOp`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -347,9 +347,9 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Note that I still give the string Value a value.  If you're truly
+Note that I still give the string `Value` a value.  If you're truly
 concerned about efficiency, you could leave this out.  When we're
-expecting an operator, we will only be testing  Token  anyhow, so
+expecting an operator, we will only be testing  `Token`  anyhow, so
 the  value of the string won't matter.  But to me it seems to  be
 good practice to give the thing a value just in case.
 
@@ -359,8 +359,8 @@ tokens, with the  caveat  that the two-character relops will scan
 into two separate tokens.  That's OK ... we'll  parse  them  that
 way.
 
-Now, in [Part VII](tutor12_miscellany.md) the function of Next was combined with procedure
-Scan,  which  also  checked every identifier against  a  list  of
+Now, in [Part VII](tutor12_miscellany.md) the function of `Next` was combined with procedure
+`Scan`,  which  also  checked every identifier against  a  list  of
 keywords and encoded each one that was found.  As I  mentioned at
 the time, the last thing we would want  to  do  is  to use such a
 procedure in places where keywords  should not appear, such as in
@@ -369,7 +369,7 @@ for every identifier appearing in the code.  Not good.
 
 The  right  way  to  deal  with  that  is  to simply separate the
 functions  of  fetching  tokens and looking for  keywords.    The
-version of Scan shown below  does NOTHING but check for keywords.
+version of `Scan` shown below  does NOTHING but check for keywords.
 Notice that it operates on the current token and does NOT advance
 the input stream.
 
@@ -387,14 +387,14 @@ end;
 
 There is one last detail.  In the compiler there are a few places
 that we must  actually  check  the  string  value  of  the token.
-Mainly, this  is done to distinguish between the different END's,
+Mainly, this  is done to distinguish between the different `END`'s,
 but there are a couple  of  other  places.    (I  should  note in
-passing that we could always  eliminate the need for matching END
+passing that we could always  eliminate the need for matching `END`
 characters by encoding each one  to a different character.  Right
 now we are definitely taking the lazy man's route.)
 
-The  following  version  of MatchString takes the  place  of  the
-character-oriented Match.  Note that, like Match, it DOES advance
+The  following  version  of `MatchString` takes the  place  of  the
+character-oriented `Match`.  Note that, like `Match`, it DOES advance
 the input stream.
 
 ```delphi
@@ -418,7 +418,7 @@ necessary.  Rather than  showing  you each place, I will give you
 the general idea and then just give the finished product.
 
 
-First of all, the code for procedure Block doesn't change, though
+First of all, the code for procedure `Block` doesn't change, though
 its function does:
 
 ```delphi
@@ -442,12 +442,12 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Remember that the new version of Scan doesn't  advance  the input
+Remember that the new version of `Scan` doesn't  advance  the input
 stream, it only  scans  for  keywords.   The input stream must be
-advanced by each procedure that Block calls.
+advanced by each procedure that `Block` calls.
 
-In general, we have to replace every test on Look with  a similar
-test on Token.  For example:
+In general, we have to replace every test on `Look` with  a similar
+test on `Token`.  For example:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -467,8 +467,8 @@ end;
 {--------------------------------------------------------------}
 ```
 
-In procedures like Add, we don't  have  to use Match anymore.  We
-need only call Next to advance the input stream:
+In procedures like `Add`, we don't  have  to use `Match` anymore.  We
+need only call `Next` to advance the input stream:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -483,7 +483,7 @@ end;
 {-------------------------------------------------------------}
 ```
 
-Control  structures  are  actually simpler.  We just call Next to
+Control  structures  are  actually simpler.  We just call `Next` to
 advance over the control keywords:
 
 ```delphi
@@ -519,12 +519,12 @@ of TINY  Version  1.1  below,  I've  also  made a number of other
 "improvements" that  aren't really required.  Let me explain them
 briefly:
 
-1. I've deleted the two procedures Prog and Main, and combined
+1. I've deleted the two procedures `Prog` and `Main`, and combined
    their functions into the main program.  They didn't seem to
    add  to program clarity ... in fact  they  seemed  to  just
    muddy things up a little.
 
-2. I've  deleted  the  keywords  PROGRAM  and  BEGIN  from the
+2. I've  deleted  the  keywords  `PROGRAM`  and  `BEGIN`  from the
    keyword list.  Each  one  only occurs in one place, so it's
    not necessary to search for it.
 
@@ -536,35 +536,35 @@ briefly:
    of the compiler.  KISS is the right place to use  the other
    version.
 
-4. I've added some  error-checking routines such as CheckTable
-   and CheckDup, and  replaced  in-line code by calls to them.
+4. I've added some  error-checking routines such as `CheckTable`
+   and `CheckDup`, and  replaced  in-line code by calls to them.
    This cleans up a number of routines.
 
 5. I've  taken  the  error  checking  out  of  code generation
-   routines  like Store, and put it in  the  parser  where  it
-   belongs.  See Assignment, for example.
+   routines  like `Store`, and put it in  the  parser  where  it
+   belongs.  See `Assignment`, for example.
 
-6. There was an error in InTable and Locate  that  caused them
+6. There was an error in `InTable` and `Locate`  that  caused them
    to search all locations  instead  of  only those with valid
    data  in them.  They now search only  valid  cells.    This
    allows us to eliminate  the  initialization  of  the symbol
-   table, which was done in Init.
+   table, which was done in `Init`.
 
-7. Procedure AddEntry now has two  arguments,  which  helps to
+7. Procedure `AddEntry` now has two  arguments,  which  helps to
    make things a bit more modular.
 
 8. I've cleaned up the  code  for  the relational operators by
-   the addition of the  new  procedures  CompareExpression and
-   NextExpression.
+   the addition of the  new  procedures  `CompareExpression` and
+   `NextExpression`.
 
-9. I fixed an error in the Read routine ... the  earlier value
+9. I fixed an error in the `Read` routine ... the  earlier value
    did not check for a valid variable name.
 
 
 ## Conclusion
 
 The resulting compiler for  TINY  is given below.  Other than the
-removal  of  the  keyword PROGRAM, it parses the same language as
+removal  of  the  keyword `PROGRAM`, it parses the same language as
 before.    It's  just  a  bit cleaner, and more importantly  it's
 considerably more robust.  I feel good about it.
 

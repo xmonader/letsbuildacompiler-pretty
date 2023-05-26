@@ -7,7 +7,7 @@ In  the  first  four  installments  of  this  series, we've  been
 concentrating on the parsing of math  expressions  and assignment
 statements.  In  this  installment,  we'll  take off on a new and
 exciting  tangent:  that   of  parsing  and  translating  control
-constructs such as IF statements.
+constructs such as `IF` statements.
 
 This subject is dear to my heart, because it represents a turning
 point  for  me.    I  had  been  playing  with  the   parsing  of
@@ -29,7 +29,7 @@ In what follows, we'll be starting over again with a bare cradle,
 and as we've done twice before now, we'll build things up  one at
 a time.  We'll also  be retaining the concept of single-character
 tokens that has served us so well to date.   This  means that the
-"code" will look a little funny, with `i` for IF, `w`  for WHILE,
+"code" will look a little funny, with `i` for `IF`, `w`  for `WHILE`,
 etc.  But it helps us  get  the concepts down pat without fussing
 over  lexical  scanning.    Fear  not  ...  eventually we'll  see
 something looking like "real" code.
@@ -87,16 +87,16 @@ a little more formal.  Consider the following BNF:
 ```
 
 This says that, for our purposes here, a program is defined  as a
-block, followed by an END statement.  A block, in  turn, consists
+block, followed by an `END` statement.  A block, in  turn, consists
 of zero or more statements.  We only have one kind  of statement,
 so far.
 
 What signals the end of a block?  It's  simply any construct that
-isn't an "other"  statement.    For  now, that means only the END
+isn't an "other"  statement.    For  now, that means only the `END`
 statement.
 
 Armed with these ideas, we can proceed to build  up  our  parser.
-The code for a program (we  have  to call it DoProgram, or Pascal
+The code for a program (we  have  to call it `DoProgram`, or Pascal
 will complain, is:
 
 ```delphi
@@ -116,7 +116,7 @@ Notice  that  I've  arranged to emit  an  `END`  command  to  the
 assembler, which sort of  punctuates  the  output code, and makes
 sense considering that we're parsing a complete program here.
 
-The code for Block is:
+The code for `Block` is:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -135,7 +135,7 @@ end;
 adding to it in a bit!)
 
 OK, enter these routines into your program.  Replace the  call to
-Block in the main program, by  a  call  to DoProgram.  Now try it
+`Block` in the main program, by  a  call  to `DoProgram`.  Now try it
 and  see  how  it works.  Well, it's still not  much,  but  we're
 getting closer.
 
@@ -145,7 +145,7 @@ getting closer.
 Before we begin to define the various control constructs, we need
 to  lay a bit more groundwork.  First, a word of warning: I won't
 be using the same syntax  for these constructs as you're familiar
-with  from Pascal or C.  For example, the Pascal syntax for an IF
+with  from Pascal or C.  For example, the Pascal syntax for an `IF`
 is:
 
 ```delphi
@@ -166,7 +166,7 @@ Instead, I'll be using something that looks more like Ada:
 IF <condition> <block> ENDIF
 ```
 
-In  other  words,  the IF construct has  a  specific  termination
+In  other  words,  the `IF` construct has  a  specific  termination
 symbol.  This avoids  the  dangling-else of Pascal and C and also
 precludes the need for the brackets {} or begin-end.   The syntax
 I'm showing you here, in fact, is that of the language  KISS that
@@ -180,7 +180,7 @@ straightforward.
 Now, all of the  constructs  we'll  be  dealing with here involve
 transfer of control, which at the assembler-language  level means
 conditional  and/or  unconditional branches.   For  example,  the
-simple IF statement `IF <condition> A ENDIF B ...`
+simple `IF` statement `IF <condition> A ENDIF B ...`
 must get translated into
 
 ```asm
@@ -194,7 +194,7 @@ It's clear, then, that we're going to need  some  more procedures
 to  help  us  deal with these branches.  I've defined two of them
 below.  Procedure NewLabel generates unique labels.  This is done
 via the simple expedient of calling every label  `Lnn`,  where nn
-is a label number starting from zero.   Procedure  PostLabel just
+is a label number starting from zero.   Procedure  `PostLabel` just
 outputs the labels at the proper place.
 
 Here are the two routines:
@@ -222,8 +222,8 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Notice that we've added  a  new  global  variable, LCount, so you
-need to change the VAR declarations at the top of the  program to
+Notice that we've added  a  new  global  variable, `LCount`, so you
+need to change the `VAR` declarations at the top of the  program to
 look like this:
 
 ```delphi
@@ -241,15 +241,15 @@ LCount := 0;
 
 
 At this point I'd also like to show you a  new  kind of notation.
-If  you  compare  the form of the IF statement above with the
+If  you  compare  the form of the `IF` statement above with the
 assembler code that must be produced, you can see  that  there  are
 certain  actions  associated  with each of the  keywords  in  the
 statement:
 
-- IF:  First, get the condition and issue the code for it.
+- `IF`:  First, get the condition and issue the code for it.
   Then, create a unique label and emit a branch if false.
 
-- ENDIF: Emit the label.
+- `ENDIF`: Emit the label.
 
 These actions can be shown very concisely if we write  the syntax
 this way:
@@ -277,34 +277,34 @@ about what we mean by "Branch if false."
 I'm assuming that there will  be  code  executed  for `<condition>`
 that  will  perform  Boolean algebra and compute some result.  It
 should also set the condition flags corresponding to that result.
-Now, the usual convention  for  a Boolean variable is to let 0000
-represent "false," and  anything  else (some use FFFF, some 0001)
-represent "true."
+Now, the usual convention  for  a Boolean variable is to let `0000`
+represent `false`, and  anything  else (some use `FFFF`, some `0001`)
+represent `true`.
 
 On the 68000  the  condition  flags  are set whenever any data is
-moved or calculated.  If the  data  is a 0000 (corresponding to a
+moved or calculated.  If the  data  is a `0000` (corresponding to a
 false condition, remember), the zero flag will be set.   The code
-for "Branch on zero" is BEQ.  So for our purposes here,
+for "Branch on zero" is `BEQ`.  So for our purposes here,
 
-- BEQ <=> Branch if false
-- BNE <=> Branch if true
+- `BEQ` <=> Branch if false
+- `BNE` <=> Branch if true
 
 It's the nature of the beast that most  of  the  branches  we see
-will  be  BEQ's  ...  we'll  be branching AROUND the code  that's
+will  be  `BEQ`'s  ...  we'll  be branching AROUND the code  that's
 supposed to be executed when the condition is true.
 
 
 ## The IF Statement
 
 With that bit of explanation out of the way, we're  finally ready
-to begin coding the IF-statement parser.  In  fact,  we've almost
+to begin coding the `IF`-statement parser.  In  fact,  we've almost
 already  done  it!   As usual, I'll be using our single-character
-approach, with the character `i` for IF, and `e`  for  ENDIF  (as
-well  as END ... that dual nature causes  no  confusion).    I'll
+approach, with the character `i` for `IF`, and `e`  for  `ENDIF`  (as
+well  as `END` ... that dual nature causes  no  confusion).    I'll
 also, for now, skip completely  the character for the branch
 condition, which we still have to define.
 
-The code for DoIf is:
+The code for `DoIf` is:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -327,7 +327,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Add this routine to your program, and change  Block  to reference
+Add this routine to your program, and change  `Block`  to reference
 it as follows:
 
 ```delphi
@@ -346,7 +346,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Notice the reference to procedure Condition.    Eventually, we'll
+Notice the reference to procedure `Condition`.    Eventually, we'll
 write a routine that  can  parse  and  translate any Boolean
 condition we care to give it.  But  that's  a  whole  installment by
 itself ([the next one](tutor06_booleanexpressions.md), in fact).    For  now, let's just make it a
@@ -364,20 +364,20 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Insert this procedure in your program just before DoIf.   Now run
+Insert this procedure in your program just before `DoIf`.   Now run
 the program.  Try a string like `aibece`.
 
 As you can see,  the  parser seems to recognize the construct and
 inserts the object code at the  right  places.   Now try a set of
-nested IF's, like `aibicedefe`.
+nested `IF`'s, like `aibicedefe`.
 
 It's starting to look real, eh?
 
 Now that we  have  the  general  idea  (and the tools such as the
-notation and the procedures NewLabel and PostLabel), it's a piece
+notation and the procedures `NewLabel` and `PostLabel`), it's a piece
 of cake to extend the parser to include other  constructs.    The
-first (and also one of the  trickiest)  is to add the ELSE clause
-to IF.  The BNF is
+first (and also one of the  trickiest)  is to add the `ELSE` clause
+to `IF`.  The BNF is
 
 ```bnf
 IF <condition> <block> [ ELSE <block>] ENDIF
@@ -411,9 +411,9 @@ ELSE           { Emit(BRA L2);
 ENDIF          { PostLabel(L2) }
 ```
 
-Comparing this with the case for an ELSE-less IF gives us  a clue
+Comparing this with the case for an `ELSE`-less `IF` gives us  a clue
 as to how to handle both situations.   The  code  below  does it.
-(Note that I  use  an  `l`  for  the ELSE, since `e` is otherwise
+(Note that I  use  an  `l`  for  the `ELSE`, since `e` is otherwise
 occupied):
 
 ```delphi
@@ -442,15 +442,15 @@ end;
 {--------------------------------------------------------------}
 ```
 
-There you have it.  A complete IF parser/translator, in  19 lines
+There you have it.  A complete `IF` parser/translator, in  19 lines
 of code.
 
 Give it a try now.  Try something like `aiblcede`.
 
-Did it work?  Now, just  to  be  sure we haven't broken the ELSE-less
+Did it work?  Now, just  to  be  sure we haven't broken the `ELSE`-less
 case, try `aibece`.
 
-Now try some nested IF's.  Try anything you like,  including some
+Now try some nested `IF`'s.  Try anything you like,  including some
 badly formed statements.   Just  remember that `e` is not a legal
 "other" statement.
 
@@ -458,20 +458,20 @@ badly formed statements.   Just  remember that `e` is not a legal
 ## The WHILE Statement
 
 The next type of statement should be easy, since we  already have
-the process  down  pat.    The  syntax  I've chosen for the WHILE
+the process  down  pat.    The  syntax  I've chosen for the `WHILE`
 statement is `WHILE <condition> <block> ENDWHILE`.
 
 I know,  I  know,  we  don't  REALLY  need separate kinds of
 terminators for each construct ... you can see that by the fact that
 in our one-character version, `e` is used for all of them.  But I
 also remember  MANY debugging sessions in Pascal, trying to track
-down a wayward END that the compiler obviously thought I meant to
+down a wayward `END` that the compiler obviously thought I meant to
 put  somewhere  else.   It's been my experience that specific and
 unique  keywords,  although  they add to the  vocabulary  of  the
 language,  give  a  bit of error-checking that is worth the extra
 work for the compiler writer.
 
-Now,  consider  what  the  WHILE  should be translated into.   It
+Now,  consider  what  the  `WHILE`  should be translated into.   It
 should be:
 
 ```asm
@@ -518,7 +518,7 @@ end;
 ```
 
 Since  we've  got a new statement, we have to add a  call  to  it
-within procedure Block:
+within procedure `Block`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -539,9 +539,9 @@ end;
 
 No other changes are necessary.
 
-OK, try the new program.  Note that this  time,  the  <condition>
+OK, try the new program.  Note that this  time,  the  `<condition>`
 code is INSIDE the upper label, which is just where we wanted it.
-Try some nested loops.  Try some loops within IF's, and some IF's
+Try some nested loops.  Try some loops within `IF`'s, and some `IF`'s
 within loops.  If you get  a  bit  confused as to what you should
 type, don't be discouraged:  you  write  bugs in other languages,
 too, don't you?  It'll look a lot  more  meaningful  when  we get
@@ -560,16 +560,16 @@ dream them up.
 
 We could stop right here, and  have  a language that works.  It's
 been  shown  many  times that a high-order language with only two
-constructs, the IF and the WHILE, is sufficient  to  write structured
+constructs, the `IF` and the `WHILE`, is sufficient  to  write structured
 code.   But we're on a roll now, so let's  richen  up  the
 repertoire a bit.
 
 This construct is even easier, since it has no condition  test at
 all  ... it's an infinite loop.  What's the point of such a loop?
-Not much, by  itself,  but  later  on  we're going to add a BREAK
+Not much, by  itself,  but  later  on  we're going to add a `BREAK`
 command,  that  will  give us a way out.  This makes the language
 considerably richer than Pascal, which  has  no  break,  and also
-avoids the funny  WHILE(1) or WHILE TRUE of C and Pascal.
+avoids the funny  `WHILE(1)` or `WHILE TRUE` of C and Pascal.
 
 The syntax is simply `LOOP <block> ENDLOOP`
 and the syntax-directed translation is:
@@ -582,7 +582,7 @@ ENDLOOP        { Emit(BRA L }
 ```
 
 The corresponding code is shown below.  Since  I've  already used
-`l`  for  the  ELSE, I've used  the  last  letter,  `p`,  as  the
+`l`  for  the  `ELSE`, I've used  the  last  letter,  `p`,  as  the
 "keyword" this time.
 
 ```delphi
@@ -602,7 +602,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-When you insert this routine, don't forget to add a line in Block
+When you insert this routine, don't forget to add a line in `Block`
 to call it.
 
 
@@ -640,9 +640,9 @@ end;
 {--------------------------------------------------------------}
 ```
 
-As  before, we have to add the call  to  DoRepeat  within  Block.
+As  before, we have to add the call  to  `DoRepeat`  within  `Block`.
 This time, there's a difference, though.  I decided  to  use  `r`
-for REPEAT (naturally), but I also decided to use `u`  for UNTIL.
+for `REPEAT` (naturally), but I also decided to use `u`  for `UNTIL`.
 This means that the `u` must be added to the set of characters in
 the while-test.  These  are  the  characters  that signal an exit
 from the current  block  ... the "follow" characters, in compiler
@@ -669,13 +669,13 @@ end;
 
 ## The FOR Loop
 
-The FOR loop  is a very handy one to have around, but it's a bear
+The `FOR` loop  is a very handy one to have around, but it's a bear
 to translate.  That's not so much because the construct itself is
 hard ... it's only a loop  after  all ... but simply because it's
 hard to implement  in  assembler  language.    Once  the  code is
 figured out, the translation is straightforward enough.
 
-C fans love  the  FOR-loop  of  that language (and, in fact, it's
+C fans love  the  `FOR`-loop  of  that language (and, in fact, it's
 easier to code), but I've chosen instead a syntax very  much like
 the one from good ol' BASIC:
 
@@ -683,9 +683,9 @@ the one from good ol' BASIC:
 FOR <ident> = <expr1> TO <expr2> <block> ENDFOR
 ```
 
-The translation of a FOR loop  can  be just about as difficult as
+The translation of a `FOR` loop  can  be just about as difficult as
 you choose  to  make  it,  depending  upon  the way you decide to
-define  the rules as to how to handle the limits.  Does expr2 get
+define  the rules as to how to handle the limits.  Does `expr2` get
 evaluated  every time through the loop, for  example,  or  is  it
 treated as a constant limit?   Do  you always go through the loop
 at least once,  as  in  FORTRAN,  or  not? It gets simpler if you
@@ -775,7 +775,7 @@ end;
 ```
 
 Since we don't have  expressions  in this parser, I used the same
-trick as for Condition, and wrote the routine
+trick as for `Condition`, and wrote the routine
 
 ```delphi
 {--------------------------------------------------------------}
@@ -790,8 +790,8 @@ end;
 ```
 
 Give it a try.  Once again,  don't  forget  to  add  the  call in
-Block.    Since  we don't have any input for the dummy version of
-Expression, a typical input line would look something like
+`Block`.    Since  we don't have any input for the dummy version of
+`Expression`, a typical input line would look something like
 `afi=bece`.
 
 Well, it DOES generate a lot of code, doesn't it?    But at least
@@ -800,7 +800,7 @@ it's the RIGHT code.
 
 ## The DO Statement
 
-All this made me wish for a simpler version of the FOR loop.  The
+All this made me wish for a simpler version of the `FOR` loop.  The
 reason for all the code  above  is  the  need  to  have  the loop
 counter accessible as a variable within the loop.  If all we need
 is a counting loop to make us go through  something  a  specified
@@ -847,22 +847,22 @@ end;
 ```
 
 I think you'll have to agree, that's a whole lot simpler than the
-classical FOR.  Still, each construct has its place.
+classical `FOR`.  Still, each construct has its place.
 
 
 ## The BREAK Statement
 
-Earlier I promised you a BREAK statement to accompany LOOP.  This
-is  one  I'm sort of proud of.  On the face of it a  BREAK  seems
+Earlier I promised you a `BREAK` statement to accompany `LOOP`.  This
+is  one  I'm sort of proud of.  On the face of it a  `BREAK`  seems
 really  tricky.  My first approach was to just use it as an extra
-terminator to Block, and split all the loops into two parts, just
-as  I did with the ELSE half of an IF.  That  turns  out  not  to
-work, though, because the BREAK statement is almost certainly not
+terminator to `Block`, and split all the loops into two parts, just
+as  I did with the `ELSE` half of an `IF`.  That  turns  out  not  to
+work, though, because the `BREAK` statement is almost certainly not
 going to show  up at the same level as the loop itself.  The most
-likely place for a BREAK is right after an IF, which  would cause
-it to exit to the IF  construct,  not the enclosing loop.  WRONG.
-The  BREAK  has  to exit the inner LOOP, even if it's nested down
-into several levels of IFs.
+likely place for a `BREAK` is right after an `IF`, which  would cause
+it to exit to the `IF`  construct,  not the enclosing loop.  WRONG.
+The  `BREAK`  has  to exit the inner `LOOP`, even if it's nested down
+into several levels of `IF`s.
 
 My next thought was that I would just store away, in  some global
 variable, the ending label of the innermost loop.    That doesn't
@@ -880,18 +880,18 @@ doing  something  wrong.   Well, I was.  It is indeed possible to
 let the recursion built into  our parser take care of everything,
 and the solution is so simple that it's surprising.
 
-The secret is  to  note  that  every BREAK statement has to occur
+The secret is  to  note  that  every `BREAK` statement has to occur
 within a block ... there's no place else for it to be.  So all we
-have  to  do  is to pass into  Block  the  exit  address  of  the
+have  to  do  is to pass into  `Block`  the  exit  address  of  the
 innermost loop.  Then it can pass the address to the routine that
-translates the  break instruction.  Since an IF statement doesn't
-change the loop level, procedure DoIf doesn't need to do anything
+translates the  break instruction.  Since an `IF` statement doesn't
+change the loop level, procedure `DoIf` doesn't need to do anything
 except  pass the label into ITS blocks (both  of  them).    Since
 loops DO change the level,  each  loop  construct  simply ignores
 whatever label is above it and passes its own exit label along.
 
 All  this  is easier to show you than it is to  describe.    I'll
-demonstrate with the easiest loop, which is LOOP:
+demonstrate with the easiest loop, which is `LOOP`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -912,13 +912,13 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Notice that DoLoop now has TWO labels, not just one.   The second
-is to give the BREAK instruction a target to jump  to.   If there
-is no BREAK within  the  loop, we've wasted a label and cluttered
+Notice that `DoLoop` now has _two_ labels, not just one.   The second
+is to give the `BREAK` instruction a target to jump  to.   If there
+is no `BREAK` within  the  loop, we've wasted a label and cluttered
 up things a bit, but there's no harm done.
 
-Note also that Block now has a parameter, which  for  loops  will
-always be the exit address.  The new version of Block is:
+Note also that `Block` now has a parameter, which  for  loops  will
+always be the exit address.  The new version of `Block` is:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -942,11 +942,11 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Again,  notice  that  all Block does with the label is to pass it
-into DoIf and  DoBreak.    The  loop  constructs  don't  need it,
+Again,  notice  that  all `Block` does with the label is to pass it
+into `DoIf` and  `DoBreak`.    The  loop  constructs  don't  need it,
 because they are going to pass their own label anyway.
 
-The new version of DoIf is:
+The new version of `DoIf` is:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -978,14 +978,14 @@ end;
 ```
 
 Here,  the  only  thing  that  changes  is  the addition  of  the
-parameter to procedure Block.  An IF statement doesn't change the
-loop  nesting level, so DoIf just passes the  label  along.    No
-matter how many levels of IF nesting we have, the same label will
+parameter to procedure `Block`.  An `IF` statement doesn't change the
+loop  nesting level, so `DoIf` just passes the  label  along.    No
+matter how many levels of `IF` nesting we have, the same label will
 be used.
 
-Now, remember that DoProgram also calls Block, so it now needs to
+Now, remember that `DoProgram` also calls `Block`, so it now needs to
 pass it a label.  An  attempt  to  exit the outermost block is an
-error, so DoProgram  passes  a  null  label  which  is  caught by
+error, so `DoProgram`  passes  a  null  label  which  is  caught by
 DoBreak:
 
 ```delphi
@@ -1018,12 +1018,12 @@ That  ALMOST takes care of everything.  Give it a try, see if you
 can "break" it `<pun>`.  Careful, though.  By this time  we've used
 so many letters, it's hard to think of characters that aren't now
 representing  reserved  words.    Remember:  before  you  try the
-program, you're going to have to edit every occurrence of Block in
+program, you're going to have to edit every occurrence of `Block` in
 the other loop constructs to include the new parameter.    Do  it
-just like I did for LOOP.
+just like I did for `LOOP`.
 
 I  said ALMOST above.  There is one slight problem: if you take a
-hard  look  at  the code generated for DO, you'll see that if you
+hard  look  at  the code generated for `DO`, you'll see that if you
 break  out  of  this loop, the value of the loop counter is still
 left on the stack.  We're going to have to fix that!  A shame ...
 that was one  of  our  smaller  routines, but it can't be helped.
@@ -1053,7 +1053,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The  two  extra  instructions,  the  SUBQ and ADDQ, take care  of
+The  two  extra  instructions,  the  `SUBQ` and `ADDQ`, take care  of
 leaving the stack in the right shape.
 
 
@@ -1061,7 +1061,7 @@ leaving the stack in the right shape.
 
 At this point we have created a number of control  constructs ...
 a richer set, really, than that provided by almost any other
-programming language.  And,  except  for the FOR loop, it was pretty
+programming language.  And,  except  for the `FOR` loop, it was pretty
 easy to do.  Even that one was tricky only because it's tricky in
 assembler language.
 
@@ -1072,7 +1072,7 @@ already seen that  the  extension to multi-character words is not
 difficult, but in this case it will make a big difference  in the
 appearance of our input code.  I'll save that little bit  for the
 [next installment](tutor06_booleanexpressions.md).  In that installment we'll also address Boolean
-expressions, so we can get rid of the dummy version  of Condition
+expressions, so we can get rid of the dummy version  of `Condition`
 that we've used here.  See you then.
 
 For reference purposes, here is  the  completed  parser  for this

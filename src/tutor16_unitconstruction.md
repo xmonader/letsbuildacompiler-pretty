@@ -90,27 +90,27 @@ tendency to re-invent the wheel by organizing  our code into separate
 Turbo Pascal units, each containing different parts of the compiler.  We
 ended up with the following units:
 
-- Input
-- Output
-- Errors
-- Scanner
-- Parser
-- CodeGen
+- `Input`
+- `Output`
+- `Errors`
+- `Scanner`
+- `Parser`
+- `CodeGen`
 
 Each of these units serves a different function, and encapsulates
-specific areas of functionality.  The Input and Output units, as their
+specific areas of functionality.  The `Input` and `Output` units, as their
 name implies, provide character stream I/O and the all-important
 lookahead character upon which our predictive parser is based.  The
 Errors unit, of course, provides standard error handling.  The Scanner
-unit contains all of our boolean functions such as IsAlpha, and the
-routines GetName and GetNumber, which process multi-character tokens.
+unit contains all of our boolean functions such as `IsAlpha`, and the
+routines `GetName` and `GetNumber`, which process multi-character tokens.
 
 The two units we'll be working with the most, and the ones that most
 represent the personality of our compiler, are Parser and CodeGen.
-Theoretically, the Parser unit should encapsulate all aspects of the
+Theoretically, the `Parser` unit should encapsulate all aspects of the
 compiler that depend on the syntax of the compiled language (though, as
 we saw last time, a small amount of this syntax spills over into
-Scanner).  Similarly, the code generator unit, CodeGen, contains all of
+`Scanner`).  Similarly, the code generator unit, `CodeGen`, contains all of
 the code dependent upon the target machine.  In this installment, we'll
 be continuing with the development of the functions in these two
 all-important units.
@@ -147,7 +147,7 @@ written to disk by the parser, and read back again by the code
 generator.
 
 Our organization is quite different.  We have no lexical scanner, in the
-classical sense;  our unit Scanner, though it has a similar name, is not
+classical sense;  our unit `Scanner`, though it has a similar name, is not
 a single procedure or co-procedure, but merely a set of separate
 subroutines which are called by the parser as needed.
 
@@ -156,7 +156,7 @@ in its own right, reading an IL "source" file, and emitting an object
 file.  Our code generator doesn't work that way.  In our compiler, there
 IS no intermediate language; every construct in the source language
 syntax is converted into assembly language as it is recognized by the
-parser.  Like Scanner, the unit CodeGen consists of individual
+parser.  Like Scanner, the unit `CodeGen` consists of individual
 procedures which are called by the parser as needed.
 
 This "code 'em as you find 'em" philosophy may not produce the world's
@@ -262,9 +262,9 @@ In the process, I hope you'll bear with me if we sometimes cover ground
 we've long since been over and dealt with.
 
 First, let's take care of a problem that we've addressed before: Our
-current version of procedure Factor, as we left it in Installment 15,
+current version of procedure `Factor`, as we left it in Installment 15,
 can't handle negative arguments.  To fix that, we'll introduce the
-procedure SignedFactor:
+procedure `SignedFactor`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -282,7 +282,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Note that this procedure calls a new code generation routine, Negate:
+Note that this procedure calls a new code generation routine, `Negate`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -300,11 +300,11 @@ routines. I'm counting on you to put them into the proper unit, which
 you should normally have no trouble identifying.  Don't forget to add
 the procedure's prototype to the interface section of the unit.)
 
-In the main program, simply change the procedure called from Factor to
-SignedFactor, and give the code a test.  Isn't it neat how the Turbo
+In the main program, simply change the procedure called from `Factor` to
+`SignedFactor`, and give the code a test.  Isn't it neat how the Turbo
 linker and make facility handle all the details?
 
-Yes, I know, the code isn't very efficient.  If we input a number, -3,
+Yes, I know, the code isn't very efficient.  If we input a number, `-3`,
 the generated code is:
 
 ```asm
@@ -313,8 +313,8 @@ NEG D0
 ```
 
 which is really, really dumb.  We can do better, of course, by simply
-pre-appending a minus sign to the string passed to LoadConstant, but it
-adds a few lines of code to SignedFactor, and I'm applying the KISS
+pre-appending a minus sign to the string passed to `LoadConstant`, but it
+adds a few lines of code to `SignedFactor`, and I'm applying the KISS
 philosophy very aggressively here. What's more,  to tell the truth, I
 think I'm subconsciously enjoying generating "really, really dumb" code,
 so I can have the pleasure of watching it get dramatically better when
@@ -355,7 +355,7 @@ is not to have to optimize at all, but to produce good code in the first
 place." Words to live by.  When we get started on optimization, we'll
 follow John's advice, and our first step will not be to add a peephole
 optimizer or other after-the-fact device, but to improve the quality of
-the code emitted before optimization.  So make a note of SignedFactor as
+the code emitted before optimization.  So make a note of `SignedFactor` as
 a good first candidate for attention, and for now we'll leave it be.
 
 
@@ -422,10 +422,10 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The three procedures Push, PopAdd, and PopSub are new code generation
-routines.  As the name implies, procedure Push generates code to push
-the primary register (D0, in our 68000 implementation) to the stack.
-PopAdd and PopSub pop the top of the stack again, and add it to, or
+The three procedures `Push`, `PopAdd`, and `PopSub` are new code generation
+routines.  As the name implies, procedure `Push` generates code to push
+the primary register (`D0`, in our 68000 implementation) to the stack.
+`PopAdd` and `PopSub` pop the top of the stack again, and add it to, or
 subtract it from, the primary register.  The code is shown next:
 
 ```delphi
@@ -456,12 +456,12 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Add these routines to Parser and CodeGen, and change the main program to
-call Expression. Voila!
+Add these routines to `Parser` and `CodeGen`, and change the `main` program to
+call `Expression`. Voila!
 
 The next step, of course, is to add the capability for dealing with
-multiplicative terms.  To that end, we'll add a procedure Term, and code
-generation procedures PopMul and PopDiv.  These code generation
+multiplicative terms.  To that end, we'll add a procedure `Term`, and code
+generation procedures `PopMul` and `PopDiv`.  These code generation
 procedures are shown next:
 
 ```delphi
@@ -490,14 +490,14 @@ I admit, the division routine is a little busy, but there's no help for
 it.  Unfortunately, while the 68000 CPU allows a division using the top
 of stack (TOS), it wants the arguments in the wrong order, just as it
 does for subtraction.  So our only recourse is to pop the stack to a
-scratch register (D7), perform the division there, and then move the
-result back to our primary register, D0. Note the use of signed multiply
+scratch register (`D7`), perform the division there, and then move the
+result back to our primary register, `D0`. Note the use of signed multiply
 and divide operations.  This follows an implied, but unstated,
 assumption, that all our variables will be signed 16-bit integers. This
 decision will come back to haunt us later, when we start looking at
 multiple data types, type conversions, etc.
 
-Our procedure Term is virtually a clone of Expression, and looks like
+Our procedure `Term` is virtually a clone of `Expression`, and looks like
 this:
 
 ```delphi
@@ -516,9 +516,9 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Our next step is to change some names.  SignedFactor now becomes
-SignedTerm, and the calls to Factor in Expression, Add, Subtract and
-SignedTerm get changed to call Term:
+Our next step is to change some names.  `SignedFactor` now becomes
+`SignedTerm`, and the calls to `Factor` in `Expression`, `Add`, `Subtract` and
+`SignedTerm` get changed to call `Term`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -550,22 +550,22 @@ end;
 {--------------------------------------------------------------}
 ```
 
-If memory serves me correctly, we once had BOTH a procedure SignedFactor
-and a procedure SignedTerm. I had reasons for doing that at the time ...
+If memory serves me correctly, we once had _both_ a procedure `SignedFactor`
+and a procedure `SignedTerm`. I had reasons for doing that at the time ...
 they had to do with the handling of Boolean algebra and, in particular,
 the Boolean "not" function.  But certainly, for arithmetic operations,
 that duplication isn't necessary.  In an expression like `-x*y`,
-it's very apparent that the sign goes with the whole TERM, x*y, and not
-just the factor x, and that's the way Expression is coded.
+it's very apparent that the sign goes with the whole _term_, `x*y`, and not
+just the factor `x`, and that's the way `Expression` is coded.
 
-Test this new code by executing Main.  It still calls Expression, so you
+Test this new code by executing `Main`.  It still calls `Expression`, so you
 should now be able to deal with expressions containing any of the four
 arithmetic operators.
 
 Our last bit of business, as far as expressions goes, is to modify
-procedure Factor to allow for parenthetical expressions.  By using a
-recursive call to Expression, we can reduce the needed code to virtually
-nothing.  Five lines added to Factor do the job:
+procedure `Factor` to allow for parenthetical expressions.  By using a
+recursive call to `Expression`, we can reduce the needed code to virtually
+nothing.  Five lines added to `Factor` do the job:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -598,7 +598,7 @@ illegal ones!
 As long as we're this close, we might as well create the code to deal
 with an assignment statement.  This code needs only to remember the name
 of the target variable where we are to store the result of an
-expression, call Expression, then store the number.  The procedure is
+expression, call `Expression`, then store the number.  The procedure is
 shown next:
 
 ```delphi
@@ -631,7 +631,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Now, change the call in Main to call Assignment, and you should see a
+Now, change the call in `Main` to call `Assignment`, and you should see a
 full assignment statement being processed correctly.  Pretty neat, eh?
 And painless, too.
 
@@ -676,8 +676,8 @@ treat the Boolean operators at the same precedence level as the
 arithmetic ones. We'll see where it leads us.  If it seems to be down
 the garden path, we can always backtrack to the earlier approach.
 
-For starters, we'll add the "addition-level" operators to Expression.
-That's easily done; first, modify the function IsAddop in unit Scanner
+For starters, we'll add the "addition-level" operators to `Expression`.
+That's easily done; first, modify the function `IsAddop` in unit `Scanner`
 to include two extra operators: `|` for "or," and `~` for "exclusive
 or":
 
@@ -691,7 +691,7 @@ end;
 ```
 
 Next, we must include the parsing of the operators in procedure
-Expression:
+`Expression`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -712,7 +712,7 @@ end;
 (The underscores are needed, of course, because `or` and `xor` are
 reserved words in Turbo Pascal.)
 
-Next, the procedures _Or and _Xor:
+Next, the procedures `_Or` and `_Xor`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -761,8 +761,8 @@ end;
 ```
 
 Now, let's test the translator (you might want to change the call
-in Main back to a call to Expression, just to avoid having to type
-"x=" for an assignment every time).
+in `Main` back to a call to `Expression`, just to avoid having to type
+`x=` for an assignment every time).
 
 So far, so good.  The parser nicely handles expressions of the
 form `x|y~z`.
@@ -785,20 +785,20 @@ types, or a symbol table to store the types in.  So, for what
 we've got to work with at the moment, the parser is doing
 precisely what it's supposed to do.
 
-Anyway, are we sure that we DON'T want to allow mixed-type
+Anyway, are we sure that we _don't_ want to allow mixed-type
 operations?  We made the decision some time ago (or, at least, I
-did) to adopt the value 0000 as a Boolean "false," and -1, or
-FFFFh, as a Boolean "true."  The nice part about this choice is
+did) to adopt the value `0000` as a Boolean `false`, and `-1`, or
+`FFFFh`, as a Boolean `true`.  The nice part about this choice is
 that bitwise operations work exactly the same way as logical ones.
 In other words, when we do an operation on one bit of a logical
 variable, we do it on all of them.  This means that we don't need
 to distinguish between logical and bitwise operations, as is done
-in C with the operators & and &&, and | and ||.  Reducing the
+in C with the operators `&` and `&&,` and `|` and `||`.  Reducing the
 number of operators by half certainly doesn't seem all bad.
 
 From the point of view of the data in storage, of course, the
 computer and compiler couldn't care less whether the number FFFFh
-represents the logical TRUE, or the numeric -1.  Should we?  I
+represents the logical `TRUE`, or the numeric `-1`.  Should we?  I
 sort of think not.  I can think of many examples (though they
 might be frowned upon as "tricky" code) where the ability to mix
 the types might come in handy.  Example, the Dirac delta function,
@@ -808,7 +808,7 @@ or the absolute value function (DEFINITELY tricky code!),
 
 Please note, I'm not advocating coding like this as a way of life.
 I'd almost certainly write these functions in more readable form,
-using IFs, just to keep from confusing later maintainers.  Still,
+using `IF`s, just to keep from confusing later maintainers.  Still,
 a moral question arises:  Do we have the right to ENFORCE our
 ideas of good coding practice on the programmer, but writing the
 language so they can't do anything else?  That's what Nicklaus Wirth
@@ -826,7 +826,7 @@ MOVE X,D0 (where X is the name of a variable)
 ```
 
 but you can't write in the same way.  To write, you must load an
-address register with the address of X.  The same is true for
+address register with the address of `X`.  The same is true for
 PC-relative addressing:
 
 ```asm
@@ -866,10 +866,10 @@ it once we have a symbol table.
 ## Boolean "and"
 
 With that bit of philosophy out of the way, we can press on to the
-"and" operator, which goes into procedure Term. By now, you can
+"and" operator, which goes into procedure `Term`. By now, you can
 probably do this without me, but here's the code, anyway:
 
-In Scanner,
+In `Scanner`,
 
 ```delphi
 {--------------------------------------------------------------}
@@ -880,7 +880,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-In Parser,
+In `Parser`,
 
 ```delphi
 {--------------------------------------------------------------}
@@ -908,7 +908,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-and in CodeGen,
+and in `CodeGen`,
 
 ```delphi
 {--------------------------------------------------------------}
@@ -930,11 +930,11 @@ dealt with the logical "not" operator, and this is where it gets tricky.
 The logical "not" operator seems, at first glance, to be identical in
 its behavior to the unary minus, so my first thought was to let the
 exclusive or operator, `~`, double as the unary "not."  That didn't
-work. In my first attempt, procedure SignedTerm simply ate my `~`,
-because the character passed the test for an addop, but SignedTerm
+work. In my first attempt, procedure `SignedTerm` simply ate my `~`,
+because the character passed the test for an addop, but `SignedTerm`
 ignores all addops except `-`.  It would have been easy enough to add
-another line to SignedTerm, but that would still not solve the problem,
-because note that Expression only accepts a signed term for the _first_
+another line to `SignedTerm`, but that would still not solve the problem,
+because note that `Expression` only accepts a signed term for the _first_
 argument.
 
 Mathematically, an expression like `-a * -b`
@@ -961,11 +961,11 @@ The idea of overloading the `~` operator also makes no sense from a
 mathematical point of view.  The implication of the unary minus is that
 it's equivalent to a subtraction from zero: `-x <=> 0-x`.
 
-In fact, in one of my more simple-minded versions of Expression, I
+In fact, in one of my more simple-minded versions of `Expression`, I
 reacted to a leading addop by simply preloading a zero, then processing
 the operator as though it were a binary operator.  But a "not" is not
 equivalent to an exclusive or with zero ... that would just give back
-the original number.  Instead, it's an exclusive or with FFFFh, or -1.
+the original number.  Instead, it's an exclusive or with `FFFFh`, or `-1`.
 
 In short, the seeming parallel between the unary "not" and the unary
 minus falls apart under closer scrutiny. "not" modifies the factor, not
@@ -982,7 +982,7 @@ chosen automatically take care of things.
 If you're keeping score on the precedence levels, this definition puts
 the `!` at the top of the heap.  The levels become:
 
-1. !
+1. `!`
 2. `-` (unary)
 3. `*`, `/`, `&`
 4. `+`, `-`, `|`, `~`
@@ -991,7 +991,7 @@ Looking at this list, it's certainly not hard to see why we had trouble
 using `~` as the "not" symbol!
 
 So how do we mechanize the rules?  In the same way as we did with
-SignedTerm, but at the factor level.  We'll define a procedure
+`SignedTerm`, but at the factor level.  We'll define a procedure
 `NotFactor`:
 
 ```delphi
@@ -1011,8 +1011,8 @@ end;
 {--------------------------------------------------------------}
 ```
 
-and call it from all the places where we formerly called Factor, i.e.,
-from Term, Multiply, Divide, and _And.  Note the new code generation
+and call it from all the places where we formerly called `Factor`, i.e.,
+from `Term`, `Multiply`, `Divide`, and `_And`.  Note the new code generation
 procedure:
 
 ```delphi
@@ -1051,7 +1051,7 @@ That's precisely what we'd like to get.  So, at least for both
 arithmetic and logical operators, our new precedence and new, slimmer
 syntax hang together.  Even the peculiar, but legal, expression with
 leading addop, `~x`,
-makes sense.  SignedTerm ignores the leading `~`, as it should, since
+makes sense.  `SignedTerm` ignores the leading `~`, as it should, since
 the expression is equivalent to `0~x`,
 which is equal to x.
 

@@ -122,7 +122,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The procedures  Prolog and Epilog perform whatever is required to
+The procedures  `Prolog` and `Epilog` perform whatever is required to
 let the program interface with the operating system,  so  that it
 can execute as a program.  Needless to  say,  this  part  will be
 VERY OS-dependent.  Remember, I've been emitting code for a 68000
@@ -131,7 +131,7 @@ you are using PC's  and  would rather see something else, but I'm
 in this thing too deep to change now!
 
 Anyhow, SK*DOS is a  particularly  easy OS to interface to.  Here
-is the code for Prolog and Epilog:
+is the code for `Prolog` and `Epilog`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -156,7 +156,7 @@ end;
 
 As usual, add  this  code  and  try  out the "compiler."  At this
 point, there is only one legal input:
-`px.`   (where x is any single letter, the program name).
+`px.`   (where `x` is any single letter, the program name).
 
 Well,  as  usual  our first effort is rather unimpressive, but by
 now  I'm sure you know that things  will  get  more  interesting.
@@ -190,7 +190,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-and modify Prog to read:
+and modify `Prog` to read:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -210,8 +210,8 @@ end;
 ```
 
 That certainly  shouldn't change the behavior of the program, and
-it doesn't.  But now the  definition  of Prog is complete, and we
-can proceed to flesh out DoBlock.  That's done right from its BNF
+it doesn't.  But now the  definition  of `Prog` is complete, and we
+can proceed to flesh out `DoBlock`.  That's done right from its BNF
 definition:
 
 ```delphi
@@ -227,21 +227,21 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The  procedure  PostLabel  was  defined  in  the  [installment  on  branches](tutor05_controlstructs.md).
+The  procedure  `PostLabel`  was  defined  in  the  [installment  on  branches](tutor05_controlstructs.md).
 Copy it into your cradle.
 
 I probably need to  explain  the  reason  for inserting the label
 where I have.  It has to do with the operation of SK*DOS.  Unlike
 some OS's,  SK*DOS allows the entry point to the main  program to
 be  anywhere in the program.  All you have to do is to give  that
-point a name.  The call  to  PostLabel puts that name just before
+point a name.  The call  to  `PostLabel` puts that name just before
 the first executable statement  in  the  main  program.  How does
 SK*DOS know which of the many labels is the entry point, you ask?
-It's the one that matches the END statement  at  the  end  of the
+It's the one that matches the `END` statement  at  the  end  of the
 program.
 
-OK,  now  we  need  stubs  for  the  procedures Declarations  and
-Statements.  Make them null procedures as we did before.
+OK,  now  we  need  stubs  for  the  procedures `Declarations`  and
+`Statements`.  Make them null procedures as we did before.
 
 Does the program  still run the same?  Then we can move on to the
 next stage.
@@ -265,7 +265,7 @@ Pascal.  In the standard Pascal definition, each  of  these parts
 must be in a specific order relative to the rest.)
 
 As  usual,  let's  let a single character represent each of these
-declaration types.  The new form of Declarations is:
+declaration types.  The new form of `Declarations` is:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -364,8 +364,8 @@ for it is:
                               (';' <statement>) END
 ```
 
-Note that statements can  begin  with  any identifier except END.
-So the first stub form of procedure Statements is:
+Note that statements can  begin  with  any identifier except `END`.
+So the first stub form of procedure `Statements` is:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -382,9 +382,9 @@ end;
 ```
 
 At  this  point  the  compiler   will   accept   any   number  of
-declarations, followed by the  BEGIN  block  of the main program.
+declarations, followed by the  `BEGIN`  block  of the main program.
 This  block  itself  can contain any characters at all (except an
-END), but it must be present.
+`END`), but it must be present.
 
 The simplest form of input is now `pxbe`.
 Try  it.    Also  try  some  combinations  of  this.   Make  some
@@ -408,7 +408,7 @@ input to the right places, so  they  are  doing their job.  If we
 were to pursue this a bit longer, code would start to appear.
 
 The  next  step  in our expansion should  probably  be  procedure
-Statements.  The Pascal definition is:
+`Statements`.  The Pascal definition is:
 
 ```bnf
 <statement> ::= <simple statement> | <structured statement>
@@ -526,7 +526,7 @@ end;
 ```
 
 Note that I've had to use a ^Z to indicate the end of the source.
-C has no keyword such as END or the `.` to otherwise indicate the
+C has no keyword such as `END` or the `.` to otherwise indicate the
 end.
 
 With full C,  things  aren't  even  this easy.  The problem comes
@@ -588,7 +588,7 @@ end.
 ```
 
 For the first round, just make the three procedures stubs that do
-nothing _but_ call GetChar.
+nothing _but_ call `GetChar`.
 
 Does this program work?  Well, it would be hard put NOT to, since
 we're not really asking it to do anything.  It's been said that a
@@ -596,14 +596,14 @@ C compiler will accept virtually any input without choking.  It's
 certainly true of THIS  compiler,  since in effect all it does is
 to eat input characters until it finds a ^Z.
 
-Next, let's make  GetClass  do something worthwhile.  Declare the
+Next, let's make  `GetClass`  do something worthwhile.  Declare the
 global variable
 
 ```delphi
      var Class: char;
 ```
 
-and change GetClass to do the following:
+and change `GetClass` to do the following:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -650,7 +650,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Note that you must add two more global variables, Sign and Typ.
+Note that you must add two more global variables, `Sign` and `Typ`.
 
 With these two procedures in place, the compiler will process the
 class and type definitions and store away their findings.  We can
@@ -665,7 +665,7 @@ a left paren, we have a function declaration.  If not, we have at
 least one data item,  and  possibly a list, each element of which
 can have an initializer.
 
-Insert the following version of TopDecl:
+Insert the following version of `TopDecl`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -686,7 +686,7 @@ end;
 (Note that, since we have already read the name, we must  pass it
 along to the appropriate routine.)
 
-Finally, add the two procedures DoFunc and DoData:
+Finally, add the two procedures `DoFunc` and `DoData`:
 
 ```delphi
 {--------------------------------------------------------------}

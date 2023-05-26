@@ -26,12 +26,12 @@ at EXECUTION time.  The translator itself doesn't  do  any arithmetic
 ... it only issues the object code that will cause  the CPU
 to do it when the code is executed.  For  the  example above, the
 compiler would issue code to compute the expression and store the
-results in variable x.
+results in variable `x`.
 
 For an interpreter,  on  the  other  hand, no object code is
 generated.   Instead, the arithmetic is computed immediately, as the
 parsing is going on.  For the example, by the time parsing of the
-statement is complete, x will have a new value.
+statement is complete, `x` will have a new value.
 
 The approach we've been  taking  in  this  whole series is called
 "syntax-driven translation."  As you are aware by now, the structure
@@ -136,11 +136,11 @@ cradle and build up the translator all over again.  This time, of
 course, we can go a bit faster.
 
 Since we're now going  to  do arithmetic, the first thing we need
-to do is to change function GetNum, which up till now  has always
+to do is to change function `GetNum`, which up till now  has always
 returned a character  (or  string).    Now, it's better for it to
 return an integer.    MAKE  A  COPY of the cradle (for goodness's
-sake, don't change the version  in  Cradle  itself!!)  and modify
-GetNum as follows:
+sake, don't change the version  in  `Cradle`  itself!!)  and modify
+`GetNum` as follows:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -176,7 +176,7 @@ integer  "expression."    As always, you should make sure that it
 does that with the digits 0..9, and gives an  error  message  for
 anything else.  Shouldn't take you very long!
 
-OK, now let's extend this to include addops.    Change Expression
+OK, now let's extend this to include addops.    Change `Expression`
 to read:
 
 ```delphi
@@ -207,24 +207,24 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The structure of Expression, of  course,  parallels  what  we did
+The structure of `Expression`, of  course,  parallels  what  we did
 before,  so  we  shouldn't have too much  trouble  debugging  it.
 There's  been  a  SIGNIFICANT  development, though, hasn't there?
-Procedures Add and Subtract went away!  The reason  is  that  the
+Procedures `Add` and `Subtract` went away!  The reason  is  that  the
 action to be taken  requires  BOTH arguments of the operation.  I
 could have chosen to retain the procedures and pass into them the
-value of the expression to date,  which  is Value.  But it seemed
-cleaner to me to  keep  Value as strictly a local variable, which
-meant that the code for Add and Subtract had to be moved in line.
+value of the expression to date,  which  is `Value`.  But it seemed
+cleaner to me to  keep  `Value` as strictly a local variable, which
+meant that the code for `Add` and `Subtract` had to be moved in line.
 This result suggests  that,  while the structure we had developed
 was nice and  clean  for our simple-minded translation scheme, it
 probably  wouldn't do for use with lazy  evaluation.    That's  a
 little tidbit we'll probably want to keep in mind for later.
 
 OK,  did the translator work?  Then let's  take  the  next  step.
-It's not hard to  figure  out what procedure Term should now look
-like.  Change every call to GetNum in function  Expression  to  a
-call to Term, and then enter the following form for Term:
+It's not hard to  figure  out what procedure `Term` should now look
+like.  Change every call to `GetNum` in function  `Expression`  to  a
+call to `Term`, and then enter the following form for Term:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -252,12 +252,12 @@ end;
 ```
 
 Now, try it out.    Don't forget two things: first, we're dealing
-with integer division, so, for example, 1/3 should come out zero.
+with integer division, so, for example, `1/3` should come out zero.
 Second, even  though we can output multi-digit results, our input
 is still restricted to single digits.
 
 That seems like a silly restriction at this point, since  we have
-already  seen how easily function GetNum can  be  extended.    So
+already  seen how easily function `GetNum` can  be  extended.    So
 let's go ahead and fix it right now.  The new version is
 
 ```delphi
@@ -279,11 +279,11 @@ end;
 ```
 
 If you've compiled and  tested  this  version of the interpreter,
-the  next  step  is to install function Factor, complete with
+the  next  step  is to install function `Factor`, complete with
 parenthesized  expressions.  We'll hold off a  bit  longer  on  the
-variable  names.    First, change the references  to  GetNum,  in
-function Term, so that they call Factor instead.   Now  code  the
-following version of Factor:
+variable  names.    First, change the references  to  `GetNum`,  in
+function `Term`, so that they call `Factor` instead.   Now  code  the
+following version of `Factor`:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -360,12 +360,12 @@ is  transferred  there.   In a recursive language such as Pascal,
 there can also be local data pushed onto the stack, and  it, too,
 returns when it's needed.
 
-For example,  function  Expression  contains  a  local  parameter
-called  Value, which it fills by a call to Term.  Suppose, in its
-next call to  Term  for  the  second  argument,  that  Term calls
-Factor, which recursively  calls  Expression  again.    That
-"instance" of Expression gets another value for its  copy  of Value.
-What happens  to  the  first  Value?    Answer: it's still on the
+For example,  function  `Expression`  contains  a  local  parameter
+called  `Value`, which it fills by a call to `Term`.  Suppose, in its
+next call to  `Term`  for  the  second  argument,  that  `Term` calls
+`Factor`, which recursively  calls  `Expression`  again.    That
+"instance" of `Expression` gets another value for its  copy  of `Value`.
+What happens  to  the  first  `Value`?    Answer: it's still on the
 stack, and  will  be  there  again  when  we return from our call
 sequence.
 
@@ -395,7 +395,7 @@ with variable names ... we just issued the names to the assembler
 and let the rest  of  the program take care of allocating storage
 for  them.  Here, on the other hand, we need to be able to  fetch
 the values of the variables and return them as the  return values
-of Factor.  We need a storage mechanism for these variables.
+of `Factor`.  We need a storage mechanism for these variables.
 
 Back in the early days of personal computing,  Tiny  BASIC lived.
 It had  a  grand  total  of  26  possible variables: one for each
@@ -423,12 +423,12 @@ end;
 {---------------------------------------------------------------}
 ```
 
-You must also insert a call to InitTable, in procedure Init.
+You must also insert a call to `InitTable`, in procedure `Init`.
 DON'T FORGET to do that, or the results may surprise you!
 
-Now that we have an array  of  variables, we can modify Factor to
+Now that we have an array  of  variables, we can modify `Factor` to
 use it.  Since we don't have a way (so far) to set the variables,
-Factor  will always return zero values for  them,  but  let's  go
+`Factor`  will always return zero values for  them,  but  let's  go
 ahead and extend it anyway.  Here's the new version:
 
 ```delphi
@@ -487,7 +487,7 @@ various assignments to it.
 Of course, an interpretive language that can only accept a single
 line of program  is not of much value.  So we're going to want to
 handle multiple statements.  This  merely  means  putting  a loop
-around  the  call  to Assignment.  So let's do that now. But what
+around  the  call  to `Assignment`.  So let's do that now. But what
 should be the loop exit criterion?  Glad you  asked,  because  it
 brings up a point we've been able to ignore up till now.
 
@@ -509,7 +509,7 @@ ending period (`.`).   A  minor  complication  is that Turbo ends
 every normal line  with  TWO characters, the carriage return (CR)
 and line feed (LF).   At  the  end  of  each line, we need to eat
 these characters before processing the next one.   A  natural way
-to do this would  be  with  procedure  Match, except that Match's
+to do this would  be  with  procedure  `Match`, except that `Match`'s
 error  message  prints  the character, which of course for the CR
 and/or  LF won't look so great.  What we need is a special procedure
 for this, which we'll no doubt be using over and over.  Here
@@ -531,7 +531,7 @@ end;
 ```
 
 Insert this procedure at any convenient spot ... I put  mine just
-after Match.  Now, rewrite the main program to look like this:
+after `Match`.  Now, rewrite the main program to look like this:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -548,7 +548,7 @@ end.
 ```
 
 Note that the  test for a CR is now gone, and that there are also
-no  error tests within NewLine itself.   That's  OK,  though  ...
+no  error tests within `NewLine` itself.   That's  OK,  though  ...
 whatever is left over in terms of bogus characters will be caught
 at the beginning of the next assignment statement.
 

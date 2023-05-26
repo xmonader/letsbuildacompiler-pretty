@@ -55,7 +55,7 @@ read:
 Again, there is no  ambiguity:  if  the  lookahead character is a
 letter,  we  have  a variable; if a digit, we have a number. Back
 when we translated the number, we just issued code  to  load  the
-number,  as immediate data, into D0.  Now we do the same, only we
+number,  as immediate data, into `D0`.  Now we do the same, only we
 load a variable.
 
 A minor complication in the  code generation arises from the fact
@@ -63,8 +63,8 @@ that most  68000 operating systems, including the SK*DOS that I'm
 using, require the code to be  written  in "position-independent"
 form, which  basically means that everything is PC-relative.  The
 format for a load in this language is `MOVE X(PC),D0`,
-where X is, of course, the variable name.  Armed with that, let's
-modify the current version of Factor to read:
+where `X` is, of course, the variable name.  Armed with that, let's
+modify the current version of `Factor` to read:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -130,11 +130,11 @@ function calls will have the form `x()`.
 
 Since  we're  not  dealing  with  parameter lists yet,  there  is
 nothing  to do but to call the function, so we need only to issue
-a BSR (call) instead of a MOVE.
+a `BSR` (call) instead of a `MOVE`.
 
 Now that there are two  possibilities for the `If IsAlpha` branch
-of the test in Factor, let's treat them in a  separate procedure.
-Modify Factor to read:
+of the test in `Factor`, let's treat them in a  separate procedure.
+Modify `Factor` to read:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -184,10 +184,10 @@ expressions?  Does it correctly flag badly formed ones?
 The important thing to notice is that even though  we  no  longer
 have  a predictive parser, there is  little  or  no  complication
 added with the recursive descent approach that we're  using.   At
-the point where  Factor  finds an identifier (letter), it doesn't
+the point where  `Factor`  finds an identifier (letter), it doesn't
 know whether it's a variable name or a function name, nor does it
-really care.  It simply passes it on to Ident and leaves it up to
-that procedure to figure it out.  Ident, in  turn,  simply  tucks
+really care.  It simply passes it on to `Ident` and leaves it up to
+that procedure to figure it out.  `Ident`, in  turn,  simply  tucks
 away the identifier and then reads one more  character  to decide
 which kind of identifier it's dealing with.
 
@@ -204,23 +204,23 @@ issue to point out:  error  handling.    Notice that although the
 parser correctly rejects (almost)  every malformed  expression we
 can  throw at it, with a meaningful  error  message,  we  haven't
 really had to  do much work to make that happen.  In fact, in the
-whole parser per se (from  Ident  through  Expression)  there are
-only two calls to the error routine, Expected.  Even those aren't
-necessary ... if you'll look again in Term and Expression, you'll
+whole parser per se (from  `Ident`  through  `Expression`)  there are
+only two calls to the error routine, `Expected`.  Even those aren't
+necessary ... if you'll look again in `Term` and `Expression`, you'll
 see that those statements can't be reached.  I put them  in early
 on as a  bit  of  insurance,  but  they're no longer needed.  Why
 don't you delete them now?
 
 So how did we get this nice error handling  virtually  for  free?
 It's simply  that  I've  carefully  avoided  reading  a character
-directly  using  GetChar.  Instead,  I've  relied  on  the  error
-handling in GetName,  GetNum,  and  Match  to  do  all  the error
+directly  using  `GetChar`.  Instead,  I've  relied  on  the  error
+handling in `GetName`,  `GetNum`,  and  `Match`  to  do  all  the error
 checking for me.    Astute  readers  will notice that some of the
-calls to Match (for example, the ones in Add  and  Subtract)  are
+calls to `Match` (for example, the ones in `Add`  and  `Subtract`)  are
 also unnecessary ... we already know what the character is by the
 time  we get there ... but it maintains  a  certain  symmetry  to
-leave them in, and  the  general rule to always use Match instead
-of GetChar is a good one.
+leave them in, and  the  general rule to always use `Match` instead
+of `GetChar` is a good one.
 
 I mentioned an "almost" above.   There  is a case where our error
 handling  leaves a bit to be desired.  So far we haven't told our
@@ -249,7 +249,7 @@ compiler properly flag this, add the line
 if Look <> CR then Expected('Newline');
 ```
 
-in the main  program,  just  after  the call to Expression.  That
+in the main  program,  just  after  the call to `Expression`.  That
 catches anything left over in the input stream.  Don't  forget to
 define CR in the const statement:
 
@@ -277,7 +277,7 @@ always) appear in assignment statements, in the form
 
 We're only a breath  away  from being able to parse an assignment
 statement, so let's take that  last  step.  Just  after procedure
-Expression, add the following new procedure:
+`Expression`, add the following new procedure:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -296,15 +296,15 @@ end;
 ```
 
 Note again that the  code  exactly parallels the BNF.  And notice
-further that  the error checking was painless, handled by GetName
-and Match.
+further that  the error checking was painless, handled by `GetName`
+and `Match`.
 
 The reason for the two  lines  of  assembler  has  to  do  with a
 peculiarity in the  68000,  which requires this kind of construct
 for PC-relative code.
 
-Now change the call to Expression, in the main program, to one to
-Assignment.  That's all there is to it.
+Now change the call to `Expression`, in the main program, to one to
+`Assignment`.  That's all there is to it.
 
 Son of a gun!  We are actually  compiling  assignment statements.
 If those were the only kind of statements in a language, all we'd
@@ -312,7 +312,7 @@ have to  do  is  put  this in a loop and we'd have a full-fledged
 compiler!
 
 Well, of course they're not the only kind.  There are also little
-items  like  control  statements  (IFs  and  loops),  procedures,
+items  like  control  statements  (`IF`s  and  loops),  procedures,
 declarations, etc.  But cheer  up.    The  arithmetic expressions
 that we've been dealing with are among the most challenging  in a
 language.      Compared  to  what  we've  already  done,  control
@@ -345,7 +345,7 @@ returns the separate units  (tokens)  of  the  stream.  There may
 come a time when we'll want  to  do something like that, too, but
 for  now  there  is  no  need. We can handle the  multi-character
 tokens that we need by very slight and  very  local modifications
-to GetName and GetNum.
+to `GetName` and `GetNum`.
 
 The usual definition of an identifier is that the first character
 must be a letter, but the rest can be  alphanumeric  (letters  or
@@ -363,11 +363,11 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Add this function to your parser.  I put mine just after IsDigit.
+Add this function to your parser.  I put mine just after `IsDigit`.
 While you're  at  it,  might  as  well  include it as a permanent
-member of Cradle, too.
+member of `Cradle`, too.
 
-Now, we need  to  modify  function  GetName  to  return  a string
+Now, we need  to  modify  function  `GetName`  to  return  a string
 instead of a character:
 
 ```delphi
@@ -388,7 +388,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Similarly, modify GetNum to read:
+Similarly, modify `GetNum` to read:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -409,9 +409,9 @@ end;
 ```
 
 Amazingly enough, that  is  virtually all the changes required to
-the  parser!  The local variable Name  in  procedures  Ident  and
-Assignment was originally declared as  `char`,  and  must  now be
-declared string[8].  (Clearly,  we  could  make the string length
+the  parser!  The local variable `Name`  in  procedures  `Ident`  and
+`Assignment` was originally declared as  `char`,  and  must  now be
+declared `string[8]`.  (Clearly,  we  could  make the string length
 longer if we chose, but most assemblers limit the length anyhow.)
 Make  this  change,  and  then  recompile and test. _Now_ do  you
 believe that it's a simple change?
@@ -438,8 +438,8 @@ It still sounds like a good rule to me, so  that's  the one we'll
 use.    This  means  that  every routine that advances the  input
 stream must skip over white space, and leave  the  next non-white
 character in Look.   Fortunately,  because  we've been careful to
-use GetName, GetNum, and Match  for most of our input processing,
-it is  only  those  three  routines  (plus  Init) that we need to
+use `GetName`, `GetNum`, and `Match`  for most of our input processing,
+it is  only  those  three  routines  (plus  `Init`) that we need to
 modify.
 
 Not  surprisingly,  we  start  with  yet  another  new recognizer
@@ -471,7 +471,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Now,  add calls to SkipWhite to Match,  GetName,  and  GetNum  as
+Now,  add calls to `SkipWhite` to `Match`,  `GetName`,  and  `GetNum`  as
 shown below:
 
 ```delphi
@@ -523,11 +523,11 @@ end;
 {--------------------------------------------------------------}
 ```
 
-(Note  that  I  rearranged  Match  a  bit,  without changing  the
+(Note  that  I  rearranged  `Match`  a  bit,  without changing  the
 functionality.)
 
 Finally, we need to skip over leading blanks where we  "prime the
-pump" in Init:
+pump" in `Init`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -542,7 +542,7 @@ end;
 ```
 
 Make these changes and recompile the program.  You will find that
-you will have to move Match below SkipWhite, to  avoid  an  error
+you will have to move `Match` below `SkipWhite`, to  avoid  an  error
 message from the Pascal compiler.  Test the program as  always to
 make sure it works properly.
 

@@ -112,7 +112,7 @@ helpful in letting  me  understand what's going on without wading
 through a lot of boiler plate.  Chief among these  is  the use of
 single-character tokens, with no embedded spaces,  for  the early
 design work.  I figure that  if  I  can get a parser to recognize
-and deal with I-T-L, I can  get  it  to do the same with IF-THEN-ELSE.
+and deal with `I`-`T`-`L`, I can  get  it  to do the same with `IF`-`THEN`-`ELSE`.
 And I can.  In the second "lesson,"   I'll  show  you just
 how easy it  is  to  extend  a  simple parser to handle tokens of
 arbitrary length.  As another  trick,  I  completely  ignore file
@@ -182,7 +182,7 @@ which is to use  a  single, global, lookahead character.  Part of
 the initialization procedure  (the  only part, so far!) serves to
 "prime  the  pump"  by reading the first character from the input
 stream.  No other special  techniques are required with Turbo 4.0
-... each successive call to  GetChar will read the next character
+... each successive call to  `GetChar` will read the next character
 in the stream.
 
 ```delphi

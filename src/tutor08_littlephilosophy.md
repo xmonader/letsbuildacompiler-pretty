@@ -303,7 +303,7 @@ past:
   been that, in  a  production compiler, the source and object
   data should all coexist  in  RAM with the compiler, a la the
   early Turbo Pascals.  That's why I've been  careful  to keep
-  routines like GetChar  and  Emit  as  separate  routines, in
+  routines like `GetChar`  and  `Emit`  as  separate  routines, in
   spite of their small size.   It  will be easy to change them
   to read to and write from memory.
 
