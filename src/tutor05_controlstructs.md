@@ -602,8 +602,6 @@ When you insert this routine, don't forget to add a line in Block
 to call it.
 
 
-
-
 ## REPEAT-UNTIL
 
 Here's one construct that I lifted right from Pascal.  The syntax

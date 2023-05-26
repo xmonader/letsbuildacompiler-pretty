@@ -54,7 +54,6 @@ it  is complete, so you will have to wait for the last one before
 you can consider yourself finished.  Please be patient.
 
 
-
 The average text on  compiler  theory covers a lot of ground that
 we won't be covering here.  The typical sequence is:
 
@@ -106,7 +105,6 @@ will work, and work reasonably well.  Just so that I  don't leave
 you with the impression that our end product will be worthless, I
 _DO_ intend to show you how  to  "soup up" the compiler with some
 optimization.
-
 
 
 Finally, I'll be  using  some  tricks  that I've found to be most

@@ -170,8 +170,6 @@ for all the operators, you arrive at the following list:
 
 
 If  we're willing to accept that  many  precedence  levels,  this
-
-
 grammar seems reasonable.  Unfortunately,  it  won't  work!   The
 grammar may be great in theory,  but  it's  no good at all in the
 practice of a top-down parser.  To see the problem,  consider the
@@ -587,8 +585,6 @@ this on the 68000, things get a a little bit tricky.
 
 Since the loop constructs operate only on the flags, it  would be
 nice (and also quite  efficient)  just to set up those flags, and
-
-
 not load  anything  into  D0  at all.  This would be fine for the
 loops  and  branches,  but remember that the relation can be used
 ANYWHERE a Boolean factor could be  used.   We may be storing its
@@ -716,8 +712,6 @@ arithmetic procedures below.  If  you're  observant,  you'll also
 see that I've changed them a little to make  them  correspond  to
 the latest version of the syntax.  This change is  NOT necessary,
 so  you  may  prefer  to  hold  off  on  that  until you're  sure
-
-
 everything is working.
 
 ```delphi
@@ -903,8 +897,6 @@ expressions in place, we might  as well replace the "blocks" with
 real assignment statements.    We've already done that before, so
 it won't be too hard.   Before  taking that step, though, we need
 to fix something else.
-
-
 
 We're soon going to find  that the one-line "programs" that we're
 having to write here will really cramp our style.  At  the moment
