@@ -185,7 +185,7 @@ dealing  with.  That won't do, because  we  must  have  different
 recognizers  for the two cases.  The  situation  can  be  handled
 without  changing  any  of  our  definitions, but only  if  we're
 willing to accept an arbitrary amount of backtracking to work our
-way out of bad guesses.  No compiler  writer  in  his  right mind
+way out of bad guesses.  No compiler  writer  in  their  right mind
 would agree to that.
 
 What's going  on  here  is  that  the  beauty and elegance of BNF

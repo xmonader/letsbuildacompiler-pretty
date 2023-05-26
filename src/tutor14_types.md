@@ -2084,7 +2084,7 @@ typed," which means that in general you can't mix types,  even if
 they differ only in _NAME_, and yet have the same base type!
 Niklaus Wirth made Pascal strongly typed to help keep programmers
 out of trouble, and  the  restrictions  have  indeed saved many a
-programmer from himself, because the compiler kept him from doing
+programmer from themself, because the compiler kept them from doing
 something dumb.  Better  to  find  the  bug in compilation rather
 than  the  debug  phase.    The same restrictions can also  cause
 frustration when you really  WANT  to mix types, and they tend to
@@ -2132,7 +2132,7 @@ automatic conversions, even the ones supported by Pascal.
 
 This approach does  have  certain advantages:  The compiler never
 has to guess what to do: the programmer always tells it precisely
-what  he  wants.  As a result, there tends to be  a  more  nearly
+what  they  want.  As a result, there tends to be  a  more  nearly
 one-to-one correspondence between  source code and compiled code,
 and John's compiler produces VERY tight code.
 

@@ -185,7 +185,6 @@ stream.  No other special  techniques are required with Turbo 4.0
 ... each successive call to  GetChar will read the next character
 in the stream.
 
-
 ```delphi
 
 {--------------------------------------------------------------}

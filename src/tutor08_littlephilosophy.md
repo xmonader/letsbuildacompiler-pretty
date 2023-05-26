@@ -11,7 +11,7 @@ Mercifully, it will be a short  session,  and then we can take up
 where we left off, hopefully with renewed vigor.
 
 When  I  was  in college, I found that I could  always  follow  a
-prof's lecture a lot better if I knew where he was going with it.
+prof's lecture a lot better if I knew where they were going with it.
 I'll bet you were the same.
 
 So I thought maybe it's about  time  I told you where we're going
@@ -225,7 +225,7 @@ past:
   excellent book, BTW).  He  developed a Pascal compiler for a
   PC, but he started the effort in 1981 with a 64K system, and
   so almost every design decision  he made was aimed at making
-  the compiler fit  into  RAM.    To do this, his compiler has
+  the compiler fit  into  RAM.    To do this, their compiler has
   three passes, one of which is the lexical scanner.  There is
   no way he could, for  example, use the distributed scanner I
   introduced  in  the [last installment](tutor07_lexicalscanning.md),  because  the  program

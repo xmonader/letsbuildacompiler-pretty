@@ -254,7 +254,7 @@ that last little bit simpler, yet.
 
 Still, because of this total rewrite of the parsing modules, I was only
 able to include so much in the last installment.  Because of this, our
-hero, the parser, when last seen, was a shadow of his former self,
+hero, the parser, when last seen, was a shadow of its former self,
 consisting of only enough code to parse and process a factor consisting
 of either a variable or a constant.  The main effort of this current
 installment will be to help flesh out the parser to its former glory.
@@ -811,7 +811,7 @@ I'd almost certainly write these functions in more readable form,
 using IFs, just to keep from confusing later maintainers.  Still,
 a moral question arises:  Do we have the right to ENFORCE our
 ideas of good coding practice on the programmer, but writing the
-language so he can't do anything else?  That's what Nicklaus Wirth
+language so they can't do anything else?  That's what Nicklaus Wirth
 did, in many places in Pascal, and Pascal has been criticized for
 it -- for not being as "forgiving" as C.
 
