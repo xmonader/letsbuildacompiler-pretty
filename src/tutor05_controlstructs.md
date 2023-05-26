@@ -241,12 +241,10 @@ assembler code that must be produced, you can see  that  there  are
 certain  actions  associated  with each of the  keywords  in  the
 statement:
 
+- IF:  First, get the condition and issue the code for it.
+  Then, create a unique label and emit a branch if false.
 
-     - IF:  First, get the condition and issue the code for it.
-          Then, create a unique label and emit a branch if false.
-
-     - ENDIF: Emit the label.
-
+- ENDIF: Emit the label.
 
 These actions can be shown very concisely if we write  the syntax
 this way:
@@ -283,10 +281,8 @@ moved or calculated.  If the  data  is a 0000 (corresponding to a
 false condition, remember), the zero flag will be set.   The code
 for "Branch on zero" is BEQ.  So for our purposes here,
 
-```
-               BEQ  <=> Branch if false
-               BNE  <=> Branch if true
-```
+- BEQ <=> Branch if false
+- BNE <=> Branch if true
 
 It's the nature of the beast that most  of  the  branches  we see
 will  be  BEQ's  ...  we'll  be branching AROUND the code  that's

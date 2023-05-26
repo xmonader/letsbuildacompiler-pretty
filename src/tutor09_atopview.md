@@ -466,18 +466,17 @@ that's because the language is quite hard to write BNF for.
 One reason I'm showing you these structures now is so that  I can
 impress upon you these two facts:
 
- (1) The definition of  the  language drives the structure of the
-     compiler.  What works for one language may be a disaster for
-     another.    It's  a very bad idea to try to  force  a  given
-     structure upon the compiler.  Rather, you should let the BNF
-     drive the structure, as we have done here.
+1. The definition of  the  language drives the structure of the
+   compiler.  What works for one language may be a disaster for
+   another.    It's  a very bad idea to try to  force  a  given
+   structure upon the compiler.  Rather, you should let the BNF
+   drive the structure, as we have done here.
 
- (2) A language that is hard to write BNF for  will  probably  be
-     hard  to  write  a compiler for, as well.  C  is  a  popular
-     language,  and  it  has  a  reputation  for  letting you  do
-     virtually  anything that is possible to  do.    Despite  the
-     success of Small C, C is _NOT_ an easy language to parse.
-
+2. A language that is hard to write BNF for  will  probably  be
+   hard  to  write  a compiler for, as well.  C  is  a  popular
+   language,  and  it  has  a  reputation  for  letting you  do
+   virtually  anything that is possible to  do.    Despite  the
+   success of Small C, C is _NOT_ an easy language to parse.
 
 A C program has  less  structure than its Pascal counterpart.  At
 the top level, everything in C is a static declaration, either of

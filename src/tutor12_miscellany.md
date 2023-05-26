@@ -711,15 +711,13 @@ conventions should we use in KISS/TINY?
 For the reasons that I've given as we went  along,  I'm  choosing
 the following:
 
+1. Semicolons are TERMINATORS, not separators
 
- (1) Semicolons are TERMINATORS, not separators
+2. Semicolons are OPTIONAL
 
- (2) Semicolons are OPTIONAL
+3. Comments are delimited by curly braces
 
- (3) Comments are delimited by curly braces
-
- (4) Comments MAY be nested
-
+4. Comments MAY be nested
 
 Put the code corresponding to these cases into your copy of TINY.
 You now have TINY Version 1.2.

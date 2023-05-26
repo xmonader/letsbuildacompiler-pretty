@@ -1174,8 +1174,8 @@ choose to.
 
 There are two main ways parameters are passed:
 
-     - By value
-     - By reference (address)
+- By value
+- By reference (address)
 
 The differences are best seen in the light of a little history.
 

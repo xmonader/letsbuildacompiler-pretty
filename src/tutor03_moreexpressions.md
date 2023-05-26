@@ -8,9 +8,9 @@ and  translate a general math expression.  We  ended  up  with  a
 simple parser that  could handle arbitrarily complex expressions,
 with two restrictions:
 
-  - No variables were allowed, only numeric factors
+- No variables were allowed, only numeric factors
 
-  - The numeric factors were limited to single digits
+- The numeric factors were limited to single digits
 
 In this installment, we'll get  rid of those restrictions.  We'll
 also extend what  we've  done  to  include  assignment statements

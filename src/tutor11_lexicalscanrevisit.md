@@ -517,46 +517,46 @@ of TINY  Version  1.1  below,  I've  also  made a number of other
 "improvements" that  aren't really required.  Let me explain them
 briefly:
 
- (1)  I've deleted the two procedures Prog and Main, and combined
-      their functions into the main program.  They didn't seem to
-      add  to program clarity ... in fact  they  seemed  to  just
-      muddy things up a little.
+1. I've deleted the two procedures Prog and Main, and combined
+   their functions into the main program.  They didn't seem to
+   add  to program clarity ... in fact  they  seemed  to  just
+   muddy things up a little.
 
- (2)  I've  deleted  the  keywords  PROGRAM  and  BEGIN  from the
-      keyword list.  Each  one  only occurs in one place, so it's
-      not necessary to search for it.
+2. I've  deleted  the  keywords  PROGRAM  and  BEGIN  from the
+   keyword list.  Each  one  only occurs in one place, so it's
+   not necessary to search for it.
 
- (3)  Having been  bitten  by  an  overdose  of  cleverness, I've
-      reminded myself that TINY  is  supposed  to be a minimalist
-      program.  Therefore I've  replaced  the  fancy  handling of
-      unary minus with the dumbest one I could think of.  A giant
-      step backwards in code quality, but a  great simplification
-      of the compiler.  KISS is the right place to use  the other
-      version.
+3. Having been  bitten  by  an  overdose  of  cleverness, I've
+   reminded myself that TINY  is  supposed  to be a minimalist
+   program.  Therefore I've  replaced  the  fancy  handling of
+   unary minus with the dumbest one I could think of.  A giant
+   step backwards in code quality, but a  great simplification
+   of the compiler.  KISS is the right place to use  the other
+   version.
 
- (4)  I've added some  error-checking routines such as CheckTable
-      and CheckDup, and  replaced  in-line code by calls to them.
-      This cleans up a number of routines.
+4. I've added some  error-checking routines such as CheckTable
+   and CheckDup, and  replaced  in-line code by calls to them.
+   This cleans up a number of routines.
 
- (5)  I've  taken  the  error  checking  out  of  code generation
-      routines  like Store, and put it in  the  parser  where  it
-      belongs.  See Assignment, for example.
+5. I've  taken  the  error  checking  out  of  code generation
+   routines  like Store, and put it in  the  parser  where  it
+   belongs.  See Assignment, for example.
 
- (6)  There was an error in InTable and Locate  that  caused them
-      to search all locations  instead  of  only those with valid
-      data  in them.  They now search only  valid  cells.    This
-      allows us to eliminate  the  initialization  of  the symbol
-      table, which was done in Init.
+6. There was an error in InTable and Locate  that  caused them
+   to search all locations  instead  of  only those with valid
+   data  in them.  They now search only  valid  cells.    This
+   allows us to eliminate  the  initialization  of  the symbol
+   table, which was done in Init.
 
- (7)  Procedure AddEntry now has two  arguments,  which  helps to
-      make things a bit more modular.
+7. Procedure AddEntry now has two  arguments,  which  helps to
+   make things a bit more modular.
 
- (8)  I've cleaned up the  code  for  the relational operators by
-      the addition of the  new  procedures  CompareExpression and
-      NextExpression.
+8. I've cleaned up the  code  for  the relational operators by
+   the addition of the  new  procedures  CompareExpression and
+   NextExpression.
 
- (9)  I fixed an error in the Read routine ... the  earlier value
-      did not check for a valid variable name.
+9. I fixed an error in the Read routine ... the  earlier value
+   did not check for a valid variable name.
 
 
 ## Conclusion

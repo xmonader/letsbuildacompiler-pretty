@@ -102,17 +102,17 @@ use  for  our  experiments), one for TINY and one for KISS.  I've
 pretty much isolated the differences between TINY and KISS, which
 are these:
 
-   - TINY will support only two data types: The character and the
-     16-bit  integer.    I may also  try  to  do  something  with
-     strings, since  without  them  a  compiler  would  be pretty
-     useless.   KISS will support all  the  usual  simple  types,
-     including arrays and even floating point.
+- TINY will support only two data types: The character and the
+  16-bit  integer.    I may also  try  to  do  something  with
+  strings, since  without  them  a  compiler  would  be pretty
+  useless.   KISS will support all  the  usual  simple  types,
+  including arrays and even floating point.
 
-   - TINY will only have two control constructs, the  IF  and the
-     WHILE.  KISS will  support  a  very  rich set of constructs,
-     including one we haven't discussed here before ... the CASE.
+- TINY will only have two control constructs, the  IF  and the
+  WHILE.  KISS will  support  a  very  rich set of constructs,
+  including one we haven't discussed here before ... the CASE.
 
-   - KISS will support separately compilable modules.
+- KISS will support separately compilable modules.
 
 One caveat: Since I still don't know much  about  80x86 assembler
 language, all these compiler modules  will  still  be  written to
@@ -1700,18 +1700,16 @@ Let's take the case of multiplication first.   This  operation is
 similar to the "addops" in that both operands should  be  of  the
 same size.  It differs in two important respects:
 
+- The type of the product is typically not the same as that of
+  the  two  operands.   For the product of two words, we get a
+  longword result.
 
-  -  The type of the product is typically not the same as that of
-     the  two  operands.   For the product of two words, we get a
-     longword result.
+- The 68000 does  not support a 32 x 32 multiply, so a call to
+  a software routine is needed.  This routine will become part
+  of the run-time library.
 
-  -  The 68000 does  not support a 32 x 32 multiply, so a call to
-     a software routine is needed.  This routine will become part
-     of the run-time library.
-
-  -  It also does  not  support  an  8  x 8 multiply, so all byte
-     operands must be promoted to words.
-
+- It also does  not  support  an  8  x 8 multiply, so all byte
+  operands must be promoted to words.
 
 The actions that we have to take are best shown in  the following
 table:
@@ -1851,16 +1849,14 @@ some help from us programmers.
 
 The implications are as follows:
 
-  -  The type of the quotient must always be the same as  that of
-     the dividend.  It is independent of the divisor.
+- The type of the quotient must always be the same as  that of
+  the dividend.  It is independent of the divisor.
 
-  -  In spite of  the  fact  that  the  CPU  supports  a longword
-     dividend,  the hardware-provided  instruction  can  only  be
-     trusted  for  byte  and  word  dividends.      For  longword
-     dividends, we need another library routine that can return a
-     long result.
-
-
+- In spite of  the  fact  that  the  CPU  supports  a longword
+  dividend,  the hardware-provided  instruction  can  only  be
+  trusted  for  byte  and  word  dividends.      For  longword
+  dividends, we need another library routine that can return a
+  long result.
 
 This  looks  like  a job for  another  table,  to  summarize  the
 required actions:

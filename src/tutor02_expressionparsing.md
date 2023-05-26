@@ -606,53 +606,53 @@ some extra code in the parser.
 
 There are two basic approaches we can take:
 
-  - Try to fix up the code after it's generated
+- Try to fix up the code after it's generated
 
-    This is  the concept of "peephole" optimization.  The general
-    idea it that we  know  what  combinations of instructions the
-    compiler  is  going  to generate, and we also know which ones
-    are pretty bad (such as the code for -1, above).    So all we
-    do  is  to   scan   the  produced  code,  looking  for  those
-    combinations, and replacing  them  by better ones.  It's sort
-    of   a   macro   expansion,   in   reverse,   and   a  fairly
-    straightforward  exercise  in   pattern-matching.   The  only
-    complication,  really, is that there may be  a  LOT  of  such
-    combinations to look for.  It's called  peephole optimization
-    simply because it only looks at a small group of instructions
-    at a time.  Peephole  optimization can have a dramatic effect
-    on  the  quality  of the code,  with  little  change  to  the
-    structure of the compiler  itself.   There is a price to pay,
-    though,  in  both  the  speed,   size, and complexity of  the
-    compiler.  Looking for all those combinations calls for a lot
-    of IF tests, each one of which is a source of error.  And, of
-    course, it takes time.
+  This is  the concept of "peephole" optimization.  The general
+  idea it that we  know  what  combinations of instructions the
+  compiler  is  going  to generate, and we also know which ones
+  are pretty bad (such as the code for -1, above).    So all we
+  do  is  to   scan   the  produced  code,  looking  for  those
+  combinations, and replacing  them  by better ones.  It's sort
+  of   a   macro   expansion,   in   reverse,   and   a  fairly
+  straightforward  exercise  in   pattern-matching.   The  only
+  complication,  really, is that there may be  a  LOT  of  such
+  combinations to look for.  It's called  peephole optimization
+  simply because it only looks at a small group of instructions
+  at a time.  Peephole  optimization can have a dramatic effect
+  on  the  quality  of the code,  with  little  change  to  the
+  structure of the compiler  itself.   There is a price to pay,
+  though,  in  both  the  speed,   size, and complexity of  the
+  compiler.  Looking for all those combinations calls for a lot
+  of IF tests, each one of which is a source of error.  And, of
+  course, it takes time.
 
-     In  the  classical  implementation  of a peephole optimizer,
-    it's done as a second pass to the compiler.  The  output code
-    is  written  to  disk,  and  then  the  optimizer  reads  and
-    processes the disk file again.  As a matter of fact,  you can
-    see that the optimizer could  even be a separate PROGRAM from
-    the compiler proper.  Since the optimizer only  looks  at the
-    code through a  small  "window"  of  instructions  (hence the
-    name), a better implementation would be to simply buffer up a
-    few lines of output, and scan the buffer after each EmitLn.
+  In  the  classical  implementation  of a peephole optimizer,
+  it's done as a second pass to the compiler.  The  output code
+  is  written  to  disk,  and  then  the  optimizer  reads  and
+  processes the disk file again.  As a matter of fact,  you can
+  see that the optimizer could  even be a separate PROGRAM from
+  the compiler proper.  Since the optimizer only  looks  at the
+  code through a  small  "window"  of  instructions  (hence the
+  name), a better implementation would be to simply buffer up a
+  few lines of output, and scan the buffer after each EmitLn.
 
-  - Try to generate better code in the first place
+- Try to generate better code in the first place
 
-    This approach calls for us to look for  special  cases BEFORE
-    we Emit them.  As a trivial example,  we  should  be  able to
-    identify a constant zero,  and  Emit a CLR instead of a load,
-    or even do nothing at all, as in an add of zero, for example.
-    Closer to home, if we had chosen to recognize the unary minus
-    in Factor  instead of in Expression, we could treat constants
-    like -1 as ordinary constants,  rather  then  generating them
-    from  positive  ones.   None of these things are difficult to
-    deal with ... they only add extra tests in the code, which is
-    why  I  haven't  included them in our program.  The way I see
-    it, once we get to the point that we have a working compiler,
-    generating useful code  that  executes, we can always go back
-    and tweak the thing to tighten up the code produced.   That's
-    why there are Release 2.0's in the world.
+  This approach calls for us to look for  special  cases BEFORE
+  we Emit them.  As a trivial example,  we  should  be  able to
+  identify a constant zero,  and  Emit a CLR instead of a load,
+  or even do nothing at all, as in an add of zero, for example.
+  Closer to home, if we had chosen to recognize the unary minus
+  in Factor  instead of in Expression, we could treat constants
+  like -1 as ordinary constants,  rather  then  generating them
+  from  positive  ones.   None of these things are difficult to
+  deal with ... they only add extra tests in the code, which is
+  why  I  haven't  included them in our program.  The way I see
+  it, once we get to the point that we have a working compiler,
+  generating useful code  that  executes, we can always go back
+  and tweak the thing to tighten up the code produced.   That's
+  why there are Release 2.0's in the world.
 
 There IS one more type  of  optimization  worth  mentioning, that
 seems to promise pretty tight code without too much hassle.  It's

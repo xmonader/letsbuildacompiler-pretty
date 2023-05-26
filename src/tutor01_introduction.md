@@ -75,7 +75,6 @@ we won't be covering here.  The typical sequence is:
 - A final chapter or two on optimization. This chapter often
    goes unread, too.
 
-
 I'll  be taking a much different approach in  this  series.    To
 begin  with,  I  won't dwell long on options.  I'll be giving you
 _A_ way that works.  If you want  to  explore  options,  well and

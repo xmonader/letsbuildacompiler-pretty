@@ -90,12 +90,12 @@ tendency to re-invent the wheel by organizing  our code into separate
 Turbo Pascal units, each containing different parts of the compiler.  We
 ended up with the following units:
 
- - Input
- - Output
- - Errors
- - Scanner
- - Parser
- - CodeGen
+- Input
+- Output
+- Errors
+- Scanner
+- Parser
+- CodeGen
 
 Each of these units serves a different function, and encapsulates
 specific areas of functionality.  The Input and Output units, as their
@@ -174,11 +174,11 @@ here by applying several principles that writers of commercial compilers
 seldom have the luxury of using.  These are:
 
 -	The KISS philosophy -- Never do things the hard way without a
-reason
+  reason
 -	Lazy coding -- Never put off until tomorrow what you can put
-of forever (with credits to P.J. Plauger)
+  of forever (with credits to P.J. Plauger)
 -	Skepticism -- Stubborn refusal to do something just because
-that's the way it's always been done.
+  that's the way it's always been done.
 -	Acceptance of inefficient code
 -	Rejection of arbitrary constraints
 
@@ -966,10 +966,10 @@ chosen automatically take care of things.
 If you're keeping score on the precedence levels, this definition puts
 the `!` at the top of the heap.  The levels become:
 
-1.	!
-2.	`-` (unary)
-3.	`*`, `/`, `&`
-4.	`+`, `-`, `|`, `~`
+1. !
+2. `-` (unary)
+3. `*`, `/`, `&`
+4. `+`, `-`, `|`, `~`
 
 Looking at this list, it's certainly not hard to see why we had trouble
 using `~` as the "not" symbol!

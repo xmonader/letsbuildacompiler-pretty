@@ -90,10 +90,10 @@ theoretical bases.
 In  1956,  Noam  Chomsky  defined  the  "Chomsky   Hierarchy"  of
 grammars.  They are:
 
-     - Type 0:  Unrestricted (e.g., English)
-     - Type 1:  Context-Sensitive
-     - Type 2:  Context-Free
-     - Type 3:  Regular
+- Type 0:  Unrestricted (e.g., English)
+- Type 1:  Context-Sensitive
+- Type 2:  Context-Free
+- Type 3:  Regular
 
 A few features of the typical programming  language (particularly
 the older ones, such as FORTRAN) are Type  1,  but  for  the most
@@ -1632,13 +1632,13 @@ end.
 
 A couple of comments:
 
- (1) The form for the expression parser,  using  FirstTerm, etc.,
-     is  a  little  different from what you've seen before.  It's
-     yet another variation on the same theme.  Don't let it throw
-     you ... the change is not required for what follows.
+1. The form for the expression parser,  using  FirstTerm, etc.,
+   is  a  little  different from what you've seen before.  It's
+   yet another variation on the same theme.  Don't let it throw
+   you ... the change is not required for what follows.
 
- (2) Note that, as usual, I had to add calls to Fin  at strategic
-     spots to allow for multiple lines.
+2. Note that, as usual, I had to add calls to Fin  at strategic
+   spots to allow for multiple lines.
 
 Before we proceed to adding the scanner, first copy this file and
 verify that it does indeed  parse things correctly.  Don't forget
@@ -1660,30 +1660,29 @@ next token, or at a newline.
 The multi-character version is shown next.  To get it,  I've made
 the following changes:
 
+- Added the variables Token  and Value, and the type definitions
+  needed by Lookup.
 
- o Added the variables Token  and Value, and the type definitions
-   needed by Lookup.
+- Added the definitions of KWList and KWcode.
 
- o Added the definitions of KWList and KWcode.
+- Added Lookup.
 
- o Added Lookup.
+- Replaced GetName and GetNum by their multi-character versions.
+  (Note that the call  to  Lookup has been moved out of GetName,
+  so  that  it  will  not   be  executed  for  calls  within  an
+  expression.)
 
- o Replaced GetName and GetNum by their multi-character versions.
-   (Note that the call  to  Lookup has been moved out of GetName,
-   so  that  it  will  not   be  executed  for  calls  within  an
-   expression.)
+- Created a new,  vestigial  Scan that calls GetName, then scans
+  for keywords.
 
- o Created a new,  vestigial  Scan that calls GetName, then scans
-   for keywords.
+- Created  a  new  procedure,  MatchString,  that  looks  for  a
+  specific keyword.  Note that, unlike  Match,  MatchString does
+  NOT read the next keyword.
 
- o Created  a  new  procedure,  MatchString,  that  looks  for  a
-   specific keyword.  Note that, unlike  Match,  MatchString does
-   NOT read the next keyword.
+- Modified Block to call Scan.
 
- o Modified Block to call Scan.
-
- o Changed the calls  to  Fin  a  bit.   Fin is now called within
-   GetName.
+- Changed the calls  to  Fin  a  bit.   Fin is now called within
+  GetName.
 
 Here is the program in its entirety:
 
