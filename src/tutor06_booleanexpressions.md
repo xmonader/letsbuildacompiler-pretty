@@ -156,18 +156,16 @@ HIGHER precedence that  a  Boolean factor, and therefore than all
 the  Boolean operators.    If you write out the precedence levels
 for all the operators, you arrive at the following list:
 
-         --------------------------------------------
-          Level   Syntax Element     Operator
-         --------------------------------------------
-          0       factor             literal, variable
-          1       signed factor      unary minus
-          2       term               *, /
-          3       expression         +, -
-          4       b-factor           literal, variable, relop
-          5       not-factor         NOT
-          6       b-term             AND
-          7       b-expression       OR, XOR
-
+| Level | Syntax Element | Operator                 |
+| ----- | -------------- | ------------------------ |
+| 0     | factor         | literal, variable        |
+| 1     | signed factor  | unary minus              |
+| 2     | term           | *, /                     |
+| 3     | expression     | +, -                     |
+| 4     | b-factor       | literal, variable, relop |
+| 5     | not-factor     | NOT                      |
+| 6     | b-term         | AND                      |
+| 7     | b-expression   | OR, XOR                  |
 
 If  we're willing to accept that  many  precedence  levels,  this
 grammar seems reasonable.  Unfortunately,  it  won't  work!   The
@@ -220,14 +218,12 @@ Addop  and  processed   at   the  level  of  a  math  expression.
 Similarly, the AND is  treated  like  a  Mulop and processed with
 Term.  The precedence levels are
 
-
-          Level   Syntax Element     Operator
-
-          0       factor             literal, variable
-          1       signed factor      unary minus, NOT
-          2       term               *, /, AND
-          3       expression         +, -, OR
-
+| Level | Syntax Element | Operator          |
+| ----- | -------------- | ----------------- |
+| 0     | factor         | literal, variable |
+| 1     | signed factor  | unary minus, NOT  |
+| 2     | term           | *, /, AND         |
+| 3     | expression     | +, -, OR          |
 
 Notice that there is only ONE set of syntax  rules,  applying  to
 both  kinds  of  operators.    According to this  grammar,  then,
