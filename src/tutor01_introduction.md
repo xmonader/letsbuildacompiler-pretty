@@ -1,7 +1,8 @@
-# Part I: INTRODUCTION - 24 July 1988
+# Part I: Introduction - 24 July 1988
 
 
-## INTRODUCTION
+## Introduction
+
 This series of articles is a tutorial on the theory  and practice
 of  developing language parsers and compilers.    Before  we  are
 finished,  we  will  have  covered  every   aspect   of  compiler
@@ -163,7 +164,7 @@ the '86 language better than I do will offer  us  the  equivalent
 object code fragments as we need them.
 
 
-## THE CRADLE
+## The Cradle
 
 Every program needs some boiler  plate  ...  I/O  routines, error
 message routines, etc.   The  programs we develop here will be no

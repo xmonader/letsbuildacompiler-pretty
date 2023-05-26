@@ -1,6 +1,7 @@
-# Part 15: BACK TO THE FUTURE - 5 March 1994
+# Part XV: Back to the Future - 5 March 1994
 
-## INTRODUCTION
+
+## Introduction
 
 Can it really have been four years since I wrote [installment fourteen](tutor14_types.md)
 of this series?  Is it really possible that six long
@@ -26,7 +27,7 @@ comes out, thanks for your patience.  I apologize for the delay.
 Let's move on.
 
 
-## NEW STARTS, OLD DIRECTIONS
+## New Starts, Old Directions
 
 Like many other things, programming languages and programming
 styles change with time.  In 1994, it seems a little anachronistic
@@ -143,7 +144,7 @@ compiler takes care of it without the need for make files or other
 mechanisms.
 
 
-## STARTING OVER?
+## Starting Over?
 
 Four years ago, in [Installment 14](tutor14_types.md), I promised you that our days of
 re-inventing the wheel, and recoding the same software over and
@@ -193,7 +194,7 @@ Enough said about philosophy and details.  Let's get on with the
 resurrection of the software.
 
 
-## THE INPUT UNIT
+## The Input Unit
 
 A key concept that we've used since Day 1 has been the idea of an
 input stream with one lookahead character.  All the parsing
@@ -306,8 +307,7 @@ Borland's OWL applications framework.  For now, though, we'll obey
 my #1 rule to live by:  Keep It Simple.
 
 
-
-## THE OUTPUT UNIT
+## The Output Unit
 
 Of course, every decent program should have output, and ours is no
 exception.  Our output routines included the Emit functions.  The
@@ -437,7 +437,7 @@ design a VW."  So the elegant, tab-friendly version of Output is
 history, and what you see is the simple, compact, VW version.
 
 
-## THE ERROR UNIT
+## The Error Unit
 
 Our next set of routines are those that handle errors.  To refresh
 your memory, we take the approach, pioneered by Borland in Turbo
@@ -509,7 +509,7 @@ only have a couple of entries. But for now, it's probably best to
 include all the units so we can test procedures in them.
 
 
-## SCANNING AND PARSING
+## Scanning and Parsing
 
 The classical compiler architecture consists of separate modules
 for the lexical scanner, which supplies tokens in the language,
@@ -671,7 +671,7 @@ meaningful error message. If it did, you're in good shape and we
 can proceed.
 
 
-## THE SCANNER UNIT
+## The Scanner Unit
 
 The next, and by far the most important, version of the scanner is
 the one that handles the multi-character tokens that all real
@@ -788,7 +788,7 @@ the "uses" clause to use Scanner instead of Scanner1.  Now you
 should be able to type multi-character names and numbers.
 
 
-## DECISIONS, DECISIONS
+## Decisions, Decisions
 
 In spite of the relative simplicity of both scanners, a lot of
 thought has gone into them, and a lot of decisions had to be made.
@@ -887,7 +887,7 @@ end;
 You might file this one away, as I intend to, for a rainy day.
 
 
-## PARSING
+## Parsing
 
 At this point, we have distributed all the routines that made up
 our Cradle into units that we can draw upon as we need them.
@@ -1071,8 +1071,7 @@ where we were before the long hiatus.  We'll continue this process
 in [Installment 16](tutor16_unitconstruction.md), coming soon.  See you then.
 
 
-
-## REFERENCES
+## References
 
 1. Crenshaw, J.W., "Object-Oriented Design of Assemblers and
 Compilers," Proc. Software Development '91 Conference, Miller

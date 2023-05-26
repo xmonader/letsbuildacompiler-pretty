@@ -1,6 +1,7 @@
-# Part IV: INTERPRETERS - 24 July 1988
+# Part IV: Interpreters - 24 July 1988
 
-## INTRODUCTION
+
+## Introduction
 
 In the first three installments of this series,  we've  looked at
 parsing and  compiling math expressions, and worked our way
@@ -137,7 +138,7 @@ expect things as  well.    That's  the main reason for going over
 interpretation in this installment.
 
 
-## THE INTERPRETER
+## The Interpreter
 
 OK, now that you know WHY we're going into all this, let's do it.
 Just to give you practice, we're going to start over with  a bare
@@ -325,7 +326,7 @@ That was pretty easy, huh?  We're rapidly closing in on  a useful
 interpreter.
 
 
-## A LITTLE PHILOSOPHY
+## A Little Philosophy
 
 Before going any further, there's something I'd like  to  call to
 your attention.  It's a concept that we've been making use  of in

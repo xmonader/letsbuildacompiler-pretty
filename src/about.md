@@ -2,6 +2,7 @@ This is a prettified and bit modern browsable version of [Let's Build a Compiler
 
 
 # Copyright
+
 The text sources are copyrighted to Jack W. Crenshaw
 
 ```

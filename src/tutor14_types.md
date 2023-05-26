@@ -1,6 +1,7 @@
-# Part XIV: TYPES - 26 May 1990
+# Part XIV: Types - 26 May 1990
 
-## INTRODUCTION
+
+## Introduction
 
 In the  last installment ([Part XIII: PROCEDURES](tutor13_procedures.md)) I mentioned that
 in that part and this one,  we  would cover the two features that
@@ -54,7 +55,7 @@ against complexity,  and  as  usual  I  will  tend to opt for the
 simplest approach.
 
 
-## WHAT'S COMING NEXT?
+## What's Coming Next?
 
 Before diving into the tutorial, I think you'd like to know where
 we are going  from  here  ...  especially since it's been so long
@@ -130,7 +131,7 @@ installment:  by  performing experiments  using  single-character
 tokens.
 
 
-## THE SYMBOL TABLE
+## The Symbol Table
 
 It should be apparent that, if we're going to deal with variables
 of different types, we're going  to need someplace to record what
@@ -472,7 +473,7 @@ This time, when  you  run  the  program, you should get an output
 showing that the symbol table is working right.
 
 
-## ADDING ENTRIES
+## Adding Entries
 
 Of course, writing to the table directly is pretty poor practice,
 and not one that will  help  us  much  later.   What we need is a
@@ -536,7 +537,7 @@ table routines needed to support our work on types.  In  the next
 section, we'll actually begin to use them.
 
 
-## ALLOCATING STORAGE
+## Allocating Storage
 
 In  other programs like this one,  including  the  TINY  compiler
 itself, we have  already  addressed the issue of declaring global
@@ -604,8 +605,7 @@ While you're at it,  try  declaring  two  variables with the same
 name, and verify that the parser catches the error.
 
 
-## DECLARING TYPES
-
+## Declaring Types
 
 Allocating storage of different sizes  is  as  easy  as modifying
 procedure TopDecls to recognize more than one keyword.  There are
@@ -689,7 +689,7 @@ later use.  What later use?  Well, that's the subject of the rest
 of this installment.
 
 
-## ASSIGNMENTS
+## Assignments
 
 Now that we can declare variables of different  sizes,  it stands
 to reason that we ought to be able  to  do  something  with them.
@@ -980,7 +980,7 @@ with this approach, we can keep the potential complexity in check
 rather nicely.
 
 
-## THE COWARD'S WAY OUT
+## The Coward's Way Out
 
 Before we get into the details (and potential complexity) of type
 conversion,  I'd  like  you to see that there is one super-simple
@@ -1049,7 +1049,7 @@ With this version, a byte is treated as unsigned  (as  in  Pascal
 and C), while a word is treated as signed.
 
 
-## A MORE REASONABLE SOLUTION
+## A More Reasonable Solution
 
 As we've seen, promoting  every  variable  to  long while it's in
 memory solves the problem, but it can hardly be called efficient,
@@ -1198,7 +1198,7 @@ to deal with these types as well.  This is  "left  as an exercise
 for the student."
 
 
-## LITERAL ARGUMENTS
+## Literal Arguments
 
 Sharp-eyed readers might have noticed, though, that we don't even
 have a proper form of a simple factor yet, because we don't allow
@@ -1310,7 +1310,7 @@ You'll see that it now works for either variables or constants as
 valid expressions.
 
 
-## ADDITIVE EXPRESSIONS
+## Additive Expressions
 
 If you've been following this series from the beginning, I'm sure
 you  know  what's coming next:  We'll  expand  the  form  for  an
@@ -1599,7 +1599,7 @@ good  idea  to  try  some  erroneous expressions and see how  the
 compiler handles them.
 
 
-## WHY SO MANY PROCEDURES?
+## Why So Many Procedures?
 
 At this point, you may think  I've  pretty much gone off the deep
 end in terms of deeply nested procedures.  There is  admittedly a
@@ -1614,7 +1614,7 @@ embed the extra tests into  PopAdd  and  PopSub  without changing
 anything else much.
 
 
-## MULTIPLICATIVE EXPRESSIONS
+## Multiplicative Expressions
 
 The procedure for dealing with multiplicative  operators  is much
 the  same.    In  fact,  at  the  first  level,  they are  almost
@@ -1689,7 +1689,7 @@ Again, the code won't be correct at this point,  but  the  parser
 should handle expressions of arbitrary complexity.
 
 
-## MULTIPLICATION
+## Multiplication
 
 Once you've  convinced yourself that the parser itself is working
 properly, we need to figure out what it will take to generate the
@@ -1819,7 +1819,7 @@ At this point, I suggest that you go ahead and test  the program.
 Try all combinations of operand sizes.
 
 
-## DIVISION
+## Division
 
 The case of division is not nearly so  symmetric.    I  also have
 some bad news for you:
@@ -1954,7 +1954,7 @@ should be able  to  generate  code  for  any  kind  of arithmetic
 expression.  Give it a whirl!
 
 
-## BEGINNING TO WIND DOWN
+## Beginning to Wind Down
 
 At  last, in this installment, we've learned  how  to  deal  with
 variables (and literals) of different types.  As you can  see, it
@@ -2013,7 +2013,7 @@ fewer  procedures, simply by making use  of  symmetry  and  other
 simplifying rules.
 
 
-## TO COERCE OR NOT TO COERCE
+## To Coerce or Not to Coerce
 
 In case you haven't gotten this message yet, it sure appears that
 TINY and KISS will  probably  _NOT_  be strongly typed languages,
@@ -2177,7 +2177,7 @@ fashion, so the unsigned conversion  procedures  are  required in
 any case.
 
 
-## CONCLUSION
+## Conclusion
 
 That wraps up our session on type conversions.  Sorry you  had to
 wait  so  long for it, but hope you feel that it  was  worth  the

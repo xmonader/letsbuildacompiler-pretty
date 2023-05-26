@@ -1,7 +1,7 @@
-# Part VII: LEXICAL SCANNING -  7 November 1988
+# Part VII: Lexical Scanning -  7 November 1988
 
 
-## INTRODUCTION
+## Introduction
 
 In the [last installment](tutor06_booleanexpressions.md), I left you with a  compiler  that  would
 ALMOST  work,  except  that  we  were  still  limited to
@@ -62,7 +62,7 @@ scanners have many applications  outside  of  compilers,  you may
 well find this to be the most useful session for you.
 
 
-## LEXICAL SCANNING
+## Lexical Scanning
 
 Lexical scanning is the process of scanning the  stream  of input
 characters and separating it  into  strings  called tokens.  Most
@@ -144,7 +144,7 @@ to the parser proper as indivisible tokens.  It's also considered
 normal to let the scanner have the job of identifying keywords.
 
 
-## STATE MACHINES AND ALTERNATIVES
+## State Machines and Alternatives
 
 I  mentioned  that  the regular expressions can be parsed using a
 state machine.   In  most  compiler  texts,  and  indeed  in most
@@ -188,7 +188,7 @@ localized  scanner; although,  as you will see,  the  idea  of  a
 distributed scanner still has its merits.
 
 
-## SOME EXPERIMENTS IN SCANNING
+## Some Experiments in Scanning
 
 Before  getting  back  to our compiler,  it  will  be  useful  to
 experiment a bit with the general concepts.
@@ -269,7 +269,7 @@ anything else.
 Test the other routine similarly.
 
 
-## WHITE SPACE
+## White Space
 
 We  also  have  dealt with embedded white space before, using the
 two  routines  IsWhite  and  SkipWhite.    Make  sure that  these
@@ -326,7 +326,7 @@ Now,  run the program.  Note how the  input  string  is,  indeed,
 separated into distinct tokens.
 
 
-## STATE MACHINES
+## State Machines
 
 For  the  record,  a  parse  routine  like  GetName  does  indeed
 implement a state machine.  The state is implicit in  the current
@@ -379,7 +379,7 @@ prefer it a lot over the table-driven approach.  It  also results
 is a small, tight, and fast scanner.
 
 
-## NEWLINES
+## Newlines
 
 Moving right along, let's modify  our scanner to handle more than
 one line.  As I mentioned last time, the most straightforward way
@@ -502,7 +502,7 @@ that I happen to like, but I want you to know how to choose other
 ways for yourselves.
 
 
-## OPERATORS
+## Operators
 
 We  could  stop now and have a  pretty  useful  scanner  for  our
 purposes.  In the fragments of KISS that we've built so  far, the
@@ -568,7 +568,7 @@ care  to throw at it will be neatly  broken  up  into  individual
 tokens.
 
 
-## LISTS, COMMAS AND COMMAND LINES
+## Lists, Commas and Command Lines
 
 Before getting back to the main thrust of our study, I'd  like to
 get on my soapbox for a moment.
@@ -632,7 +632,7 @@ end  up with a better program, and it will be easier to write, to
 boot.
 
 
-## GETTING FANCY
+## Getting Fancy
 
 OK, at this point we have a pretty nice lexical scanner that will
 break  an  input stream up into tokens.  We could use  it  as  it
@@ -944,7 +944,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-## RETURNING A CHARACTER
+## Returning a Character
 
 Essentially  every scanner I've ever seen  that  was  written  in
 Pascal  used  the  mechanism of an enumerated type that I've just
@@ -1086,7 +1086,7 @@ minor  difference  in  structure,  maybe,  but   it   seems  more
 straightforward to me.
 
 
-## DISTRIBUTED vs CENTRALIZED SCANNERS
+## Distributed vs Centralized Scanners
 
 The structure for the lexical scanner that I've just shown you is
 very conventional, and  about  99% of all compilers use something
@@ -1147,7 +1147,7 @@ only where they're really needed.  In places  where  keywords are
 not allowed, we don't slow things down by looking for them.
 
 
-## MERGING SCANNER AND PARSER
+## Merging Scanner and Parser
 
 Now that we've covered  all  of the theory and general aspects of
 lexical scanning that we'll be needing, I'm FINALLY ready to back
@@ -2214,7 +2214,7 @@ Compare this program with its  single-character  counterpart.   I
 think you will agree that the differences are minor.
 
 
-CONCLUSION
+## Conclusion
 
 At this point, you have learned how to parse  and  generate  code
 for expressions,  Boolean  expressions,  and  control structures.

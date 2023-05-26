@@ -1,6 +1,8 @@
-# Part II: EXPRESSION PARSING - 24 July 1988
+# Part II: Expression Parsing - 24 July 1988
+
 
 ## Introduction
+
 If you've read the introduction document to this series, you will
 already know what  we're  about.    You will also have copied the
 cradle software  into your Turbo Pascal system, and have compiled
@@ -19,7 +21,8 @@ There are also  some  very  good  lessons to be learned early on,
 that will serve us well later.  For the more experienced readers:
 bear with me.  We'll get rolling soon enough.
 
-## SINGLE DIGITS
+
+## Single Digits
 
 In keeping with the whole theme of this series (KISS, remember?),
 let's start with the absolutely most simple case we can think of.
@@ -84,7 +87,7 @@ chosen the  68000  register  DO.    I  could have made some other
 choices, but this one makes sense.
 
 
-## BINARY EXPRESSIONS
+## Binary Expressions
 
 Now that we have that under our belt,  let's  branch  out  a bit.
 Admittedly, an "expression" consisting of only  one  character is
@@ -236,9 +239,7 @@ Expression to be a lot more broadminded, and this is where things
 start to take the shape of a real parser.
 
 
-
-
-## GENERAL EXPRESSIONS
+## General Expressions
 
 In the  REAL  world,  an  expression  can  consist of one or more
 terms, separated  by  "addops"  (`+`  or  `-`).   In BNF, this is
@@ -289,7 +290,7 @@ experiments.  In a production version, the two  outputs  would be
 separated ... one to the output file, and one to the screen.
 
 
-USING THE STACK
+## Using the Stack
 
 At  this  point  I'm going to  violate  my  rule  that  we  don't
 introduce any complexity until  it's  absolutely  necessary, long
@@ -333,7 +334,7 @@ Once again, the generated code is less efficient than before, but
 it's a necessary step, as you'll see.
 
 
-## MULTIPLICATION AND DIVISION
+## Multiplication and Division
 
 Now let's get down to some REALLY serious business.  As  you  all
 know,  there  are  other  math   operators   than   "addops"  ...
@@ -461,7 +462,7 @@ continue to overlook the inefficiency,  which  I  hope  you will.
 Remember, we're not trying to produce tight code here.
 
 
-## PARENTHESES
+## Parentheses
 
 We  can  wrap  up this part of the parser with  the  addition  of
 parentheses with  math expressions.  As you know, parentheses are
@@ -515,7 +516,7 @@ parses  legal sentences, and flags illegal  ones  with  an  error
 message.
 
 
-## UNARY MINUS
+## Unary Minus
 
 At  this  point,  we have a parser that can handle just about any
 expression, right?  OK, try this input sentence: `-1`
@@ -595,9 +596,7 @@ variable names.  So you see,  we're  not  far at all from a truly
 useful parser.
 
 
-
-
-## A WORD ABOUT OPTIMIZATION
+## A Word about Optimization
 
 Earlier in this session, I promised to give you some hints  as to
 how we can improve the quality of the generated code.  As I said,

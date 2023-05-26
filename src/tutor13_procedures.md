@@ -1,6 +1,7 @@
-# Part XIII: PROCEDURES - 27 August 1989
+# Part XIII: Procedures - 27 August 1989
 
-## INTRODUCTION
+
+## Introduction
 
 At last we get to the good part!
 
@@ -38,7 +39,7 @@ mainstream  of  things.    In   this   installment,   I'll  cover
 procedures.  Next time, we'll talk about the basic data types.
 
 
-## ONE LAST DIGRESSION
+## One Last Digression
 
 This has  been an extraordinarily difficult installment for me to
 write.  The reason has nothing to do with the subject  itself ...
@@ -102,7 +103,7 @@ After all this time, you don't need more buildup  than  that,  so
 let's waste no more time and dive right in.
 
 
-## THE BASICS
+## The Basics
 
 All modern  CPU's provide direct support for procedure calls, and
 the  68000  is no exception.  For the 68000, the call  is  a  BSR
@@ -121,7 +122,7 @@ three issues, that of parameter passing will occupy  most  of our
 attention, simply because there are so many options available.
 
 
-## A BASIS FOR EXPERIMENTS
+## A Basis for Experiments
 
 As always, we will need some software to  serve  as  a  basis for
 what  we are doing.  We don't need the full TINY compiler, but we
@@ -576,7 +577,7 @@ As usual, you should also make some deliberate errors, and verify
 that the program catches them correctly.
 
 
-## DECLARING A PROCEDURE
+## Declaring a Procedure
 
 If you're satisfied that our little program works, then it's time
 to  deal  with  the  procedures.  Since we haven't  talked  about parameters yet, we'll begin by considering  only  procedures that
@@ -864,7 +865,7 @@ could  at least flag an error if someone  tries  to  include  two
 mains.
 
 
-## CALLING THE PROCEDURE
+## Calling the Procedure
 
 If you're satisfied that  things  are  working, let's address the
 second half of the equation ... the call.
@@ -970,7 +971,7 @@ lots of serious programs were written using GOSUBs, but we can do
 better, and we will.  That's the next step.
 
 
-## PASSING PARAMETERS
+## Passing Parameters
 
 Again, we all know the basic idea of passed parameters, but let's
 review them just to be safe.
@@ -1164,7 +1165,7 @@ a place to store the necessary information.  Later on, we'll have
 a place for that data and we can deal with the issue then.
 
 
-## THE SEMANTICS OF PARAMETERS
+## The Semantics of Parameters
 
 So  far we've dealt with the SYNTAX  of  parameter  passing,  and
 we've got the parsing mechanisms in place to handle it.  Next, we
@@ -1349,7 +1350,7 @@ since a pointer is a different type and we haven't  studied types
 yet!
 
 
-## PASS-BY-VALUE
+## Pass-by-Value
 
 Let's just try some simple-minded  things and see where they lead
 us.    Let's begin with the pass-by-value  case.    Consider  the
@@ -1695,7 +1696,7 @@ things like read  or  write  formal  parameters  or  use  them in
 complicated expressions.
 
 
-## WHAT'S WRONG?
+## What's Wrong?
 
 At this point, you might be thinking: Surely there's more to this
 than a few pushes and  pops.    There  must  be  more  to passing
@@ -1951,9 +1952,7 @@ allowed, this code is just what we need.
 
 There is still just one little small problem remaining:
 
-
-## WE HAVE NO WAY TO RETURN RESULTS TO THE CALLER!
-
+WE HAVE NO WAY TO RETURN RESULTS TO THE CALLER!
 
 But  that,  of course, is not a  limitation  of  the  code  we're
 generating, but  one  inherent  in  the  call-by-value  protocol.
@@ -1964,7 +1963,7 @@ doing what it's supposed to.   To  get over this last problem, we
 need to look at the alternative protocol.
 
 
-## CALL-BY-REFERENCE
+## Call-by-Reference
 
 This  one is easy, now that we have  the  mechanisms  already  in
 place.    We  only  have  to  make  a few  changes  to  the  code
@@ -2086,7 +2085,7 @@ KISS.  In the next version of TINY,  we'll  use pass-by-reference
 for all parameters.  KISS will support both methods.
 
 
-## LOCAL VARIABLES
+## Local Variables
 
 So  far,  we've  said  nothing  about  local  variables, and  our
 definition of procedures doesn't allow  for  them.    Needless to
@@ -2327,7 +2326,7 @@ end;
 That should do it.  Add these changes and see how they work.
 
 
-## CONCLUSION
+## Conclusion
 
 At this point you know  how to compile procedure declarations and
 procedure calls,  with  parameters  passed  by  reference  and by
