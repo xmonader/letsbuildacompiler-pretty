@@ -344,7 +344,7 @@ which you pushed each operator  or operand.  Associated with each
 operator was a precedence level,  and the rules required that you
 only actually performed an operation  ("reducing"  the  stack) if
 the precedence level showing on top of the stack was correct.  To
-make life more interesting,  an  operator  like ')' had different
+make life more interesting,  an  operator  like `)` had different
 precedence levels, depending  upon  whether or not it was already
 on the stack.  You  had to give it one value before you put it on
 the stack, and another to decide when to take it  off.   Just for
@@ -522,7 +522,7 @@ but that would cause every run to end in an error  message, which
 certainly seems uncool.
 
 What we need  is  a  termination  character.  I vote for Pascal's
-ending period ('.').   A  minor  complication  is that Turbo ends
+ending period (`.`).   A  minor  complication  is that Turbo ends
 every normal line  with  TWO characters, the carriage return (CR)
 and line feed (LF).   At  the  end  of  each line, we need to eat
 these characters before processing the next one.   A  natural way
@@ -574,8 +574,8 @@ lot of  good,  however,  since  we have no way to read data in or
 write it out.  Sure would help to have some I/O!
 
 Let's wrap this session  up,  then,  by  adding the I/O routines.
-Since we're  sticking to single-character tokens, I'll use '?' to
-stand for a read statement, and  '!'  for a write, with the character
+Since we're  sticking to single-character tokens, I'll use `?` to
+stand for a read statement, and  `!`  for a write, with the character
 immediately  following  them  to  be used as  a  one-token
 "parameter list."  Here are the routines:
 

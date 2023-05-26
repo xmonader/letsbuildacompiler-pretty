@@ -132,8 +132,8 @@ we should do so.    Particularly if the constructs don't add much
 to the complexity of the language or its compiler.
 
 The  semicolon  could  be considered an example,  but  there  are
-plenty of others, such as the 'THEN' in a IF-statement,  the 'DO'
-in a WHILE-statement,  and  even the 'PROGRAM' statement, which I
+plenty of others, such as the `THEN` in a IF-statement,  the `DO`
+in a WHILE-statement,  and  even the `PROGRAM` statement, which I
 came within a gnat's eyelash of leaving out  of  TINY.    None of
 these tokens  add  much  to  the  syntax  of the language ... the
 compiler can figure out  what's  going on without them.  But some
@@ -180,9 +180,9 @@ Consider the code fragment:
      a=1+(2*b+c)   b...
 ```
 
-Since there is no operator connecting the token 'b' with the rest
+Since there is no operator connecting the token `b` with the rest
 of the  statement, the compiler will conclude that the expression
-ends  with  the  ')', and the 'b'  is  the  beginning  of  a  new
+ends  with  the  `)`, and the `b`  is  the  beginning  of  a  new
 statement.    But  suppose  I  have simply left out the  intended
 operator, and I really want to say:
 
@@ -191,10 +191,10 @@ operator, and I really want to say:
 ```
 
 In  this  case  the compiler will get an error, all right, but it
-won't be very meaningful  since  it will be expecting an '=' sign
-after the 'b' that really shouldn't be there.
+won't be very meaningful  since  it will be expecting an `=` sign
+after the `b` that really shouldn't be there.
 
-If, on the other hand, I include a semicolon after the  'b', THEN
+If, on the other hand, I include a semicolon after the  `b`, THEN
 there  can  be no doubt where I  intend  the  statement  to  end.
 Syntactic  sugar,  then,  can  serve  a  very  useful purpose  by
 providing some additional insurance that we remain on track.
@@ -504,12 +504,12 @@ specify that a comment should be treated like a  space,  so  that
 comments aren't allowed  to  be embedded in, say, variable names.
 This current version doesn't care WHERE you put comments.
 
-Second, since the  rest  of  the  parser can't even receive a '{'
+Second, since the  rest  of  the  parser can't even receive a `{`
 character, you will not be allowed to put one in a quoted string.
 
 Before you turn up your nose at this simplistic solution, though,
 I should point out  that  as respected a compiler as Turbo Pascal
-also won't allow  a  '{' in a quoted string.  Try it.  And as for
+also won't allow  a  `{` in a quoted string.  Try it.  And as for
 embedding a comment in an  identifier, I can't imagine why anyone
 would want to do such a  thing,  anyway, so the question is moot.
 For 99% of all  applications,  what I've just shown you will work
@@ -601,8 +601,8 @@ For the multi-character situation, the  easiest thing to do is to
 intercept the left delimiter  back  at the GetChar stage.  We can
 "tokenize" it right there, replacing it by a single character.
 
-Let's assume we're using the C delimiters '/*' and '*/'.   First,
-we  need  to  go back to the "GetCharX' approach.  In yet another
+Let's assume we're using the C delimiters `/*` and `*/`.   First,
+we  need  to  go back to the `GetCharX` approach.  In yet another
 copy of your compiler, rename  GetChar to GetCharX and then enter
 the following new procedure GetChar:
 
@@ -631,20 +631,20 @@ end;
 ```
 
 As you can see, what this procedure does is  to  intercept  every
-occurrence of '/'.  It then examines the NEXT  character  in  the
-stream.  If the character  is  a  '*',  then  we  have  found the
+occurrence of `/`.  It then examines the NEXT  character  in  the
+stream.  If the character  is  a  `*`,  then  we  have  found the
 beginning  of  a  comment,  and  GetChar  will  return  a  single
 character replacement for it.   (For  simplicity,  I'm  using the
-same '{' character  as I did for Pascal.  If you were writing a C
+same `{` character  as I did for Pascal.  If you were writing a C
 compiler, you'd no doubt want to pick some other character that's
 not  used  elsewhere  in C.  Pick anything you like ... even $FF,
 anything that's unique.)
 
-If the character  following  the  '/'  is NOT a '*', then GetChar
-tucks it away in the new global TempChar, and  returns  the  '/'.
+If the character  following  the  `/`  is NOT a `*`, then GetChar
+tucks it away in the new global TempChar, and  returns  the  `/`.
 
 Note that you need to declare this new variable and initialize it
-to ' '.  I like to do  things  like  that  using the Turbo "typed
+to ` `.  I like to do  things  like  that  using the Turbo "typed
 constant" construct:
 
 ```delphi
@@ -672,12 +672,12 @@ end;
 
 A  few  things  to  note:  first  of  all, function  IsWhite  and
 procedure SkipWhite  don't  need  to  be  changed,  since GetChar
-returns the '{' token.  If you change that token  character, then
+returns the `{` token.  If you change that token  character, then
 of  course you also need to change the  character  in  those  two
 routines.
 
 Second, note that  SkipComment  doesn't call GetChar in its loop,
-but  GetCharX.    That  means   that  the  trailing  '/'  is  not
+but  GetCharX.    That  means   that  the  trailing  `/`  is  not
 intercepted and  is seen by SkipComment.  Third, although GetChar
 is the  procedure  doing  the  work,  we  can still deal with the
 comment  characters  embedded  in  a  quoted  string,  by calling
@@ -709,9 +709,9 @@ end;
 {--------------------------------------------------------------}
 ```
 
-If the leading character is  a  single  one,  as  in  the  ';' of
+If the leading character is  a  single  one,  as  in  the  `;` of
 assembly language, then we're essentially done.  If  it's  a
-two-character token, as in the '--'  of  Ada, we need only modify the
+two-character token, as in the `--`  of  Ada, we need only modify the
 tests  within  GetChar.   Either way, it's an easier problem than
 the balanced case.
 

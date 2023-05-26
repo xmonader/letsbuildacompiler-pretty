@@ -115,7 +115,7 @@ write a "program" with no main program, but it does make sense if
 we're  allowing  for  multiple modules, linked together.    As  a
 matter of fact,  I intend to allow for this in KISS.  But then we
 begin  to open up a can of worms that I'd rather leave closed for
-now.  For example, the  term "PROGRAM" really becomes a misnomer.
+now.  For example, the  term `PROGRAM` really becomes a misnomer.
 The MODULE of Modula-2 or the Unit of Turbo Pascal would  be more
 appropriate.  Second,  what  about  scope  rules?    We'd  need a
 convention for  dealing  with  name  visibility  across  modules.
@@ -204,11 +204,7 @@ end.
 ```
 
 At this point, TINY  will  accept  only  one input "program," the
-null program:
-
-
-     PROGRAM .   (or 'p.' in our shorthand.)
-
+null program: `PROGRAM .`   (or `p.` in our shorthand.)
 Note, though, that the  compiler  DOES  generate correct code for
 this program.  It will run, and do  what  you'd  expect  the null
 program to do, that is, nothing but return gracefully to the OS.
@@ -240,7 +236,7 @@ use the Pascal BEGIN-block:
 ```
 
 Here,  again,  we  have made a decision.  We could have chosen to
-require a "PROCEDURE MAIN" sort of declaration, similar to C.   I
+require a `PROCEDURE MAIN` sort of declaration, similar to C.   I
 must  admit  that  this  is  not  a bad idea at all ...  I  don't
 particularly  like  the  Pascal  approach  since I tend  to  have
 trouble locating the main  program  in a Pascal listing.  But the
@@ -293,15 +289,11 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Now, the only legal program is:
-
-```delphi
-     PROGRAM BEGIN END . (or 'pbe.')
-```
+Now, the only legal program is: `PROGRAM BEGIN END .` (or `pbe.`)
 
 Aren't we making progress???  Well, as usual it gets better.  You
-might try some deliberate errors here, like omitting  the  'b' or
-the 'e', and see what happens.  As always,  the  compiler  should
+might try some deliberate errors here, like omitting  the  `b` or
+the `e`, and see what happens.  As always,  the  compiler  should
 flag all illegal inputs.
 
 
@@ -313,7 +305,7 @@ and  procedures/functions.    At  the  top  level,   only  global
 declarations are allowed, just as in C.
 
 For now, there  can  only be variable declarations, identified by
-the keyword VAR (abbreviated 'v'):
+the keyword VAR (abbreviated `v`):
 
 ```
      <top-level decls> ::= ( <data declaration> )*
@@ -374,7 +366,7 @@ code, and it doesn't process a list ... every variable must occur
 in a separate VAR statement.
 
 OK,  now  we  can have any  number  of  data  declarations,  each
-starting with a 'v' for VAR,  before  the BEGIN-block.  Try a few
+starting with a `v` for VAR,  before  the BEGIN-block.  Try a few
 cases and see what happens.
 
 
@@ -421,7 +413,7 @@ variables, such as:
      `pvxvyvzbe.`
 
 See how the storage is allocated?    Simple, huh?  Note also that
-the entry point, "MAIN," comes out in the right place.
+the entry point, `MAIN`, comes out in the right place.
 
 For the record, a "real" compiler would also have a  symbol table
 to record the variables being used.  Normally,  the  symbol table
@@ -703,7 +695,7 @@ end;
 
 This version still won't generate any code for  the   "assignment
 statements" ... all it does is to eat characters  until  it  sees
-the 'e' for 'END.'  But it sets the stage for what is to follow.
+the `e` for `END`.  But it sets the stage for what is to follow.
 
 The  next  step,  of  course,  is  to  flesh out the code for  an
 assignment statement.  This  is  something  we've done many times
@@ -1400,7 +1392,7 @@ syntax, which departs strongly from that of C or Pascal.  In both
 of those languages, the "body" of an IF or WHILE is regarded as a
 single  statement.  If you intend to use a block of more than one
 statement, you have to build a compound statement using BEGIN-END
-(in Pascal) or  '{}' (in C).  In TINY (and KISS) there is no such
+(in Pascal) or  `{}` (in C).  In TINY (and KISS) there is no such
 thing as a compound statement  ... single or multiple they're all
 just blocks to these languages.
 
@@ -1411,7 +1403,7 @@ approach, used in such respected languages as Ada  and  Modula 2,
 and it completely eliminates the problem of the "dangling else."
 
 Note  that I could have chosen to use the same keyword END to end
-all  the constructs, as is done in Pascal.  (The closing '}' in C
+all  the constructs, as is done in Pascal.  (The closing `}` in C
 serves the same purpose.)  But this has always led  to confusion,
 which is why Pascal programmers tend to write things like
 
@@ -2041,8 +2033,8 @@ use multi-character variable names.
 
 We still have one remaining single-character restriction: the one
 on relops.  Some of the relops are indeed single  characters, but
-others  require two.  These are `'<='` and `'>='`.  I also prefer the
-Pascal `'<>'` for "not equals,"  instead of `'#'`.
+others  require two.  These are `<=` and `>=`.  I also prefer the
+Pascal `<>` for "not equals,"  instead of `#`.
 
 If you'll recall, in [Part VII](tutor07_lexicalscanning.md) I pointed out that the conventional
 way  to  deal  with  relops  is  to  include them in the list  of
@@ -2251,7 +2243,7 @@ const KWcode: string[NKW1] = 'xileweRWvbep';
 ```
 
 (Note how I'm using upper case codes here to avoid  conflict with
-the 'w' of WHILE.)
+the `w` of WHILE.)
 
 Next, we need procedures for processing the  read/write statement
 and its argument list:

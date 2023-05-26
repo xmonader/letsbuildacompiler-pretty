@@ -738,14 +738,14 @@ end.
 Note  that  DoProc  and DoMain are not quite symmetrical.  DoProc
 uses a call to BeginBlock, whereas DoMain cannot.  That's because
 a procedure  is signaled by the keyword PROCEDURE (abbreviated by
-a 'p' here), while the main program gets no  keyword  other  than
+a `p` here), while the main program gets no  keyword  other  than
 the BEGIN itself.
 
 And _THAT_ brings up an interesting question: WHY?
 
 If  we  look  at the structure of C programs, we  find  that  all
 functions are treated just  alike,  except  that the main program
-happens to be identified by its name, "main."  Since  C functions
+happens to be identified by its name, `main`.  Since  C functions
 can appear in any order, the main program can also be anywhere in
 the compilation unit.
 
@@ -983,7 +983,7 @@ In  the declaration of a procedure,  the  parameters  are  called
 formal  parameters, and may be referred to in  the  body  of  the
 procedure  by  those  names.    The  names  used for  the  formal
 parameters  are  really  arbitrary.    Only  the  position really
-counts.  In  the  example  above,  the name 'X' simply means "the
+counts.  In  the  example  above,  the name `X` simply means "the
 first parameter" wherever it is used.
 
 When a procedure is called,  the "actual parameters" passed to it

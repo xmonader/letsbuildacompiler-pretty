@@ -27,7 +27,7 @@ up the parsers from  very  rudimentary  beginnings to their final
 forms, without spending much time in planning  beforehand. That's
 called coding without specs, and it's usually frowned  upon.   We
 could get away with it before because the rules of arithmetic are
-pretty well established ...  we  know what a '+' sign is supposed
+pretty well established ...  we  know what a `+` sign is supposed
 to mean without having to discuss it at length.  The same is true
 for branches and  loops.    But  the  ways  in  which programming
 languages  implement  logic  vary quite a bit  from  language  to
@@ -82,7 +82,7 @@ set or rules is:
 ```
 
 Notice that in this  grammar,  the  operator  AND is analogous to
-'*',  and  OR  (and exclusive OR) to '+'.  The  NOT  operator  is
+`*`,  and  OR  (and exclusive OR) to `+`.  The  NOT  operator  is
 analogous to a unary  minus.    This  hierarchy is not absolutely
 standard ...  some  languages,  notably  Ada,  treat  all logical
 operators  as  having  the same precedence level ... but it seems
@@ -272,7 +272,7 @@ The authors of C took  a  diametrically  opposite  approach: they
 treat the operators as  different,  and  have something much more
 akin  to our seven levels of precedence.  In fact, in C there are
 no fewer than 17 levels!  That's because C also has the operators
-'=', '+=' and its kin, '<<', '>>', '++', '--', etc.   Ironically,
+`=`, `+=` and its kin, `<<`, `>>`, `++`, `--`, etc.   Ironically,
 although in C the  arithmetic  and  Boolean operators are treated
 separately, the variables are  NOT  ...  there  are no Boolean or
 logical variables in  C,  so  a  Boolean  test can be made on any
@@ -288,7 +288,7 @@ in the expression
 
 the  parens  above  are REQUIRED.  I never understood why before,
 and  neither my compiler nor any human  ever  explained  it  very
-well, either.  But now, we  can  all see that the 'and' operator,
+well, either.  But now, we  can  all see that the `and` operator,
 having the precedence of a multiply, has a higher  one  than  the
 relational operators, so without  the  parens  the  expression is
 equivalent to
@@ -420,7 +420,7 @@ expression.  We already have the BNF rule:
 
 I prefer the Pascal versions of the "orops",  OR  and  XOR.   But
 since we are keeping to single-character tokens here, I'll encode
-those with '|' and  '~'.  The  next  version of BoolExpression is
+those with `|` and  `~`.  The  next  version of BoolExpression is
 almost a direct copy of the arithmetic procedure Expression:
 
 ```delphi
@@ -601,7 +601,7 @@ Since  we have a new kind of operator, we're also going to need a
 new Boolean function to  recognize  it.    That function is shown
 below.  Because of the single-character limitation,  I'm sticking
 to the four operators  that  can be encoded with such a character
-(the "not equals" is encoded by '#').
+(the "not equals" is encoded by `#`).
 
 ```delphi
 {--------------------------------------------------------------}
@@ -927,7 +927,7 @@ that any letter not a keyword just gets echoed as a block.
 
 Try `ia=bxlye`
 
-which stands for "IF a=b X ELSE Y ENDIF".
+which stands for `IF a=b X ELSE Y ENDIF`.
 
 What do you think?  Did it work?  Try some others.
 

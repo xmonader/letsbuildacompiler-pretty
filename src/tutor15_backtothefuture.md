@@ -42,7 +42,7 @@ wonderful medium for teaching.  C is a notoriously difficult
 language to read ... it's often been accused, along with Forth, of
 being a "write-only language."  When I program in C++, I find
 myself spending at least 50% of my time struggling with language
-syntax rather than with concepts.  A stray "&" or "*" can not only
+syntax rather than with concepts.  A stray `&` or `*` can not only
 change the functioning of the program, but its correctness as
 well.  By contrast, Pascal code is usually quite transparent and
 easy to read, even if you don't know the language. What you see is

@@ -99,8 +99,8 @@ out a little at a time.    Let's begin with the first recognizer:
 the program itself.
 
 To translate this, we'll  start  with a fresh copy of the Cradle.
-Since we're back to single-character  names, we'll just use a 'p'
-to stand for 'PROGRAM.'
+Since we're back to single-character  names, we'll just use a `p`
+to stand for `PROGRAM`.
 
 To a fresh copy of the cradle, add the following code, and insert
 a call to it from the main program:
@@ -350,7 +350,7 @@ end;
 
 Now try out the  compiler  with a few representative inputs.  You
 can  mix  the  declarations any way you like, as long as the last
-character  in  the  program is'.' to  indicate  the  end  of  the
+character  in  the  program is `.` to  indicate  the  end  of  the
 program.  Of course,  none  of  the declarations actually declare
 anything, so you don't need  (and can't use) any characters other
 than those standing for the keywords.
@@ -387,10 +387,7 @@ declarations, followed by the  BEGIN  block  of the main program.
 This  block  itself  can contain any characters at all (except an
 END), but it must be present.
 
-The simplest form of input is now
-
-     `'pxbe.'`
-
+The simplest form of input is now `pxbe`.
 Try  it.    Also  try  some  combinations  of  this.   Make  some
 deliberate errors and see what happens.
 
@@ -496,7 +493,7 @@ data or of a function.  We can capture this thought like this:
 ```
 In Small C, functions  can  only have the default type int, which
 is not declared.  This makes  the  input easy to parse: the first
-token is either "int," "char," or the name  of  a  function.   In
+token is either `int`, `char`, or the name  of  a  function.   In
 Small  C, the preprocessor commands are  also  processed  by  the
 compiler proper, so the syntax becomes:
 
@@ -529,15 +526,15 @@ end;
 {--------------------------------------------------------------}
 ```
 Note that I've had to use a ^Z to indicate the end of the source.
-C has no keyword such as END or the '.' to otherwise indicate the
+C has no keyword such as END or the `.` to otherwise indicate the
 end.
 
 With full C,  things  aren't  even  this easy.  The problem comes
 about because in full C, functions can also have types.   So when
-the compiler sees a  keyword  like  "int,"  it still doesn't know
+the compiler sees a  keyword  like  `int,`  it still doesn't know
 whether to expect a  data  declaration  or a function definition.
 Things get more  complicated  since  the  next token may not be a
-name  ... it may start with an '*' or '(', or combinations of the
+name  ... it may start with an `*` or `(`, or combinations of the
 two.
 
 More specifically, the BNF for full C begins with:
@@ -624,10 +621,10 @@ end;
 ```
 
 Here, I've used three  single  characters  to represent the three
-storage classes "auto," "extern,"  and  "static."   These are not
-the only three possible classes ... there are also "register" and
-"typedef," but this should  give  you the picture.  Note that the
-default class is "auto."
+storage classes `auto`, `extern`,  and  `static`.   These are not
+the only three possible classes ... there are also `register` and
+`typedef`, but this should  give  you the picture.  Note that the
+default class is `auto`.
 
 We  can  do  a  similar  thing  for  types.   Enter the following
 procedure next:
@@ -727,7 +724,7 @@ decided to just have these two routines tell us what they found.
 OK, give this program a try.    For data declarations, it's OK to
 give a list separated by commas.  We  can't  process initializers
 as yet.  We also can't process argument lists for  the functions,
-but the "(){}" characters should be there.
+but the `(){}` characters should be there.
 
 We're still a _VERY_ long way from having a C compiler,  but what
 we have is starting to process the right kinds of inputs,  and is

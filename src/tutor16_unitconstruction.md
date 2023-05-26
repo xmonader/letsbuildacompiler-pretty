@@ -49,7 +49,7 @@ didn't invent the concept of separately compilable modules.  And of
 course you're right.  But if you've not used TP lately, or ever, you may
 not realize just how painless the whole process is.  Even in C or C++,
 you still have to build a make file, either manually or by telling the
-compiler how to do so.  You must also list, using "extern" statements or
+compiler how to do so.  You must also list, using `extern` statements or
 header files, the functions you want to import.  In TP, you don't even
 have to do that.  You need only name the units you wish to use, and all
 of their procedures automatically become available.
@@ -797,7 +797,7 @@ the garden path, we can always backtrack to the earlier approach.
 
 For starters, we'll add the "addition-level" operators to Expression.
 That's easily done; first, modify the function IsAddop in unit Scanner
-to include two extra operators: '|' for "or," and '~' for "exclusive
+to include two extra operators: `|` for "or," and `~` for "exclusive
 or":
 
 ```delphi
@@ -828,7 +828,7 @@ begin
 end;
 ```
 
-(The underscores are needed, of course, because "or" and "xor" are
+(The underscores are needed, of course, because `or` and `xor` are
 reserved words in Turbo Pascal.)
 
 Next, the procedures _Or and _Xor:
@@ -1037,10 +1037,10 @@ Why not "all sorts of logical expressions"?  Because, so far, we haven't
 dealt with the logical "not" operator, and this is where it gets tricky.
 The logical "not" operator seems, at first glance, to be identical in
 its behavior to the unary minus, so my first thought was to let the
-exclusive or operator, '~', double as the unary "not."  That didn't
-work. In my first attempt, procedure SignedTerm simply ate my '~',
+exclusive or operator, `~`, double as the unary "not."  That didn't
+work. In my first attempt, procedure SignedTerm simply ate my `~`,
 because the character passed the test for an addop, but SignedTerm
-ignores all addops except '-'.  It would have been easy enough to add
+ignores all addops except `-`.  It would have been easy enough to add
 another line to SignedTerm, but that would still not solve the problem,
 because note that Expression only accepts a signed term for the _FIRST_
 argument.
@@ -1067,7 +1067,7 @@ parentheses would be interpreted as: `not(a and b)`
 which is not the same thing at all.  So it's clear that the logical
 "not" must be thought of as connected to the FACTOR, not the term.
 
-The idea of overloading the '~' operator also makes no sense from a
+The idea of overloading the `~` operator also makes no sense from a
 mathematical point of view.  The implication of the unary minus is that
 it's equivalent to a subtraction from zero: `-x <=> 0-x `
 
@@ -1081,7 +1081,7 @@ In short, the seeming parallel between the unary "not" and the unary
 minus falls apart under closer scrutiny. "not" modifies the factor, not
 the term, and it is not related to either the unary minus nor the
 exclusive or.  Therefore, it deserves a symbol to call its own. What
-better symbol than the obvious one, also used by C, the '!' character?
+better symbol than the obvious one, also used by C, the `!` character?
 Using the rules about the way we think the "not" should behave, we
 should be able to code the exclusive or (assuming we'd ever need to), in
 the very natural form: `a & !b | !a & b`
@@ -1090,7 +1090,7 @@ Note that no parentheses are required -- the precedence levels we've
 chosen automatically take care of things.
 
 If you're keeping score on the precedence levels, this definition puts
-the '!' at the top of the heap.  The levels become:
+the `!` at the top of the heap.  The levels become:
 
 1.	!
 2.	`- (unary) `
@@ -1098,7 +1098,7 @@ the '!' at the top of the heap.  The levels become:
 4.	`+, -, |, ~`
 
 Looking at this list, it's certainly not hard to see why we had trouble
-using '~' as the "not" symbol!
+using `~` as the "not" symbol!
 
 So how do we mechanize the rules?  In the same way as we did with
 SignedTerm, but at the factor level.  We'll define a procedure
@@ -1161,7 +1161,7 @@ arithmetic and logical operators, our new precedence and new, slimmer
 syntax hang together.  Even the peculiar, but legal, expression with
 leading addop: `~x`
 
-makes sense.  SignedTerm ignores the leading '~', as it should, since
+makes sense.  SignedTerm ignores the leading `~`, as it should, since
 the expression is equivalent to: `0~x`,
 
 which is equal to x.

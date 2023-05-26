@@ -314,8 +314,8 @@ single-character operators.  The only exceptions  are  the relops
 strings and do a  string  compare,  when  only a single character
 compare  will  almost  always  suffice.   Second, and  much  more
 important, the  thing  doesn't  WORK  when  two  operators appear
-together, as in (a+b)*(c+d).  Here the string following 'b' would
-be interpreted as a single operator ")*(."
+together, as in (a+b)*(c+d).  Here the string following `b` would
+be interpreted as a single operator `)*(`.
 
 It's possible to fix that problem.  For example,  we  could  just
 give GetOp a  list  of  legal  characters, and we could treat the

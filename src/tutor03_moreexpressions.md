@@ -36,10 +36,10 @@ within parentheses.  In BNF notation,
 
      `<factor> ::= <number> | (<expression>)`
 
-The '|' stands for "or", meaning of course that either form  is a
+The `|` stands for "or", meaning of course that either form  is a
 legal form for a factor.   Remember,  too, that we had no trouble
 knowing which was which  ...  the  lookahead  character is a left
-paren '(' in one case, and a digit in the other.
+paren `(` in one case, and a digit in the other.
 
 It probably won't come as too much of a surprise that  a variable
 is just another kind of factor.    So  we extend the BNF above to
@@ -114,7 +114,7 @@ by looking at the current  lookahead character exactly what to do
 next.  That isn't the case when we add functions.  Every language
 has some naming rules  for  what  constitutes a legal identifier.
 For the present, ours is simply that it  is  one  of  the letters
-'a'..'z'.  The  problem  is  that  a variable name and a function
+`a`..`z`.  The  problem  is  that  a variable name and a function
 name obey  the  same  rules.   So how can we tell which is which?
 One way is to require that they each be declared before  they are
 used.    Pascal  takes that approach.  The other is that we might
@@ -130,7 +130,7 @@ Since  we're  not  dealing  with  parameter lists yet,  there  is
 nothing  to do but to call the function, so we need only to issue
 a BSR (call) instead of a MOVE.
 
-Now that there are two  possibilities for the "If IsAlpha" branch
+Now that there are two  possibilities for the `If IsAlpha` branch
 of the test in Factor, let's treat them in a  separate procedure.
 Modify Factor to read:
 
@@ -410,7 +410,7 @@ end;
 
 Amazingly enough, that  is  virtually all the changes required to
 the  parser!  The local variable Name  in  procedures  Ident  and
-Assignment was originally declared as  "char",  and  must  now be
+Assignment was originally declared as  `char`,  and  must  now be
 declared string[8].  (Clearly,  we  could  make the string length
 longer if we chose, but most assemblers limit the length anyhow.)
 Make  this  change,  and  then  recompile and test. _NOW_ do  you

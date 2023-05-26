@@ -28,7 +28,7 @@ In what follows, we'll be starting over again with a bare cradle,
 and as we've done twice before now, we'll build things up  one at
 a time.  We'll also  be retaining the concept of single-character
 tokens that has served us so well to date.   This  means that the
-"code" will look a little funny, with 'i' for IF, 'w'  for WHILE,
+"code" will look a little funny, with `i` for IF, `w`  for WHILE,
 etc.  But it helps us  get  the concepts down pat without fussing
 over  lexical  scanning.    Fear  not  ...  eventually we'll  see
 something looking like "real" code.
@@ -108,7 +108,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Notice  that  I've  arranged to emit  an  "END"  command  to  the
+Notice  that  I've  arranged to emit  an  `END`  command  to  the
 assembler, which sort of  punctuates  the  output code, and makes
 sense considering that we're parsing a complete program here.
 
@@ -192,7 +192,7 @@ must get translated into
 It's clear, then, that we're going to need  some  more procedures
 to  help  us  deal with these branches.  I've defined two of them
 below.  Procedure NewLabel generates unique labels.  This is done
-via the simple expedient of calling every label  'Lnn',  where nn
+via the simple expedient of calling every label  `Lnn`,  where nn
 is a label number starting from zero.   Procedure  PostLabel just
 outputs the labels at the proper place.
 
@@ -301,7 +301,7 @@ supposed to be executed when the condition is true.
 With that bit of explanation out of the way, we're  finally ready
 to begin coding the IF-statement parser.  In  fact,  we've almost
 already  done  it!   As usual, I'll be using our single-character
-approach, with the character 'i' for IF, and 'e'  for  ENDIF  (as
+approach, with the character `i` for IF, and `e`  for  ENDIF  (as
 well  as END ... that dual nature causes  no  confusion).    I'll
 also, for now, skip completely  the character for the branch
 condition, which we still have to define.
@@ -418,7 +418,7 @@ This leads us to the following syntax-directed translation:
 ```
 Comparing this with the case for an ELSE-less IF gives us  a clue
 as to how to handle both situations.   The  code  below  does it.
-(Note that I  use  an  'l'  for  the ELSE, since 'e' is otherwise
+(Note that I  use  an  `l`  for  the ELSE, since `e` is otherwise
 occupied):
 
 ```delphi
@@ -460,7 +460,7 @@ case, try
    `aibece`
 
 Now try some nested IF's.  Try anything you like,  including some
-badly formed statements.   Just  remember that 'e' is not a legal
+badly formed statements.   Just  remember that `e` is not a legal
 "other" statement.
 
 
@@ -476,7 +476,7 @@ statement is
 
 I know,  I  know,  we  don't  REALLY  need separate kinds of
 terminators for each construct ... you can see that by the fact that
-in our one-character version, 'e' is used for all of them.  But I
+in our one-character version, `e` is used for all of them.  But I
 also remember  MANY debugging sessions in Pascal, trying to track
 down a wayward END that the compiler obviously thought I meant to
 put  somewhere  else.   It's been my experience that specific and
@@ -600,7 +600,7 @@ and the syntax-directed translation is:
 ```
 
 The corresponding code is shown below.  Since  I've  already used
-'l'  for  the  ELSE, I've used  the  last  letter,  'p',  as  the
+`l`  for  the  ELSE, I've used  the  last  letter,  `p`,  as  the
 "keyword" this time.
 
 ```delphi
@@ -666,9 +666,9 @@ end;
 ```
 
 As  before, we have to add the call  to  DoRepeat  within  Block.
-This time, there's a difference, though.  I decided  to  use  'r'
-for REPEAT (naturally), but I also decided to use 'u'  for UNTIL.
-This means that the 'u' must be added to the set of characters in
+This time, there's a difference, though.  I decided  to  use  `r`
+for REPEAT (naturally), but I also decided to use `u`  for UNTIL.
+This means that the `u` must be added to the set of characters in
 the while-test.  These  are  the  characters  that signal an exit
 from the current  block  ... the "follow" characters, in compiler
 jargon.

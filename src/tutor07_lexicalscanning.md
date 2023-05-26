@@ -199,8 +199,8 @@ programming languages:
      <ident> ::= <letter> [ <letter> | <digit> ]*
      <number ::= [<digit>]+
 ```
-(Remember, the '*' indicates zero or more occurences of the terms
-in brackets, and the '+', one or more.)
+(Remember, the `*` indicates zero or more occurences of the terms
+in brackets, and the `+`, one or more.)
 
 We  have already dealt with similar  items  in  [Installment  III](tutor03_moreexpressions.md).
 Let's begin (as usual) with a bare cradle.  Not  surprisingly, we
@@ -414,7 +414,7 @@ terminated by the period.  I used:
 
 Hey,  what  happened?   When I tried it, I didn't  get  the  last
 token, the period.  The program didn't halt.  What's more, when I
-pressed the  'enter'  key  a  few  times,  I still didn't get the
+pressed the  `enter`  key  a  few  times,  I still didn't get the
 period.
 
 If you're still stuck in your program, you'll find that  typing a
@@ -437,7 +437,7 @@ from the console, the behavior is just too bizarre.  The  fact of
 the matter is that the C/Unix convention is  just  not compatible
 with the structure of  our  parser,  which  calls for a lookahead
 character.    The  code that the Bell  wizards  have  implemented
-doesn't use that convention, which is why they need 'ungetc'.
+doesn't use that convention, which is why they need `ungetc`.
 
 OK, let's fix the problem.  To do that, we need to go back to the
 old definition of IsWhite (delete the CR and  LF  characters) and
@@ -512,7 +512,7 @@ exception I can think of is the relops <=, >=,  and  <>, but they
 could be dealt with as special cases.
 
 Still, other languages have  multi-character  operators,  such as
-the ':=' of  Pascal or the '++' and '>>' of C.  So  while  we may
+the `:=` of  Pascal or the `++` and `>>` of C.  So  while  we may
 not need multi-character operators, it's  nice to know how to get
 them if necessary.
 
@@ -648,7 +648,7 @@ With the multi-character tokens being returned by Scan, all those
 tests now become string comparisons.  Much slower.  And  not only
 slower, but more awkward, since  there is no string equivalent of
 the  Case  statement  in Pascal.  It seems especially wasteful to
-test for what used to be single characters ... the '=',  '+', and
+test for what used to be single characters ... the `=`,  `+`, and
 other operators ... using string comparisons.
 
 Using string comparison is not  impossible ... Ron Cain used just
@@ -952,13 +952,13 @@ described.  It is certainly  a workable mechanism, but it doesn't
 seem the simplest approach to me.
 
 For one thing, the  list  of possible symbol types can get pretty
-long. Here, I've used just one symbol, "Operator,"  to  stand for
+long. Here, I've used just one symbol, `Operator`,  to  stand for
 all of the operators, but I've seen other  designs  that actually
 return different codes for each one.
 
 There is, of course, another simple type that can be  returned as
 a  code: the character.  Instead  of  returning  the  enumeration
-value 'Operator' for a '+' sign, what's wrong with just returning
+value `Operator` for a `+` sign, what's wrong with just returning
 the character itself?  A character is just as good a variable for
 encoding the different  token  types,  it  can  be  used  in case
 statements  easily, and it's sure a lot easier  to  type.    What
@@ -971,7 +971,7 @@ changes to what we've already done.
 
 Some of you may feel that this idea of returning  character codes
 is too mickey-mouse.  I must  admit  it gets a little awkward for
-multi-character operators like '<='.   If you choose to stay with
+multi-character operators like `<=`.   If you choose to stay with
 the  enumerated  type,  fine.  For the rest, I'd like to show you
 how to change what we've done above to support that approach.
 
@@ -984,7 +984,7 @@ Next, to replace SymType, add the following constant string:
    const KWcode: string[5] = 'xilee';
 ```
 
-(I'll be encoding all idents with the single character 'x'.)
+(I'll be encoding all idents with the single character `x`.)
 
 
 Lastly, modify Scan and its relatives as follows:
@@ -1095,14 +1095,14 @@ structure, or even always the best one.
 
 The problem with the  conventional  approach  is that the scanner
 has no knowledge of context.  For example,  it  can't distinguish
-between the assignment operator '=' and  the  relational operator
-'=' (perhaps that's why both C and Pascal  use  different strings
+between the assignment operator `=` and  the  relational operator
+`=` (perhaps that's why both C and Pascal  use  different strings
 for the  two).    All  the scanner can do is to pass the operator
 along  to  the  parser, which can hopefully tell from the context
-which operator is meant.    Similarly, a keyword like 'IF' has no
+which operator is meant.    Similarly, a keyword like `IF` has no
 place in the middle of a  math  expression, but if one happens to
 appear there, the scanner  will  see no problem with it, and will
-return it to the parser, properly encoded as an 'IF'.
+return it to the parser, properly encoded as an `IF`.
 
 With this  kind  of  approach,  we  are  not really using all the
 information at our disposal.  In the middle of an expression, for
@@ -1646,7 +1646,7 @@ A couple of comments:
 
 Before we proceed to adding the scanner, first copy this file and
 verify that it does indeed  parse things correctly.  Don't forget
-the "codes": 'i' for IF, 'l' for ELSE, and 'e' for END or ENDIF.
+the "codes": `i` for IF, `l` for ELSE, and `e` for END or ENDIF.
 
 If the program works, then let's press on.  In adding the scanner
 modules to the program, it helps  to  have a systematic plan.  In

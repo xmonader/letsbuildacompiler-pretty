@@ -681,7 +681,7 @@ end;
 ```
 
 Make the changes shown to these procedures, and give the  thing a
-try.    Use  the  single  characters  'b',  'w',  and 'l' for the
+try.    Use  the  single  characters  `b`,  `w`,  and `l` for the
 keywords (they must be lower case,  for  now).  You will see that
 in each case, we are allocating the proper storage  size.    Note
 from the dumped symbol table that the sizes are also recorded for
@@ -881,12 +881,12 @@ our efforts to encapsulate the code generator procedures.)
 There is one small, nagging problem.  Before, we used  the Pascal
 terminating period to get us out of procedure TopDecls.   This is
 now the wrong  character  ...  it's  used to terminate Block.  In
-previous programs, we've used the BEGIN symbol  (abbreviated 'b')
+previous programs, we've used the BEGIN symbol  (abbreviated `b`)
 to get us out.  But that is now used as a type symbol.
 
 The solution, while somewhat of a kludge, is easy enough.   We'll
-use  an  UPPER CASE 'B' to stand for the BEGIN.   So  change  the
-character in the WHILE loop within TopDecls, from '.' to 'B', and
+use  an  UPPER CASE `B` to stand for the BEGIN.   So  change  the
+character in the WHILE loop within TopDecls, from `.` to `B`, and
 everything will be fine.
 
 Now, we can  complete  the  task  by changing the main program to
@@ -1589,7 +1589,7 @@ time.
 
 When testing the program,  don't  forget  that  you first have to
 declare some variables, and then  start the "body" of the program
-with an upper-case  'B'  (for  BEGIN).   You should find that the
+with an upper-case  `B`  (for  BEGIN).   You should find that the
 parser  will  handle  any  additive  expressions.  Once  all  the
 conversion routines are in, you should see that the  correct code
 is  generated,  with  type  conversions inserted where necessary.

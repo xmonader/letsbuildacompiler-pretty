@@ -40,7 +40,7 @@ end;
 {---------------------------------------------------------------}
 ```
 
-And add the  line  "Expression;"  to  the main program so that it
+And add the  line  `Expression;`  to  the main program so that it
 reads:
 
 ```delphi
@@ -97,7 +97,7 @@ to extend it. Suppose we want to handle expressions of the form:
 
 To do this we need a procedure that recognizes a term  and leaves
 its   result   somewhere,  and  another   that   recognizes   and
-distinguishes  between   a  '+'  and  a  '-'  and  generates  the
+distinguishes  between   a  `+`  and  a  `-`  and  generates  the
 appropriate code.  But if Expression is going to leave its result
 in DO, where should Term leave its result?    Answer:    the same
 place.  We're  going  to  have  to  save the first result of Term
@@ -161,7 +161,7 @@ be:
 - Expression
 
 Now run the program.  Try any combination you can think of of two
-single digits,  separated  by  a  `'+'` or a `'-'`.  You should get a
+single digits,  separated  by  a  `+` or a `-`.  You should get a
 series of four assembler-language instructions out  of  each run.
 Now  try  some  expressions with deliberate errors in them.  Does
 the parser catch the errors?
@@ -227,7 +227,7 @@ OK,  at this point we have a parser that can recognize the sum or
 difference of two digits.    Earlier,  we  could only recognize a
 single digit.  But  real  expressions can have either form (or an
 infinity of others).  For kicks, go back and run the program with
-the single input line '1'.
+the single input line `1`.
 
 Didn't work, did it?   And  why  should  it?    We  just finished
 telling  our  parser  that the only kinds of expressions that are
@@ -241,7 +241,7 @@ start to take the shape of a real parser.
 ## GENERAL EXPRESSIONS
 
 In the  REAL  world,  an  expression  can  consist of one or more
-terms, separated  by  "addops"  ('+'  or  '-').   In BNF, this is
+terms, separated  by  "addops"  (`+`  or  `-`).   In BNF, this is
 written `<expression> ::= <term> [<addop> <term>]*`
 
 
@@ -296,13 +296,13 @@ introduce any complexity until  it's  absolutely  necessary, long
 enough to point out a problem with the code we're generating.  As
 things stand now, the parser  uses D0 for the "primary" register,
 and D1 as  a place to store the partial sum.  That works fine for
-now,  because  as  long as we deal with only the "addops" '+' and
-'-', any new term can be added in as soon as it is found.  But in
+now,  because  as  long as we deal with only the "addops" `+` and
+`-`, any new term can be added in as soon as it is found.  But in
 general that isn't true.  Consider, for example, the expression
 
                `1+(2-(3+(4-5)))`
 
-If we put the '1' in D1, where  do  we  put  the  `'2'`?    Since a
+If we put the `1` in D1, where  do  we  put  the  `2`?    Since a
 general expression can have any degree of complexity, we're going
 to run out of registers fast!
 
