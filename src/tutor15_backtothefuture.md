@@ -37,7 +37,7 @@ strange to be programming in a classical style when the rest of
 the world has switched to object-oriented methods.  Still, in
 spite of the four-year hiatus, it would be entirely too wrenching
 a change, at this point, to switch to, say, C++ with
-object-orientation .  Anyway, Pascal is still not only a powerful
+object-orientation.  Anyway, Pascal is still not only a powerful
 programming language (more than ever, in fact), but it's a
 wonderful medium for teaching.  C is a notoriously difficult
 language to read ... it's often been accused, along with Forth, of

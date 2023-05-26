@@ -312,7 +312,7 @@ microprocessor, the 68000 has a stack, which is the perfect place
 to save a variable number of items. So instead of moving the term
 in D0 to  D1, let's just push it onto the stack.  For the benefit
 of  those unfamiliar with 68000 assembler  language,  a  push  is
-written `-(SP)` and a pop, `(SP)+` .
+written `-(SP)` and a pop, `(SP)+`.
 
 
 So let's change the EmitLn in Expression to read:
@@ -524,7 +524,7 @@ expression, right?  OK, try this input sentence: `-1`
 WOOPS!  It doesn't work, does it?   Procedure  Expression expects
 everything to start with an integer, so it coughs up  the leading
 minus  sign.  You'll find that +3 won't  work  either,  nor  will
-something like `-(3-2)` .
+something like `-(3-2)`.
 
 There  are  a  couple of ways to fix the problem.    The  easiest
 (although not necessarily the best)  way is to stick an imaginary

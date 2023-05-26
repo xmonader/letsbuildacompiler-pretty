@@ -236,7 +236,7 @@ part of the next one.
 
 But  it's  also a very easy thing to fix up, even  if  it's  only
 temporary.   All  we  have  to  do  is assert that the expression
-should end with an end-of-line , i.e., a carriage return.
+should end with an end-of-line, i.e., a carriage return.
 
 To see what I'm talking about, try the input line
 
