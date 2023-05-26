@@ -15,10 +15,10 @@ compiler.  Let me explain.
 ## BACKGROUND
 
 If  you'll remember, we talked at length  about  the  subject  of
-lexical  scanners in Part VII, and I left you with a design for a
+lexical  scanners in [Part VII](tutor07_lexicalscanning.md), and I left you with a design for a
 distributed scanner that I felt was about as simple  as  I  could
 make it ... more than most that I've  seen  elsewhere.    We used
-that idea in Part X.  The compiler structure  that  resulted  was
+that idea in [Part X](tutor10_introducingtiny.md).  The compiler structure  that  resulted  was
 simple, and it got the job done.
 
 Recently, though, I've begun  to  have  problems, and they're the
@@ -61,7 +61,7 @@ that.  That's the price you pay for watching me  do  this in real
 time.  But the new version is definitely an improvement, and will
 serve us well for what is to come.
 
-As  I said, the scanner we used in Part X was about as simple  as
+As  I said, the scanner we used in [Part X](tutor10_introducingtiny.md) was about as simple  as
 one can get.  But anything can be improved.   The  new scanner is
 more like the classical  scanner,  and  not  as simple as before.
 But the overall  compiler  structure is even simpler than before.
@@ -74,7 +74,7 @@ of what's been done so far.
 
 Ironically, the new scanner  is  much  more conventional than the
 old one, and is very much like the more generic scanner  I showed
-you  earlier  in  Part VII.  Then I started trying to get clever,
+you  earlier  in  [Part VII](tutor12_miscellany.md).  Then I started trying to get clever,
 and I almost clevered myself clean out of business.   You'd think
 one day I'd learn: K-I-S-S!
 
@@ -132,7 +132,7 @@ single-character tokens, and it still does.  It would make  a lot
 of sense to apply the same rule to multi-character tokens.
 
 But when we got into lexical scanning, I began  to  violate  that
-simple rule.  The scanner of Part X  did  indeed  advance  to the
+simple rule.  The scanner of [Part X](tutor10_introducingtiny.md)  did  indeed  advance  to the
 next token if it found an identifier or keyword, but it DIDN'T do
 that if it found a carriage return, a whitespace character, or an
 operator.
@@ -201,7 +201,7 @@ end;
 ```
 
 These two procedures are  functionally  almost  identical  to the
-ones  I  showed  you in Part VII.  They each  fetch  the  current
+ones  I  showed  you in [Part VII](tutor12_miscellany.md).  They each  fetch  the  current
 token, either an identifier or a number, into  the  global string
 Value.    They  also  set  the  encoded  version, Token,  to  the
 appropriate code.  The input  stream is left with Look containing
@@ -285,7 +285,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-We've already tried similar routines in Part VII,  but  you might
+We've already tried similar routines in [Part VII](tutor12_miscellany.md),  but  you might
 as well try these new ones out.  Add them to a copy of the Cradle
 and call Next with the following main program:
 
@@ -357,7 +357,7 @@ tokens, with the  caveat  that the two-character relops will scan
 into two separate tokens.  That's OK ... we'll  parse  them  that
 way.
 
-Now, in Part VII the function of Next was combined with procedure
+Now, in [Part VII](tutor12_miscellany.md) the function of Next was combined with procedure
 Scan,  which  also  checked every identifier against  a  list  of
 keywords and encoded each one that was found.  As I  mentioned at
 the time, the last thing we would want  to  do  is  to use such a
@@ -566,7 +566,7 @@ removal  of  the  keyword PROGRAM, it parses the same language as
 before.    It's  just  a  bit cleaner, and more importantly  it's
 considerably more robust.  I feel good about it.
 
-The next installment will be another  digression:  the discussion
+The [next installment](tutor12_miscellany.md) will be another  digression:  the discussion
 of  semicolons  and  such that got me into this mess in the first
 place.  THEN we'll press on  into  procedures and types.  Hang in
 there with me.  The addition of those features will go a long way

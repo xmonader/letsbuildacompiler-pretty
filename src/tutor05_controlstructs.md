@@ -350,7 +350,7 @@ end;
 Notice the reference to procedure Condition.    Eventually, we'll
 write a routine that  can  parse  and  translate any Boolean
 condition we care to give it.  But  that's  a  whole  installment by
-itself (the next one, in fact).    For  now, let's just make it a
+itself ([the next one](tutor06_booleanexpressions.md), in fact).    For  now, let's just make it a
 dummy that emits some text.  Write the following routine:
 
 ```delphi
@@ -1098,7 +1098,7 @@ instead of these mickey-mouse  single-character  things.   You've
 already seen that  the  extension to multi-character words is not
 difficult, but in this case it will make a big difference  in the
 appearance of our input code.  I'll save that little bit  for the
-next installment.  In that installment we'll also address Boolean
+[next installment](tutor06_booleanexpressions.md).  In that installment we'll also address Boolean
 expressions, so we can get rid of the dummy version  of Condition
 that we've used here.  See you then.
 

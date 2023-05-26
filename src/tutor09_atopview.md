@@ -32,7 +32,7 @@ approach can work just as well when applied from the top down ...
 maybe better.  We'll consider languages such as C and Pascal, and
 see how complete compilers can be built starting from the top.
 
-In the next installment, we'll  apply the same technique to build
+In the [next installment](tutor10_introducingtiny.md), we'll  apply the same technique to build
 a  complete  translator  for a subset of the KISS language, which
 I'll be  calling  TINY.    But one of my goals for this series is
 that you will  not only be able to see how a compiler for TINY or
@@ -228,8 +228,8 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The  procedure  PostLabel  was  defined  in  the  installment  on
-branches.  Copy it into your cradle.
+The  procedure  PostLabel  was  defined  in  the  [installment  on  branches](tutor05_controlstructs.md).
+Copy it into your cradle.
 
 I probably need to  explain  the  reason  for inserting the label
 where I have.  It has to do with the operation of SK*DOS.  Unlike
@@ -757,7 +757,7 @@ you  who DO want to deal with Pascal or C, I hope I've given  you
 enough of a start so that you can  take  it  from  here (although
 you'll soon need some of the stuff we still haven't  covered yet,
 such as typing and procedure calls).    For the rest of you, stay
-with me through the next installment.  There, I'll be leading you
+with me through the [next installment](tutor10_introducingtiny.md).  There, I'll be leading you
 through the development of a complete compiler for TINY, a subset
 of KISS.
 

@@ -2,8 +2,8 @@
 
 ## INTRODUCTION
 
-Can it really have been four years since I wrote installment
-fourteen of this series?  Is it really possible that six long
+Can it really have been four years since I wrote [installment fourteen](tutor14_types.md)
+of this series?  Is it really possible that six long
 years have passed since I began it?  Funny how time flies when
 you're having fun, isn't it?
 
@@ -145,7 +145,7 @@ mechanisms.
 
 ## STARTING OVER?
 
-Four years ago, in Installment 14, I promised you that our days of
+Four years ago, in [Installment 14](tutor14_types.md), I promised you that our days of
 re-inventing the wheel, and recoding the same software over and
 over for each lesson, were over, and that from now on we'd stick
 to more complete programs that we would simply add new features
@@ -902,7 +902,7 @@ generate just enough of a parser to process single factors in an
 expression.  In the process, we'll also, by necessity, find we
 have created a code generator unit, as well.
 
-Remember the very first installment of this series?  We read an
+Remember the very [first installment](tutor01_introduction.md) of this series?  We read an
 integer value, say n, and generated the code to load it into the
 D0 register via an immediate move:
 ```
@@ -1002,7 +1002,7 @@ are sitting there, patiently waiting to serve us.  We can have our
 cake and eat it too, in that we have simple and short code, but
 powerful allies.  What remains to be done is to flesh out the
 units to match the capabilities of earlier installments.  We'll do
-that in the next installment, but before I close, let's finish out
+that in the [next installment](tutor16_unitconstruction.md), but before I close, let's finish out
 the parsing of a factor, just to satisfy ourselves that we still
 know how.  The final version of CodeGen includes the new
 procedure, LoadVariable:
@@ -1068,7 +1068,7 @@ code generator, to support the more complex syntax elements that
 make up a real language.  Since we've done this many times before
 in earlier installments, it shouldn't take long to get us back to
 where we were before the long hiatus.  We'll continue this process
-in Installment 16, coming soon.  See you then.
+in [Installment 16](tutor16_unitconstruction.md), coming soon.  See you then.
 
 
 

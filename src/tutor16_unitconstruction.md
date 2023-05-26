@@ -6,9 +6,9 @@ This series of tutorials promises to be perhaps one of the longest-running
 mini-series in history, rivalled only by the delay in Volume IV
 of Knuth.  Begun in 1988, the series ran into a four-year hiatus in 1990
 when the "cares of this world," changes in priorities and interests, and
-the need to make a living seemed to stall it out after Installment 14.
+the need to make a living seemed to stall it out after [Installment 14](tutor14_types.md).
 Those of you with loads of patience were finally rewarded, in the spring
-of last year, with the long-awaited Installment 15.  In it, I began to
+of last year, with the long-awaited [Installment 15](tutor15_backtothefuture.md).  In it, I began to
 try to steer the series back on track, and in the process, to make it
 easier to continue on to the goal, which is to provide you with not only
 enough understanding of the difficult subject of compiler theory, but
@@ -84,7 +84,7 @@ support functions that we need.  Once written, the TP units sit there,
 quietly waiting to do their duty and give us the support we need, when
 we need it.
 
-Using this principle, in Installment 15 I set out to minimize our
+Using this principle, in [Installment 15](tutor15_backtothefuture.md) I set out to minimize our
 tendency to re-invent the wheel by organizing  our code into separate
 Turbo Pascal units, each containing different parts of the compiler.  We
 ended up with the following units:
@@ -362,9 +362,9 @@ approaches.
 
 ## FLESHING OUT THE PARSER
 
-Though I promised you, somewhere along about Installment 14, that we'd
+Though I promised you, somewhere along about [Installment 14](tutor14_types.md), that we'd
 never again write every single function from scratch, I ended up
-starting to do just that in Installment 15.  One reason: that long
+starting to do just that in [Installment 15](tutor15_backtothefuture.md).  One reason: that long
 hiatus between the two installments made a review seem eminently
 justified ... even imperative, both for you and for me. More
 importantly, the decision to collect the procedures into modules
@@ -1182,7 +1182,7 @@ That's a big improvement over earlier efforts.  Will our luck continue
 to hold when we get to relational operators?  We'll find out soon, but
 it will have to wait for the next installment. We're at a good stopping
 place, and I'm anxious to get this installment into your hands.  It's
-already been a year since the release of Installment 15.  I blush to
+already been a year since the release of [Installment 15](tutor15_backtothefuture.md).  I blush to
 admit that all of this current installment has been ready for almost as
 long, with the exception of relational operators.  But the information
 does you no good at all, sitting on my hard disk, and by holding it back

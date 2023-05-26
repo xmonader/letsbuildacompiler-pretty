@@ -3,7 +3,7 @@
 
 ## INTRODUCTION
 
-In Part V of this series,  we  took a look at control constructs,
+In [Part V](tutor05_controlstructs.md) of this series,  we  took a look at control constructs,
 and developed parsing  routines  to  translate  them  into object
 code.    We  ended  up  with  a  nice,  relatively  rich  set  of
 constructs.
@@ -1048,7 +1048,7 @@ some pretty heavy stuff, so I've decided to leave that step until
 next  time, when you've had a little more  time  to  digest  what
 we've done and are ready to start fresh.
 
-In the next installment, then,  we'll build a lexical scanner and
+In the [next installment](tutor07_lexicalscanning.md), then,  we'll build a lexical scanner and
 eliminate the single-character  barrier  once and for all.  We'll
 also write our first complete  compiler, based on what we've done
 in this session.  See you then.

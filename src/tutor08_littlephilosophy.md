@@ -28,8 +28,8 @@ constructs.    In  all of this we've leaned heavily on the use of
 top-down, recursive  descent  parsing,  BNF  definitions  of  the
 syntax, and direct generation of assembly-language code.  We also
 learned the value of  such  tricks  as single-character tokens to
-help  us  see  the  forest  through  the  trees.    In  the  last
-installment  we dealt with lexical scanning,  and  I  showed  you
+help  us  see  the  forest  through  the  trees.    In  the  [last installment](tutor07_lexicalscanning.md)
+we dealt with lexical scanning,  and  I  showed  you
 simple but powerful ways to remove the single-character barriers.
 
 Throughout the whole study, I've emphasized  the  KISS philosophy
@@ -236,7 +236,7 @@ past:
      the compiler fit  into  RAM.    To do this, his compiler has
      three passes, one of which is the lexical scanner.  There is
      no way he could, for  example, use the distributed scanner I
-     introduced  in  the last installment,  because  the  program
+     introduced  in  the [last installment](tutor07_lexicalscanning.md),  because  the  program
      structure wouldn't allow it.  He also required  not  one but
      two intermediate  languages,  to  provide  the communication
      between phases.

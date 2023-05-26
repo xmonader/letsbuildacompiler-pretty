@@ -3,7 +3,7 @@
 
 ## INTRODUCTION
 
-In the last installment, I left you with a  compiler  that  would
+In the [last installment](tutor06_booleanexpressions.md), I left you with a  compiler  that  would
 ALMOST  work,  except  that  we  were  still  limited to
 single-character tokens.  The purpose of  this  session is to get rid of
 that restriction, once and for all.  This means that we must deal
@@ -56,7 +56,7 @@ theory of languages and  grammars.    I'll  also be talking about
 areas OTHER than compilers in  which  lexical  scanning  plays an
 important role.  Finally, I will show you  some  alternatives for
 the structure of the lexical scanner.  Then, and only  then, will
-we get back to our parser  from  the last installment.  Bear with
+we get back to our parser  from  the [last installment](tutor06_booleanexpressions.md).  Bear with
 me ... I think you'll find it's worth the wait.    In fact, since
 scanners have many applications  outside  of  compilers,  you may
 well find this to be the most useful session for you.
@@ -162,7 +162,7 @@ corresponding to the language syntax.
 That  is  not  the  only  choice,  though.     In   our  previous
 installments, you have seen over and over that it is  possible to
 implement  parsers  without  dealing  specifically  with  tables,
-stacks, or state variables.    In fact, in Installment V I warned
+stacks, or state variables.    In fact, in [Installment V](tutor05_controlstructs.md) I warned
 you that if you  find  yourself needing these things you might be
 doing something wrong, and not taking advantage of  the  power of
 Pascal.  There are basically two ways to define a state machine's
@@ -174,7 +174,7 @@ find that they work well here, too.
 
 In practice, it may not even be necessary to HAVE  a well-defined
 lexical scanner.  This isn't our first experience at dealing with
-multi-character tokens.   In  Installment  III,  we  extended our
+multi-character tokens.   In  [Installment  III](tutor03_moreexpressions.md),  we  extended our
 parser to provide  for  them,  and  we didn't even NEED a lexical
 scanner.    That  was  because  in that narrow context, we  could
 always tell, just  by  looking at the single lookahead character,
@@ -202,7 +202,7 @@ programming languages:
 (Remember, the '*' indicates zero or more occurences of the terms
 in brackets, and the '+', one or more.)
 
-We  have already dealt with similar  items  in  Installment  III.
+We  have already dealt with similar  items  in  [Installment  III](tutor03_moreexpressions.md).
 Let's begin (as usual) with a bare cradle.  Not  surprisingly, we
 are going to need a new recognizer:
 
@@ -468,7 +468,7 @@ a line ahead.
 
 Try the code now. I think you'll like it better.
 
-If you refer to the code  we  did in the last installment, you'll
+If you refer to the code  we  did in the [last installment](tutor06_booleanexpressions.md), you'll
 find that I quietly sprinkled calls to Fin  throughout  the code,
 wherever  a line break was appropriate.  This  is  one  of  those
 areas that really affects the look  &  feel that I mentioned.  At
@@ -2229,12 +2229,11 @@ build a real, functional compiler.  There are still a  few things
 missing, notably procedure  calls  and type definitions.  We will
 deal with  those  in  the  next  few  sessions.  Before doing so,
 however, I thought it  would  be fun to turn the translator above
-into a true compiler.  That's what we'll  be  doing  in  the next
-installment.
+into a true compiler.  That's what we'll  be  doing  in  the [next installment](tutor08_littlephilosophy.md).
 
 Up till now, we've taken  a rather bottom-up approach to parsing,
 beginning with low-level constructs and working our way  up.   In
-the next installment,  I'll  also  be  taking a look from the top
+the [next installment](tutor08_littlephilosophy.md),  I'll  also  be  taking a look from the top
 down,  and  we'll  discuss how the structure of the translator is
 altered by changes in the language definition.
 

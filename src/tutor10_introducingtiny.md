@@ -2,7 +2,7 @@
 
 ## INTRODUCTION
 
-In the last installment, I showed you the general  idea  for  the
+In the [last installment](tutor09_atopview.md), I showed you the general  idea  for  the
 top-down development of  a  compiler.    I gave you the first few
 steps  of  the process for compilers for  Pascal  and  C,  but  I
 stopped  far  short  of  pushing  it through to completion.   The
@@ -13,7 +13,7 @@ language that I've been defining in this tutorial series.
 In this installment, we're going to do just that, for a subset of
 KISS which I've chosen to call TINY.
 
-The process  will be essentially that outlined in Installment IX,
+The process  will be essentially that outlined in [Installment IX](tutor09_atopview.md),
 except  for  one  notable  difference.   In that  installment,  I
 suggested  that  you  begin  with  a full BNF description of  the
 language.  That's fine for something like Pascal or C,  for which
@@ -39,13 +39,13 @@ designing YOUR language, you should feel free to do it YOUR way.
 
 Many of you may be asking at this point: Why bother starting over
 from  scratch?  We had a working subset of KISS as the outcome of
-Installment  VII  (lexical  scanning).  Why not just extend it as
+[Installment  VII](tutor07_lexicalscanning.md)  (lexical  scanning).  Why not just extend it as
 needed?  The  answer  is  threefold.    First of all, I have been
 making  a  number  of changes to further simplify the program ...
 changes  like  encapsulating  the  code generation procedures, so
 that  we  can  convert to a different target machine more easily.
 Second, I want you to see how the development can indeed  be done
-from the top down as outlined in the last installment.   Finally,
+from the top down as outlined in the [last installment](tutor09_atopview.md).   Finally,
 we both need the practice.  Each time I go through this exercise,
 I get a little better at it, and you will, also.
 
@@ -86,7 +86,7 @@ much effort.
 
 The language I have in mind will share some of the  good features
 of  Pascal,  C,  and Ada.  Taking a lesson from the comparison of
-the Pascal and  C  compilers in the previous installment, though,
+the Pascal and  C  compilers in the [previous installment](tutor09_atopview.md), though,
 TINY will have a decided Pascal flavor.  Wherever  feasible,    a
 language structure will  be  bracketed by keywords or symbols, so
 that  the parser will know where it's  going  without  having  to
@@ -851,7 +851,7 @@ Assignment.
 We've been down this  road  many times before, so this should all
 be familiar to you.    In fact, except for the changes associated
 with the code generation, we  could just copy the procedures from
-Part  VII.    Since we are making some changes, I won't just copy
+[Part  VII](tutor07_lexicalscanning.md).    Since we are making some changes, I won't just copy
 them, but we will go a little faster than usual.
 
 The BNF for the assignment statement is:
@@ -1214,7 +1214,7 @@ The reason that I'm harping on this is that  I've  already  tried
 the alternative, which is to  include TRUE and FALSE as keywords.
 The problem with that approach is that it  then  requires lexical
 scanning for EVERY variable name  in every expression.  If you'll
-recall,  I pointed out in Installment VII  that  this  slows  the
+recall,  I pointed out in [Installment VII](tutor07_lexicalscanning.md)  that  this  slows  the
 compiler  down considerably.  As long as  keywords  can't  be  in
 expressions, we need to do the scanning only at the  beginning of
 every  new  statement  ...  quite  an improvement.  So using  the
@@ -1421,7 +1421,7 @@ which is why Pascal programmers tend to write things like
 or   `end { if }`
 
 
-As I explained in  Part  V,  using  unique terminal keywords does
+As I explained in  [Part  V](tutor05_controlstructs.md),  using  unique terminal keywords does
 increase  the  size  of the keyword list and therefore slows down
 the  scanning, but in this case it seems a small price to pay for
 the added insurance.   Better  to find the errors at compile time
@@ -1565,7 +1565,7 @@ tongue planted firmly in cheek, TINY Version 0.1.
 
 Of course, you know what's next:  We have to convert  the program
 so that  it can deal with multi-character keywords, newlines, and
-whitespace.   We have just gone through all  that  in  Part  VII.
+whitespace.   We have just gone through all  that  in  [Part  VII](tutor07_lexicalscanning.md).
 We'll use the distributed scanner  technique that I showed you in
 that  installment.    The  actual  implementation  is   a  little
 different because the way I'm handling newlines is different.
@@ -1622,7 +1622,7 @@ it will indeed handle white space and newlines.
 
 If it does, then we're  ready to deal with multi-character tokens
 and keywords.   To begin, add the additional declarations (copied
-almost verbatim from Part VII):
+almost verbatim from [Part VII](tutor07_lexicalscanning.md)):
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1658,7 +1658,7 @@ const KWcode: string[NKW1] = 'xilewevbep';
 {--------------------------------------------------------------}
 ```
 
-Next, add the three procedures, also from Part VII:
+Next, add the three procedures, also from [Part VII](tutor07_lexicalscanning.md):
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1703,7 +1703,7 @@ end;
 
 Now, we have to make a  fairly  large number of subtle changes to
 the remaining procedures.  First,  we  must  change  the function
-GetName to a procedure, again as we did in Part VII:
+GetName to a procedure, again as we did in [Part VII](tutor07_lexicalscanning.md):
 
 ```delphi
 {--------------------------------------------------------------}
@@ -2044,7 +2044,7 @@ on relops.  Some of the relops are indeed single  characters, but
 others  require two.  These are `'<='` and `'>='`.  I also prefer the
 Pascal `'<>'` for "not equals,"  instead of `'#'`.
 
-If you'll recall, in Part VII I pointed out that the conventional
+If you'll recall, in [Part VII](tutor07_lexicalscanning.md) I pointed out that the conventional
 way  to  deal  with  relops  is  to  include them in the list  of
 keywords, and let the  lexical  scanner  find  them.  But, again,
 this requires scanning throughout the expression parsing process,

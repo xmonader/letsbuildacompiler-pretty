@@ -2,7 +2,7 @@
 
 ## INTRODUCTION
 
-In the last installment, we examined the techniques used to parse
+In the [last installment](tutor02_expressionparsing.md), we examined the techniques used to parse
 and  translate a general math expression.  We  ended  up  with  a
 simple parser that  could handle arbitrarily complex expressions,
 with two restrictions:
@@ -315,8 +315,8 @@ items  like  control  statements  (IFs  and  loops),  procedures,
 declarations, etc.  But cheer  up.    The  arithmetic expressions
 that we've been dealing with are among the most challenging  in a
 language.      Compared  to  what  we've  already  done,  control
-statements  will be easy.  I'll be covering  them  in  the  fifth
-installment.  And the other statements will all fall in  line, as
+statements  will be easy.  I'll be covering  them  in  the  [fifth installment](tutor05_controlstructs.md).
+And the other statements will all fall in  line, as
 long as we remember to KISS.
 
 
@@ -334,7 +334,7 @@ showing you  just  how  easy  that  extension  really is.  In the
 process, we'll also provide for embedded white space.  Before you
 make  the  next  few changes, though, save the current version of
 the parser away under another name.  I have some more uses for it
-in  the  next  installment, and we'll be working with the
+in  the  [next  installment](tutor04_interpreters.md), and we'll be working with the
 single-character version.
 
 Most compilers separate out the handling of the input stream into
@@ -877,7 +877,7 @@ end.
 Now the parser is complete.  It's got every feature we can put in
 a  one-line "compiler."  Tuck it away in a safe place.  Next time
 we'll move on to a new subject, but we'll still be  talking about
-expressions for quite awhile.  Next installment, I plan to talk a
+expressions for quite awhile.  [Next installment](tutor04_interpreters.md), I plan to talk a
 bit about interpreters as opposed  to compilers, and show you how
 the structure of the parser changes a bit as we change  what sort
 of action has to be taken.  The information we pick up there will

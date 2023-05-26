@@ -91,7 +91,7 @@ special-purpose  programs,  I  had  abandoned  them  in  favor of
 working with the full compiler.  It wasn't working.
 
 So we're going to go back to our  roots,  so  to  speak.  In this
-installment and the next, I'll be  using  single-character tokens
+installment and the [next](tutor14_types.md), I'll be  using  single-character tokens
 again as we study the concepts of procedures,  unfettered  by the
 other baggage  that we have accumulated in the previous sessions.
 As a  matter  of  fact,  I won't even attempt, at the end of this
@@ -2343,5 +2343,5 @@ both mechanisms instead of just one at a  time.    I'd  prefer to
 save  that  one  until after we've  dealt  with  ways  to  handle
 different variable types.
 
-That will be the next installment, which will be coming soon to a
+That will be the [next installment](tutor14_types.md), which will be coming soon to a
 Forum near you.  See you then.

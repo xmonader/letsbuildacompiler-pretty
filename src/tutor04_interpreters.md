@@ -82,7 +82,7 @@ corresponding constant result, which is what it actually emits as
 object code.
 
 As a matter of fact, we  could  use  a bit of that ourselves. The
-translator we built in the  previous  installment  will dutifully
+translator we built in the  [previous  installment](tutor03_moreexpressions.md)  will dutifully
 spit out object code  for  complicated  expressions,  even though
 every term in  the  expression  is  a  constant.  In that case it
 would be far better if the translator behaved a bit more  like an
@@ -632,8 +632,8 @@ variables,  and  I/O  statements.  The only things that it lacks,
 really, are control statements,  subroutines,    and some kind of
 program editing function.  The program editing part, I'm going to
 pass on.  After all, we're  not  here  to build a product, but to
-learn  things.    The control statements, we'll cover in the next
-installment, and the subroutines soon  after.  I'm anxious to get
+learn  things.    The control statements, we'll cover in the [next installment](tutor05_controlstructs.md),
+and the subroutines soon  after.  I'm anxious to get
 on with that, so we'll leave the interpreter as it stands.
 
 I hope that by  now  you're convinced that the limitation of

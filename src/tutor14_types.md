@@ -2,7 +2,7 @@
 
 ## INTRODUCTION
 
-In the  last installment (Part XIII: PROCEDURES) I mentioned that
+In the  last installment ([Part XIII: PROCEDURES](tutor13_procedures.md)) I mentioned that
 in that part and this one,  we  would cover the two features that
 tend  to  separate  the toy language from a real, usable one.  We
 covered  procedure  calls  in that installment.  Many of you have
@@ -58,7 +58,7 @@ simplest approach.
 
 Before diving into the tutorial, I think you'd like to know where
 we are going  from  here  ...  especially since it's been so long
-since the last installment.
+since the [last installment](tutor13_procedures.md).
 
 I have not been idle in  the  meantime.   What I've been doing is
 reorganizing  the  compiler  itself into Turbo Units.  One of the

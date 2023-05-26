@@ -741,6 +741,6 @@ Put the code corresponding to these cases into your copy of TINY.
 You now have TINY Version 1.2.
 
 Now that we  have  disposed  of  these  sideline  issues,  we can
-finally get back into the mainstream.  In  the  next installment,
+finally get back into the mainstream.  In  the  [next installment](tutor13_procedures.md),
 we'll talk  about procedures and parameter passing, and we'll add
 these important features to TINY.  See you then.
