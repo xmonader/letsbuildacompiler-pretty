@@ -145,23 +145,23 @@ be using the same syntax  for these constructs as you're familiar
 with  from Pascal or C.  For example, the Pascal syntax for an IF
 is:
 
-
-     `IF <condition> THEN <statement>`
-
+```delphi
+IF <condition> THEN <statement>
+```
 
 (where the statement, of course, may be compound).
 
 The C version is similar:
 
-
-     `IF ( <condition> ) <statement>`
-
+```c
+IF ( <condition> ) <statement>
+```
 
 Instead, I'll be using something that looks more like Ada:
 
-
-     `IF <condition> <block> ENDIF`
-
+```ada
+IF <condition> <block> ENDIF
+```
 
 In  other  words,  the IF construct has  a  specific  termination
 symbol.  This avoids  the  dangling-else of Pascal and C and also
@@ -177,11 +177,7 @@ straightforward.
 Now, all of the  constructs  we'll  be  dealing with here involve
 transfer of control, which at the assembler-language  level means
 conditional  and/or  unconditional branches.   For  example,  the
-simple IF statement
-
-
-          `IF <condition> A ENDIF B ....`
-
+simple IF statement `IF <condition> A ENDIF B ...`
 must get translated into
 ```
           Branch if NOT condition to L
@@ -367,15 +363,11 @@ end;
 ```
 
 Insert this procedure in your program just before DoIf.   Now run
-the program.  Try a string like
-
-     `aibece`
+the program.  Try a string like `aibece`.
 
 As you can see,  the  parser seems to recognize the construct and
 inserts the object code at the  right  places.   Now try a set of
-nested IF's, like
-
-     `aibicedefe`
+nested IF's, like `aibicedefe`.
 
 It's starting to look real, eh?
 
@@ -385,9 +377,9 @@ of cake to extend the parser to include other  constructs.    The
 first (and also one of the  trickiest)  is to add the ELSE clause
 to IF.  The BNF is
 
-
-     `IF <condition> <block> [ ELSE <block>] ENDIF`
-
+```bnf
+IF <condition> <block> [ ELSE <block>] ENDIF
+```
 
 The tricky part arises simply  because there is an optional part,
 which doesn't occur in the other constructs.
@@ -451,14 +443,10 @@ end;
 There you have it.  A complete IF parser/translator, in  19 lines
 of code.
 
-Give it a try now.  Try something like
-
-   `aiblcede`
+Give it a try now.  Try something like `aiblcede`.
 
 Did it work?  Now, just  to  be  sure we haven't broken the ELSE-less
-case, try
-
-   `aibece`
+case, try `aibece`.
 
 Now try some nested IF's.  Try anything you like,  including some
 badly formed statements.   Just  remember that `e` is not a legal
@@ -469,11 +457,7 @@ badly formed statements.   Just  remember that `e` is not a legal
 
 The next type of statement should be easy, since we  already have
 the process  down  pat.    The  syntax  I've chosen for the WHILE
-statement is
-
-
-          `WHILE <condition> <block> ENDWHILE`
-
+statement is `WHILE <condition> <block> ENDWHILE`.
 
 I know,  I  know,  we  don't  REALLY  need separate kinds of
 terminators for each construct ... you can see that by the fact that
@@ -587,10 +571,7 @@ command,  that  will  give us a way out.  This makes the language
 considerably richer than Pascal, which  has  no  break,  and also
 avoids the funny  WHILE(1) or WHILE TRUE of C and Pascal.
 
-The syntax is simply
-
-     `LOOP <block> ENDLOOP`
-
+The syntax is simply `LOOP <block> ENDLOOP`
 and the syntax-directed translation is:
 
 ```
@@ -630,12 +611,7 @@ to call it.
 ## REPEAT-UNTIL
 
 Here's one construct that I lifted right from Pascal.  The syntax
-is
-
-
-     `REPEAT <block> UNTIL <condition>`  ,
-
-
+is `REPEAT <block> UNTIL <condition>`,
 and the syntax-directed translation is:
 
 ```
@@ -818,8 +794,7 @@ end;
 Give it a try.  Once again,  don't  forget  to  add  the  call in
 Block.    Since  we don't have any input for the dummy version of
 Expression, a typical input line would look something like
-
-     `afi=bece`
+`afi=bece`.
 
 Well, it DOES generate a lot of code, doesn't it?    But at least
 it's the RIGHT code.

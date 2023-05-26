@@ -91,17 +91,10 @@ natural.
 Notice also the slight difference between the way the NOT and the
 unary  minus  are  handled.    In  algebra,  the unary  minus  is
 considered to go with the whole term, and so  never  appears  but
-once in a given term. So an expression like
-
-                    `a * -b`
-
-or worse yet,
-                    `a - -b`
-
+once in a given term. So an expression like `a * -b`,
+or worse yet, `a - -b`
 is not allowed.  In Boolean algebra, though, the expression
-
-                    `a AND NOT b`
-
+`a AND NOT b`
 makes perfect sense, and the syntax shown allows for that.
 
 
@@ -121,16 +114,10 @@ expression.
 
 But there's more to it than that.  A pure Boolean  expression can
 indeed be the predicate of a control statement ... things like
-
-
-          `IF a AND NOT b THEN ....`
-
+`IF a AND NOT b THEN ...`.
 
 But more often, we see Boolean algebra show up in such things as
-
-
-     `IF (x >= 0) and (x <= 100) THEN ...`
-
+`IF (x >= 0) and (x <= 100) THEN ...`.
 
 Here,  the  two  terms in parens are Boolean expressions, but the
 individual terms being compared:  x,  0, and 100,  are NUMERIC in
@@ -142,16 +129,13 @@ Now,  in the example above, the terms  being  compared  are  just
 that:  terms.    However,  in  general  each  side  can be a math
 expression.  So we can define a RELATION to be:
 
-
-     `<relation> ::= <expression> <relop> <expression>`  ,
-
+```bnf
+<relation> ::= <expression> <relop> <expression>
+```
 
 where  the  expressions  we're  talking  about here are  the  old
 numeric type, and the relops are any of the usual symbols
-
-
-               `=, <> (or !=), <, >, <=, and >=`
-
+`=`, `<>` (or `!=`), `<`, `>`, `<=`, and `>=`.
 
 If you think about it a  bit,  you'll agree that, since this kind
 of predicate has a single Boolean value, TRUE or  FALSE,  as  its
@@ -191,23 +175,14 @@ If  we're willing to accept that  many  precedence  levels,  this
 grammar seems reasonable.  Unfortunately,  it  won't  work!   The
 grammar may be great in theory,  but  it's  no good at all in the
 practice of a top-down parser.  To see the problem,  consider the
-code fragment:
-
-
-     `IF ((((((A + B + C) < 0 ) AND ....`
-
+code fragment `IF ((((((A + B + C) < 0 ) AND ...`.
 
 When the parser is parsing this code, it knows after it  sees the
 IF token that a Boolean expression is supposed to be next.  So it
 can set up to begin evaluating such an expression.  But the first
 expression in the example is an ARITHMETIC expression, A + B + C.
 What's worse, at the point that the parser has read this  much of
-the input line:
-
-
-     `IF ((((((A`   ,
-
-
+the input line `IF ((((((A`,
 it  still has no way of knowing which  kind  of  expression  it's
 dealing  with.  That won't do, because  we  must  have  different
 recognizers  for the two cases.  The  situation  can  be  handled
@@ -258,10 +233,7 @@ Term.  The precedence levels are
 
 Notice that there is only ONE set of syntax  rules,  applying  to
 both  kinds  of  operators.    According to this  grammar,  then,
-expressions like
-
-     `x + (y AND NOT z) DIV 3`
-
+expressions like `x + (y AND NOT z) DIV 3`
 are perfectly legal.  And, in  fact,  they  ARE ... as far as the
 parser  is  concerned.    Pascal  doesn't  allow  the  mixing  of
 arithmetic and Boolean variables, and things like this are caught
@@ -282,19 +254,13 @@ We'll do something that's  sort  of  in-between.   I'm tempted to
 stick  mostly  with  the Pascal approach, since  that  seems  the
 simplest from an implementation point  of view, but it results in
 some funnies that I never liked very much, such as the fact that,
-in the expression
-
-     `IF (c >= 'A') and (c <= 'Z') then ...`
-
+in the expression `IF (c >= 'A') and (c <= 'Z') then ...`,
 the  parens  above  are REQUIRED.  I never understood why before,
 and  neither my compiler nor any human  ever  explained  it  very
 well, either.  But now, we  can  all see that the `and` operator,
 having the precedence of a multiply, has a higher  one  than  the
 relational operators, so without  the  parens  the  expression is
-equivalent to
-
-     `IF c >= ('A' and c) <= 'Z' then`
-
+equivalent to `IF c >= ('A' and c) <= 'Z' then`,
 which doesn't make sense.
 
 In  any  case,  I've  elected  to  separate  the  operators  into
@@ -925,9 +891,7 @@ haven't  used  this  program in awhile, don't forget that we used
 single-character tokens for IF,  WHILE,  etc.   Also don't forget
 that any letter not a keyword just gets echoed as a block.
 
-Try `ia=bxlye`
-
-which stands for `IF a=b X ELSE Y ENDIF`.
+Try `ia=bxlye`, which stands for `IF a=b X ELSE Y ENDIF`.
 
 What do you think?  Did it work?  Try some others.
 

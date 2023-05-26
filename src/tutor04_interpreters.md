@@ -19,9 +19,7 @@ the  parser changes as we change the goals.  I also want to unify
 the concepts of the two types of translators, so that you can see
 not only the differences, but also the similarities.
 
-Consider the assignment statement
-
-               `x = 2 * y + 3`
+Consider the assignment statement `x = 2 * y + 3`.
 
 In a compiler, we want the target CPU to execute  this assignment
 at EXECUTION time.  The translator itself doesn't  do  any arithmetic
@@ -98,23 +96,15 @@ code.  Sometimes  they  do,  but  often  they  simply  return
 information back to the caller.  Armed with  such  information, the
 caller can then make a better choice of what to do.
 
-For example, given the statement
-
-               `x = x + 3 - 2 - (5 - 4)`  ,
-
+For example, given the statement `x = x + 3 - 2 - (5 - 4)`,
 our compiler will dutifully spit  out a stream of 18 instructions
 to load each parameter into  registers,  perform  the arithmetic,
 and store the result.  A lazier evaluation  would  recognize that
 the arithmetic involving constants can  be  evaluated  at compile
-time, and would reduce the expression to
-
-               `x = x + 0`  .
+time, and would reduce the expression to `x = x + 0`.
 
 An  even  lazier  evaluation would then be smart enough to figure
-out that this is equivalent to
-
-               `x = x`  ,
-
+out that this is equivalent to `x = x`,
 which  calls  for  no  action  at  all.   We could reduce 18
 instructions to zero!
 
@@ -178,12 +168,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Finally, insert the statement
-
-
-   `Writeln(Expression);`
-
-
+Finally, insert the statement `Writeln(Expression);`
 at the end of the main program.  Now compile and test.
 
 All this program  does  is  to  "parse"  and  translate  a single
@@ -422,7 +407,9 @@ single-character tokens, so we'll  try  the  same  trick.  In the
 beginning of your  interpreter,  just  after  the  declaration of
 variable Look, insert the line:
 
-               `Table: Array['A'..'Z'] of integer;`
+```delphi
+Table: Array['A'..'Z'] of integer;
+```
 
 We also need to initialize the array, so add this procedure:
 

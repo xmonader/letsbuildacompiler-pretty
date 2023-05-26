@@ -381,14 +381,8 @@ used reserves column 1 for labels, and will rebel to see
 instructions starting there.  So, at the very least, we must space
 the instructions over one column to keep the assembler happy.  .
 That's easy enough to do:  Simply change, in procedure Emit, the
-line:
-```delphi
-	Write(TAB, s);
-```
-by:
-```delphi
-	Write(' ', s);
-```
+line `Write(TAB, s);` by `Write(' ', s);`.
+
 I must admit that I've wrestled with this problem before, and find
 myself changing my mind as often as a chameleon changes color.
 For the purposes we're going to be using, 99% of which will be
@@ -661,10 +655,8 @@ though, to add the name Scanner1 to the "uses" clause.
 	Match('+');
 	WriteLn(GetName);
 ```
-This code will recognize all sentences of the form:
-```
-	x=0+y
-```
+
+This code will recognize all sentences of the form `x=0+y`
 where x and y can be any single-character variable names, and 0
 any digit.  The code should reject all other sentences, and give a
 meaningful error message. If it did, you're in good shape and we
@@ -904,14 +896,10 @@ have created a code generator unit, as well.
 
 Remember the very [first installment](tutor01_introduction.md) of this series?  We read an
 integer value, say n, and generated the code to load it into the
-D0 register via an immediate move:
-```
-	MOVE #n,D0
-```
+D0 register via an immediate move: `MOVE #n,D0`.
+
 Shortly afterwards, we repeated the process for a variable,
-```
-	MOVE X(PC),D0
-```
+`MOVE X(PC),D0`
 and then for a factor that could be either constant or variable.
 For old times sake, let's revisit that process.  Define the
 following new unit:

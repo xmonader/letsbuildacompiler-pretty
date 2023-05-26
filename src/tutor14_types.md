@@ -1827,8 +1827,9 @@ some bad news for you:
 All  modern  16-bit   CPU's   support   integer   divide.     The
 manufacturer's data  sheet  will  describe  this  operation  as a
 32 x 16-bit divide, meaning that you can divide a 32-bit dividend
-by a 16-bit divisor.  Here's the bad news:  `THEY'RE LYING TO YOU!!!`
+by a 16-bit divisor.  Here's the bad news:
 
+THEY'RE LYING TO YOU!!!
 
 If you don't believe  it,  try  dividing  any large 32-bit number
 (meaning that it has non-zero bits  in  the upper 16 bits) by the
@@ -2018,7 +2019,9 @@ simplifying rules.
 In case you haven't gotten this message yet, it sure appears that
 TINY and KISS will  probably  _NOT_  be strongly typed languages,
 since I've allowed for  automatic  mixing  and conversion of just
-about any type.  Which brings up the next issue:  `Is this really what we want to do?`
+about any type.  Which brings up the next issue:
+
+Is this really what we want to do?
 
 The answer depends on what kind of language you want, and the way
 you'd like it to behave.  What we have not addressed is the issue

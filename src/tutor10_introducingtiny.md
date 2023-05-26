@@ -409,9 +409,7 @@ end;
 ```
 
 Give  this  one  a  whirl.    Try  an  input  that declares  some
-variables, such as:
-
-     `pvxvyvzbe.`
+variables, such as: `pvxvyvzbe.`.
 
 See how the storage is allocated?    Simple, huh?  Note also that
 the entry point, `MAIN`, comes out in the right place.
@@ -563,11 +561,7 @@ There's one problem  with  the  compiler  as it stands so far: it
 doesn't do anything to record a variable when we declare it.   So
 the compiler is perfectly content to allocate storage for several
 variables with the same name.  You can easily verify this with an
-input like
-
-
-     `pvavavabe.`
-
+input like `pvavavabe.`.
 
 Here we've declared the variable A three times.  As you  can see,
 the compiler will  cheerfully  accept  that,  and  generate three
@@ -1362,11 +1356,7 @@ OK, if  you've  got  all  that typed in, compile it and give it a
 whirl.    First,  make  sure  you  can  still parse  an  ordinary
 arithmetic expression.  Then, try a Boolean one.    Finally, make
 sure  that you can assign the results of  relations.    Try,  for
-example:
-
-     `pvx,y,zbx=z>ye.`
-
-which stands for:
+example, `pvx,y,zbx=z>ye.`, which stands for:
 ```
      PROGRAM
      VAR X,Y,Z
@@ -1408,12 +1398,7 @@ Note  that I could have chosen to use the same keyword END to end
 all  the constructs, as is done in Pascal.  (The closing `}` in C
 serves the same purpose.)  But this has always led  to confusion,
 which is why Pascal programmers tend to write things like
-
-
-     `end { loop }`
-
-or   `end { if }`
-
+`end { loop }` or `end { if }`.
 
 As I explained in  [Part  V](tutor05_controlstructs.md),  using  unique terminal keywords does
 increase  the  size  of the keyword list and therefore slows down
@@ -1422,12 +1407,7 @@ the added insurance.   Better  to find the errors at compile time
 rather than run time.
 
 One last thought:  The two constructs above each  have  the
-non-terminals
-
-
-      `<bool-expression> and <block>`
-
-
+non-terminals `<bool-expression> and <block>`
 juxtaposed with no separating keyword.  In Pascal we would expect
 the keywords THEN and DO in these locations.
 

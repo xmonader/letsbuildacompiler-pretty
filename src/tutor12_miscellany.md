@@ -69,17 +69,10 @@ When the fathers  of  Algol introduced that language, they wanted
 to get away  from  line-oriented programs like FORTRAN and BASIC,
 and allow for free-form input.   This included the possibility of
 stringing multiple statements on a single line, as in
-
-```
-     a=b; c=d; e=e+1;
-
-```
+`a=b; c=d; e=e+1;`.
 In cases like this,  the  semicolon is almost REQUIRED.  The same
 line, without the semicolons, just looks "funny":
-
-```
-     a=b c= d e=e+1
-```
+`a=b c= d e=e+1`.
 I suspect that this is the major ... perhaps ONLY ...  reason for
 semicolons: to keep programs from looking funny.
 
@@ -174,21 +167,12 @@ pretty  sure that the program will do what you told it.  If there
 is an error at run time, it's probably a design error.
 
 The  best  example  of  useful  sugar  is  the semicolon  itself.
-Consider the code fragment:
-
-```
-     a=1+(2*b+c)   b...
-```
-
+Consider the code fragment `a=1+(2*b+c)   b...`.
 Since there is no operator connecting the token `b` with the rest
 of the  statement, the compiler will conclude that the expression
 ends  with  the  `)`, and the `b`  is  the  beginning  of  a  new
 statement.    But  suppose  I  have simply left out the  intended
-operator, and I really want to say:
-
-```
-     a=1+(2*b+c)*b...
-```
+operator, and I really want to say `a=1+(2*b+c)*b...`.
 
 In  this  case  the compiler will get an error, all right, but it
 won't be very meaningful  since  it will be expecting an `=` sign

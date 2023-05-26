@@ -108,13 +108,7 @@ of the CPU instructions.    As you know, assembly language can be
 bizarre  and  irregular  in the extreme, and a language that maps
 one-for-one onto it can be a real challenge.  Still,  I've always
 felt that the syntax used  in conventional assemblers is dumb ...
-why is
-
-     `MOVE.L A,B`
-
-better, or easier to translate, than
-
-     `B=A ?`
+why is `MOVE.L A,B` better, or easier to translate, than `B=A`?
 
 I  think  it  would  be  an  interesting  exercise to  develop  a
 "compiler" that  would give the programmer complete access to and
@@ -152,9 +146,7 @@ things got too complex to deal with in the ways  we  have so far.
 But at this point I've already  been  down the road far enough to
 see the end of it.  Guess what?
 
-
-                     `THERE ARE NO HARD PARTS!`
-
+THERE ARE NO HARD PARTS!
 
 Then, I thought maybe it was because we were not  generating very
 good object  code.    Those  of  you  who have been following the
@@ -357,8 +349,7 @@ past:
 
      We haven't had to address that  issue  at all.  When we want
      to load a literal, we just do it, in line, as in
-
-          `MOVE #3,D0`
+     `MOVE #3,D0`.
 
      There is something to be said for the use of a literal pool,
      particularly on a machine like  the 8086 where data and code

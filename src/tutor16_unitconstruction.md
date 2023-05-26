@@ -339,10 +339,8 @@ is the DEC C compiler for the VAX, which took 60 seconds to compile, on
 a VAX 11/780, and generated a 50k object file.  John's compiler is the
 undisputed, once, future, and forever king in the code size department.
 Given the null program, Whimsical generates precisely two bytes of code,
-implementing the one instruction,
-```
-	RET
-```
+implementing the one instruction, `RET`.
+
 By setting a compiler option to generate an include file rather than a
 standalone program, John can even cut this size, from two bytes to zero!
 Sort of hard to beat a null object file, wouldn't you say?
@@ -552,8 +550,7 @@ If memory serves me correctly, we once had BOTH a procedure SignedFactor
 and a procedure SignedTerm. I had reasons for doing that at the time ...
 they had to do with the handling of Boolean algebra and, in particular,
 the Boolean "not" function.  But certainly, for arithmetic operations,
-that duplication isn't necessary.  In an expression like: `-x*y`
-
+that duplication isn't necessary.  In an expression like `-x*y`,
 it's very apparent that the sign goes with the whole TERM, x*y, and not
 just the factor x, and that's the way Expression is coded.
 
@@ -661,10 +658,9 @@ levels.  As a result, we ended up with things called Boolean
 expressions, paralleling in most details the arithmetic expressions, but
 at a different precedence level.  All of this, as it turned out, came
 about because I didn't like having to put parentheses around the Boolean
-expressions in statements like:
-```delphi
-IF (c >= 'A') and (c <= 'Z') then ...
-```
+expressions in statements like
+`IF (c >= 'A') and (c <= 'Z') then ...`.
+
 In retrospect, that seems a pretty petty reason to add many layers of
 complexity to the parser.  Perhaps more to the point, I'm not sure I was
 even able to avoid the parens.
@@ -761,11 +757,11 @@ in Main back to a call to Expression, just to avoid having to type
 "x=" for an assignment every time).
 
 So far, so good.  The parser nicely handles expressions of the
-form: `x|y~z`
+form `x|y~z`.
 
 Unfortunately, it also does nothing to protect us from mixing
 Boolean and arithmetic algebra.  It will merrily generate code
-for: `(a+b)*(c~d)`
+for `(a+b)*(c~d)`.
 
 We've talked about this a bit, in the past.  In general the rules
 for what operations are legal or not cannot be enforced by the
@@ -798,9 +794,9 @@ represents the logical TRUE, or the numeric -1.  Should we?  I
 sort of think not.  I can think of many examples (though they
 might be frowned upon as "tricky" code) where the ability to mix
 the types might come in handy.  Example, the Dirac delta function,
-which could be coded in one simple line: `-(x=0)`
-
-or the absolute value function (DEFINITELY tricky code!): `x*(1+2*(x<0))`
+which could be coded in one simple line, `-(x=0)`,
+or the absolute value function (DEFINITELY tricky code!),
+`x*(1+2*(x<0))`.
 
 Please note, I'm not advocating coding like this as a way of life.
 I'd almost certainly write these functions in more readable form,
@@ -925,12 +921,10 @@ another line to SignedTerm, but that would still not solve the problem,
 because note that Expression only accepts a signed term for the _FIRST_
 argument.
 
-Mathematically, an expression like: `-a * -b`
-
+Mathematically, an expression like `-a * -b`
 makes little or no sense, and the parser should flag it as an error.
 But the same expression, using a logical "not," makes perfect sense:
-
-	`not a and not b`
+`not a and not b`.
 
 In the case of these unary operators, choosing to make them act the same
 way seems an artificial force fit, sacrificing reasonable behavior on
@@ -939,17 +933,17 @@ implementation as simple as possible, I don't think we should do so at
 the expense of reasonableness.  Patching like this would be missing the
 main point, which is that the logical "not" is simply NOT the same kind
 of animal as the unary minus.  Consider the exclusive or, which is most
-naturally written as: `a~b ::= (a and not b) or (not a and b)`
+naturally written as `a~b ::= (a and not b) or (not a and b)`.
 
 If we allow the "not" to modify the whole term, the last term in
-parentheses would be interpreted as: `not(a and b)`
+parentheses would be interpreted as `not(a and b)`.
 
 which is not the same thing at all.  So it's clear that the logical
 "not" must be thought of as connected to the FACTOR, not the term.
 
 The idea of overloading the `~` operator also makes no sense from a
 mathematical point of view.  The implication of the unary minus is that
-it's equivalent to a subtraction from zero: `-x <=> 0-x `
+it's equivalent to a subtraction from zero: `-x <=> 0-x`.
 
 In fact, in one of my more simple-minded versions of Expression, I
 reacted to a leading addop by simply preloading a zero, then processing
@@ -964,7 +958,7 @@ exclusive or.  Therefore, it deserves a symbol to call its own. What
 better symbol than the obvious one, also used by C, the `!` character?
 Using the rules about the way we think the "not" should behave, we
 should be able to code the exclusive or (assuming we'd ever need to), in
-the very natural form: `a & !b | !a & b`
+the very natural form: `a & !b | !a & b`.
 
 Note that no parentheses are required -- the precedence levels we've
 chosen automatically take care of things.
@@ -973,9 +967,9 @@ If you're keeping score on the precedence levels, this definition puts
 the `!` at the top of the heap.  The levels become:
 
 1.	!
-2.	`- (unary) `
-3.	`*, /, &`
-4.	`+, -, |, ~`
+2.	`-` (unary)
+3.	`*`, `/`, `&`
+4.	`+`, `-`, `|`, `~`
 
 Looking at this list, it's certainly not hard to see why we had trouble
 using `~` as the "not" symbol!
@@ -1018,8 +1012,7 @@ end;
 ```
 
 Try this now, with a few simple cases. In fact, try that exclusive or
-example, `a&!b|!a&b`
-
+example, `a&!b|!a&b`.
 
 You should get the code (without the comments, of course):
 ```
@@ -1039,11 +1032,9 @@ You should get the code (without the comments, of course):
 That's precisely what we'd like to get.  So, at least for both
 arithmetic and logical operators, our new precedence and new, slimmer
 syntax hang together.  Even the peculiar, but legal, expression with
-leading addop: `~x`
-
+leading addop, `~x`,
 makes sense.  SignedTerm ignores the leading `~`, as it should, since
-the expression is equivalent to: `0~x`,
-
+the expression is equivalent to `0~x`,
 which is equal to x.
 
 When we look at the BNF we've created, we find that our boolean algebra

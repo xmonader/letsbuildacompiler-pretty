@@ -26,7 +26,7 @@ can discard it when we're ready to.
 ## Variables
 
 Most expressions  that we see in practice involve variables, such
-as `b * b + 4 * a * c`
+as `b * b + 4 * a * c`.
 
 No  parser is much good without being able  to  deal  with  them.
 Fortunately, it's also quite easy to do.
@@ -35,7 +35,9 @@ Remember that in our parser as it currently stands, there are two
 kinds of  factors  allowed:  integer  constants  and  expressions
 within parentheses.  In BNF notation,
 
-     `<factor> ::= <number> | (<expression>)`
+```bnf
+<factor> ::= <number> | (<expression>)
+```
 
 The `|` stands for "or", meaning of course that either form  is a
 legal form for a factor.   Remember,  too, that we had no trouble
@@ -46,9 +48,9 @@ It probably won't come as too much of a surprise that  a variable
 is just another kind of factor.    So  we extend the BNF above to
 read:
 
-
-     `<factor> ::= <number> | (<expression>) | <variable>`
-
+```bnf
+<factor> ::= <number> | (<expression>) | <variable>
+```
 
 Again, there is no  ambiguity:  if  the  lookahead character is a
 letter,  we  have  a variable; if a digit, we have a number. Back
@@ -60,8 +62,7 @@ A minor complication in the  code generation arises from the fact
 that most  68000 operating systems, including the SK*DOS that I'm
 using, require the code to be  written  in "position-independent"
 form, which  basically means that everything is PC-relative.  The
-format for a load in this language is `MOVE X(PC),D0`
-
+format for a load in this language is `MOVE X(PC),D0`,
 where X is, of course, the variable name.  Armed with that, let's
 modify the current version of Factor to read:
 
@@ -125,7 +126,7 @@ list.  That's the rule used in C.
 Since  we  don't  yet have a mechanism for declaring types, let's
 use the C  rule for now.  Since we also don't have a mechanism to
 deal  with parameters, we can only handle  empty  lists,  so  our
-function calls will have the form `x()`  .
+function calls will have the form `x()`.
 
 Since  we're  not  dealing  with  parameter lists yet,  there  is
 nothing  to do but to call the function, so we need only to issue
@@ -239,8 +240,7 @@ temporary.   All  we  have  to  do  is assert that the expression
 should end with an end-of-line, i.e., a carriage return.
 
 To see what I'm talking about, try the input line
-
-               `1+2 <space> 3+4`
+`1+2 <space> 3+4`.
 
 See  how the space was treated as a terminator?  Now, to make the
 compiler properly flag this, add the line
@@ -272,8 +272,7 @@ code or object size.  We just stuck to the KISS principle.
 Of course, parsing an expression  is not much good without having
 something to do with it afterwards.  Expressions USUALLY (but not
 always) appear in assignment statements, in the form
-
-          `<Ident> = <Expression>`
+`<Ident> = <Expression>`.
 
 We're only a breath  away  from being able to parse an assignment
 statement, so let's take that  last  step.  Just  after procedure

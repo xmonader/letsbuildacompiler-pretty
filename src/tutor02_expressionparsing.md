@@ -13,7 +13,7 @@ The purpose of this article is for us to learn  how  to parse and
 translate mathematical expressions.  What we would like to see as
 output is a series of assembler-language statements  that perform
 the desired actions.    For purposes of definition, an expression
-is the right-hand side of an equation, as in `x = 2*y + 3/(4*z)`
+is the right-hand side of an equation, as in `x = 2*y + 3/(4*z)`.
 
 In the early going, I'll be taking things in _VERY_  small steps.
 That's  so  that  the beginners among you won't get totally lost.
@@ -93,9 +93,7 @@ Now that we have that under our belt,  let's  branch  out  a bit.
 Admittedly, an "expression" consisting of only  one  character is
 not going to meet our needs for long, so let's see what we can do
 to extend it. Suppose we want to handle expressions of the form:
-
-`1+2` or `4-3` or, in general, `<term> +/- <term>`
-
+`1+2` or `4-3` or, in general, `<term> +/- <term>`.
 (That's a bit of Backus-Naur Form, or BNF.)
 
 To do this we need a procedure that recognizes a term  and leaves
@@ -243,8 +241,11 @@ start to take the shape of a real parser.
 
 In the  REAL  world,  an  expression  can  consist of one or more
 terms, separated  by  "addops"  (`+`  or  `-`).   In BNF, this is
-written `<expression> ::= <term> [<addop> <term>]*`
+written
 
+```bnf
+<expression> ::= <term> [<addop> <term>]*
+```
 
 We  can  accommodate  this definition of an  expression  with  the
 addition of a simple loop to procedure Expression:
@@ -300,8 +301,7 @@ and D1 as  a place to store the partial sum.  That works fine for
 now,  because  as  long as we deal with only the "addops" `+` and
 `-`, any new term can be added in as soon as it is found.  But in
 general that isn't true.  Consider, for example, the expression
-
-               `1+(2-(3+(4-5)))`
+`1+(2-(3+(4-5)))`.
 
 If we put the `1` in D1, where  do  we  put  the  `2`?    Since a
 general expression can have any degree of complexity, we're going
@@ -315,18 +315,10 @@ of  those unfamiliar with 68000 assembler  language,  a  push  is
 written `-(SP)` and a pop, `(SP)+`.
 
 
-So let's change the EmitLn in Expression to read:
-```delphi
-               EmitLn('MOVE D0,-(SP)');
-```
+So let's change the EmitLn in Expression to read
+`EmitLn('MOVE D0,-(SP)');`
 and the two lines in Add and Subtract to
-```delphi
-               EmitLn('ADD (SP)+,D0')
-```
-and
-```delphi
-            EmitLn('SUB (SP)+,D0'),
-```
+`EmitLn('ADD (SP)+,D0');` and `EmitLn('SUB (SP)+,D0');`,
 respectively.  Now try the parser again and make sure  we haven't
 broken it.
 
@@ -352,7 +344,11 @@ top-down  parsing technique.  Up till now,  the  only  form  that
 we've considered for a term is that of a  single  decimal  digit.
 
 More generally, we  can  define  a  term as a PRODUCT of FACTORS;
-i.e. `<term> ::= <factor>  [ <mulop> <factor ]*`
+i.e.
+
+```bnf
+<term> ::= <factor>  [ <mulop> <factor ]*
+```
 
 What  is  a `factor`?  For now, it's what a term used to be  ...  a
 single digit.
@@ -467,20 +463,20 @@ Remember, we're not trying to produce tight code here.
 We  can  wrap  up this part of the parser with  the  addition  of
 parentheses with  math expressions.  As you know, parentheses are
 a  mechanism to force a desired operator  precedence.    So,  for
-example, in the expression `2*(3+4)` ,
-
+example, in the expression `2*(3+4)`,
 the parentheses force the addition  before  the  multiply.   Much
 more importantly, though, parentheses  give  us  a  mechanism for
 defining expressions of any degree of complexity, as in
-
-               `(1+2)/((3+4)+(5-6))`
+`(1+2)/((3+4)+(5-6))`.
 
 The  key  to  incorporating  parentheses  into our parser  is  to
 realize that  no matter how complicated an expression enclosed by
 parentheses may be,  to  the  rest  of  the world it looks like a
 simple factor.  That is, one of the forms for a factor is:
 
-          `<factor> ::= (<expression>)`
+```bnf
+<factor> ::= (<expression>)
+```
 
 This is where the recursion comes in. An expression can contain a
 factor which contains another expression which contains a factor,
@@ -519,7 +515,7 @@ message.
 ## Unary Minus
 
 At  this  point,  we have a parser that can handle just about any
-expression, right?  OK, try this input sentence: `-1`
+expression, right?  OK, try this input sentence: `-1`.
 
 WOOPS!  It doesn't work, does it?   Procedure  Expression expects
 everything to start with an integer, so it coughs up  the leading

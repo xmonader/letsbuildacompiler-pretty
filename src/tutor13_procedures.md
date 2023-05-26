@@ -134,9 +134,8 @@ The program shown below is that basis.  It's a vestigial  form of
 TINY, with single-character tokens.   It  has  data declarations,
 but only in their simplest form ... no lists or initializers.  It
 has assignment statements, but only of the kind
-```
-     <ident> = <ident>
-```
+`<ident> = <ident>`.
+
 In  other  words,  the only legal expression is a single variable
 name.    There  are no control  constructs  ...  the  only  legal
 statement is the assignment.
@@ -977,9 +976,7 @@ Again, we all know the basic idea of passed parameters, but let's
 review them just to be safe.
 
 In general the procedure is given a parameter list, for example
-```
-     PROCEDURE FOO(X, Y, Z)
-```
+`PROCEDURE FOO(X, Y, Z)`.
 In  the declaration of a procedure,  the  parameters  are  called
 formal  parameters, and may be referred to in  the  body  of  the
 procedure  by  those  names.    The  names  used for  the  formal
@@ -1014,12 +1011,7 @@ Modula 2, require the parens even if the list is empty.  Clearly,
 the example we just finished corresponds to the  former  point of
 view.  But to tell the truth I prefer the latter.  For procedures
 alone, the  decision would seem to favor the "listless" approach.
-The statement
-
-```delphi
-     Initialize; ,
-
-```
+The statement `Initialize;`,
 standing alone, can only  mean  a procedure call.  In the parsers
 we've  been  writing,  we've  made  heavy  use  of  parameterless
 procedures, and it would seem a  shame  to have to write an empty
@@ -1216,20 +1208,10 @@ There was, however, an even more insidious problem, which was not
 really just the fault of  the "pass by reference" convention, but
 a bad convergence of several implementation decisions.
 
-Suppose we have a subroutine:
-
-```delphi
-     SUBROUTINE FOO(X, Y, N)
-```
-
+Suppose we have a subroutine `SUBROUTINE FOO(X, Y, N)`,
 where N is some kind of  input  count  or flag.  Many times, we'd
 like  to be able to pass a literal or even an expression in place
-of a variable, such as:
-
-```delphi
-     CALL FOO(A, B, J + 1)
-```
-
+of a variable, such as `CALL FOO(A, B, J + 1)`.
 Here the third  parameter  is  not  a  variable, and so it has no
 address.    The  earliest FORTRAN compilers did  not  allow  such
 things, so we had to resort to subterfuges like:
@@ -1253,11 +1235,8 @@ it would be recalculated anyway.
 
 The  problem  arose  when  someone  decided to make  things  more
 efficient.  They  reasoned,  rightly enough, that the most common
-kind of "expression" was a single integer value, as in:
-
-```delphi
-     CALL FOO(A, B, 4)
-```
+kind of "expression" was a single integer value, as in
+`CALL FOO(A, B, 4)`.
 
 It seemed inefficient to go to the trouble of "computing" such an
 integer and storing it  in  a temporary variable, just to pass it
@@ -1354,11 +1333,7 @@ yet!
 
 Let's just try some simple-minded  things and see where they lead
 us.    Let's begin with the pass-by-value  case.    Consider  the
-procedure call:
-
-```delphi
-     FOO(X, Y)
-```
+procedure call `FOO(X, Y)`.
 
 Almost the only reasonable way to pass the data  is  through  the
 CPU stack.  So the code we'd like  to  see  generated  might look
@@ -2149,14 +2124,9 @@ More recently, though, several folks  have pointed out to me that
 there really is no performance  penalty  associated  with dynamic
 storage.  With the 68000, for example, you shouldn't use absolute
 addressing  anyway  ...  most  operating systems require position
-independent code.  And the 68000 instruction
-```
-     MOVE 8(A6),D0
-```
-has exactly the same timing as
-```
-     MOVE X(PC),D0.
-```
+independent code.  And the 68000 instruction `MOVE 8(A6),D0`
+has exactly the same timing as `MOVE X(PC),D0`.
+
 So  I'm  convinced,  now, that there is no good reason NOT to use
 dynamic storage.
 

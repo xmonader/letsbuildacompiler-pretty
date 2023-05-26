@@ -117,7 +117,9 @@ Now, it happens that in  real, practical grammars, the parts that
 qualify as  regular expressions tend to be the lower-level parts,
 such as the definition of an identifier:
 
-     `<ident> ::= <letter> [ <letter> | <digit> ]*`
+```bnf
+<ident> ::= <letter> [ <letter> | <digit> ]*
+```
 
 Since it takes a different kind of abstract machine to  parse the
 two  types  of  grammars, it makes sense to separate these lower-level
@@ -258,10 +260,8 @@ end;
 integer as before.)
 
 You  can  easily  verify that these routines work by calling them
-from the main program, as in
-```delphi
-     WriteLn(GetName);
-```
+from the main program, as in `WriteLn(GetName);`.
+
 This  program  will  print any legal name typed in (maximum eight
 characters, since that's what we told GetName).   It  will reject
 anything else.
@@ -274,11 +274,7 @@ Test the other routine similarly.
 We  also  have  dealt with embedded white space before, using the
 two  routines  IsWhite  and  SkipWhite.    Make  sure that  these
 routines are in your  current  version of the cradle, and add the
-the line
-```delphi
-     SkipWhite;
-```
-at the end of both GetName and GetNum.
+the line `SkipWhite;` at the end of both GetName and GetNum.
 
 Now, let's define the new procedure:
 

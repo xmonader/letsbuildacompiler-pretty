@@ -155,10 +155,7 @@ end;
 ```
 As usual, add  this  code  and  try  out the "compiler."  At this
 point, there is only one legal input:
-
-
-     px.   (where x is any single letter, the program name)
-
+`px.`   (where x is any single letter, the program name).
 
 Well,  as  usual  our first effort is rather unimpressive, but by
 now  I'm sure you know that things  will  get  more  interesting.
