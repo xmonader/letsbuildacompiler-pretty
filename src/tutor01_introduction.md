@@ -22,7 +22,7 @@ share with you what I have  learned.    At the end of this series
 you will by no means be  a  computer scientist, nor will you know
 all the esoterics of  compiler  theory.    I intend to completely
 ignore the more theoretical  aspects  of  the  subject.  What you
-_WILL_ know is all  the  practical aspects that one needs to know
+_will_ know is all  the  practical aspects that one needs to know
 to build a working system.
 
 This is a "learn-by-doing" series.  In the course of the series I
@@ -76,7 +76,7 @@ we won't be covering here.  The typical sequence is:
 
 I'll  be taking a much different approach in  this  series.    To
 begin  with,  I  won't dwell long on options.  I'll be giving you
-_A_ way that works.  If you want  to  explore  options,  well and
+_a_ way that works.  If you want  to  explore  options,  well and
 good ...  I  encourage  you  to do so ... but I'll be sticking to
 what I know.   I also will skip over most of the theory that puts
 people  to  sleep.  Don't get me  wrong:  I  don't  belittle  the
@@ -86,7 +86,7 @@ putting first things first.    Here we'll be dealing with the 95%
 of compiler techniques that don't need a lot of theory to handle.
 
 I  also  will  discuss only one approach  to  parsing:  top-down,
-recursive descent parsing, which is the  _ONLY_  technique that's
+recursive descent parsing, which is the  _only_  technique that's
 at  all   amenable  to  hand-crafting  a  compiler.    The  other
 approaches are only useful if you have a tool like YACC, and also
 don't care how much memory space the final product uses.
@@ -99,11 +99,11 @@ P-code,  and   a  back  end  that  processes  P-code  to  produce
 executable   object  code),  Ron  showed  us   that   it   is   a
 straightforward  matter  to  make  a  compiler  directly  produce
 executable  object  code,  in  the  form  of  assembler  language
-statements.  The code will _NOT_ be the world's tightest code ...
+statements.  The code will _not_ be the world's tightest code ...
 producing optimized code is  a  much  more  difficult job. But it
 will work, and work reasonably well.  Just so that I  don't leave
 you with the impression that our end product will be worthless, I
-_DO_ intend to show you how  to  "soup up" the compiler with some
+_do_ intend to show you how  to  "soup up" the compiler with some
 optimization.
 
 
@@ -128,7 +128,7 @@ be  other tricks that you'll see as you go. Most of them can't be
 found in any compiler textbook, but they work.
 
 A word about style and efficiency.    As  you will see, I tend to
-write programs in  _VERY_  small, easily understood pieces.  None
+write programs in  _very_  small, easily understood pieces.  None
 of the procedures we'll  be  working with will be more than about
 15-20 lines long.  I'm a fervent devotee  of  the  KISS  (Keep It
 Simple, Sidney) school of software development.  I  try  to never

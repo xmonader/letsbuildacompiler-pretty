@@ -15,7 +15,7 @@ output is a series of assembler-language statements  that perform
 the desired actions.    For purposes of definition, an expression
 is the right-hand side of an equation, as in `x = 2*y + 3/(4*z)`.
 
-In the early going, I'll be taking things in _VERY_  small steps.
+In the early going, I'll be taking things in _very_  small steps.
 That's  so  that  the beginners among you won't get totally lost.
 There are also  some  very  good  lessons to be learned early on,
 that will serve us well later.  For the more experienced readers:
@@ -195,7 +195,7 @@ really throughout  this  series  of  articles,  we'll  studiously
 ignore optimization and  concentrate  on  getting  out  code that
 works.
 
-Speaking of which: ours DOESN'T!  The code is _WRONG_!  As things
+Speaking of which: ours DOESN'T!  The code is _wrong_!  As things
 are working  now, the subtraction process subtracts D1 (which has
 the FIRST argument in it) from D0 (which has the second).  That's
 the wrong way, so we end up with the wrong  sign  for the result.

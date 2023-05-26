@@ -1936,7 +1936,7 @@ const MaxEntry = 100;
 var ST   : array[1..MaxEntry] of Symbol;
 ```
 
-(Note that ST is _NOT_ declared as a SymTab.  That declaration is
+(Note that ST is _not_ declared as a SymTab.  That declaration is
 a phony one to get Lookup to work.  A SymTab  would  take  up too
 much RAM space, and so one is never actually allocated.)
 
@@ -2186,7 +2186,7 @@ for library procedures ... the components of a  Run  Time Library
 (RTL).    Of  course, someone (namely  us)  has  to  write  these
 routines, but they're not  part  of the compiler itself.  I won't
 even bother  showing the routines here, since these are obviously
-very much OS-dependent.   I  _WILL_  simply  say that for SK*DOS,
+very much OS-dependent.   I  _will_  simply  say that for SK*DOS,
 they  are  particularly  simple ... almost trivial.  One reason I
 won't show them here is that  you  can add all kinds of fanciness
 to the things, for  example  by prompting in READ for the inputs,
@@ -2295,7 +2295,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-That's all there is to it.  _NOW_ we have a language!
+That's all there is to it.  _Now_ we have a language!
 
 
 ## Conclusion

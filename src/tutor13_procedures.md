@@ -696,7 +696,7 @@ procedures as we choose (as long  as  we don't run out of
 single-character names!), and the  labels  and RTS's all come out in the
 right places.
 
-It's  worth  noting  here  that  I  do  _NOT_  allow  for  nested
+It's  worth  noting  here  that  I  do  _not_  allow  for  nested
 procedures.   In TINY, all procedures must  be  declared  at  the
 global level,  the  same  as  in  C.    There  has  been  quite a
 discussion about this point in  the  Computer  Language  Forum of
@@ -743,7 +743,7 @@ a procedure  is signaled by the keyword PROCEDURE (abbreviated by
 a `p` here), while the main program gets no  keyword  other  than
 the BEGIN itself.
 
-And _THAT_ brings up an interesting question: WHY?
+And _that_ brings up an interesting question: WHY?
 
 If  we  look  at the structure of C programs, we  find  that  all
 functions are treated just  alike,  except  that the main program
@@ -1025,7 +1025,7 @@ have to go  back  to  the  declarations  to find out.  Some folks
 consider  this to be an advantage.  Their  argument  is  that  an
 identifier gets replaced by a value, and what do you care whether
 it's done by  substitution  or  by  a function?  But we sometimes
-_DO_ care, because the function may be quite time-consuming.  If,
+_do_ care, because the function may be quite time-consuming.  If,
 by  writing  a  simple identifier into a given expression, we can
 incur a heavy run-time penalty, it seems to  me  we  ought  to be
 made aware of it.
@@ -1149,7 +1149,7 @@ called it from within `CallProc`.
 
 OK, if you'll add all this code to  your  translator  and  try it
 out, you'll find that you can indeed parse the syntax properly.
-I'll note in  passing  that  there  is _NO_ checking to make sure
+I'll note in  passing  that  there  is _no_ checking to make sure
 that  the  number  (and,  later,  types)  of  formal  and  actual
 parameters match up.  In a production compiler, we must of course
 do  this.  We'll ignore the issue now if for no other reason than
@@ -1309,7 +1309,7 @@ expression" problem, by  the  simple expedient of allowing only a
 variable to be the actual parameter.  In other  words,  it's  the
 same restriction that the earliest FORTRANs imposed.
 
-C does the same thing, but explicitly.  In  C,  _ALL_  parameters
+C does the same thing, but explicitly.  In  C,  _all_  parameters
 are passed  by  value.    One  kind  of variable that C supports,
 however, is the pointer.  So  by  passing a pointer by value, you
 in effect pass what it points to by reference.  In some ways this
@@ -1807,7 +1807,7 @@ this kind of thing.
 The problem, as you  can  see, is that as the procedure executes,
 the stack  pointer  bounces  up  and  down,  and so it becomes an
 awkward  thing  to  use  as  a  reference  to access  the  formal
-parameters.  The solution is to define some _OTHER_ register, and
+parameters.  The solution is to define some _other_ register, and
 use  it instead.  This register is typically  set  equal  to  the
 original stack pointer, and is called the frame pointer.
 
@@ -2134,7 +2134,7 @@ dynamic storage.
 
 Since this use of local variables fits so well into the scheme of
 pass-by-value  parameters,  we'll  use   that   version   of  the
-translator to illustrate it. (I _SURE_ hope you kept a copy!)
+translator to illustrate it. (I _sure_ hope you kept a copy!)
 
 The general idea is to keep track of how  many  local  parameters
 there  are.    Then we use the integer in the LINK instruction to

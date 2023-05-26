@@ -413,7 +413,7 @@ the  parser!  The local variable Name  in  procedures  Ident  and
 Assignment was originally declared as  `char`,  and  must  now be
 declared string[8].  (Clearly,  we  could  make the string length
 longer if we chose, but most assemblers limit the length anyhow.)
-Make  this  change,  and  then  recompile and test. _NOW_ do  you
+Make  this  change,  and  then  recompile and test. _Now_ do  you
 believe that it's a simple change?
 
 

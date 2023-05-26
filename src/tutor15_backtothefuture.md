@@ -367,7 +367,7 @@ surprised to see that you needed to type something, even though
 the main program requires no input.  That's because of the
 initialization in unit Input, which still requires something to
 put into the lookahead character.  Sorry, there's no way out of
-that box, or rather, we don't _WANT_ to get out. Except for simple
+that box, or rather, we don't _want_ to get out. Except for simple
 test cases such as this, we will always want a valid lookahead
 character, so the right thing to do about this "problem" is ...
 nothing.

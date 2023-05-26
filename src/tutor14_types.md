@@ -1073,7 +1073,7 @@ Expression.    In  general  the  expression  may  be  arbitrarily
 complex, so how can procedure Assignment know what  type  of data
 is left in register D0?
 
-Again,  the  answer  is  simple:    We'll  just  _ASK_  procedure
+Again,  the  answer  is  simple:    We'll  just  _ask_  procedure
 Expression!  The answer can be returned as a function value.
 
 All of this requires several procedures to be  modified,  but the
@@ -1607,7 +1607,7 @@ the case of UnOp, I'm looking ahead to the time when  we're going
 to want better code  generation.   The way the code is organized,
 we can achieve  this  without major modifications to the program.
 For example, in cases where the value pushed onto the  stack does
-_NOT_ have to be converted, it's still better to use the "pop and
+_not_ have to be converted, it's still better to use the "pop and
 add"  instruction.    If we choose to test for such cases, we can
 embed the extra tests into  PopAdd  and  PopSub  without changing
 anything else much.
@@ -2016,7 +2016,7 @@ simplifying rules.
 ## To Coerce or Not to Coerce
 
 In case you haven't gotten this message yet, it sure appears that
-TINY and KISS will  probably  _NOT_  be strongly typed languages,
+TINY and KISS will  probably  _not_  be strongly typed languages,
 since I've allowed for  automatic  mixing  and conversion of just
 about any type.  Which brings up the next issue:
 
@@ -2117,7 +2117,7 @@ mix Byte and Char types, even though they  are  stored internally
 in the same representation.
 
 The ultimate in a  strongly-typed  language  is Ada, which allows
-_NO_  implicit  type  conversions at all, and also will not allow
+_no_  implicit  type  conversions at all, and also will not allow
 mixed-mode  arithmetic.    Jean   Ichbiah's   position   is  that
 conversions cost  execution time, and you shouldn't be allowed to
 build in such cost in a hidden manner.  By forcing the programmer
@@ -2154,12 +2154,12 @@ trying things until something works.
 So what should we do in TINY and KISS?  For the first one, I have
 the answer:  TINY  will  support only the types Char and Integer,
 and  we'll  use  the  C  trick  of  promoting Chars  to  Integers
-internally.  That means  that  the  TINY  compiler will be _MUCH_
+internally.  That means  that  the  TINY  compiler will be _much_
 simpler  than  what  we've  already  done.    Type conversion  in
 expressions is sort of moot, since none will be required!   Since
 longwords will not be supported, we also won't need the MUL32 and
 DIV32 run-time routines, nor the logic to figure out when to call
-them.  I _LIKE_ it!
+them.  I _like_ it!
 
 KISS, on the other hand, will support the type Long.
 

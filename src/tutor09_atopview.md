@@ -477,7 +477,7 @@ impress upon you these two facts:
    hard  to  write  a compiler for, as well.  C  is  a  popular
    language,  and  it  has  a  reputation  for  letting you  do
    virtually  anything that is possible to  do.    Despite  the
-   success of Small C, C is _NOT_ an easy language to parse.
+   success of Small C, C is _not_ an easy language to parse.
 
 A C program has  less  structure than its Pascal counterpart.  At
 the top level, everything in C is a static declaration, either of
@@ -588,7 +588,7 @@ end.
 ```
 
 For the first round, just make the three procedures stubs that do
-nothing _BUT_ call GetChar.
+nothing _but_ call GetChar.
 
 Does this program work?  Well, it would be hard put NOT to, since
 we're not really asking it to do anything.  It's been said that a
@@ -727,7 +727,7 @@ give a list separated by commas.  We  can't  process initializers
 as yet.  We also can't process argument lists for  the functions,
 but the `(){}` characters should be there.
 
-We're still a _VERY_ long way from having a C compiler,  but what
+We're still a _very_ long way from having a C compiler,  but what
 we have is starting to process the right kinds of inputs,  and is
 recognizing both good  and  bad  inputs.    In  the  process, the
 natural structure of the compiler is starting to take form.

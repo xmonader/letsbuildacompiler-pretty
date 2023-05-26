@@ -222,7 +222,7 @@ the job done in very simple and straightforward fashion.
 
 I'll end this philosophizing with an observation re the notion of an
 intermediate language.  While I've noted before that we don't have one
-in our compiler, that's not exactly true; we _DO_ have one, or at least
+in our compiler, that's not exactly true; we _do_ have one, or at least
 are evolving one, in the sense that we are defining code generation
 functions for the parser to call.  In essence, every call to a code
 generation procedure can be thought of as an instruction in an
@@ -338,7 +338,7 @@ end.
 ```
 
 My test is to measure the time required to compile and link, and the
-size of the object file generated.  The undisputed _LOSER_ in the test
+size of the object file generated.  The undisputed _loser_ in the test
 is the DEC C compiler for the VAX, which took 60 seconds to compile, on
 a VAX 11/780, and generated a 50k object file.  John's compiler is the
 undisputed, once, future, and forever king in the code size department.
@@ -840,7 +840,7 @@ software should be written.  Specifically, in this case, they
 decided that self-modifying code, which you can implement using
 PC-relative writes, is a Bad Thing.  Therefore, they designed the
 processor to prohibit it.  Unfortunately, in the process they also
-prohibited _ALL_ writes of the forms shown above, however benign.
+prohibited _all_ writes of the forms shown above, however benign.
 Note that this was not something done by default.  Extra design
 work had to be done, and extra gates added, to destroy the natural
 orthogonality of the instruction set.
@@ -934,7 +934,7 @@ work. In my first attempt, procedure SignedTerm simply ate my `~`,
 because the character passed the test for an addop, but SignedTerm
 ignores all addops except `-`.  It would have been easy enough to add
 another line to SignedTerm, but that would still not solve the problem,
-because note that Expression only accepts a signed term for the _FIRST_
+because note that Expression only accepts a signed term for the _first_
 argument.
 
 Mathematically, an expression like `-a * -b`
