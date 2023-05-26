@@ -199,7 +199,7 @@ programming languages:
      <ident> ::= <letter> [ <letter> | <digit> ]*
      <number ::= [<digit>]+
 ```
-(Remember, the `*` indicates zero or more occurences of the terms
+(Remember, the `*` indicates zero or more occurrences of the terms
 in brackets, and the `+`, one or more.)
 
 We  have already dealt with similar  items  in  [Installment  III](tutor03_moreexpressions.md).
@@ -531,7 +531,7 @@ end;
 ```
 
 It's important to  note  that  we  DON'T  have  to  include every
-possible  operator in this list.   For  example,  the  paretheses
+possible  operator in this list.   For  example,  the  parentheses
 aren't  included, nor is the terminating  period.    The  current
 version of Scan handles single-character operators  just  fine as
 it is.  The list above includes only those  characters  that  can
@@ -636,7 +636,7 @@ boot.
 
 OK, at this point we have a pretty nice lexical scanner that will
 break  an  input stream up into tokens.  We could use  it  as  it
-stands and have a servicable compiler.  But there are  some other
+stands and have a serviceable compiler.  But there are  some other
 aspects of lexical scanning that we need to cover.
 
 The main consideration is `<shudder>` efficiency.  Remember when we
@@ -1151,7 +1151,7 @@ not allowed, we don't slow things down by looking for them.
 
 Now that we've covered  all  of the theory and general aspects of
 lexical scanning that we'll be needing, I'm FINALLY ready to back
-up my claim that  we  can  accomodate multi-character tokens with
+up my claim that  we  can  accommodate multi-character tokens with
 minimal change to our previous work.  To keep  things  short  and
 simple I will restrict myself here to a subset of what we've done
 before; I'm allowing only one control construct (the  IF)  and no

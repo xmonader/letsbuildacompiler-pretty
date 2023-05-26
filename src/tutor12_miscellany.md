@@ -86,7 +86,7 @@ semicolons: to keep programs from looking funny.
 But  the  idea  of stringing multiple statements  together  on  a
 single  line  is  a  dubious  one  at  best.  It's not very  good
 programming  style,  and  harks back to  the  days  when  it  was
-considered improtant to conserve cards.  In these  days  of CRT's
+considered important to conserve cards.  In these  days  of CRT's
 and indented code, the clarity of programs is  far  better served
 by  keeping statements separate.  It's still  nice  to  have  the
 OPTION  of  multiple  statements,  but  it seems a shame to  keep

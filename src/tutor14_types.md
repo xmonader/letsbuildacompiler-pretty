@@ -1285,7 +1285,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Now  we can modify procedure Expression  to  accomodate  the  two
+Now  we can modify procedure Expression  to  accommodate  the  two
 possible kinds of factors:
 
 ```delphi

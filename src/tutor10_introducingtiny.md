@@ -2147,7 +2147,7 @@ it.
 ## INPUT/OUTPUT
 
 We  now  have  a complete, working language, except for one minor
-embarassment: we have no way to get data in or out.  We need some
+embarrassment: we have no way to get data in or out.  We need some
 I/O.
 
 Now, the convention these days, established in C and continued in

@@ -563,7 +563,7 @@ too, don't you?  It'll look a lot  more  meaningful  when  we get
 full keywords.
 
 I hope by now that you're beginning to  get  the  idea  that this
-really  IS easy.  All we have to do to accomodate a new construct
+really  IS easy.  All we have to do to accommodate a new construct
 is to work out  the  syntax-directed translation of it.  The code
 almost falls out  from  there,  and  it doesn't affect any of the
 other routines.  Once you've gotten the feel of the thing, you'll
@@ -1043,7 +1043,7 @@ That  ALMOST takes care of everything.  Give it a try, see if you
 can "break" it `<pun>`.  Careful, though.  By this time  we've used
 so many letters, it's hard to think of characters that aren't now
 representing  reserved  words.    Remember:  before  you  try the
-program, you're going to have to edit every occurence of Block in
+program, you're going to have to edit every occurrence of Block in
 the other loop constructs to include the new parameter.    Do  it
 just like I did for LOOP.
 

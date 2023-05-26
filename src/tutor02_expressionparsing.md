@@ -245,7 +245,7 @@ terms, separated  by  "addops"  (`+`  or  `-`).   In BNF, this is
 written `<expression> ::= <term> [<addop> <term>]*`
 
 
-We  can  accomodate  this definition of an  expression  with  the
+We  can  accommodate  this definition of an  expression  with  the
 addition of a simple loop to procedure Expression:
 
 ```delphi
@@ -270,7 +270,7 @@ end;
 NOW we're getting somewhere!   This version handles any number of
 terms, and it only cost us two extra lines of code.  As we go on,
 you'll discover that this is characteristic  of  top-down parsers
-... it only takes a few lines of code to accomodate extensions to
+... it only takes a few lines of code to accommodate extensions to
 the  language.    That's  what  makes  our  incremental  approach
 possible.  Notice, too, how well the code of procedure Expression
 matches the BNF definition.   That, too, is characteristic of the
@@ -583,14 +583,14 @@ expression parser.   This version of the program should correctly
 parse and compile just about any expression you care to  throw at
 it.    It's still limited in that  we  can  only  handle  factors
 involving single decimal digits.    But I hope that by now you're
-starting  to  get  the  message  that we can  accomodate  further
+starting  to  get  the  message  that we can  accommodate  further
 extensions  with  just  some  minor  changes to the parser.   You
 probably won't be  surprised  to  hear  that a variable or even a
 function call is just another kind of a factor.
 
 In  the next session, I'll show you just how easy it is to extend
 our parser to take care of  these  things too, and I'll also show
-you just  how easily we can accomodate multi-character numbers and
+you just  how easily we can accommodate multi-character numbers and
 variable names.  So you see,  we're  not  far at all from a truly
 useful parser.
 

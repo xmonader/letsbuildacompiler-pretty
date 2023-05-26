@@ -1040,7 +1040,7 @@ Anyway,  Niklaus  Wirth  designed both Pascal and Modula 2.  I'll
 give him the benefit of the doubt and assume that  he  had a good
 reason for changing the rules the second time around!
 
-Needless to say, it's an easy thing to accomodate either point of
+Needless to say, it's an easy thing to accommodate either point of
 view as we design a language, so this one is strictly a matter of
 personal preference.  Do it whichever way you like best.
 
