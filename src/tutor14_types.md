@@ -69,7 +69,7 @@ longer and longer.  I realized a couple of installments back that
 this was causing trouble, and that's why I've gone back  to using
 only compiler fragments for  the  last  installment and this one.
 The problem is that it just  seems  dumb to have to reproduce the
-code  for,  say,  processing  boolean  exclusive  OR's,  when the
+code  for,  say,  processing  boolean  exclusive  ORs,  when the
 subject of the discussion is parameter passing.
 
 The obvious way  to have our cake and eat it, too, is to break up
@@ -708,7 +708,7 @@ end;
 ```
 
 On  the  68000,  at least, it happens that many instructions turn
-out to be `MOVE`'s.  It turns out to be useful to create a separate
+out to be `MOVE`s.  It turns out to be useful to create a separate
 code generator just for these instructions, and then  call  it as
 needed:
 

@@ -290,7 +290,7 @@ for "Branch on zero" is `BEQ`.  So for our purposes here,
 - `BNE` <=> Branch if true
 
 It's the nature of the beast that most  of  the  branches  we see
-will  be  `BEQ`'s  ...  we'll  be branching _around_ the code  that's
+will  be  `BEQ`s  ...  we'll  be branching _around_ the code  that's
 supposed to be executed when the condition is true.
 
 
@@ -369,7 +369,7 @@ the program.  Try a string like `aibece`.
 
 As you can see,  the  parser seems to recognize the construct and
 inserts the object code at the  right  places.   Now try a set of
-nested `IF`'s, like `aibicedefe`.
+nested `IF`s, like `aibicedefe`.
 
 It's starting to look real, eh?
 
@@ -450,7 +450,7 @@ Give it a try now.  Try something like `aiblcede`.
 Did it work?  Now, just  to  be  sure we haven't broken the `ELSE`-less
 case, try `aibece`.
 
-Now try some nested `IF`'s.  Try anything you like,  including some
+Now try some nested `IF`s.  Try anything you like,  including some
 badly formed statements.   Just  remember that `e` is not a legal
 "other" statement.
 
@@ -541,7 +541,7 @@ No other changes are necessary.
 
 OK, try the new program.  Note that this  time,  the  `<condition>`
 code is _inside_ the upper label, which is just where we wanted it.
-Try some nested loops.  Try some loops within `IF`'s, and some `IF`'s
+Try some nested loops.  Try some loops within `IF`s, and some `IF`s
 within loops.  If you get  a  bit  confused as to what you should
 type, don't be discouraged:  you  write  bugs in other languages,
 too, don't you?  It'll look a lot  more  meaningful  when  we get

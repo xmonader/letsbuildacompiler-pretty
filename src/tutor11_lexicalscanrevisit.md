@@ -263,7 +263,7 @@ was  because,  with  `SkipWhite`  called  as the last thing in  the
 scanner, the encounter with  LF  would  trigger a read statement.
 If we were on the last line of the program,  we  couldn't get out
 until we input another line with a non-white  character.   That's
-why I needed the second procedure, `NewLine`, to handle the CRLF's.
+why I needed the second procedure, `NewLine`, to handle the CRLFs.
 
 But now, with the call  to `SkipWhite` coming first, that's exactly
 the behavior we want.    The  compiler  must know there's another
@@ -387,7 +387,7 @@ end;
 
 There is one last detail.  In the compiler there are a few places
 that we must  actually  check  the  string  value  of  the token.
-Mainly, this  is done to distinguish between the different `END`'s,
+Mainly, this  is done to distinguish between the different `END`s,
 but there are a couple  of  other  places.    (I  should  note in
 passing that we could always  eliminate the need for matching `END`
 characters by encoding each one  to a different character.  Right

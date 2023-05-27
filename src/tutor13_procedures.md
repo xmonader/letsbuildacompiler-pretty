@@ -693,7 +693,7 @@ just before it and will thus be inaccessible by the procedures.
 
 OK, try this new version out.  Note that we  can  declare as many
 procedures as we choose (as long  as  we don't run out of
-single-character names!), and the  labels  and `RTS`'s all come out in the
+single-character names!), and the  labels  and `RTS`s all come out in the
 right places.
 
 It's  worth  noting  here  that  I  do  _not_  allow  for  nested

@@ -363,7 +363,7 @@ this medium, I'll continue to  stick to syntax equations from now
 on.  But I highly recommend the diagrams to you for  anything you
 do that involves parsing.  After a little practice you  can begin
 to  see  how  to  write  a  parser  directly from  the  diagrams.
-Parallel paths get coded into guarded actions (guarded by `IF`'s or
+Parallel paths get coded into guarded actions (guarded by `IF`s or
 `CASE` statements),  serial  paths  into  sequential  calls.   It's
 almost like working from a schematic.
 
@@ -483,7 +483,7 @@ while Look = CR do
 If, on the other  hand,  you  want  a line-oriented language like
 Assembler, BASIC, or FORTRAN  (or  even  Ada...  note that it has
 comments terminated by newlines),  then  you'll  need for `Scan` to
-return CR's as tokens.  It  must  also  eat the trailing LF.  The
+return CRs as tokens.  It  must  also  eat the trailing LF.  The
 best way to do that is to use this line,  again  at the beginning
 of `Scan`:
 

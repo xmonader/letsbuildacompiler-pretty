@@ -509,7 +509,7 @@ ending period (`.`).   A  minor  complication  is that Turbo ends
 every normal line  with  _two_ characters, the carriage return (CR)
 and line feed (LF).   At  the  end  of  each line, we need to eat
 these characters before processing the next one.   A  natural way
-to do this would  be  with  procedure  `Match`, except that `Match`'s
+to do this would  be  with  procedure  `Match`, except that `Match`es
 error  message  prints  the character, which of course for the CR
 and/or  LF won't look so great.  What we need is a special procedure
 for this, which we'll no doubt be using over and over.  Here
