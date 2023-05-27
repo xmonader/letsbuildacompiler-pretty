@@ -712,11 +712,8 @@ For the reasons that I've given as we went  along,  I'm  choosing
 the following:
 
 1. Semicolons are _terminators_, not separators
-
 2. Semicolons are _optional_
-
 3. Comments are delimited by curly braces
-
 4. Comments _may_ be nested
 
 Put the code corresponding to these cases into your copy of TINY.

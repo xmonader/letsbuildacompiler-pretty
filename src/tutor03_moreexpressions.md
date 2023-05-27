@@ -9,7 +9,6 @@ simple parser that  could handle arbitrarily complex expressions,
 with two restrictions:
 
 - No variables were allowed, only numeric factors
-
 - The numeric factors were limited to single digits
 
 In this installment, we'll get  rid of those restrictions.  We'll

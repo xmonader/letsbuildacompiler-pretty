@@ -59,19 +59,12 @@ To round out  the  series,  we  still  have a few items to cover.
 These include:
 
 - Procedure calls, with and without parameters
-
 - Local and global variables
-
 - Basic types, such as character and integer types
-
 - Arrays
-
 - Strings
-
 - User-defined types and structures
-
 - Tree-structured parsers and intermediate languages
-
 - Optimization
 
 These will all be  covered  in  future  installments.  When we're
@@ -87,12 +80,12 @@ These constructs are going  to  be part of the languages I build.
 I  have  three  languages in mind at this point, two of which you
 will see in installments to come:
 
-- TINY - A  minimal,  but  usable  language  on the order  of  Tiny
+- TINY: A  minimal,  but  usable  language  on the order  of  Tiny
   BASIC or Tiny C.  It won't be very practical, but  it will
   have enough power to let you write and  run  real programs
   that do something worthwhile.
 
-- KISS - The  language  I'm  building for my  own  use.    KISS  is
+- KISS: The  language  I'm  building for my  own  use.    KISS  is
   intended to be  a  systems programming language.  It won't
   have strong typing  or  fancy data structures, but it will
   support most of  the  things  I  want to do with a higher-order

@@ -173,14 +173,14 @@ a little time to remind myself, as well as you, how we got here.  We got
 here by applying several principles that writers of commercial compilers
 seldom have the luxury of using.  These are:
 
--	The KISS philosophy -- Never do things the hard way without a
+- The KISS philosophy: Never do things the hard way without a
   reason
--	Lazy coding -- Never put off until tomorrow what you can put
+- Lazy coding: Never put off until tomorrow what you can put
   of forever (with credits to P.J. Plauger)
--	Skepticism -- Stubborn refusal to do something just because
+- Skepticism: Stubborn refusal to do something just because
   that's the way it's always been done.
--	Acceptance of inefficient code
--	Rejection of arbitrary constraints
+- Acceptance of inefficient code
+- Rejection of arbitrary constraints
 
 As I've reviewed the history of compiler construction, I've learned that
 virtually every production compiler in history has suffered from
