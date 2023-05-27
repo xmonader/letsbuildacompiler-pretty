@@ -7,4 +7,5 @@ multilingual = false
 
 [output.html]
 curly-quotes = true
+additional-js = ["highlight.js"]
 git-repository-url = "https://github.com/xmonader/letsbuildacompiler-pretty"

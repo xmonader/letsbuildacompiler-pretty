@@ -1,6 +1,5 @@
 set -ex
 mdbook build -d docs
-cp -f highlight.js docs/
 
 crowbook letsbuildacompiler.book --set tex.paper.size a4paper
 
