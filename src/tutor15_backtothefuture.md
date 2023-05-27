@@ -80,7 +80,7 @@ I've thought long and hard about whether or not to introduce
 objects to our discussion.  I'm a big advocate of object-oriented
 methods for all uses, and such methods definitely have their place
 in compiler technology.  In fact, I've written papers on just this
-subject (Refs. 1-3).  But the architecture of a compiler which is
+subject [^1] [^2] [^3].  But the architecture of a compiler which is
 based on object-oriented approaches is vastly different than that
 of the more classical compiler we've been building.  Again, it
 would seem to be entirely too much to change these horses in
@@ -1067,15 +1067,13 @@ where we were before the long hiatus.  We'll continue this process
 in [Installment 16](tutor16_unitconstruction.md), coming soon.  See you then.
 
 
-## References
+[^1]: Crenshaw, J.W., "Object-Oriented Design of Assemblers and
+      Compilers," Proc. Software Development '91 Conference, Miller
+      Freeman, San Francisco, CA, February 1991, pp. 143-155.
 
-1. Crenshaw, J.W., "Object-Oriented Design of Assemblers and
-Compilers," Proc. Software Development '91 Conference, Miller
-Freeman, San Francisco, CA, February 1991, pp. 143-155.
+[^2]: Crenshaw, J.W., "A Perfect Marriage," Computer Language, Volume
+      8, #6, June 1991, pp. 44-55.
 
-2. Crenshaw, J.W., "A Perfect Marriage," Computer Language, Volume
-8, #6, June 1991, pp. 44-55.
-
-3. Crenshaw, J.W., "Syntax-Driven Object-Oriented Design," Proc.
-1991 Embedded Systems Conference, Miller Freeman, San
-Francisco, CA, September 1991, pp. 45-60.
+[^3]: Crenshaw, J.W., "Syntax-Driven Object-Oriented Design," Proc.
+      1991 Embedded Systems Conference, Miller Freeman, San
+      Francisco, CA, September 1991, pp. 45-60.
