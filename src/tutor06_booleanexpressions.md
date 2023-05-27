@@ -1,9 +1,9 @@
-# Part VI: BOOLEAN EXPRESSIONS - 31 August 1988
+# Part VI: Boolean Expressions - 31 August 1988
 
 
-## INTRODUCTION
+## Introduction
 
-In Part V of this series,  we  took a look at control constructs,
+In [Part V](tutor05_controlstructs.md) of this series,  we  took a look at control constructs,
 and developed parsing  routines  to  translate  them  into object
 code.    We  ended  up  with  a  nice,  relatively  rich  set  of
 constructs.
@@ -11,14 +11,14 @@ constructs.
 As we left  the  parser,  though,  there  was one big hole in our
 capabilities:  we  did  not  address  the  issue  of  the  branch
 condition.  To fill the void,  I  introduced to you a dummy parse
-routine called Condition, which only served as a place-keeper for
+routine called `Condition`, which only served as a place-keeper for
 the real thing.
 
 One of the things we'll do in this session is  to  plug that hole
-by expanding Condition into a true parser/translator.
+by expanding `Condition` into a true parser/translator.
 
 
-## THE PLAN
+## The Plan
 
 We're going to  approach  this installment a bit differently than
 any of the others.    In those other installments, we started out
@@ -27,26 +27,27 @@ up the parsers from  very  rudimentary  beginnings to their final
 forms, without spending much time in planning  beforehand. That's
 called coding without specs, and it's usually frowned  upon.   We
 could get away with it before because the rules of arithmetic are
-pretty well established ...  we  know what a '+' sign is supposed
+pretty well established ...  we  know what a `+` sign is supposed
 to mean without having to discuss it at length.  The same is true
 for branches and  loops.    But  the  ways  in  which programming
 languages  implement  logic  vary quite a bit  from  language  to
 language.  So before we begin serious coding,  we'd  better first
 make up our minds what it is we want.  And the way to do  that is
-at the level of the BNF syntax rules (the GRAMMAR).
+at the level of the BNF syntax rules (the _grammar_).
 
 
-## THE GRAMMAR
+## The Grammar
 
 For some time  now,  we've been implementing BNF syntax equations
 for arithmetic expressions, without  ever  actually  writing them
 down all in one place.  It's time that we did so.  They are:
 
+```bnf
+<expression> ::= <unary op> <term> [<addop> <term>]*
+<term>       ::= <factor> [<mulop> factor]*
+<factor>     ::= <integer> | <variable> | ( <expression> )
 ```
-     <expression> ::= <unary op> <term> [<addop> <term>]*
-     <term>       ::= <factor> [<mulop> factor]*
-     <factor>     ::= <integer> | <variable> | ( <expression> )
-```
+
 (Remember, the nice thing about  this grammar is that it enforces
 the operator precedence hierarchy  that  we  normally  expect for
 algebra.)
@@ -56,14 +57,14 @@ grammar a bit right now.   The  way we've handled the unary minus
 is  a  bit  awkward.  I've found that it's better  to  write  the
 grammar this way:
 
+```bnf
+<expression>    ::= <term> [<addop> <term>]*
+<term>          ::= <signed factor> [<mulop> factor]*
+<signed factor> ::= [<addop>] <factor>
+<factor>        ::= <integer> | <variable> | (<expression>)
 ```
-  <expression>    ::= <term> [<addop> <term>]*
-  <term>          ::= <signed factor> [<mulop> factor]*
-  <signed factor> ::= [<addop>] <factor>
-  <factor>        ::= <integer> | <variable> | (<expression>)
 
-```
-This puts the job of handling the unary minus onto  Factor, which
+This puts the job of handling the unary minus onto  `Factor`, which
 is where it really belongs.
 
 This  doesn't  mean  that  you  have  to  go  back and recode the
@@ -74,15 +75,15 @@ Now, it probably won't come as  a  shock  to you to learn that we
 can define an analogous grammar for Boolean algebra.    A typical
 set or rules is:
 
-```
- <b-expression>::= <b-term> [<orop> <b-term>]*
- <b-term>      ::= <not-factor> [AND <not-factor>]*
- <not-factor>  ::= [NOT] <b-factor>
- <b-factor>    ::= <b-literal> | <b-variable> | (<b-expression>)
+```bnf
+<b-expression>::= <b-term> [<orop> <b-term>]*
+<b-term>      ::= <not-factor> [AND <not-factor>]*
+<not-factor>  ::= [NOT] <b-factor>
+<b-factor>    ::= <b-literal> | <b-variable> | (<b-expression>)
 ```
 
 Notice that in this  grammar,  the  operator  AND is analogous to
-'*',  and  OR  (and exclusive OR) to '+'.  The  NOT  operator  is
+`*`,  and  OR  (and exclusive OR) to `+`.  The  NOT  operator  is
 analogous to a unary  minus.    This  hierarchy is not absolutely
 standard ...  some  languages,  notably  Ada,  treat  all logical
 operators  as  having  the same precedence level ... but it seems
@@ -91,129 +92,100 @@ natural.
 Notice also the slight difference between the way the NOT and the
 unary  minus  are  handled.    In  algebra,  the unary  minus  is
 considered to go with the whole term, and so  never  appears  but
-once in a given term. So an expression like
-
-                    `a * -b`
-
-or worse yet,
-                    `a - -b`
-
+once in a given term. So an expression like `a * -b`,
+or worse yet, `a - -b`
 is not allowed.  In Boolean algebra, though, the expression
-
-                    `a AND NOT b`
-
+`a AND NOT b`
 makes perfect sense, and the syntax shown allows for that.
 
 
-## RELOPS
+## Relops
 
 OK, assuming that you're willing to accept the grammar I've shown
 here,  we  now  have syntax rules for both arithmetic and Boolean
 algebra.    The  sticky part comes in when we have to combine the
 two.  Why do we have to do that?  Well, the whole subject came up
 because of the  need  to  process  the  "predicates" (conditions)
-associated with control statements such as the IF.  The predicate
+associated with control statements such as the `IF`.  The predicate
 is required to have a Boolean value; that is, it must evaluate to
-either TRUE or FALSE.  The branch is  then  taken  or  not taken,
+either `TRUE` or `FALSE`.  The branch is  then  taken  or  not taken,
 depending  on  that  value.  What we expect to see  going  on  in
-procedure  Condition,  then,  is  the  evaluation  of  a  Boolean
+procedure  `Condition`,  then,  is  the  evaluation  of  a  Boolean
 expression.
 
 But there's more to it than that.  A pure Boolean  expression can
 indeed be the predicate of a control statement ... things like
-
-
-          `IF a AND NOT b THEN ....`
-
+`IF a AND NOT b THEN ...`.
 
 But more often, we see Boolean algebra show up in such things as
-
-
-     `IF (x >= 0) and (x <= 100) THEN ...`
-
+`IF (x >= 0) and (x <= 100) THEN ...`.
 
 Here,  the  two  terms in parens are Boolean expressions, but the
-individual terms being compared:  x,  0, and 100,  are NUMERIC in
-nature.  The RELATIONAL OPERATORS >= and <= are the  catalysts by
+individual terms being compared:  `x`,  `0`, and `100`,  are _numeric_ in
+nature.  The _relational operators_ `>=` and `<=` are the  catalysts by
 which the  Boolean  and  the  arithmetic  ingredients  get merged
 together.
 
 Now,  in the example above, the terms  being  compared  are  just
 that:  terms.    However,  in  general  each  side  can be a math
-expression.  So we can define a RELATION to be:
+expression.  So we can define a _relation_ to be:
 
-
-     `<relation> ::= <expression> <relop> <expression>`  ,
-
+```bnf
+<relation> ::= <expression> <relop> <expression>
+```
 
 where  the  expressions  we're  talking  about here are  the  old
 numeric type, and the relops are any of the usual symbols
-
-
-               `=, <> (or !=), <, >, <=, and >=`
-
+`=`, `<>` (or `!=`), `<`, `>`, `<=`, and `>=`.
 
 If you think about it a  bit,  you'll agree that, since this kind
-of predicate has a single Boolean value, TRUE or  FALSE,  as  its
+of predicate has a single Boolean value, `TRUE` or  `FALSE`,  as  its
 result, it is  really  just  another  kind  of factor.  So we can
 expand the definition of a Boolean factor above to read:
 
-```
-    <b-factor> ::=    <b-literal>
-                    | <b-variable>
-                    | (<b-expression>)
-                    | <relation>
+```bnf
+<b-factor> ::=    <b-literal>
+                | <b-variable>
+                | (<b-expression>)
+                | <relation>
 ```
 
-THAT's the connection!  The relops and the  relation  they define
+_That_'s the connection!  The relops and the  relation  they define
 serve to wed the two kinds of algebra.  It  is  worth noting that
 this implies a hierarchy  where  the  arithmetic expression has a
-HIGHER precedence that  a  Boolean factor, and therefore than all
+_higher_ precedence that  a  Boolean factor, and therefore than all
 the  Boolean operators.    If you write out the precedence levels
 for all the operators, you arrive at the following list:
 
-         --------------------------------------------
-          Level   Syntax Element     Operator
-         --------------------------------------------
-          0       factor             literal, variable
-          1       signed factor      unary minus
-          2       term               *, /
-          3       expression         +, -
-          4       b-factor           literal, variable, relop
-          5       not-factor         NOT
-          6       b-term             AND
-          7       b-expression       OR, XOR
-
+| Level | Syntax Element | Operator                 |
+| ----- | -------------- | ------------------------ |
+| 0     | factor         | literal, variable        |
+| 1     | signed factor  | unary minus              |
+| 2     | term           | *, /                     |
+| 3     | expression     | +, -                     |
+| 4     | b-factor       | literal, variable, relop |
+| 5     | not-factor     | NOT                      |
+| 6     | b-term         | AND                      |
+| 7     | b-expression   | OR, XOR                  |
 
 If  we're willing to accept that  many  precedence  levels,  this
-
-
 grammar seems reasonable.  Unfortunately,  it  won't  work!   The
 grammar may be great in theory,  but  it's  no good at all in the
 practice of a top-down parser.  To see the problem,  consider the
-code fragment:
-
-
-     `IF ((((((A + B + C) < 0 ) AND ....`
-
+code fragment `IF ((((((A + B + C) < 0 ) AND ...`.
 
 When the parser is parsing this code, it knows after it  sees the
-IF token that a Boolean expression is supposed to be next.  So it
+`IF` token that a Boolean expression is supposed to be next.  So it
 can set up to begin evaluating such an expression.  But the first
-expression in the example is an ARITHMETIC expression, A + B + C.
+expression in the example is an _arithmetic_ expression, `A + B + C`.
 What's worse, at the point that the parser has read this  much of
-the input line:
-
-
-     `IF ((((((A`   ,
-
-
+the input line `IF ((((((A`,
 it  still has no way of knowing which  kind  of  expression  it's
 dealing  with.  That won't do, because  we  must  have  different
 recognizers  for the two cases.  The  situation  can  be  handled
 without  changing  any  of  our  definitions, but only  if  we're
 willing to accept an arbitrary amount of backtracking to work our
-way out of bad guesses.  No compiler  writer  in  his  right mind
+way out of bad guesses.  No compiler  writer  in  their  right mind
 would agree to that.
 
 What's going  on  here  is  that  the  beauty and elegance of BNF
@@ -225,7 +197,7 @@ compromises  so  that  a  single  parser can handle  the  grammar
 without backtracking.
 
 
-## FIXING THE GRAMMAR
+## Fixing the Grammar
 
 The  problem  that  we've  encountered  comes   up   because  our
 definitions of both arithmetic and Boolean factors permit the use
@@ -237,44 +209,39 @@ it's dealing with.
 The  solution is simple, although it  ends  up  causing  profound
 changes to our  grammar.    We  can only allow parentheses in one
 kind  of factor.  The way to do  that  varies  considerably  from
-language  to  language.  This is one  place  where  there  is  NO
+language  to  language.  This is one  place  where  there  is  _no_
 agreement or convention to help us.
 
 When Niklaus Wirth designed Pascal, the desire was  to  limit the
 number of levels of precedence (fewer parse routines, after all).
 So the OR  and  exclusive  OR  operators are treated just like an
-Addop  and  processed   at   the  level  of  a  math  expression.
-Similarly, the AND is  treated  like  a  Mulop and processed with
-Term.  The precedence levels are
+`Addop`  and  processed   at   the  level  of  a  math  expression.
+Similarly, the AND is  treated  like  a  `Mulop` and processed with
+`Term`.  The precedence levels are
 
+| Level | Syntax Element | Operator          |
+| ----- | -------------- | ----------------- |
+| 0     | factor         | literal, variable |
+| 1     | signed factor  | unary minus, NOT  |
+| 2     | term           | *, /, AND         |
+| 3     | expression     | +, -, OR          |
 
-          Level   Syntax Element     Operator
-
-          0       factor             literal, variable
-          1       signed factor      unary minus, NOT
-          2       term               *, /, AND
-          3       expression         +, -, OR
-
-
-Notice that there is only ONE set of syntax  rules,  applying  to
+Notice that there is only _one_ set of syntax  rules,  applying  to
 both  kinds  of  operators.    According to this  grammar,  then,
-expressions like
-
-     `x + (y AND NOT z) DIV 3`
-
+expressions like `x + (y AND NOT z) DIV 3`
 are perfectly legal.  And, in  fact,  they  ARE ... as far as the
 parser  is  concerned.    Pascal  doesn't  allow  the  mixing  of
 arithmetic and Boolean variables, and things like this are caught
-at the SEMANTIC level, when it comes time to  generate  code  for
+at the _semantic_ level, when it comes time to  generate  code  for
 them, rather than at the syntax level.
 
 The authors of C took  a  diametrically  opposite  approach: they
 treat the operators as  different,  and  have something much more
 akin  to our seven levels of precedence.  In fact, in C there are
 no fewer than 17 levels!  That's because C also has the operators
-'=', '+=' and its kin, '<<', '>>', '++', '--', etc.   Ironically,
+`=`, `+=` and its kin, `<<`, `>>`, `++`, `--`, etc.   Ironically,
 although in C the  arithmetic  and  Boolean operators are treated
-separately, the variables are  NOT  ...  there  are no Boolean or
+separately, the variables are  _not_  ...  there  are no Boolean or
 logical variables in  C,  so  a  Boolean  test can be made on any
 integer value.
 
@@ -282,34 +249,28 @@ We'll do something that's  sort  of  in-between.   I'm tempted to
 stick  mostly  with  the Pascal approach, since  that  seems  the
 simplest from an implementation point  of view, but it results in
 some funnies that I never liked very much, such as the fact that,
-in the expression
-
-     `IF (c >= 'A') and (c <= 'Z') then ...`
-
-the  parens  above  are REQUIRED.  I never understood why before,
+in the expression `IF (c >= 'A') and (c <= 'Z') then ...`,
+the  parens  above  are _required_.  I never understood why before,
 and  neither my compiler nor any human  ever  explained  it  very
-well, either.  But now, we  can  all see that the 'and' operator,
+well, either.  But now, we  can  all see that the `and` operator,
 having the precedence of a multiply, has a higher  one  than  the
 relational operators, so without  the  parens  the  expression is
-equivalent to
-
-     `IF c >= ('A' and c) <= 'Z' then`
-
+equivalent to `IF c >= ('A' and c) <= 'Z' then`,
 which doesn't make sense.
 
 In  any  case,  I've  elected  to  separate  the  operators  into
 different levels, although not as many as in C.
 
-```
- <b-expression> ::= <b-term> [<orop> <b-term>]*
- <b-term>       ::= <not-factor> [AND <not-factor>]*
- <not-factor>   ::= [NOT] <b-factor>
- <b-factor>     ::= <b-literal> | <b-variable> | <relation>
- <relation>     ::= | <expression> [<relop> <expression]
- <expression>   ::= <term> [<addop> <term>]*
- <term>         ::= <signed factor> [<mulop> factor]*
- <signed factor>::= [<addop>] <factor>
- <factor>       ::= <integer> | <variable> | (<b-expression>)
+```bnf
+<b-expression> ::= <b-term> [<orop> <b-term>]*
+<b-term>       ::= <not-factor> [AND <not-factor>]*
+<not-factor>   ::= [NOT] <b-factor>
+<b-factor>     ::= <b-literal> | <b-variable> | <relation>
+<relation>     ::= | <expression> [<relop> <expression]
+<expression>   ::= <term> [<addop> <term>]*
+<term>         ::= <signed factor> [<mulop> factor]*
+<signed factor>::= [<addop>] <factor>
+<factor>       ::= <integer> | <variable> | (<b-expression>)
 ```
 
 This grammar  results  in  the  same  set  of seven levels that I
@@ -320,10 +281,10 @@ b-factor, and added the relation as a legal form of b-factor.
 There is one subtle but crucial difference, which  is  what makes
 the  whole  thing  work.    Notice  the  square brackets  in  the
 definition  of a relation.  This means that  the  relop  and  the
-second expression are OPTIONAL.
+second expression are _optional_.
 
 A strange consequence of this grammar (and one shared  by  C)  is
-that EVERY expression  is  potentially a Boolean expression.  The
+that _every_ expression  is  potentially a Boolean expression.  The
 parser will always be looking  for a Boolean expression, but will
 "settle" for an arithmetic one.  To be honest,  that's  going  to
 slow down the parser, because it has to wade through  more layers
@@ -332,7 +293,7 @@ to compile faster than C compilers.  If it's raw speed  you want,
 stick with the Pascal syntax.
 
 
-## THE PARSER
+## The Parser
 
 Now that we've gotten through the decision-making process, we can
 press on with development of a parser.  You've done this  with me
@@ -373,21 +334,19 @@ Type  these routines into your program.  You  can  test  them  by
 adding into the main program the print statement
 
 ```delphi
-   WriteLn(GetBoolean);
-
+WriteLn(GetBoolean);
 ```
-
 
 OK, compile the program and test it.   As  usual,  it's  not very
 impressive so far, but it soon will be.
 
 Now, when we were dealing with numeric data we had to  arrange to
-generate code to load the values into D0.  We need to do the same
+generate code to load the values into `D0`.  We need to do the same
 for Boolean data.   The  usual way to encode Boolean variables is
-to let 0 stand for FALSE,  and  some  other value for TRUE.  Many
-languages, such as C, use an  integer  1  to represent it.  But I
-prefer FFFF hex  (or  -1),  because  a bitwise NOT also becomes a
-Boolean  NOT.  So now we need to emit the right assembler code to
+to let `0` stand for `FALSE`,  and  some  other value for `TRUE`.  Many
+languages, such as C, use an  integer  `1`  to represent it.  But I
+prefer `FFFF` hex  (or  `-1`),  because  a bitwise `NOT` also becomes a
+Boolean  `NOT`.  So now we need to emit the right assembler code to
 load  those  values.    The  first cut at the Boolean  expression
 parser (BoolExpression, of course) is:
 
@@ -414,14 +373,14 @@ output code is starting to look more realistic.
 Next, of course, we have to expand the definition  of  a  Boolean
 expression.  We already have the BNF rule:
 
-```
- <b-expression> ::= <b-term> [<orop> <b-term>]*
+```bnf
+<b-expression> ::= <b-term> [<orop> <b-term>]*
 ```
 
-I prefer the Pascal versions of the "orops",  OR  and  XOR.   But
+I prefer the Pascal versions of the "orops",  `OR`  and  `XOR`.   But
 since we are keeping to single-character tokens here, I'll encode
-those with '|' and  '~'.  The  next  version of BoolExpression is
-almost a direct copy of the arithmetic procedure Expression:
+those with `|` and  `~`.  The  next  version of `BoolExpression` is
+almost a direct copy of the arithmetic procedure `Expression`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -462,8 +421,8 @@ end;
 {---------------------------------------------------------------}
 ```
 
-Note the new recognizer  IsOrOp,  which is also a copy, this time
-of IsAddOp:
+Note the new recognizer `IsOrOp`, which is also a copy, this time
+of `IsAddOp`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -475,7 +434,8 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
-OK, rename the old  version  of  BoolExpression to BoolTerm, then
+
+OK, rename the old  version  of  `BoolExpression` to `BoolTerm`, then
 enter  the  code  above.  Compile and test this version.  At this
 point, the  output  code  is  starting  to  look pretty good.  Of
 course, it doesn't make much sense to do a lot of Boolean algebra
@@ -483,14 +443,12 @@ on  constant values, but we'll soon be  expanding  the  types  of
 Booleans we deal with.
 
 You've  probably  already  guessed  what  the next step  is:  The
-Boolean version of Term.
+Boolean version of `Term`.
 
-Rename the current procedure BoolTerm to NotFactor, and enter the
-following new version of BoolTerm.  Note that is is  much simpler
+Rename the current procedure `BoolTerm` to `NotFactor`, and enter the
+following new version of `BoolTerm`.  Note that is is  much simpler
 than  the  numeric  version,  since  there  is  no equivalent  of
 division.
-
-
 
 ```delphi
 {---------------------------------------------------------------}
@@ -529,7 +487,8 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
-And  rename  the  earlier procedure to BoolFactor.  Now try that.
+
+And  rename  the  earlier procedure to `BoolFactor`.  Now try that.
 At this point  the  parser  should  be able to handle any Boolean
 expression you care to throw at it.  Does it?  Does it trap badly
 formed expressions?
@@ -539,7 +498,7 @@ expressions, you know  that  what  we  did next was to expand the
 definition of a factor to include variables and parens.  We don't
 have  to do that for the Boolean  factor,  because  those  little
 items get taken care of by the next step.  It  takes  just  a one
-line addition to BoolFactor to take care of relations:
+line addition to `BoolFactor` to take care of relations:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -559,17 +518,17 @@ end;
 
 You  might be wondering when I'm going  to  provide  for  Boolean
 variables and parenthesized Boolean expressions.  The  answer is,
-I'm NOT!   Remember,  we  took  those out of the grammar earlier.
+I'm _not_!   Remember,  we  took  those out of the grammar earlier.
 Right now all I'm  doing  is  encoding  the grammar we've already
 agreed  upon.    The compiler itself can't  tell  the  difference
 between a Boolean variable  or  expression  and an arithmetic one
-... all of those will be handled by Relation, either way.
+... all of those will be handled by `Relation`, either way.
 
 
-Of course, it would help to have some code for Relation.  I don't
+Of course, it would help to have some code for `Relation`.  I don't
 feel comfortable, though,  adding  any  more  code  without first
 checking out what we already have.  So for now let's just write a
-dummy  version  of  Relation  that  does nothing except  eat  the
+dummy  version  of  `Relation`  that  does nothing except  eat  the
 current character, and write a little message:
 
 ```delphi
@@ -583,25 +542,26 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 OK, key  in  this  code  and  give  it a try.  All the old things
 should still work ... you should be able to generate the code for
 ANDs, ORs, and  NOTs.    In  addition, if you type any alphabetic
-character you should get a little <Relation>  place-holder, where
+character you should get a little `<Relation>`  place-holder, where
 a  Boolean factor should be.  Did you get that?  Fine, then let's
-move on to the full-blown version of Relation.
+move on to the full-blown version of `Relation`.
 
 To  get  that,  though, there is a bit of groundwork that we must
 lay first.  Recall that a relation has the form
 
-```
- <relation>     ::= | <expression> [<relop> <expression]
+```bnf
+<relation>     ::= | <expression> [<relop> <expression]
 ```
 
 Since  we have a new kind of operator, we're also going to need a
 new Boolean function to  recognize  it.    That function is shown
 below.  Because of the single-character limitation,  I'm sticking
 to the four operators  that  can be encoded with such a character
-(the "not equals" is encoded by '#').
+(the "not equals" is encoded by `#`).
 
 ```delphi
 {--------------------------------------------------------------}
@@ -614,20 +574,19 @@ end;
 {--------------------------------------------------------------}
 
 ```
-Now, recall  that  we're  using  a zero or a -1 in register D0 to
+
+Now, recall  that  we're  using  a zero or a `-1` in register `D0` to
 represent  a Boolean value, and also  that  the  loop  constructs
 expect the flags to be set to correspond.   In  implementing  all
 this on the 68000, things get a a little bit tricky.
 
 Since the loop constructs operate only on the flags, it  would be
 nice (and also quite  efficient)  just to set up those flags, and
-
-
-not load  anything  into  D0  at all.  This would be fine for the
+not load  anything  into  `D0`  at all.  This would be fine for the
 loops  and  branches,  but remember that the relation can be used
-ANYWHERE a Boolean factor could be  used.   We may be storing its
+_anywhere_ a Boolean factor could be  used.   We may be storing its
 result to a Boolean variable.  Since we can't know at  this point
-how the result is going to be used, we must allow for BOTH cases.
+how the result is going to be used, we must allow for _both_ cases.
 
 Comparing numeric data  is  easy  enough  ...  the  68000  has an
 operation  for  that ... but it sets  the  flags,  not  a  value.
@@ -636,17 +595,17 @@ equal, etc.), while we need the zero flag set differently for the
 each of the different relops.
 
 The solution is found in the 68000 instruction Scc, which  sets a
-byte value to 0000 or FFFF (funny how that works!) depending upon
+byte value to `0000` or `FFFF` (funny how that works!) depending upon
 the  result  of  the  specified   condition.    If  we  make  the
-destination byte to be D0, we get the Boolean value needed.
+destination byte to be `D0`, we get the Boolean value needed.
 
 Unfortunately,  there's one  final  complication:  unlike  almost
-every other instruction in the 68000 set, Scc does NOT  reset the
+every other instruction in the 68000 set, `Scc` does _not_  reset the
 condition flags to match the data being stored.  So we have to do
-one last step, which is to test D0 and set the flags to match it.
+one last step, which is to test `D0` and set the flags to match it.
 It must seem to be a trip around the moon to get what we want: we
-first perform the test, then test the flags to set data  into D0,
-then test D0 to set the flags again.  It  is  sort of roundabout,
+first perform the test, then test the flags to set data  into `D0`,
+then test `D0` to set the flags again.  It  is  sort of roundabout,
 but it's the most straightforward way to get the flags right, and
 after all it's only a couple of instructions.
 
@@ -657,7 +616,7 @@ have  seen  already  that  we  lose   efficiency   in  arithmetic
 operations, although later I plan to show you how to improve that
 a  bit.    We've also seen that the control constructs themselves
 can be done quite efficiently  ... it's usually very difficult to
-improve  on  the  code generated for an  IF  or  a  WHILE.    But
+improve  on  the  code generated for an  `IF`  or  a  `WHILE`.    But
 virtually every compiler I've ever seen generates  terrible code,
 compared to assembler, for the computation of a Boolean function,
 and particularly for relations.    The  reason  is just what I've
@@ -671,7 +630,7 @@ generate  the  code  in a very strict order, and it often ends up
 loading  the  result  as  a  Boolean  that  never gets  used  for
 anything.
 
-In  any  case,  we're now ready to look at the code for Relation.
+In  any  case,  we're now ready to look at the code for `Relation`.
 It's shown below with its companion procedures:
 
 ```delphi
@@ -741,17 +700,16 @@ begin
 end;
 {---------------------------------------------------------------}
 ```
-Now, that call to  Expression  looks familiar!  Here is where the
+
+Now, that call to  `Expression`  looks familiar!  Here is where the
 editor of your system comes in handy.  We have  already generated
-code  for  Expression  and its buddies in previous sessions.  You
-can  copy  them  into your file now.  Remember to use the single-
-character  versions.  Just to be  certain,  I've  duplicated  the
+code  for  `Expression`  and its buddies in previous sessions.  You
+can  copy  them  into your file now.  Remember to use the
+single-character  versions.  Just to be  certain,  I've  duplicated  the
 arithmetic procedures below.  If  you're  observant,  you'll also
 see that I've changed them a little to make  them  correspond  to
-the latest version of the syntax.  This change is  NOT necessary,
+the latest version of the syntax.  This change is  _not_ necessary,
 so  you  may  prefer  to  hold  off  on  that  until you're  sure
-
-
 everything is working.
 
 ```delphi
@@ -897,50 +855,46 @@ end;
 ```
 
 There you have it ... a parser that can  handle  both  arithmetic
-AND Boolean algebra, and things  that combine the two through the
+_and_ Boolean algebra, and things  that combine the two through the
 use of relops.   I suggest you file away a copy of this parser in
 a safe place for future reference, because in our next step we're
 going to be chopping it up.
 
 
-## MERGING WITH CONTROL CONSTRUCTS
+## Merging with Control Constructs
 
 At this point, let's go back to the file we had  previously built
 that parses control  constructs.    Remember  those  little dummy
-procedures called Condition and  Expression?    Now you know what
+procedures called `Condition` and  `Expression`?    Now you know what
 goes in their places!
 
 I  warn you, you're going to have to  do  some  creative  editing
 here, so take your time and get it right.  What you need to do is
-to copy all of  the  procedures from the logic parser, from Ident
-through  BoolExpression, into the parser for control  constructs.
-Insert  them  at  the current location of Condition.  Then delete
-that  procedure,  as  well as the dummy Expression.  Next, change
-every call  to  Condition  to  refer  to  BoolExpression instead.
-Finally, copy the procedures IsMulop, IsOrOp, IsRelop, IsBoolean,
-and GetBoolean into place.  That should do it.
+to copy all of  the  procedures from the logic parser, from `Ident`
+through  `BoolExpression`, into the parser for control  constructs.
+Insert  them  at  the current location of `Condition`.  Then delete
+that  procedure,  as  well as the dummy `Expression`.  Next, change
+every call  to  `Condition`  to  refer  to  `BoolExpression` instead.
+Finally, copy the procedures `IsMulop`, `IsOrOp`, `IsRelop`, `IsBoolean`,
+and `GetBoolean` into place.  That should do it.
 
 Compile  the  resulting program and give it  a  try.    Since  we
 haven't  used  this  program in awhile, don't forget that we used
-single-character tokens for IF,  WHILE,  etc.   Also don't forget
+single-character tokens for `IF`,  `WHILE`,  etc.   Also don't forget
 that any letter not a keyword just gets echoed as a block.
 
-Try `ia=bxlye`
-
-which stands for "IF a=b X ELSE Y ENDIF".
+Try `ia=bxlye`, which stands for `IF a=b X ELSE Y ENDIF`.
 
 What do you think?  Did it work?  Try some others.
 
 
-## ADDING ASSIGNMENTS
+## Adding Assignments
 
 As long as we're this far,  and  we already have the routines for
 expressions in place, we might  as well replace the "blocks" with
 real assignment statements.    We've already done that before, so
 it won't be too hard.   Before  taking that step, though, we need
 to fix something else.
-
-
 
 We're soon going to find  that the one-line "programs" that we're
 having to write here will really cramp our style.  At  the moment
@@ -953,17 +907,17 @@ C/Unix approach) is just to  treat them as additional white space
 characters  and  ignore  them.    That's actually not such a  bad
 approach,  but  it  does  sort  of produce funny results for  our
 parser as  it  stands  now.   If it were reading its input from a
-source file as  any  self-respecting  REAL  compiler  does, there
+source file as  any  self-respecting  _real_  compiler  does, there
 would be no problem.  But we're reading input from  the keyboard,
 and we're sort of conditioned  to expect something to happen when
 we hit the return key.  It won't, if we just skip over the CR and
 LF  (try it).  So I'm going to use a different method here, which
-is NOT necessarily the  best  approach in the long run.  Consider
+is _not_ necessarily the  best  approach in the long run.  Consider
 it a temporary kludge until we're further along.
 
 Instead of skipping the CR/LF,  We'll let the parser go ahead and
 catch them, then  introduce  a  special  procedure,  analogous to
-SkipWhite, that skips them only in specified "legal" spots.
+`SkipWhite`, that skips them only in specified "legal" spots.
 
 Here's the procedure:
 
@@ -980,7 +934,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Now, add two calls to Fin in procedure Block, like this:
+Now, add two calls to `Fin` in procedure `Block`, like this:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1006,16 +960,15 @@ end;
 {--------------------------------------------------------------}
 ```
 
-
 Now, you'll find that you  can use multiple-line "programs."  The
-only restriction is that you can't separate an IF or  WHILE token
+only restriction is that you can't separate an `IF` or  `WHILE` token
 from its predicate.
 
 Now we're ready to include  the  assignment  statements.   Simply
-change  that  call  to  Other  in  procedure  Block  to a call to
-Assignment, and add  the  following procedure, copied from one of
-our  earlier  programs.     Note   that   Assignment   now  calls
-BoolExpression, so that we can assign Boolean variables.
+change  that  call  to  `Other`  in  procedure  `Block`  to a call to
+`Assignment`, and add  the  following procedure, copied from one of
+our  earlier  programs.     Note   that   `Assignment`   now  calls
+`BoolExpression`, so that we can assign Boolean variables.
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1039,7 +992,7 @@ single-character tokens.  My original intention was to get rid of
 that limitation for you, too.  However, that's going to require a
 fairly major change to what we've  done  so  far.  We need a true
 lexical scanner, and that requires some structural changes.  They
-are not BIG changes that require us to  throw  away  all  of what
+are not _big_ changes that require us to  throw  away  all  of what
 we've done so far ... with care, it can be done with very minimal
 changes, in fact.  But it does require that care.
 
@@ -1048,7 +1001,7 @@ some pretty heavy stuff, so I've decided to leave that step until
 next  time, when you've had a little more  time  to  digest  what
 we've done and are ready to start fresh.
 
-In the next installment, then,  we'll build a lexical scanner and
+In the [next installment](tutor07_lexicalscanning.md), then,  we'll build a lexical scanner and
 eliminate the single-character  barrier  once and for all.  We'll
 also write our first complete  compiler, based on what we've done
 in this session.  See you then.

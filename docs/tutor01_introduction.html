@@ -1,14 +1,18 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Introduction - Let's build a compiler</title>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Introduction - Let&#x27;s Build a Compiler</title>
+
+
+        <!-- Custom HTML head -->
+        
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -17,8 +21,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -26,16 +29,18 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
 
-        
     </head>
-    <body class="light">
+    <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -51,71 +56,78 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="about.html">About this project</a></li><li class="affix"><a href="tutor01_introduction.html" class="active">Introduction</a></li><li class="affix"><a href="tutor02_expressionparsing.html">Expression Parsing</a></li><li class="affix"><a href="tutor03_moreexpressions.html">More Expressions</a></li><li class="affix"><a href="tutor04_interpreters.html">Interpreters</a></li><li class="affix"><a href="tutor05_controlstructs.html">Control Constructs</a></li><li class="affix"><a href="tutor06_booleanexpressions.html">Boolean Expressions</a></li><li class="affix"><a href="tutor07_lexicalscanning.html">Lexical Scanning</a></li><li class="affix"><a href="tutor08_littlephilosophy.html">A Little Philosophy</a></li><li class="affix"><a href="tutor09_atopview.html">A Top View</a></li><li class="affix"><a href="tutor10_introducingtiny.html">Introducing Tiny</a></li><li class="affix"><a href="tutor11_lexicalscanrevisit.html">Lexical Scan Revisit</a></li><li class="affix"><a href="tutor12_miscellany.html">Miscellany</a></li><li class="affix"><a href="tutor13_procedures.html">Procedures</a></li><li class="affix"><a href="tutor14_types.html">Types</a></li><li class="affix"><a href="tutor15_backtothefuture.html">Back to the Future</a></li><li class="affix"><a href="tutor16_unitconstruction.html">Unit Construction</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="about.html">About this project</a></li><li class="chapter-item expanded "><a href="tutor01_introduction.html" class="active"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="tutor02_expressionparsing.html"><strong aria-hidden="true">2.</strong> Expression Parsing</a></li><li class="chapter-item expanded "><a href="tutor03_moreexpressions.html"><strong aria-hidden="true">3.</strong> More Expressions</a></li><li class="chapter-item expanded "><a href="tutor04_interpreters.html"><strong aria-hidden="true">4.</strong> Interpreters</a></li><li class="chapter-item expanded "><a href="tutor05_controlstructs.html"><strong aria-hidden="true">5.</strong> Control Constructs</a></li><li class="chapter-item expanded "><a href="tutor06_booleanexpressions.html"><strong aria-hidden="true">6.</strong> Boolean Expressions</a></li><li class="chapter-item expanded "><a href="tutor07_lexicalscanning.html"><strong aria-hidden="true">7.</strong> Lexical Scanning</a></li><li class="chapter-item expanded "><a href="tutor08_littlephilosophy.html"><strong aria-hidden="true">8.</strong> A Little Philosophy</a></li><li class="chapter-item expanded "><a href="tutor09_atopview.html"><strong aria-hidden="true">9.</strong> A Top View</a></li><li class="chapter-item expanded "><a href="tutor10_introducingtiny.html"><strong aria-hidden="true">10.</strong> Introducing Tiny</a></li><li class="chapter-item expanded "><a href="tutor11_lexicalscanrevisited.html"><strong aria-hidden="true">11.</strong> Lexical Scan Revisited</a></li><li class="chapter-item expanded "><a href="tutor12_miscellany.html"><strong aria-hidden="true">12.</strong> Miscellany</a></li><li class="chapter-item expanded "><a href="tutor13_procedures.html"><strong aria-hidden="true">13.</strong> Procedures</a></li><li class="chapter-item expanded "><a href="tutor14_types.html"><strong aria-hidden="true">14.</strong> Types</a></li><li class="chapter-item expanded "><a href="tutor15_backtothefuture.html"><strong aria-hidden="true">15.</strong> Back to the Future</a></li><li class="chapter-item expanded "><a href="tutor16_unitconstruction.html"><strong aria-hidden="true">16.</strong> Unit Construction</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
 
-                        <h1 class="menu-title">Let's build a compiler</h1> 
+                    <h1 class="menu-title">Let&#x27;s Build a Compiler</h1>
 
-                        <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                        </div>
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/xmonader/letsbuildacompiler-pretty" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -123,10 +135,9 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -136,8 +147,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#part-i-introduction---24-july-1988" id="part-i-introduction---24-july-1988"><h1>Part I: INTRODUCTION - 24 July 1988</h1></a>
-<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
+                        <h1 id="part-i-introduction---24-july-1988"><a class="header" href="#part-i-introduction---24-july-1988">Part I: Introduction - 24 July 1988</a></h1>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
 <p>This series of articles is a tutorial on the theory  and practice
 of  developing language parsers and compilers.    Before  we  are
 finished,  we  will  have  covered  every   aspect   of  compiler
@@ -146,7 +157,7 @@ working compiler.</p>
 <p>Though I am not a computer scientist by education (my Ph.D. is in
 a different  field, Physics), I have been interested in compilers
 for many years.  I have  bought  and tried to digest the contents
-of virtually every  book  on  the  subject ever written.  I don't
+of virtually every  book  on  the  subject ever written.  I don’t
 mind  telling you that it was slow going.    Compiler  texts  are
 written for Computer  Science  majors, and are tough sledding for
 the rest of us.  But over the years a bit of it began to seep in.
@@ -156,35 +167,35 @@ share with you what I have  learned.    At the end of this series
 you will by no means be  a  computer scientist, nor will you know
 all the esoterics of  compiler  theory.    I intend to completely
 ignore the more theoretical  aspects  of  the  subject.  What you
-<em>WILL</em> know is all  the  practical aspects that one needs to know
+<em>will</em> know is all  the  practical aspects that one needs to know
 to build a working system.</p>
-<p>This is a &quot;learn-by-doing&quot; series.  In the course of the series I
+<p>This is a “learn-by-doing” series.  In the course of the series I
 will be performing  experiments  on  a  computer.    You  will be
 expected to follow along,  repeating  the  experiments that I do,
 and  performing  some  on your own.  I will be using Turbo Pascal
 4.0 on a PC  clone.   I will periodically insert examples written
 in TP.  These will be executable code, which you will be expected
-to copy into your own computer and run.  If you don't have a copy
+to copy into your own computer and run.  If you don’t have a copy
 of  Turbo,  you  will be severely limited in how well you will be
-able to follow what's going on.  If you don't have a copy, I urge
-you to get one.  After  all,  it's an excellent product, good for
+able to follow what’s going on.  If you don’t have a copy, I urge
+you to get one.  After  all,  it’s an excellent product, good for
 many other uses!</p>
 <p>Some articles on compilers show you examples, or show you  (as in
 the case of Small-C) a finished product, which you can  then copy
 and  use without a whole lot of understanding of how it works.  I
-hope to do much more  than  that.    I  hope to teach you HOW the
+hope to do much more  than  that.    I  hope to teach you <em>how</em> the
 things get done,  so that you can go off on your own and not only
 reproduce what I have done, but improve on it.</p>
-<p>This is admittedly an ambitious undertaking, and it won't be done
+<p>This is admittedly an ambitious undertaking, and it won’t be done
 in  one page.  I expect to do it in the course  of  a  number  of
 articles.    Each  article will cover a single aspect of compiler
-theory,  and  will  pretty  much  stand  alone.   If  all  you're
+theory,  and  will  pretty  much  stand  alone.   If  all  you’re
 interested in at a given time is one  aspect,  then  you  need to
 look only at that one article.  Each article will be  uploaded as
 it  is complete, so you will have to wait for the last one before
 you can consider yourself finished.  Please be patient.</p>
 <p>The average text on  compiler  theory covers a lot of ground that
-we won't be covering here.  The typical sequence is:</p>
+we won’t be covering here.  The typical sequence is:</p>
 <ul>
 <li>An introductory chapter describing what a compiler is.</li>
 <li>A chapter or two on syntax equations, using Backus-Naur Form
@@ -203,21 +214,21 @@ imaginary CPU with a simple instruction set.  Most readers
 <li>A final chapter or two on optimization. This chapter often
 goes unread, too.</li>
 </ul>
-<p>I'll  be taking a much different approach in  this  series.    To
-begin  with,  I  won't dwell long on options.  I'll be giving you
-<em>A</em> way that works.  If you want  to  explore  options,  well and
-good ...  I  encourage  you  to do so ... but I'll be sticking to
+<p>I’ll  be taking a much different approach in  this  series.    To
+begin  with,  I  won’t dwell long on options.  I’ll be giving you
+<em>a</em> way that works.  If you want  to  explore  options,  well and
+good …  I  encourage  you  to do so … but I’ll be sticking to
 what I know.   I also will skip over most of the theory that puts
-people  to  sleep.  Don't get me  wrong:  I  don't  belittle  the
-theory, and it's vitally important  when it comes to dealing with
+people  to  sleep.  Don’t get me  wrong:  I  don’t  belittle  the
+theory, and it’s vitally important  when it comes to dealing with
 the more tricky  parts  of  a  given  language.  But I believe in
-putting first things first.    Here we'll be dealing with the 95%
-of compiler techniques that don't need a lot of theory to handle.</p>
+putting first things first.    Here we’ll be dealing with the 95%
+of compiler techniques that don’t need a lot of theory to handle.</p>
 <p>I  also  will  discuss only one approach  to  parsing:  top-down,
-recursive descent parsing, which is the  <em>ONLY</em>  technique that's
+recursive descent parsing, which is the  <em>only</em>  technique that’s
 at  all   amenable  to  hand-crafting  a  compiler.    The  other
 approaches are only useful if you have a tool like YACC, and also
-don't care how much memory space the final product uses.</p>
+don’t care how much memory space the final product uses.</p>
 <p>I  also take a page from the work of Ron Cain, the author of  the
 original Small C.  Whereas almost all other compiler authors have
 historically  used  an  intermediate  language  like  P-code  and
@@ -226,81 +237,81 @@ P-code,  and   a  back  end  that  processes  P-code  to  produce
 executable   object  code),  Ron  showed  us   that   it   is   a
 straightforward  matter  to  make  a  compiler  directly  produce
 executable  object  code,  in  the  form  of  assembler  language
-statements.  The code will <em>NOT</em> be the world's tightest code ...
+statements.  The code will <em>not</em> be the world’s tightest code …
 producing optimized code is  a  much  more  difficult job. But it
-will work, and work reasonably well.  Just so that I  don't leave
+will work, and work reasonably well.  Just so that I  don’t leave
 you with the impression that our end product will be worthless, I
-<em>DO</em> intend to show you how  to  &quot;soup up&quot; the compiler with some
+<em>do</em> intend to show you how  to  “soup up” the compiler with some
 optimization.</p>
-<p>Finally, I'll be  using  some  tricks  that I've found to be most
-helpful in letting  me  understand what's going on without wading
+<p>Finally, I’ll be  using  some  tricks  that I’ve found to be most
+helpful in letting  me  understand what’s going on without wading
 through a lot of boiler plate.  Chief among these  is  the use of
 single-character tokens, with no embedded spaces,  for  the early
 design work.  I figure that  if  I  can get a parser to recognize
-and deal with I-T-L, I can  get  it  to do the same with IF-THEN-
-ELSE.  And I can.  In the second &quot;lesson,&quot;   I'll  show  you just
+and deal with <code>I</code>-<code>T</code>-<code>L</code>, I can  get  it  to do the same with <code>IF</code>-<code>THEN</code>-<code>ELSE</code>.
+And I can.  In the second “lesson,”   I’ll  show  you just
 how easy it  is  to  extend  a  simple parser to handle tokens of
 arbitrary length.  As another  trick,  I  completely  ignore file
 I/O, figuring that  if  I  can  read source from the keyboard and
 output object to the screen, I can also do it from/to disk files.
 Experience  has  proven  that  once  a   translator   is  working
-correctly, it's a  straightforward  matter to redirect the I/O to
+correctly, it’s a  straightforward  matter to redirect the I/O to
 files.    The last trick is that I make no attempt  to  do  error
-correction/recovery.   The   programs   we'll  be  building  will
-RECOGNIZE errors, and will not CRASH, but they  will  simply stop
-on the first error ... just like good ol' Turbo does.  There will
-be  other tricks that you'll see as you go. Most of them can't be
+correction/recovery.   The   programs   we’ll  be  building  will
+<em>recognize</em> errors, and will not <em>crash</em>, but they  will  simply stop
+on the first error … just like good ol’ Turbo does.  There will
+be  other tricks that you’ll see as you go. Most of them can’t be
 found in any compiler textbook, but they work.</p>
 <p>A word about style and efficiency.    As  you will see, I tend to
-write programs in  <em>VERY</em>  small, easily understood pieces.  None
-of the procedures we'll  be  working with will be more than about
-15-20 lines long.  I'm a fervent devotee  of  the  KISS  (Keep It
+write programs in  <em>very</em>  small, easily understood pieces.  None
+of the procedures we’ll  be  working with will be more than about
+15-20 lines long.  I’m a fervent devotee  of  the  KISS  (Keep It
 Simple, Sidney) school of software development.  I  try  to never
 do something tricky or  complex,  when  something simple will do.
-Inefficient?  Perhaps, but you'll like the  results.    As  Brian
-Kernighan has said,  FIRST  make  it  run, THEN make it run fast.
+Inefficient?  Perhaps, but you’ll like the  results.    As  Brian
+Kernighan has said,  <em>first</em>  make  it  run, <em>then</em> make it run fast.
 If, later on,  you want to go back and tighten up the code in one
-of  our products, you'll be able to do so, since the code will be
+of  our products, you’ll be able to do so, since the code will be
 quite understandable. If you  do  so, however, I urge you to wait
 until the program is doing everything you want it to.</p>
 <p>I  also  have  a  tendency  to  delay  building  a module until I
 discover that I need  it.    Trying  to anticipate every possible
-future contingency can  drive  you  crazy,  and  you'll generally
+future contingency can  drive  you  crazy,  and  you’ll generally
 guess wrong anyway.    In  this  modern day of screen editors and
-fast compilers, I don't hesitate to change a module when I feel I
-need a more powerful one.  Until then,  I'll  write  only  what I
+fast compilers, I don’t hesitate to change a module when I feel I
+need a more powerful one.  Until then,  I’ll  write  only  what I
 need.</p>
-<p>One final caveat: One of the principles we'll be sticking to here
-is that we don't  fool  around with P-code or imaginary CPUs, but
+<p>One final caveat: One of the principles we’ll be sticking to here
+is that we don’t  fool  around with P-code or imaginary CPUs, but
 that we will start out on day one  producing  working, executable
 object code, at least in the form of  assembler  language source.
-However, you may not  like  my  choice  of assembler language ...
-it's 68000 code, which is what works on my system (under SK*DOS).
-I  think  you'll  find, though, that the translation to any other
-CPU such as the 80x86 will  be  quite obvious, though, so I don't
+However, you may not  like  my  choice  of assembler language …
+it’s 68000 code, which is what works on my system (under SK*DOS).
+I  think  you’ll  find, though, that the translation to any other
+CPU such as the 80x86 will  be  quite obvious, though, so I don’t
 see  a problem here.  In fact, I hope someone out there who knows
-the '86 language better than I do will offer  us  the  equivalent
+the ’86 language better than I do will offer  us  the  equivalent
 object code fragments as we need them.</p>
-<a class="header" href="#the-cradle" id="the-cradle"><h2>THE CRADLE</h2></a>
-<p>Every program needs some boiler  plate  ...  I/O  routines, error
+<h2 id="the-cradle"><a class="header" href="#the-cradle">The Cradle</a></h2>
+<p>Every program needs some boiler  plate  …  I/O  routines, error
 message routines, etc.   The  programs we develop here will be no
-exceptions.    I've  tried to hold  this  stuff  to  an  absolute
+exceptions.    I’ve  tried to hold  this  stuff  to  an  absolute
 minimum, however, so that we  can  concentrate  on  the important
 stuff without losing it  among  the  trees.  The code given below
 represents about the minimum that we need to  get  anything done.
 It consists of some I/O routines, an error-handling routine and a
 skeleton, null main program.   I  call  it  our  cradle.    As we
-develop other routines, we'll add them to the cradle, and add the
+develop other routines, we’ll add them to the cradle, and add the
 calls to them as we  need to.  Make a copy of the cradle and save
-it, because we'll be using it more than once.</p>
+it, because we’ll be using it more than once.</p>
 <p>There are many different ways to organize the scanning activities
 of  a  parser.   In Unix systems, authors tend to  use  getc  and
-ungetc.  I've had very good luck with the  approach  shown  here,
+ungetc.  I’ve had very good luck with the  approach  shown  here,
 which is to use  a  single, global, lookahead character.  Part of
 the initialization procedure  (the  only part, so far!) serves to
-&quot;prime  the  pump&quot;  by reading the first character from the input
+“prime  the  pump”  by reading the first character from the input
 stream.  No other special  techniques are required with Turbo 4.0
-... each successive call to  GetChar will read the next character
+… each successive call to  <code>GetChar</code> will read the next character
 in the stream.</p>
 <pre><code class="language-delphi">
 {--------------------------------------------------------------}
@@ -315,7 +326,7 @@ const TAB = ^I;
 { Variable Declarations }
 
 var Look: char;              { Lookahead Character }
-                              
+
 {--------------------------------------------------------------}
 { Read New Character From Input Stream }
 
@@ -369,7 +380,7 @@ function IsAlpha(c: char): boolean;
 begin
    IsAlpha := upcase(c) in ['A'..'Z'];
 end;
-                              
+
 
 {--------------------------------------------------------------}
 
@@ -440,7 +451,7 @@ begin
 end.
 {--------------------------------------------------------------}
 </code></pre>
-<p>That's it for this introduction.  Copy the code above into TP and
+<p>That’s it for this introduction.  Copy the code above into TP and
 compile it.  Make sure that it compiles and runs  correctly. Then
 proceed to the first lesson, which is on expression parsing.</p>
 
@@ -448,17 +459,13 @@ proceed to the first lesson, which is on expression parsing.</p>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
                             <a rel="prev" href="about.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                        
 
-                        
                             <a rel="next" href="tutor02_expressionparsing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -466,41 +473,37 @@ proceed to the first lesson, which is on expression parsing.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a href="about.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="about.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                
 
-                
-                    <a href="tutor02_expressionparsing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="tutor02_expressionparsing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
+        <script>
+            window.playground_copyable = true;
+        </script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
-        
+        <script src="highlight.js"></script>
 
-        
 
+    </div>
     </body>
 </html>

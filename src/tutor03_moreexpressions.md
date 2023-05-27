@@ -1,15 +1,15 @@
-# Part III: MORE EXPRESSIONS - 4 Aug 1988
+# Part III: More Expressions - 4 Aug 1988
 
-## INTRODUCTION 
 
-In the last installment, we examined the techniques used to parse
+## Introduction
+
+In the [last installment](tutor02_expressionparsing.md), we examined the techniques used to parse
 and  translate a general math expression.  We  ended  up  with  a
 simple parser that  could handle arbitrarily complex expressions,
 with two restrictions:
 
-  - No variables were allowed, only numeric factors
-
-  - The numeric factors were limited to single digits
+- No variables were allowed, only numeric factors
+- The numeric factors were limited to single digits
 
 In this installment, we'll get  rid of those restrictions.  We'll
 also extend what  we've  done  to  include  assignment statements
@@ -22,10 +22,10 @@ We'll use the trick when it serves us to do so, confident that we
 can discard it when we're ready to.
 
 
-## VARIABLES
+## Variables
 
 Most expressions  that we see in practice involve variables, such
-as `b * b + 4 * a * c`
+as `b * b + 4 * a * c`.
 
 No  parser is much good without being able  to  deal  with  them.
 Fortunately, it's also quite easy to do.
@@ -34,35 +34,36 @@ Remember that in our parser as it currently stands, there are two
 kinds of  factors  allowed:  integer  constants  and  expressions
 within parentheses.  In BNF notation,
 
-     `<factor> ::= <number> | (<expression>)`
+```bnf
+<factor> ::= <number> | (<expression>)
+```
 
-The '|' stands for "or", meaning of course that either form  is a
+The `|` stands for "or", meaning of course that either form  is a
 legal form for a factor.   Remember,  too, that we had no trouble
 knowing which was which  ...  the  lookahead  character is a left
-paren '(' in one case, and a digit in the other.
-                              
+paren `(` in one case, and a digit in the other.
+
 It probably won't come as too much of a surprise that  a variable
 is just another kind of factor.    So  we extend the BNF above to
 read:
 
-
-     `<factor> ::= <number> | (<expression>) | <variable>`
-
+```bnf
+<factor> ::= <number> | (<expression>) | <variable>
+```
 
 Again, there is no  ambiguity:  if  the  lookahead character is a
 letter,  we  have  a variable; if a digit, we have a number. Back
 when we translated the number, we just issued code  to  load  the
-number,  as immediate data, into D0.  Now we do the same, only we
+number,  as immediate data, into `D0`.  Now we do the same, only we
 load a variable.
 
 A minor complication in the  code generation arises from the fact
 that most  68000 operating systems, including the SK*DOS that I'm
 using, require the code to be  written  in "position-independent"
 form, which  basically means that everything is PC-relative.  The
-format for a load in this language is `MOVE X(PC),D0`
-
-where X is, of course, the variable name.  Armed with that, let's
-modify the current version of Factor to read:
+format for a load in this language is `MOVE X(PC),D0`,
+where `X` is, of course, the variable name.  Armed with that, let's
+modify the current version of `Factor` to read:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -93,9 +94,9 @@ exactly parallels the BNF syntax equation.
 
 OK, compile and test this new version of the parser.  That didn't
 hurt too badly, did it?
-                              
 
-## FUNCTIONS
+
+## Functions
 
 There is only one  other  common kind of factor supported by most
 languages: the function call.  It's really too early  for  us  to
@@ -114,7 +115,7 @@ by looking at the current  lookahead character exactly what to do
 next.  That isn't the case when we add functions.  Every language
 has some naming rules  for  what  constitutes a legal identifier.
 For the present, ours is simply that it  is  one  of  the letters
-'a'..'z'.  The  problem  is  that  a variable name and a function
+`a`..`z`.  The  problem  is  that  a variable name and a function
 name obey  the  same  rules.   So how can we tell which is which?
 One way is to require that they each be declared before  they are
 used.    Pascal  takes that approach.  The other is that we might
@@ -124,15 +125,15 @@ list.  That's the rule used in C.
 Since  we  don't  yet have a mechanism for declaring types, let's
 use the C  rule for now.  Since we also don't have a mechanism to
 deal  with parameters, we can only handle  empty  lists,  so  our
-function calls will have the form `x()`  .
+function calls will have the form `x()`.
 
 Since  we're  not  dealing  with  parameter lists yet,  there  is
 nothing  to do but to call the function, so we need only to issue
-a BSR (call) instead of a MOVE.
+a `BSR` (call) instead of a `MOVE`.
 
-Now that there are two  possibilities for the "If IsAlpha" branch
-of the test in Factor, let's treat them in a  separate procedure.
-Modify Factor to read:
+Now that there are two  possibilities for the `If IsAlpha` branch
+of the test in `Factor`, let's treat them in a  separate procedure.
+Modify `Factor` to read:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -182,10 +183,10 @@ expressions?  Does it correctly flag badly formed ones?
 The important thing to notice is that even though  we  no  longer
 have  a predictive parser, there is  little  or  no  complication
 added with the recursive descent approach that we're  using.   At
-the point where  Factor  finds an identifier (letter), it doesn't
+the point where  `Factor`  finds an identifier (letter), it doesn't
 know whether it's a variable name or a function name, nor does it
-really care.  It simply passes it on to Ident and leaves it up to
-that procedure to figure it out.  Ident, in  turn,  simply  tucks
+really care.  It simply passes it on to `Ident` and leaves it up to
+that procedure to figure it out.  `Ident`, in  turn,  simply  tucks
 away the identifier and then reads one more  character  to decide
 which kind of identifier it's dealing with.
 
@@ -195,30 +196,30 @@ requiring further lookahead.   Even  if  you  had to look several
 tokens ahead, the principle would still work.
 
 
-## MORE ON ERROR HANDLING
+## More on Error Handling
 
 As long as we're talking  philosophy,  there's  another important
 issue to point out:  error  handling.    Notice that although the
 parser correctly rejects (almost)  every malformed  expression we
 can  throw at it, with a meaningful  error  message,  we  haven't
 really had to  do much work to make that happen.  In fact, in the
-whole parser per se (from  Ident  through  Expression)  there are
-only two calls to the error routine, Expected.  Even those aren't
-necessary ... if you'll look again in Term and Expression, you'll
+whole parser per se (from  `Ident`  through  `Expression`)  there are
+only two calls to the error routine, `Expected`.  Even those aren't
+necessary ... if you'll look again in `Term` and `Expression`, you'll
 see that those statements can't be reached.  I put them  in early
 on as a  bit  of  insurance,  but  they're no longer needed.  Why
 don't you delete them now?
 
 So how did we get this nice error handling  virtually  for  free?
 It's simply  that  I've  carefully  avoided  reading  a character
-directly  using  GetChar.  Instead,  I've  relied  on  the  error
-handling in GetName,  GetNum,  and  Match  to  do  all  the error
+directly  using  `GetChar`.  Instead,  I've  relied  on  the  error
+handling in `GetName`,  `GetNum`,  and  `Match`  to  do  all  the error
 checking for me.    Astute  readers  will notice that some of the
-calls to Match (for example, the ones in Add  and  Subtract)  are
+calls to `Match` (for example, the ones in `Add`  and  `Subtract`)  are
 also unnecessary ... we already know what the character is by the
 time  we get there ... but it maintains  a  certain  symmetry  to
-leave them in, and  the  general rule to always use Match instead
-of GetChar is a good one.
+leave them in, and  the  general rule to always use `Match` instead
+of `GetChar` is a good one.
 
 I mentioned an "almost" above.   There  is a case where our error
 handling  leaves a bit to be desired.  So far we haven't told our
@@ -235,31 +236,31 @@ part of the next one.
 
 But  it's  also a very easy thing to fix up, even  if  it's  only
 temporary.   All  we  have  to  do  is assert that the expression
-should end with an end-of-line , i.e., a carriage return.
+should end with an end-of-line, i.e., a carriage return.
 
 To see what I'm talking about, try the input line
-
-               `1+2 <space> 3+4`
+`1+2 <space> 3+4`.
 
 See  how the space was treated as a terminator?  Now, to make the
 compiler properly flag this, add the line
 
 ```delphi
-               if Look <> CR then Expected('Newline');
+if Look <> CR then Expected('Newline');
 ```
-in the main  program,  just  after  the call to Expression.  That
+
+in the main  program,  just  after  the call to `Expression`.  That
 catches anything left over in the input stream.  Don't  forget to
 define CR in the const statement:
 
 ```delphi
-               CR = ^M;
+CR = ^M;
 ```
 
 As usual, recompile the program and verify that it does what it's
 supposed to.
 
 
-## ASSIGNMENT STATEMENTS
+## Assignment Statements
 
 OK,  at  this  point we have a parser that works very nicely. I'd
 like to  point  out  that  we  got  it  using  only  88  lines of
@@ -269,14 +270,13 @@ considering we weren't trying very  hard  to  save  either source
 code or object size.  We just stuck to the KISS principle.
 
 Of course, parsing an expression  is not much good without having
-something to do with it afterwards.  Expressions USUALLY (but not
+something to do with it afterwards.  Expressions _usually_ (but not
 always) appear in assignment statements, in the form
-
-          `<Ident> = <Expression>` 
+`<Ident> = <Expression>`.
 
 We're only a breath  away  from being able to parse an assignment
 statement, so let's take that  last  step.  Just  after procedure
-Expression, add the following new procedure:
+`Expression`, add the following new procedure:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -295,15 +295,15 @@ end;
 ```
 
 Note again that the  code  exactly parallels the BNF.  And notice
-further that  the error checking was painless, handled by GetName
-and Match.
+further that  the error checking was painless, handled by `GetName`
+and `Match`.
 
 The reason for the two  lines  of  assembler  has  to  do  with a
 peculiarity in the  68000,  which requires this kind of construct
 for PC-relative code.
 
-Now change the call to Expression, in the main program, to one to
-Assignment.  That's all there is to it.
+Now change the call to `Expression`, in the main program, to one to
+`Assignment`.  That's all there is to it.
 
 Son of a gun!  We are actually  compiling  assignment statements.
 If those were the only kind of statements in a language, all we'd
@@ -311,21 +311,21 @@ have to  do  is  put  this in a loop and we'd have a full-fledged
 compiler!
 
 Well, of course they're not the only kind.  There are also little
-items  like  control  statements  (IFs  and  loops),  procedures,
+items  like  control  statements  (`IF`s  and  loops),  procedures,
 declarations, etc.  But cheer  up.    The  arithmetic expressions
 that we've been dealing with are among the most challenging  in a
 language.      Compared  to  what  we've  already  done,  control
-statements  will be easy.  I'll be covering  them  in  the  fifth
-installment.  And the other statements will all fall in  line, as
+statements  will be easy.  I'll be covering  them  in  the  [fifth installment](tutor05_controlstructs.md).
+And the other statements will all fall in  line, as
 long as we remember to KISS.
 
 
-## MULTI-CHARACTER TOKENS
+## Multi-Character Tokens
 
 Throughout  this   series,   I've   been   carefully  restricting
 everything  we  do  to  single-character  tokens,  all  the while
-assuring  you  that  it wouldn't be difficult to extend to multi-
-character ones.    I  don't  know if you believed me or not ... I
+assuring  you  that  it wouldn't be difficult to extend to
+multi-character ones.    I  don't  know if you believed me or not ... I
 wouldn't  really blame you if you were a  bit  skeptical.    I'll
 continue  to use  that approach in  the  sessions  which  follow,
 because it helps keep complexity away.    But I'd like to back up
@@ -334,8 +334,8 @@ showing you  just  how  easy  that  extension  really is.  In the
 process, we'll also provide for embedded white space.  Before you
 make  the  next  few changes, though, save the current version of
 the parser away under another name.  I have some more uses for it
-in  the  next  installment, and we'll be working with the single-
-character version.
+in  the  [next  installment](tutor04_interpreters.md), and we'll be working with the
+single-character version.
 
 Most compilers separate out the handling of the input stream into
 a separate module called  the  lexical scanner.  The idea is that
@@ -344,7 +344,7 @@ returns the separate units  (tokens)  of  the  stream.  There may
 come a time when we'll want  to  do something like that, too, but
 for  now  there  is  no  need. We can handle the  multi-character
 tokens that we need by very slight and  very  local modifications
-to GetName and GetNum.
+to `GetName` and `GetNum`.
 
 The usual definition of an identifier is that the first character
 must be a letter, but the rest can be  alphanumeric  (letters  or
@@ -362,11 +362,11 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Add this function to your parser.  I put mine just after IsDigit.
+Add this function to your parser.  I put mine just after `IsDigit`.
 While you're  at  it,  might  as  well  include it as a permanent
-member of Cradle, too.
-                              
-Now, we need  to  modify  function  GetName  to  return  a string
+member of `Cradle`, too.
+
+Now, we need  to  modify  function  `GetName`  to  return  a string
 instead of a character:
 
 ```delphi
@@ -387,7 +387,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Similarly, modify GetNum to read:
+Similarly, modify `GetNum` to read:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -405,19 +405,18 @@ begin
    GetNum := Value;
 end;
 {--------------------------------------------------------------}
-
-````
+```
 
 Amazingly enough, that  is  virtually all the changes required to
-the  parser!  The local variable Name  in  procedures  Ident  and
-Assignment was originally declared as  "char",  and  must  now be
-declared string[8].  (Clearly,  we  could  make the string length
+the  parser!  The local variable `Name`  in  procedures  `Ident`  and
+`Assignment` was originally declared as  `char`,  and  must  now be
+declared `string[8]`.  (Clearly,  we  could  make the string length
 longer if we chose, but most assemblers limit the length anyhow.)
-Make  this  change,  and  then  recompile and test. _NOW_ do  you
+Make  this  change,  and  then  recompile and test. _Now_ do  you
 believe that it's a simple change?
 
 
-## WHITE SPACE
+## White Space
 
 Before we leave this parser for awhile, let's  address  the issue
 of  white  space.   As it stands now, the parser  will  barf  (or
@@ -438,8 +437,8 @@ It still sounds like a good rule to me, so  that's  the one we'll
 use.    This  means  that  every routine that advances the  input
 stream must skip over white space, and leave  the  next non-white
 character in Look.   Fortunately,  because  we've been careful to
-use GetName, GetNum, and Match  for most of our input processing,
-it is  only  those  three  routines  (plus  Init) that we need to
+use `GetName`, `GetNum`, and `Match`  for most of our input processing,
+it is  only  those  three  routines  (plus  `Init`) that we need to
 modify.
 
 Not  surprisingly,  we  start  with  yet  another  new recognizer
@@ -471,7 +470,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Now,  add calls to SkipWhite to Match,  GetName,  and  GetNum  as
+Now,  add calls to `SkipWhite` to `Match`,  `GetName`,  and  `GetNum`  as
 shown below:
 
 ```delphi
@@ -522,13 +521,14 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
-(Note  that  I  rearranged  Match  a  bit,  without changing  the
+
+(Note  that  I  rearranged  `Match`  a  bit,  without changing  the
 functionality.)
 
 Finally, we need to skip over leading blanks where we  "prime the
-pump" in Init:
+pump" in `Init`:
 
-```delphi                        
+```delphi
 {--------------------------------------------------------------}
 { Initialize }
 
@@ -541,7 +541,7 @@ end;
 ```
 
 Make these changes and recompile the program.  You will find that
-you will have to move Match below SkipWhite, to  avoid  an  error
+you will have to move `Match` below `SkipWhite`, to  avoid  an  error
 message from the Pascal compiler.  Test the program as  always to
 make sure it works properly.
 
@@ -583,7 +583,7 @@ end;
 
 {--------------------------------------------------------------}
 { Report Error and Halt }
-                             
+
 procedure Abort(s: string);
 begin
    Error(s);
@@ -638,7 +638,7 @@ end;
 
 {--------------------------------------------------------------}
 { Recognize White Space }
-                             
+
 function IsWhite(c: char): boolean;
 begin
    IsWhite := c in [' ', TAB];
@@ -855,7 +855,7 @@ end;
 
 {--------------------------------------------------------------}
 { Initialize }
-                             
+
 procedure Init;
 begin
    GetChar;
@@ -877,7 +877,7 @@ end.
 Now the parser is complete.  It's got every feature we can put in
 a  one-line "compiler."  Tuck it away in a safe place.  Next time
 we'll move on to a new subject, but we'll still be  talking about
-expressions for quite awhile.  Next installment, I plan to talk a
+expressions for quite awhile.  [Next installment](tutor04_interpreters.md), I plan to talk a
 bit about interpreters as opposed  to compilers, and show you how
 the structure of the parser changes a bit as we change  what sort
 of action has to be taken.  The information we pick up there will

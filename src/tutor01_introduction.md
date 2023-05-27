@@ -1,7 +1,8 @@
-# Part I: INTRODUCTION - 24 July 1988
+# Part I: Introduction - 24 July 1988
 
 
-## INTRODUCTION
+## Introduction
+
 This series of articles is a tutorial on the theory  and practice
 of  developing language parsers and compilers.    Before  we  are
 finished,  we  will  have  covered  every   aspect   of  compiler
@@ -21,7 +22,7 @@ share with you what I have  learned.    At the end of this series
 you will by no means be  a  computer scientist, nor will you know
 all the esoterics of  compiler  theory.    I intend to completely
 ignore the more theoretical  aspects  of  the  subject.  What you
-_WILL_ know is all  the  practical aspects that one needs to know
+_will_ know is all  the  practical aspects that one needs to know
 to build a working system.
 
 This is a "learn-by-doing" series.  In the course of the series I
@@ -39,10 +40,10 @@ many other uses!
 Some articles on compilers show you examples, or show you  (as in
 the case of Small-C) a finished product, which you can  then copy
 and  use without a whole lot of understanding of how it works.  I
-hope to do much more  than  that.    I  hope to teach you HOW the
+hope to do much more  than  that.    I  hope to teach you _how_ the
 things get done,  so that you can go off on your own and not only
 reproduce what I have done, but improve on it.
-                              
+
 This is admittedly an ambitious undertaking, and it won't be done
 in  one page.  I expect to do it in the course  of  a  number  of
 articles.    Each  article will cover a single aspect of compiler
@@ -51,7 +52,6 @@ interested in at a given time is one  aspect,  then  you  need to
 look only at that one article.  Each article will be  uploaded as
 it  is complete, so you will have to wait for the last one before
 you can consider yourself finished.  Please be patient.
-
 
 
 The average text on  compiler  theory covers a lot of ground that
@@ -74,10 +74,9 @@ we won't be covering here.  The typical sequence is:
 - A final chapter or two on optimization. This chapter often
    goes unread, too.
 
-
 I'll  be taking a much different approach in  this  series.    To
 begin  with,  I  won't dwell long on options.  I'll be giving you
-_A_ way that works.  If you want  to  explore  options,  well and
+_a_ way that works.  If you want  to  explore  options,  well and
 good ...  I  encourage  you  to do so ... but I'll be sticking to
 what I know.   I also will skip over most of the theory that puts
 people  to  sleep.  Don't get me  wrong:  I  don't  belittle  the
@@ -87,11 +86,11 @@ putting first things first.    Here we'll be dealing with the 95%
 of compiler techniques that don't need a lot of theory to handle.
 
 I  also  will  discuss only one approach  to  parsing:  top-down,
-recursive descent parsing, which is the  _ONLY_  technique that's
+recursive descent parsing, which is the  _only_  technique that's
 at  all   amenable  to  hand-crafting  a  compiler.    The  other
 approaches are only useful if you have a tool like YACC, and also
 don't care how much memory space the final product uses.
-                              
+
 I  also take a page from the work of Ron Cain, the author of  the
 original Small C.  Whereas almost all other compiler authors have
 historically  used  an  intermediate  language  like  P-code  and
@@ -100,13 +99,12 @@ P-code,  and   a  back  end  that  processes  P-code  to  produce
 executable   object  code),  Ron  showed  us   that   it   is   a
 straightforward  matter  to  make  a  compiler  directly  produce
 executable  object  code,  in  the  form  of  assembler  language
-statements.  The code will _NOT_ be the world's tightest code ...
+statements.  The code will _not_ be the world's tightest code ...
 producing optimized code is  a  much  more  difficult job. But it
 will work, and work reasonably well.  Just so that I  don't leave
 you with the impression that our end product will be worthless, I
-_DO_ intend to show you how  to  "soup up" the compiler with some
+_do_ intend to show you how  to  "soup up" the compiler with some
 optimization.
-
 
 
 Finally, I'll be  using  some  tricks  that I've found to be most
@@ -114,8 +112,8 @@ helpful in letting  me  understand what's going on without wading
 through a lot of boiler plate.  Chief among these  is  the use of
 single-character tokens, with no embedded spaces,  for  the early
 design work.  I figure that  if  I  can get a parser to recognize
-and deal with I-T-L, I can  get  it  to do the same with IF-THEN-
-ELSE.  And I can.  In the second "lesson,"   I'll  show  you just
+and deal with `I`-`T`-`L`, I can  get  it  to do the same with `IF`-`THEN`-`ELSE`.
+And I can.  In the second "lesson,"   I'll  show  you just
 how easy it  is  to  extend  a  simple parser to handle tokens of
 arbitrary length.  As another  trick,  I  completely  ignore file
 I/O, figuring that  if  I  can  read source from the keyboard and
@@ -124,19 +122,19 @@ Experience  has  proven  that  once  a   translator   is  working
 correctly, it's a  straightforward  matter to redirect the I/O to
 files.    The last trick is that I make no attempt  to  do  error
 correction/recovery.   The   programs   we'll  be  building  will
-RECOGNIZE errors, and will not CRASH, but they  will  simply stop
+_recognize_ errors, and will not _crash_, but they  will  simply stop
 on the first error ... just like good ol' Turbo does.  There will
 be  other tricks that you'll see as you go. Most of them can't be
 found in any compiler textbook, but they work.
 
 A word about style and efficiency.    As  you will see, I tend to
-write programs in  _VERY_  small, easily understood pieces.  None
+write programs in  _very_  small, easily understood pieces.  None
 of the procedures we'll  be  working with will be more than about
 15-20 lines long.  I'm a fervent devotee  of  the  KISS  (Keep It
 Simple, Sidney) school of software development.  I  try  to never
 do something tricky or  complex,  when  something simple will do.
 Inefficient?  Perhaps, but you'll like the  results.    As  Brian
-Kernighan has said,  FIRST  make  it  run, THEN make it run fast.
+Kernighan has said,  _first_  make  it  run, _then_ make it run fast.
 If, later on,  you want to go back and tighten up the code in one
 of  our products, you'll be able to do so, since the code will be
 quite understandable. If you  do  so, however, I urge you to wait
@@ -163,7 +161,7 @@ the '86 language better than I do will offer  us  the  equivalent
 object code fragments as we need them.
 
 
-## THE CRADLE
+## The Cradle
 
 Every program needs some boiler  plate  ...  I/O  routines, error
 message routines, etc.   The  programs we develop here will be no
@@ -184,9 +182,8 @@ which is to use  a  single, global, lookahead character.  Part of
 the initialization procedure  (the  only part, so far!) serves to
 "prime  the  pump"  by reading the first character from the input
 stream.  No other special  techniques are required with Turbo 4.0
-... each successive call to  GetChar will read the next character
+... each successive call to  `GetChar` will read the next character
 in the stream.
-
 
 ```delphi
 
@@ -202,7 +199,7 @@ const TAB = ^I;
 { Variable Declarations }
 
 var Look: char;              { Lookahead Character }
-                              
+
 {--------------------------------------------------------------}
 { Read New Character From Input Stream }
 
@@ -256,7 +253,7 @@ function IsAlpha(c: char): boolean;
 begin
    IsAlpha := upcase(c) in ['A'..'Z'];
 end;
-                              
+
 
 {--------------------------------------------------------------}
 

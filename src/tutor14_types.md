@@ -1,8 +1,9 @@
-# Part XIV: TYPES - 26 May 1990
+# Part XIV: Types - 26 May 1990
 
-## INTRODUCTION
 
-In the  last installment (Part XIII: PROCEDURES) I mentioned that
+## Introduction
+
+In the  last installment ([Part XIII: PROCEDURES](tutor13_procedures.md)) I mentioned that
 in that part and this one,  we  would cover the two features that
 tend  to  separate  the toy language from a real, usable one.  We
 covered  procedure  calls  in that installment.  Many of you have
@@ -10,7 +11,7 @@ been  waiting patiently, since August '89, for  me  to  drop  the
 other shoe.  Well, here it is.
 
 In this installment, we'll talk  about how to deal with different
-data types.  As I did in the last segment, I will NOT incorporate
+data types.  As I did in the last segment, I will _not_ incorporate
 these  features directly into the TINY  compiler  at  this  time.
 Instead, I'll be using the same approach that has worked  so well
 for  us  in the past: using only  fragments  of  the  parser  and
@@ -21,7 +22,7 @@ dealing with multiple types occur in  the  arithmetic operations,
 that's where we'll concentrate our focus.
 
 A  few words of warning:  First, there are some types that I will
-NOT  be  covering in this installment.   Here  we  will  ONLY  be
+NOT  be  covering in this installment.   Here  we  will  _only_  be
 talking about the simple, predefined types.  We  won't  even deal
 with arrays, pointers or strings  in  this  installment;  I'll be
 covering them in the next few.
@@ -35,14 +36,14 @@ etc., just so that the series  will  be complete.  But whether or
 not they will be included as part of KISS is still an open issue.
 I am open to comments or suggestions on this question.
 
-Finally,  I  should  warn you: what we are about to  do  CAN  add
+Finally,  I  should  warn you: what we are about to  do  _can_  add
 considerable  extra  complication  to  both  the  parser  and the
 generated  code.    Handling  variables  of  different  types  is
 straightforward enough.  The complexity  comes  in  when  you add
 rules about conversion between types.  In general,  you  can make
 the  compiler  as  simple or as complex as you choose to make it,
 depending upon the  way  you  define  the  type-conversion rules.
-Even if you decide not to allow ANY type conversions (as  in Ada,
+Even if you decide not to allow _any_ type conversions (as  in Ada,
 for example) the problem is still there, and is  built  into  the
 mathematics.  When  you  multiply two short numbers, for example,
 you can get a long result.
@@ -54,11 +55,11 @@ against complexity,  and  as  usual  I  will  tend to opt for the
 simplest approach.
 
 
-## WHAT'S COMING NEXT?
+## What's Coming Next?
 
 Before diving into the tutorial, I think you'd like to know where
 we are going  from  here  ...  especially since it's been so long
-since the last installment.
+since the [last installment](tutor13_procedures.md).
 
 I have not been idle in  the  meantime.   What I've been doing is
 reorganizing  the  compiler  itself into Turbo Units.  One of the
@@ -68,7 +69,7 @@ longer and longer.  I realized a couple of installments back that
 this was causing trouble, and that's why I've gone back  to using
 only compiler fragments for  the  last  installment and this one.
 The problem is that it just  seems  dumb to have to reproduce the
-code  for,  say,  processing  boolean  exclusive  OR's,  when the
+code  for,  say,  processing  boolean  exclusive  ORs,  when the
 subject of the discussion is parameter passing.
 
 The obvious way  to have our cake and eat it, too, is to break up
@@ -96,22 +97,22 @@ from you readers.  Anyone want to vote for Turbo 5.5 and O-O?
 In any case, after  the  next few installments in the series, the
 plan  is  to  upload to you a complete set of Units, and complete
 functioning compilers as  well.    The  plan, in fact, is to have
-THREE compilers:  One for  a single-character version of TINY (to
+_three_ compilers:  One for  a single-character version of TINY (to
 use  for  our  experiments), one for TINY and one for KISS.  I've
 pretty much isolated the differences between TINY and KISS, which
 are these:
 
-   - TINY will support only two data types: The character and the
-     16-bit  integer.    I may also  try  to  do  something  with
-     strings, since  without  them  a  compiler  would  be pretty
-     useless.   KISS will support all  the  usual  simple  types,
-     including arrays and even floating point.
+- TINY will support only two data types: The character and the
+  16-bit  integer.    I may also  try  to  do  something  with
+  strings, since  without  them  a  compiler  would  be pretty
+  useless.   KISS will support all  the  usual  simple  types,
+  including arrays and even floating point.
 
-   - TINY will only have two control constructs, the  IF  and the
-     WHILE.  KISS will  support  a  very  rich set of constructs,
-     including one we haven't discussed here before ... the CASE.
+- TINY will only have two control constructs, the  `IF`  and the
+  `WHILE`.  KISS will  support  a  very  rich set of constructs,
+  including one we haven't discussed here before ... the `CASE`.
 
-   - KISS will support separately compilable modules.
+- KISS will support separately compilable modules.
 
 One caveat: Since I still don't know much  about  80x86 assembler
 language, all these compiler modules  will  still  be  written to
@@ -130,7 +131,7 @@ installment:  by  performing experiments  using  single-character
 tokens.
 
 
-## THE SYMBOL TABLE
+## The Symbol Table
 
 It should be apparent that, if we're going to deal with variables
 of different types, we're going  to need someplace to record what
@@ -156,7 +157,7 @@ var Look: char;              { Lookahead Character }
 ```
 
 Next, we need to make sure it's initialized as part  of procedure
-Init:
+`Init`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -447,32 +448,32 @@ start.
 
 Of course, in general we  only  want  to  see  the  types  of the
 variables that have been defined.  We can eliminate the others by
-modifying DumpTable with an IF test.  Change the loop to read:
+modifying `DumpTable` with an `IF` test.  Change the loop to read:
 
 ```delphi
-  for i := 'A' to 'Z' do
-     if ST[i] <> '?' then
-         WriteLn(i, ' ', ST[i]);
+for i := 'A' to 'Z' do
+   if ST[i] <> '?' then
+       WriteLn(i, ' ', ST[i]);
 ```
 
 Now, run the program again.  What did you get?
 
 Well, that's even more  boring  than before!  There was no output
-at all, since at this point NONE of the names have been declared.
+at all, since at this point _none_ of the names have been declared.
 We  can  spice  things up a  bit  by  inserting  some  statements
 declaring some entries in the main program.  Try these:
 
 ```delphi
-     ST['A'] := 'a';
-     ST['P'] := 'b';
-     ST['X'] := 'c';
+ST['A'] := 'a';
+ST['P'] := 'b';
+ST['X'] := 'c';
 ```
 
 This time, when  you  run  the  program, you should get an output
 showing that the symbol table is working right.
 
 
-## ADDING ENTRIES
+## Adding Entries
 
 Of course, writing to the table directly is pretty poor practice,
 and not one that will  help  us  much  later.   What we need is a
@@ -526,17 +527,17 @@ end;
 Now change the three lines in the main program to read:
 
 ```delphi
-     AddEntry('A', 'a');
-     AddEntry('P', 'b');
-     AddEntry('X', 'c');
-```                         
+AddEntry('A', 'a');
+AddEntry('P', 'b');
+AddEntry('X', 'c');
+```
 
 and run the program again.  Did it work?  Then we have the symbol
 table routines needed to support our work on types.  In  the next
 section, we'll actually begin to use them.
 
 
-## ALLOCATING STORAGE
+## Allocating Storage
 
 In  other programs like this one,  including  the  TINY  compiler
 itself, we have  already  addressed the issue of declaring global
@@ -545,15 +546,15 @@ vestigial version of a "compiler" here, whose only function is to
 allow  us   declare  variables.    Remember,  the  syntax  for  a
 declaration is:
 
-```
-     <data decl> ::= VAR <identifier>
+```bnf
+<data decl> ::= VAR <identifier>
 ```
 
 Again, we can lift a lot of the code from previous programs.  The
 following are stripped-down versions of those  procedures.   They
 are greatly simplified  since  I  have  eliminated  niceties like
-variable lists and  initializers.   In procedure Alloc, note that
-the  new call to AddEntry will also  take  care  of  checking for
+variable lists and  initializers.   In procedure `Alloc`, note that
+the  new call to `AddEntry` will also  take  care  of  checking for
 duplicate declarations:
 
 ```delphi
@@ -592,44 +593,40 @@ begin
    end;
 end;
 {--------------------------------------------------------------}
-
 ```
-Now, in the  main  program,  add  a  call to TopDecls and run the
+
+Now, in the  main  program,  add  a  call to `TopDecls` and run the
 program.  Try allocating a  few variables, and note the resulting
 code generated.  This is old stuff for you, so the results should
-look familiar.  Note from the code for TopDecls that  the program
+look familiar.  Note from the code for `TopDecls` that  the program
 is ended by a terminating period.
 
 While you're at it,  try  declaring  two  variables with the same
 name, and verify that the parser catches the error.
 
 
-## DECLARING TYPES
-
+## Declaring Types
 
 Allocating storage of different sizes  is  as  easy  as modifying
-procedure TopDecls to recognize more than one keyword.  There are
+procedure `TopDecls` to recognize more than one keyword.  There are
 a  number  of  decisions to be made here, in terms  of  what  the
 syntax should be, etc., but for now I'm  going  to  duck  all the
 issues and simply declare by  executive fiat that our syntax will
 be:
 
-```
-     <data decl> ::= <typename>  <identifier>
-```
-where:
+```bnf
+<data decl> ::= <typename>  <identifier>
 
+<typename> ::= BYTE | WORD | LONG
 ```
-     <typename> ::= BYTE | WORD | LONG
 
-```
 (By  an amazing coincidence, the first  letters  of  these  names
 happen  to  be  the  same  as  the  68000  assembly  code  length
 specifications, so this choice saves us a little work.)
 
 We can create the code to take care of  these  declarations  with
 only slight modifications.  In the routines below, note that I've
-separated  the  code  generation parts of Alloc  from  the  logic
+separated  the  code  generation parts of `Alloc`  from  the  logic
 parts.  This  is  in  keeping  with our desire to encapsulate the
 machine-dependent part of the compiler.
 
@@ -681,7 +678,7 @@ end;
 ```
 
 Make the changes shown to these procedures, and give the  thing a
-try.    Use  the  single  characters  'b',  'w',  and 'l' for the
+try.    Use  the  single  characters  `b`,  `w`,  and `l` for the
 keywords (they must be lower case,  for  now).  You will see that
 in each case, we are allocating the proper storage  size.    Note
 from the dumped symbol table that the sizes are also recorded for
@@ -689,15 +686,15 @@ later use.  What later use?  Well, that's the subject of the rest
 of this installment.
 
 
-## ASSIGNMENTS
+## Assignments
 
 Now that we can declare variables of different  sizes,  it stands
 to reason that we ought to be able  to  do  something  with them.
 For our first trick, let's just try loading them into our working
-register, D0.  It makes sense to use the same  idea  we used for
+register, `D0`.  It makes sense to use the same  idea  we used for
 Alloc; that is, make a load procedure that can load more than one
-size.    We  also  want  to continue to encapsulate the  machine-
-dependent stuff.  The load procedure looks like this:
+size.    We  also  want  to continue to encapsulate the
+machine-dependent stuff.  The load procedure looks like this:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -711,7 +708,7 @@ end;
 ```
 
 On  the  68000,  at least, it happens that many instructions turn
-out to be MOVE's.  It turns out to be useful to create a separate
+out to be `MOVE`s.  It turns out to be useful to create a separate
 code generator just for these instructions, and then  call  it as
 needed:
 
@@ -778,10 +775,10 @@ end;
 {--------------------------------------------------------------}
 ```
 
-(NOTE to the  concerned:  I  know,  I  know, all this is all very
+(**Note** to the  concerned:  I  know,  I  know, all this is all very
 inefficient.  In a production  program,  we  probably  would take
 steps to avoid such deep nesting of procedure calls.  Don't worry
-about it.  This is an EXERCISE, remember?  It's more important to
+about it.  This is an _exercise_, remember?  It's more important to
 get it  right  and  understand  it, than it is to make it get the
 wrong  answer,  quickly.   If you get your compiler completed and
 find that you're unhappy  with  the speed, feel free to come back
@@ -792,10 +789,10 @@ we don't have a  procedure  for  dealing  with assignments yet, I
 just added the lines:
 
 ```delphi
-     Load('A');
-     Load('B');
-     Load('C');
-     Load('X');
+Load('A');
+Load('B');
+Load('C');
+Load('X');
 ```
 
 to  the main program.  Thus, after  the  declaration  section  is
@@ -830,10 +827,10 @@ end;
 
 You can test this one the same way as the loads.
 
-Now, of course, it's a RATHER  small  step to use these to handle
+Now, of course, it's a _rather_  small  step to use these to handle
 assignment  statements.  What we'll do is  to  create  a  special
-version   of  procedure  Block  that  supports  only   assignment
-statements, and also a  special  version  of Expression that only
+version   of  procedure  `Block`  that  supports  only   assignment
+statements, and also a  special  version  of `Expression` that only
 supports single variables as legal expressions.  Here they are:
 
 ```delphi
@@ -879,14 +876,14 @@ cleaner than what we've seen before.  This is  mostly  thanks  to
 our efforts to encapsulate the code generator procedures.)
 
 There is one small, nagging problem.  Before, we used  the Pascal
-terminating period to get us out of procedure TopDecls.   This is
-now the wrong  character  ...  it's  used to terminate Block.  In
-previous programs, we've used the BEGIN symbol  (abbreviated 'b')
+terminating period to get us out of procedure `TopDecls`.   This is
+now the wrong  character  ...  it's  used to terminate `Block`.  In
+previous programs, we've used the `BEGIN` symbol  (abbreviated `b`)
 to get us out.  But that is now used as a type symbol.
 
 The solution, while somewhat of a kludge, is easy enough.   We'll
-use  an  UPPER CASE 'B' to stand for the BEGIN.   So  change  the
-character in the WHILE loop within TopDecls, from '.' to 'B', and
+use  an  upper-case `B` to stand for the `BEGIN`.   So  change  the
+character in the `WHILE` loop within `TopDecls`, from `.` to `B`, and
 everything will be fine.
 
 Now, we can  complete  the  task  by changing the main program to
@@ -907,26 +904,26 @@ end.
 {--------------------------------------------------------------}
 ```
 
-(Note  that I've had to sprinkle a few calls to Fin around to get
+(Note  that I've had to sprinkle a few calls to `Fin` around to get
 us out of Newline troubles.)
 
 OK, run this program.  Try the input:
-```
 
-     ba        { byte a }   *** DON'T TYPE THE COMMENTS!!! ***
-     wb        { word b }
-     lc        { long c }
-     B         { begin  }
-     a=a
-     a=b
-     a=c
-     b=a
-     b=b
-     b=c
-     c=a
-     c=b
-     c=c
-     .
+```
+ba        { byte a }   *** DON'T TYPE THE COMMENTS!!! ***
+wb        { word b }
+lc        { long c }
+B         { begin  }
+a=a
+a=b
+a=c
+b=a
+b=b
+b=c
+c=a
+c=b
+c=c
+.
 ```
 
 For  each  declaration,  you  should  get  code   generated  that
@@ -935,38 +932,38 @@ loads a variable of the correct size, and stores one, also of the
 correct size.
 
 There's only one small  little  problem:    The generated code is
-WRONG!
+_wrong_!
 
 Look at the code for a=c above.  The code is:
 
-```delphi
-     MOVE.L    C(PC),D0
-     LEA       A(PC),A0
-     MOVE.B    D0,(A0)
+```asm
+MOVE.L    C(PC),D0
+LEA       A(PC),A0
+MOVE.B    D0,(A0)
 ```
 
 This code is correct.  It will cause the lower eight bits of C to
 be stored into A, which is a reasonable behavior.  It's about all
 we can expect to happen.
 
-But now, look at the opposite case.  For c=a, the  code generated
+But now, look at the opposite case.  For `c=a`, the  code generated
 is:
 
-```
-     MOVE.B A(PC),D0
-     LEA  C(PC),A0
-     MOVE.L D0,(A0)
+```asm
+MOVE.B A(PC),D0
+LEA  C(PC),A0
+MOVE.L D0,(A0)
 ```
 
-This is  `NOT`  correct.    It will cause the byte variable A to be
-stored into the lower eight bits  of  D0.  According to the rules
+This is  _not_  correct.    It will cause the byte variable `A` to be
+stored into the lower eight bits  of  `D0`.  According to the rules
 for the 68000 processor,  the  upper 24 bits are unchanged.  This
 means  that when we store the entire 32  bits  into  C,  whatever
 garbage  that  was  in those high bits will also get stored.  Not
 good.
 
-So what  we  have  run  into here, early on, is the issue of TYPE
-CONVERSION, or COERCION.
+So what  we  have  run  into here, early on, is the issue of _type
+conversion_, or _coercion_.
 
 Before we do anything with  variables of different types, even if
 it's just to  copy  them, we have to face up to the issue.  It is
@@ -980,16 +977,16 @@ with this approach, we can keep the potential complexity in check
 rather nicely.
 
 
-## THE COWARD'S WAY OUT
+## The Coward's Way Out
 
 Before we get into the details (and potential complexity) of type
 conversion,  I'd  like  you to see that there is one super-simple
 way to solve the problem: simply promote every variable to a long
 integer when we load it!
 
-This takes the addition of only one line to LoadVar,  although if
-we  are  not  going to COMPLETELY ignore efficiency, it should be
-guarded by an IF test.  Here is the modified version:
+This takes the addition of only one line to `LoadVar`,  although if
+we  are  not  going to _completely_ ignore efficiency, it should be
+guarded by an `IF` test.  Here is the modified version:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -1004,31 +1001,32 @@ end;
 {---------------------------------------------------------------}
 ```
 
-(Note that StoreVar needs no similar change.)
+(Note that `StoreVar` needs no similar change.)
 
 If you run some tests with  this  new version, you will find that
 everything  works correctly now, albeit sometimes  inefficiently.
-For example, consider the case  a=b  (for  the  same declarations
+For example, consider the case  `a=b`  (for  the  same declarations
 shown above).  Now the generated code turns out to be:
-```
-     CLR.L D0
-     MOVE.W B(PC),D0
-     LEA  A(PC),A0
-     MOVE.B D0,(A0)
+
+```asm
+CLR.L D0
+MOVE.W B(PC),D0
+LEA  A(PC),A0
+MOVE.B D0,(A0)
 ```
 
-In  this  case,  the CLR turns out not to be necessary, since the
+In  this  case,  the `CLR` turns out not to be necessary, since the
 result is going into a byte-sized variable.  With a little bit of
 work, we can do better.  Still, this is not  bad,  and it typical
-of the kinds of inefficiencies  that we've seen before in simple-
-minded compilers.
+of the kinds of inefficiencies  that we've seen before in simple-minded
+compilers.
 
 I should point out that, by setting the high bits to zero, we are
-in effect treating the numbers as UNSIGNED integers.  If  we want
+in effect treating the numbers as _unsigned_ integers.  If  we want
 to treat them as signed ones instead (the more  likely  case)  we
 should do a  sign  extension  after  the load, instead of a clear
 before it. Just  to  tie  this  part  of the discussion up with a
-nice, red ribbon, let's change LoadVar as shown below:
+nice, red ribbon, let's change `LoadVar` as shown below:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -1049,14 +1047,14 @@ With this version, a byte is treated as unsigned  (as  in  Pascal
 and C), while a word is treated as signed.
 
 
-## A MORE REASONABLE SOLUTION
+## A More Reasonable Solution
 
 As we've seen, promoting  every  variable  to  long while it's in
 memory solves the problem, but it can hardly be called efficient,
 and  probably wouldn't be acceptable even for  those  of  us  who
 claim be unconcerned about  efficiency.    It  will mean that all
 arithmetic operations will be done to 32-bit accuracy, which will
-DOUBLE the run time  for  most operations, and make it even worse
+_double_ the run time  for  most operations, and make it even worse
 for multiplication  and division.  For those operations, we would
 need to call subroutines to do  them,  even if the data were byte
 or  word types.  The whole thing is sort of a cop-out, too, since
@@ -1066,21 +1064,21 @@ OK, so that solution's no good.  Is there still a relatively easy
 way to get data conversion?  Can we still Keep It Simple?
 
 Yes, indeed.   All we have to do is to make the conversion at the
-other end ... that is, we convert on the way _OUT_, when the data
+other end ... that is, we convert on the way _out_, when the data
 is stored, rather than on the way in.
 
 But, remember, the storage part  of the assignment is pretty much
 independent of the data load, which is taken care of by procedure
-Expression.    In  general  the  expression  may  be  arbitrarily
-complex, so how can procedure Assignment know what  type  of data
-is left in register D0?
+`Expression`.    In  general  the  expression  may  be  arbitrarily
+complex, so how can procedure `Assignment` know what  type  of data
+is left in register `D0`?
 
-Again,  the  answer  is  simple:    We'll  just  _ASK_  procedure
-Expression!  The answer can be returned as a function value.
+Again,  the  answer  is  simple:    We'll  just  _ask_  procedure
+`Expression`!  The answer can be returned as a function value.
 
 All of this requires several procedures to be  modified,  but the
 mods, like the method, are quite simple.  First of all,  since we
-aren't requiring LoadVar to do  all the work of conversion, let's
+aren't requiring `LoadVar` to do  all the work of conversion, let's
 go back to the simple version:
 
 ```delphi
@@ -1143,17 +1141,17 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Note that Load is a function, which not only emits the code for a
+Note that `Load` is a function, which not only emits the code for a
 load, but also returns the variable type.  In this way, we always
 know what type of data we  are  dealing  with.  When we execute a
-Store,  we pass it the current type of the variable in D0.  Since
-Store also knows the  type  of  the  destination variable, it can
+`Store`,  we pass it the current type of the variable in `D0`.  Since
+`Store` also knows the  type  of  the  destination variable, it can
 convert as necessary.
 
 Armed  with all these new routines,  the  implementation  of  our
 rudimentary   assignment   statement  is   essentially   trivial.
-Procedure Expression now becomes a  function,  which  returns its
-type to procedure Assignment:
+Procedure `Expression` now becomes a  function,  which  returns its
+type to procedure `Assignment`:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -1177,39 +1175,40 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 Again, note how  incredibly  simple these two routines are. We've
-encapsulated  all the type logic into Load  and  Store,  and  the
+encapsulated  all the type logic into `Load`  and  `Store`,  and  the
 trick of  passing  the  type  around  makes  the rest of the work
 extremely easy.    Of  course,  all  of  this is for our special,
-trivial case of Expression.  Naturally, for the  general  case it
+trivial case of `Expression`.  Naturally, for the  general  case it
 will have to get more complex.  But  you're  looking  now  at the
-FINAL version of procedure Assignment!
+_final_ version of procedure `Assignment`!
 
 All this seems like a very  simple  and clean solution, and it is
 indeed.   Compile this program and run the  same  test  cases  as
 before.    You will see that all  types  of  data  are  converted
 properly, and there are few if any wasted instructions.  Only the
 byte-to-long conversion uses two instructions where one would do,
-and we could easily modify Convert to handle this case, too.
+and we could easily modify `Convert` to handle this case, too.
 
 Although we haven't considered unsigned variables in this case, I
-think you can see  that  we could easily fix up procedure Convert
+think you can see  that  we could easily fix up procedure `Convert`
 to deal with these types as well.  This is  "left  as an exercise
 for the student."
 
 
-## LITERAL ARGUMENTS
+## Literal Arguments
 
 Sharp-eyed readers might have noticed, though, that we don't even
 have a proper form of a simple factor yet, because we don't allow
 for loading literal constants,  only  variables.   Let's fix that
 now.
 
-To begin with, we'll need a GetNum function.  We've  seen several
+To begin with, we'll need a `GetNum` function.  We've  seen several
 versions of this, some returning  only a single character, some a
 string, and some an integer.   The  one needed here will return a
-LongInt, so that it can handle anything we  throw  at  it.   Note
-that no type information is returned here: GetNum doesn't concern
+`LongInt`, so that it can handle anything we  throw  at  it.   Note
+that no type information is returned here: `GetNum` doesn't concern
 itself with how the number will be used:
 
 ```delphi
@@ -1234,7 +1233,7 @@ end;
 Now, when dealing with  literal  data,  we  have one little small
 problem.   With variables, we know what  type  things  should  be
 because they've been declared to be  that  type.  We have no such
-type information for  literals.   When the programmer says, "-1,"
+type information for  literals.   When the programmer says, `-1`,
 does that mean a byte, word, or longword  version?    We  have no
 clue.  The obvious thing to do would be to  use  the largest type
 possible, i.e. a longword.    But that's a bad idea, because when
@@ -1264,12 +1263,12 @@ end;
 ```
 
 (I know, I know, the number base isn't really symmetric.  You can
-store -128 in a single byte,  and  -32768  in a word.  But that's
+store `-128` in a single byte,  and  `-32768`  in a word.  But that's
 easily fixed, and not  worth  the time or the added complexity to
 fool with it here.  It's the thought that counts.)
 
-Note  that  LoadNum  calls  a  new version of the code  generator
-routine  LoadConst, which has an added  argument  to  define  the
+Note  that  `LoadNum`  calls  a  new version of the code  generator
+routine  `LoadConst`, which has an added  argument  to  define  the
 type:
 
 ```delphi
@@ -1285,7 +1284,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Now  we can modify procedure Expression  to  accomodate  the  two
+Now  we can modify procedure `Expression`  to  accommodate  the  two
 possible kinds of factors:
 
 ```delphi
@@ -1310,7 +1309,7 @@ You'll see that it now works for either variables or constants as
 valid expressions.
 
 
-## ADDITIVE EXPRESSIONS
+## Additive Expressions
 
 If you've been following this series from the beginning, I'm sure
 you  know  what's coming next:  We'll  expand  the  form  for  an
@@ -1319,13 +1318,13 @@ multiplicative, then general expressions with parentheses.
 
 The nice part is that we already have a pattern for  dealing with
 these more complex expressions.  All we have  to  do  is  to make
-sure that  all the procedures called by Expression (Term, Factor,
+sure that  all the procedures called by `Expression` (`Term`, `Factor`,
 etc.)  always  return a type identifier.   If  we  do  that,  the
 program structure gets changed hardly at all.
 
 The  first  step  is  easy:  We can rename our existing  function
-Expression  to  Term,  as  we've  done so many times before,  and
-create the new version of Expression:
+`Expression`  to  `Term`,  as  we've  done so many times before,  and
+create the new version of `Expression`:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -1354,7 +1353,7 @@ Note  in  this  routine how each  procedure  call  has  become  a
 function call, and how  the  local  variable  Typ gets updated at
 each pass.
 
-Note also the new call to a function  Unop,  which  lets  us deal
+Note also the new call to a function  `Unop`,  which  lets  us deal
 with a leading unary minus.  This change is not necessary  ... we
 could  still  use  a form more like what we've done before.  I've
 chosen  to  introduce  UnOp as a separate routine because it will
@@ -1377,7 +1376,7 @@ end;
 {---------------------------------------------------------------}
 ```
 
-Procedure  Push  is  a code-generator routine, and now has a type
+Procedure  `Push`  is  a code-generator routine, and now has a type
 argument:
 
 ```delphi
@@ -1391,9 +1390,9 @@ end;
 {---------------------------------------------------------------}
 ```
 
-Now, let's take a look at functions Add  and  Subtract.    In the
+Now, let's take a look at functions `Add`  and  `Subtract`.    In the
 older versions of these routines, we let them call code generator
-routines PopAdd and PopSub.    We'll  continue  to do that, which
+routines `PopAdd` and `PopSub`.    We'll  continue  to do that, which
 makes the functions themselves extremely simple:
 
 ```delphi
@@ -1419,7 +1418,7 @@ end;
 ```
 
 The simplicity is  deceptive,  though, because what we've done is
-to defer all the logic to PopAdd and PopSub, which are  no longer
+to defer all the logic to `PopAdd` and `PopSub`, which are  no longer
 just code generation routines.    They must also now take care of
 the type conversions required.
 
@@ -1439,12 +1438,12 @@ lovely  "pop  the  data and do something  with  it"  instructions
 thoughtfully provided by Motorola.
 
 The alternative is to assign  a  secondary  register,  which I've
-chosen to be R7.  (Why not R1?  Because I  have  later  plans for
+chosen to be `R7`.  (Why not `R1`?  Because I  have  later  plans for
 the other registers.)
 
-The  first  step in this new structure  is  to  introduce  a  Pop
-procedure analogous to the Push.   This procedure will always Pop
-the top element of the stack into D7:
+The  first  step in this new structure  is  to  introduce  a  `Pop`
+procedure analogous to the `Push`.   This procedure will always `Pop`
+the top element of the stack into `D7`:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -1460,7 +1459,7 @@ end;
 The general idea is that all the "Pop-Op" routines can  call this
 one.    When  this is done, we will then have  both  operands  in
 registers, so we can promote whichever  one  we need to.  To deal
-with this, procedure Convert needs another argument, the register
+with this, procedure `Convert` needs another argument, the register
 name:
 
 ```delphi
@@ -1480,7 +1479,7 @@ end;
 ```
 
 The next function does a conversion, but only if the current type
-T1  is  smaller  in size than the desired  type  T2.    It  is  a
+`T1`  is  smaller  in size than the desired  type  `T2`.    It  is  a
 function, returning the final type to let us know what it decided
 to do:
 
@@ -1518,7 +1517,7 @@ end;
 ```
 
 These new routines give us the ammunition we need  to  flesh  out
-PopAdd and PopSub:
+`PopAdd` and `PopSub`:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -1549,11 +1548,11 @@ end;
 After  all   the   buildup,   the   final   results   are  almost
 anticlimactic.  Once  again,  you can see that the logic is quite
 simple.  All the two routines do is to pop the  top-of-stack into
-D7, force the two operands to be the same size, and then generate
+`D7`, force the two operands to be the same size, and then generate
 the code.
 
-Note  the  new  code generator routines GenAdd and GenSub.  These
-are vestigial forms of the ORIGINAL PopAdd and PopSub.   That is,
+Note  the  new  code generator routines `GenAdd` and `GenSub`.  These
+are vestigial forms of the _original_ `PopAdd` and `PopSub`.   That is,
 they  are pure code generators, producing a  register-to-register
 add or subtract:
 
@@ -1582,14 +1581,14 @@ OK,  I grant you:  I've thrown a lot of routines at you since  we
 last tested the code.   But  you  have  to  admit  that  each new
 routine is pretty simple and transparent.  If you (like me) don't
 like to test so many new  routines  at  once, that's OK.  You can
-stub out routines like Convert, Promote, and SameType, since they
+stub out routines like `Convert`, `Promote`, and `SameType`, since they
 don't  read  any inputs.  You won't  get  the  correct  code,  of
 course, but things should work.  Then flesh  them  out  one  at a
 time.
 
 When testing the program,  don't  forget  that  you first have to
 declare some variables, and then  start the "body" of the program
-with an upper-case  'B'  (for  BEGIN).   You should find that the
+with an upper-case  `B`  (for  `BEGIN`).   You should find that the
 parser  will  handle  any  additive  expressions.  Once  all  the
 conversion routines are in, you should see that the  correct code
 is  generated,  with  type  conversions inserted where necessary.
@@ -1599,27 +1598,27 @@ good  idea  to  try  some  erroneous expressions and see how  the
 compiler handles them.
 
 
-## WHY SO MANY PROCEDURES?
+## Why So Many Procedures?
 
 At this point, you may think  I've  pretty much gone off the deep
 end in terms of deeply nested procedures.  There is  admittedly a
 lot of overhead here.  But there's a method in my madness.  As in
-the case of UnOp, I'm looking ahead to the time when  we're going
+the case of `UnOp`, I'm looking ahead to the time when  we're going
 to want better code  generation.   The way the code is organized,
 we can achieve  this  without major modifications to the program.
 For example, in cases where the value pushed onto the  stack does
-_NOT_ have to be converted, it's still better to use the "pop and
+_not_ have to be converted, it's still better to use the "pop and
 add"  instruction.    If we choose to test for such cases, we can
-embed the extra tests into  PopAdd  and  PopSub  without changing
+embed the extra tests into  `PopAdd`  and  `PopSub`  without changing
 anything else much.
 
 
-## MULTIPLICATIVE EXPRESSIONS
+## Multiplicative Expressions
 
 The procedure for dealing with multiplicative  operators  is much
 the  same.    In  fact,  at  the  first  level,  they are  almost
 identical, so I'll just show them here without much fanfare.  The
-first  one  is  our  general  form  for  Factor,  which  includes
+first  one  is  our  general  form  for  `Factor`,  which  includes
 parenthetical subexpressions:
 
 ```delphi
@@ -1682,14 +1681,14 @@ end;
 ```
 
 These routines parallel the additive  ones  almost  exactly.   As
-before, the complexity is encapsulated within PopMul  and PopDiv.
+before, the complexity is encapsulated within `PopMul`  and `PopDiv`.
 If  you'd  like  to test the program before we get into that, you
-can build dummy versions of them, similar to  PopAdd  and PopSub.
+can build dummy versions of them, similar to  `PopAdd`  and `PopSub`.
 Again, the code won't be correct at this point,  but  the  parser
 should handle expressions of arbitrary complexity.
 
 
-## MULTIPLICATION
+## Multiplication
 
 Once you've  convinced yourself that the parser itself is working
 properly, we need to figure out what it will take to generate the
@@ -1700,21 +1699,20 @@ Let's take the case of multiplication first.   This  operation is
 similar to the "addops" in that both operands should  be  of  the
 same size.  It differs in two important respects:
 
+- The type of the product is typically not the same as that of
+  the  two  operands.   For the product of two words, we get a
+  longword result.
 
-  -  The type of the product is typically not the same as that of
-     the  two  operands.   For the product of two words, we get a
-     longword result.
+- The 68000 does  not support a 32 x 32 multiply, so a call to
+  a software routine is needed.  This routine will become part
+  of the run-time library.
 
-  -  The 68000 does  not support a 32 x 32 multiply, so a call to
-     a software routine is needed.  This routine will become part
-     of the run-time library.
-
-  -  It also does  not  support  an  8  x 8 multiply, so all byte
-     operands must be promoted to words.
-
+- It also does  not  support  an  8  x 8 multiply, so all byte
+  operands must be promoted to words.
 
 The actions that we have to take are best shown in  the following
 table:
+
 ```
 -----------------------------------------------------------------
   T1 -->  |                 |                 |                 |
@@ -1742,15 +1740,16 @@ table:
           |                 |                 |                 |
 -----------------------------------------------------------------
 ```
+
 This table shows the actions to be taken for each  combination of
 operand types.  There are three things to note: First,  we assume
-a library routine  MUL32  which  performs  a  32  x  32 multiply,
-leaving a >> 32-bit << (not 64-bit) product.    If  there  is any
+a library routine  `MUL32`  which  performs  a  32  x  32 multiply,
+leaving a **32-bit** (not 64-bit) product.    If  there  is any
 overflow in the process,  we  choose to ignore it and return only
 the lower 32 bits.
 
 Second, note that the  table  is  symmetric  ... the two operands
-enter in the same way.  Finally, note that the product  is ALWAYS
+enter in the same way.  Finally, note that the product  is _always_
 a longword, except when  both  operands  are  bytes.  (It's worth
 noting, in passing, that  this  means  that many expressions will
 end up being longwords, whether we  like  it or not.  Perhaps the
@@ -1781,7 +1780,7 @@ end;
 {---------------------------------------------------------------}
 ```
 
-An examination of the code below for PopMul  should  convince you
+An examination of the code below for `PopMul`  should  convince you
 that the conditions in the table are met:
 
 ```delphi
@@ -1807,8 +1806,8 @@ end;
 {---------------------------------------------------------------}
 ```
 
-As you can see, the routine starts off just like PopAdd.  The two
-arguments are forced to the same type.  The two calls  to Convert
+As you can see, the routine starts off just like `PopAdd`.  The two
+arguments are forced to the same type.  The two calls  to `Convert`
 take  care  of  the case where both operands are bytes.  The data
 themselves are promoted  to  words, but the routine remembers the
 type so as to assign the correct type to the result.  Finally, we
@@ -1819,7 +1818,7 @@ At this point, I suggest that you go ahead and test  the program.
 Try all combinations of operand sizes.
 
 
-## DIVISION
+## Division
 
 The case of division is not nearly so  symmetric.    I  also have
 some bad news for you:
@@ -1827,16 +1826,17 @@ some bad news for you:
 All  modern  16-bit   CPU's   support   integer   divide.     The
 manufacturer's data  sheet  will  describe  this  operation  as a
 32 x 16-bit divide, meaning that you can divide a 32-bit dividend
-by a 16-bit divisor.  Here's the bad news:  `THEY'RE LYING TO YOU!!!`
+by a 16-bit divisor.  Here's the bad news:
 
+THEY'RE LYING TO YOU!!!
 
 If you don't believe  it,  try  dividing  any large 32-bit number
 (meaning that it has non-zero bits  in  the upper 16 bits) by the
-integer 1.  You are guaranteed to get an overflow exception.
+integer `1`.  You are guaranteed to get an overflow exception.
 
 The  problem is that the instruction  really  requires  that  the
 resulting quotient fit into a 16-bit result.   This  won't happen
-UNLESS the divisor is  sufficiently  large.    When any number is
+_unless_ the divisor is  sufficiently  large.    When any number is
 divided by unity, the quotient will of course be the same  as the
 dividend, which had better fit into a 16-bit word.
 
@@ -1850,19 +1850,19 @@ some help from us programmers.
 
 The implications are as follows:
 
-  -  The type of the quotient must always be the same as  that of
-     the dividend.  It is independent of the divisor.
+- The type of the quotient must always be the same as  that of
+  the dividend.  It is independent of the divisor.
 
-  -  In spite of  the  fact  that  the  CPU  supports  a longword
-     dividend,  the hardware-provided  instruction  can  only  be
-     trusted  for  byte  and  word  dividends.      For  longword
-     dividends, we need another library routine that can return a
-     long result.
-
-
+- In spite of  the  fact  that  the  CPU  supports  a longword
+  dividend,  the hardware-provided  instruction  can  only  be
+  trusted  for  byte  and  word  dividends.      For  longword
+  dividends, we need another library routine that can return a
+  long result.
 
 This  looks  like  a job for  another  table,  to  summarize  the
 required actions:
+
+```
 -----------------------------------------------------------------
   T1 -->  |                 |                 |                 |
           |                 |                 |                 |
@@ -1888,7 +1888,7 @@ required actions:
           | Result = B      | Result = W      | Result = L      |
           |                 |                 |                 |
 -----------------------------------------------------------------
-
+```
 
 (You may wonder why it's necessary to do a 32-bit  division, when
 the  dividend is, say, only a byte in the first place.  Since the
@@ -1946,7 +1946,7 @@ end;
 
 ```
 
-Note  that  we  assume that DIV32 leaves the (longword) result in
+Note  that  we  assume that `DIV32` leaves the (longword) result in
 `D0`.
 
 OK, install the new  procedures  for division.  At this point you
@@ -1954,7 +1954,7 @@ should be able  to  generate  code  for  any  kind  of arithmetic
 expression.  Give it a whirl!
 
 
-## BEGINNING TO WIND DOWN
+## Beginning to Wind Down
 
 At  last, in this installment, we've learned  how  to  deal  with
 variables (and literals) of different types.  As you can  see, it
@@ -1964,7 +1964,7 @@ the  multiplication  and  division  operators  require  a  little
 thinking and planning.
 
 The main concept that  made  things  easy  was that of converting
-procedures such as Expression into functions that return the type
+procedures such as `Expression` into functions that return the type
 of the result.  Once this  was  done,  we were able to retain the
 same general structure of the compiler.
 
@@ -1976,16 +1976,16 @@ challenges, just extra possibilities to test for.
 I've also ignored the  logical  operators And, Or, etc.  It turns
 out  that  these are pretty easy to  handle.    All  the  logical
 operators are  bitwise  operations,  so  they  are  symmetric and
-therefore work  in  the  same  fashion  as  PopAdd.  There is one
+therefore work  in  the  same  fashion  as  `PopAdd`.  There is one
 difference,  however:    if  it  is necessary to extend the  word
 length for a logical variable, the extension should be done as an
-UNSIGNED  number.      Floating   point   numbers,   again,   are
+_unsigned_  number.      Floating   point   numbers,   again,   are
 straightforward  to  handle  ... just a few more procedures to be
 added to the run-time library, or perhaps instructions for a math
 chip.
 
 Perhaps more importantly, I have also skirted the  issue  of type
-CHECKING,  as  opposed  to  conversion.   In other  words,  we've
+_checking_,  as  opposed  to  conversion.   In other  words,  we've
 allowed for operations between variables of  all  combinations of
 types.  In general this will not be true ... certainly  you don't
 want to add an integer, for example, to a string.  Most languages
@@ -2013,25 +2013,27 @@ fewer  procedures, simply by making use  of  symmetry  and  other
 simplifying rules.
 
 
-## TO COERCE OR NOT TO COERCE
+## To Coerce or Not to Coerce
 
 In case you haven't gotten this message yet, it sure appears that
-TINY and KISS will  probably  _NOT_  be strongly typed languages,
+TINY and KISS will  probably  _not_  be strongly typed languages,
 since I've allowed for  automatic  mixing  and conversion of just
-about any type.  Which brings up the next issue:  `Is this really what we want to do?` 
+about any type.  Which brings up the next issue:
+
+Is this really what we want to do?
 
 The answer depends on what kind of language you want, and the way
 you'd like it to behave.  What we have not addressed is the issue
 of when to allow and when to deny the use of operations involving
 different  data  types.   In other  words,  what  should  be  the
-SEMANTICS of our compiler?   Do we want automatic type conversion
+_semantics_ of our compiler?   Do we want automatic type conversion
 for all cases, for some cases, or not at all?
 
 Let's pause here to think about this a bit more.   To  do  so, it
 will help to look at a bit of history.
 
-FORTRAN  II supported only two simple  data  types:  Integer  and
-Real.    It  allowed implicit type conversion  between  real  and
+FORTRAN  II supported only two simple  data  types:  `Integer`  and
+`Real`.    It  allowed implicit type conversion  between  real  and
 integer types during assignment, but not within expressions.  All
 data items (including literal constants) on  the  right-hand side
 of an assignment statement had to be of the same type.  That made
@@ -2070,7 +2072,7 @@ data types, and you can mix them all  freely.    If  the implicit
 conversions of FORTRAN seemed good,  then  those  of  PL/I should
 have been Heaven, but it turned  out  to  be more like Hell!  The
 problem was that with so many data types, there had to be a large
-number  of  different conversions, AND  a  correspondingly  large
+number  of  different conversions, _and_  a  correspondingly  large
 number of rules about how  mixed  operands  should  be converted.
 These rules became so  complex  that  no  one could remember what
 they  were!  A lot of the errors in PL/I programs had to do  with
@@ -2079,43 +2081,43 @@ Thing can be bad for you!
 
 Pascal,  on  the  other hand, is a  language  which  is "strongly
 typed," which means that in general you can't mix types,  even if
-they differ only in _NAME_, and yet have the same base type!
+they differ only in _name_, and yet have the same base type!
 Niklaus Wirth made Pascal strongly typed to help keep programmers
 out of trouble, and  the  restrictions  have  indeed saved many a
-programmer from himself, because the compiler kept him from doing
+programmer from themself, because the compiler kept them from doing
 something dumb.  Better  to  find  the  bug in compilation rather
 than  the  debug  phase.    The same restrictions can also  cause
-frustration when you really  WANT  to mix types, and they tend to
+frustration when you really  _want_  to mix types, and they tend to
 drive an ex-C-programmer up the wall.
 
 Even so, Pascal does permit some implicit conversions.    You can
 assign  an integer to a real value.  You can also mix integer and
-real types in  expressions  of  type  Real.  The integers will be
+real types in  expressions  of  type  `Real`.  The integers will be
 automatically coerced to real, just as in FORTRAN  (and  with the
 same hidden cost in run-time overhead).
 
 You can't, however, convert the  other way, from real to integer,
-without applying an explicit  conversion  function,  Trunc.   The
+without applying an explicit  conversion  function,  `Trunc`.   The
 theory here is that,  since  the numerical value of a real number
 is  necessarily  going  to  be  changed  by  the conversion  (the
 fractional  part will be lost), you really  shouldn't  do  it  in
 "secret."
 
 In the spirit of strong typing, Pascal will not allow you  to mix
-Char  and  Integer   variables,  without  applying  the  explicit
+`Char`  and  `Integer`   variables,  without  applying  the  explicit
 coercion functions Chr and Ord.
 
-Turbo Pascal also includes the  types  Byte,  Word,  and LongInt.
+Turbo Pascal also includes the  types  `Byte`,  `Word`,  and `LongInt`.
 The first two are basically the same as unsigned  integers.    In
 Turbo,  these can be freely intermixed  with  variables  of  type
-Integer,  and  Turbo will automatically  handle  the  conversion.
+`Integer`,  and  Turbo will automatically  handle  the  conversion.
 There are run-time  checks,  though, to keep you from overflowing
 or otherwise getting the wrong  answer. Note that you still can't
-mix Byte and Char types, even though they  are  stored internally
+mix `Byte` and `Char` types, even though they  are  stored internally
 in the same representation.
 
 The ultimate in a  strongly-typed  language  is Ada, which allows
-_NO_  implicit  type  conversions at all, and also will not allow
+_no_  implicit  type  conversions at all, and also will not allow
 mixed-mode  arithmetic.    Jean   Ichbiah's   position   is  that
 conversions cost  execution time, and you shouldn't be allowed to
 build in such cost in a hidden manner.  By forcing the programmer
@@ -2125,39 +2127,39 @@ apparent that there could be a cost involved.
 I have been using another strongly-typed  language,  a delightful
 little  language  called  Whimsical,  by  John  Spray.   Although
 Whimsical is  intended as a systems programming language, it also
-requires explicit conversion EVERY time.    There  are  NEVER any
+requires explicit conversion _every_ time.    There  are  _never_ any
 automatic conversions, even the ones supported by Pascal.
 
 This approach does  have  certain advantages:  The compiler never
 has to guess what to do: the programmer always tells it precisely
-what  he  wants.  As a result, there tends to be  a  more  nearly
+what  they  want.  As a result, there tends to be  a  more  nearly
 one-to-one correspondence between  source code and compiled code,
-and John's compiler produces VERY tight code.
+and John's compiler produces _very_ tight code.
 
 On the other hand, I sometimes find the  explicit  conversions to
 be a pain.  If I want, for example, to add one to a character, or
 AND it with a mask, there are a lot of conversions to make.  If I
 get  it  wrong,  the  only   error  message  is  "Types  are  not
 compatible."  As it happens, John's particular  implementation of
-the language in his compiler doesn't tell you exactly WHICH types
-are not compatible ... it only tells you which LINE the  error is
+the language in his compiler doesn't tell you exactly _which_ types
+are not compatible ... it only tells you which _line_ the  error is
 in.
 
 I must admit that most of my errors with this compiler tend to be
 errors of this type, and  I've  spent  a  lot  of  time  with the
-Whimsical compiler, trying to figure out just WHERE  in  the line
+Whimsical compiler, trying to figure out just _where_  in  the line
 I've offended it.   The only real way to fix the error is to keep
 trying things until something works.
 
 So what should we do in TINY and KISS?  For the first one, I have
-the answer:  TINY  will  support only the types Char and Integer,
+the answer:  TINY  will  support only the types `Char` and `Integer`,
 and  we'll  use  the  C  trick  of  promoting Chars  to  Integers
-internally.  That means  that  the  TINY  compiler will be _MUCH_
+internally.  That means  that  the  TINY  compiler will be _much_
 simpler  than  what  we've  already  done.    Type conversion  in
 expressions is sort of moot, since none will be required!   Since
-longwords will not be supported, we also won't need the MUL32 and
-DIV32 run-time routines, nor the logic to figure out when to call
-them.  I _LIKE_ it!
+longwords will not be supported, we also won't need the `MUL32` and
+`DIV32` run-time routines, nor the logic to figure out when to call
+them.  I _like_ it!
 
 KISS, on the other hand, will support the type Long.
 
@@ -2177,7 +2179,7 @@ fashion, so the unsigned conversion  procedures  are  required in
 any case.
 
 
-## CONCLUSION
+## Conclusion
 
 That wraps up our session on type conversions.  Sorry you  had to
 wait  so  long for it, but hope you feel that it  was  worth  the

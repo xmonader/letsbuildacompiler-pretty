@@ -1,14 +1,18 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Control Constructs - Let's build a compiler</title>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Control Constructs - Let&#x27;s Build a Compiler</title>
+
+
+        <!-- Custom HTML head -->
+        
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -17,8 +21,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -26,16 +29,18 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
 
-        
     </head>
-    <body class="light">
+    <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -51,71 +56,78 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="about.html">About this project</a></li><li class="affix"><a href="tutor01_introduction.html">Introduction</a></li><li class="affix"><a href="tutor02_expressionparsing.html">Expression Parsing</a></li><li class="affix"><a href="tutor03_moreexpressions.html">More Expressions</a></li><li class="affix"><a href="tutor04_interpreters.html">Interpreters</a></li><li class="affix"><a href="tutor05_controlstructs.html" class="active">Control Constructs</a></li><li class="affix"><a href="tutor06_booleanexpressions.html">Boolean Expressions</a></li><li class="affix"><a href="tutor07_lexicalscanning.html">Lexical Scanning</a></li><li class="affix"><a href="tutor08_littlephilosophy.html">A Little Philosophy</a></li><li class="affix"><a href="tutor09_atopview.html">A Top View</a></li><li class="affix"><a href="tutor10_introducingtiny.html">Introducing Tiny</a></li><li class="affix"><a href="tutor11_lexicalscanrevisit.html">Lexical Scan Revisit</a></li><li class="affix"><a href="tutor12_miscellany.html">Miscellany</a></li><li class="affix"><a href="tutor13_procedures.html">Procedures</a></li><li class="affix"><a href="tutor14_types.html">Types</a></li><li class="affix"><a href="tutor15_backtothefuture.html">Back to the Future</a></li><li class="affix"><a href="tutor16_unitconstruction.html">Unit Construction</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="about.html">About this project</a></li><li class="chapter-item expanded "><a href="tutor01_introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="tutor02_expressionparsing.html"><strong aria-hidden="true">2.</strong> Expression Parsing</a></li><li class="chapter-item expanded "><a href="tutor03_moreexpressions.html"><strong aria-hidden="true">3.</strong> More Expressions</a></li><li class="chapter-item expanded "><a href="tutor04_interpreters.html"><strong aria-hidden="true">4.</strong> Interpreters</a></li><li class="chapter-item expanded "><a href="tutor05_controlstructs.html" class="active"><strong aria-hidden="true">5.</strong> Control Constructs</a></li><li class="chapter-item expanded "><a href="tutor06_booleanexpressions.html"><strong aria-hidden="true">6.</strong> Boolean Expressions</a></li><li class="chapter-item expanded "><a href="tutor07_lexicalscanning.html"><strong aria-hidden="true">7.</strong> Lexical Scanning</a></li><li class="chapter-item expanded "><a href="tutor08_littlephilosophy.html"><strong aria-hidden="true">8.</strong> A Little Philosophy</a></li><li class="chapter-item expanded "><a href="tutor09_atopview.html"><strong aria-hidden="true">9.</strong> A Top View</a></li><li class="chapter-item expanded "><a href="tutor10_introducingtiny.html"><strong aria-hidden="true">10.</strong> Introducing Tiny</a></li><li class="chapter-item expanded "><a href="tutor11_lexicalscanrevisited.html"><strong aria-hidden="true">11.</strong> Lexical Scan Revisited</a></li><li class="chapter-item expanded "><a href="tutor12_miscellany.html"><strong aria-hidden="true">12.</strong> Miscellany</a></li><li class="chapter-item expanded "><a href="tutor13_procedures.html"><strong aria-hidden="true">13.</strong> Procedures</a></li><li class="chapter-item expanded "><a href="tutor14_types.html"><strong aria-hidden="true">14.</strong> Types</a></li><li class="chapter-item expanded "><a href="tutor15_backtothefuture.html"><strong aria-hidden="true">15.</strong> Back to the Future</a></li><li class="chapter-item expanded "><a href="tutor16_unitconstruction.html"><strong aria-hidden="true">16.</strong> Unit Construction</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
 
-                        <h1 class="menu-title">Let's build a compiler</h1> 
+                    <h1 class="menu-title">Let&#x27;s Build a Compiler</h1>
 
-                        <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                        </div>
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/xmonader/letsbuildacompiler-pretty" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -123,10 +135,9 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -136,45 +147,45 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#part-v-control-constructs---19-august-1988" id="part-v-control-constructs---19-august-1988"><h1>Part V: CONTROL CONSTRUCTS - 19 August 1988</h1></a>
-<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
-<p>In  the  first  four  installments  of  this  series, we've  been
+                        <h1 id="part-v-control-constructs---19-august-1988"><a class="header" href="#part-v-control-constructs---19-august-1988">Part V: Control Constructs - 19 August 1988</a></h1>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>In  the  first  four  installments  of  this  series, we’ve  been
 concentrating on the parsing of math  expressions  and assignment
-statements.  In  this  installment,  we'll  take off on a new and
+statements.  In  this  installment,  we’ll  take off on a new and
 exciting  tangent:  that   of  parsing  and  translating  control
-constructs such as IF statements.</p>
+constructs such as <code>IF</code> statements.</p>
 <p>This subject is dear to my heart, because it represents a turning
 point  for  me.    I  had  been  playing  with  the   parsing  of
 expressions, just as  we  have  done  in this series, but I still
-felt that I was a LONG way from being able  to  handle a complete
-language.  After all, REAL  languages have branches and loops and
-subroutines and all that.  Perhaps you've shared some of the same
+felt that I was a <em>long</em> way from being able  to  handle a complete
+language.  After all, <em>real</em>  languages have branches and loops and
+subroutines and all that.  Perhaps you’ve shared some of the same
 thoughts.    Awhile  back,  though,  I  had  to  produce  control
 constructs for a structured assembler preprocessor I was writing.
 Imagine my surprise to  discover  that it was far easier than the
 expression  parsing  I  had  already  been through.   I  remember
-thinking, &quot;Hey! This is EASY!&quot; After we've finished this session,
-I'll bet you'll be thinking so, too.</p>
-<a class="header" href="#the-plan" id="the-plan"><h2>THE PLAN</h2></a>
-<p>In what follows, we'll be starting over again with a bare cradle,
-and as we've done twice before now, we'll build things up  one at
-a time.  We'll also  be retaining the concept of single-character
+thinking, “Hey! This is <em>easy</em>!” After we’ve finished this session,
+I’ll bet you’ll be thinking so, too.</p>
+<h2 id="the-plan"><a class="header" href="#the-plan">The Plan</a></h2>
+<p>In what follows, we’ll be starting over again with a bare cradle,
+and as we’ve done twice before now, we’ll build things up  one at
+a time.  We’ll also  be retaining the concept of single-character
 tokens that has served us so well to date.   This  means that the
-&quot;code&quot; will look a little funny, with 'i' for IF, 'w'  for WHILE,
+“code” will look a little funny, with <code>i</code> for <code>IF</code>, <code>w</code>  for <code>WHILE</code>,
 etc.  But it helps us  get  the concepts down pat without fussing
-over  lexical  scanning.    Fear  not  ...  eventually we'll  see
-something looking like &quot;real&quot; code.</p>
-<p>I also don't  want  to  have  us  get bogged down in dealing with
+over  lexical  scanning.    Fear  not  …  eventually we’ll  see
+something looking like “real” code.</p>
+<p>I also don’t  want  to  have  us  get bogged down in dealing with
 statements other than branches, such as the assignment statements
-we've  been  working  on.  We've already demonstrated that we can
-handle them, so there's no point carrying them  around  as excess
-baggage during this exercise.  So what I'll do instead is  to use
-an  anonymous  statement,  &quot;other&quot;, to take the place of the non-
-control statements and serve as a place-holder for them.  We have
-to generate some kind of object code for them  (we're  back  into
-compiling, not interpretation), so for want of anything else I'll
+we’ve  been  working  on.  We’ve already demonstrated that we can
+handle them, so there’s no point carrying them  around  as excess
+baggage during this exercise.  So what I’ll do instead is  to use
+an  anonymous  statement,  “other”, to take the place of the
+non-control statements and serve as a place-holder for them.  We have
+to generate some kind of object code for them  (we’re  back  into
+compiling, not interpretation), so for want of anything else I’ll
 just echo the character input.</p>
-<p>OK, then, starting with  yet  another  copy  of the cradle, let's
+<p>OK, then, starting with  yet  another  copy  of the cradle, let’s
 define the procedure:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Recognize and Translate an &quot;Other&quot; }
@@ -196,24 +207,24 @@ end.
 {--------------------------------------------------------------}
 </code></pre>
 <p>Run  the program and see what you get.  Not very exciting, is it?
-But hang in there, it's a start, and things will get better.</p>
+But hang in there, it’s a start, and things will get better.</p>
 <p>The first thing we need is the ability to deal with more than one
 statement, since a single-line branch  is pretty limited.  We did
-that in the last session on interpreting, but this time let's get
+that in the last session on interpreting, but this time let’s get
 a little more formal.  Consider the following BNF:</p>
-<pre><code>          &lt;program&gt; ::= &lt;block&gt; END
+<pre><code class="language-bnf">&lt;program&gt; ::= &lt;block&gt; END
 
-          &lt;block&gt; ::= [ &lt;statement&gt; ]*
+&lt;block&gt; ::= [ &lt;statement&gt; ]*
 </code></pre>
 <p>This says that, for our purposes here, a program is defined  as a
-block, followed by an END statement.  A block, in  turn, consists
+block, followed by an <code>END</code> statement.  A block, in  turn, consists
 of zero or more statements.  We only have one kind  of statement,
 so far.</p>
-<p>What signals the end of a block?  It's  simply any construct that
-isn't an &quot;other&quot;  statement.    For  now, that means only the END
+<p>What signals the end of a block?  It’s  simply any construct that
+isn’t an “other”  statement.    For  now, that means only the <code>END</code>
 statement.</p>
 <p>Armed with these ideas, we can proceed to build  up  our  parser.
-The code for a program (we  have  to call it DoProgram, or Pascal
+The code for a program (we  have  to call it <code>DoProgram</code>, or Pascal
 will complain, is:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Parse and Translate a Program }
@@ -226,10 +237,10 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Notice  that  I've  arranged to emit  an  &quot;END&quot;  command  to  the
+<p>Notice  that  I’ve  arranged to emit  an  <code>END</code>  command  to  the
 assembler, which sort of  punctuates  the  output code, and makes
-sense considering that we're parsing a complete program here.</p>
-<p>The code for Block is:</p>
+sense considering that we’re parsing a complete program here.</p>
+<p>The code for <code>Block</code> is:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Recognize and Translate a Statement Block }
 
@@ -241,54 +252,52 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>(From the form of the procedure, you just KNOW we're going  to be
+<p>(From the form of the procedure, you just <em>know</em> we’re going  to be
 adding to it in a bit!)</p>
 <p>OK, enter these routines into your program.  Replace the  call to
-Block in the main program, by  a  call  to DoProgram.  Now try it
-and  see  how  it works.  Well, it's still not  much,  but  we're
+<code>Block</code> in the main program, by  a  call  to <code>DoProgram</code>.  Now try it
+and  see  how  it works.  Well, it’s still not  much,  but  we’re
 getting closer.</p>
-<a class="header" href="#some-groundwork" id="some-groundwork"><h2>SOME GROUNDWORK</h2></a>
+<h2 id="some-groundwork"><a class="header" href="#some-groundwork">Some Groundwork</a></h2>
 <p>Before we begin to define the various control constructs, we need
-to  lay a bit more groundwork.  First, a word of warning: I won't
-be using the same syntax  for these constructs as you're familiar
-with  from Pascal or C.  For example, the Pascal syntax for an IF
+to  lay a bit more groundwork.  First, a word of warning: I won’t
+be using the same syntax  for these constructs as you’re familiar
+with  from Pascal or C.  For example, the Pascal syntax for an <code>IF</code>
 is:</p>
-<pre><code> `IF &lt;condition&gt; THEN &lt;statement&gt;`
+<pre><code class="language-delphi">IF &lt;condition&gt; THEN &lt;statement&gt;
 </code></pre>
 <p>(where the statement, of course, may be compound).</p>
 <p>The C version is similar:</p>
-<pre><code> `IF ( &lt;condition&gt; ) &lt;statement&gt;`
+<pre><code class="language-c">IF ( &lt;condition&gt; ) &lt;statement&gt;
 </code></pre>
-<p>Instead, I'll be using something that looks more like Ada:</p>
-<pre><code> `IF &lt;condition&gt; &lt;block&gt; ENDIF`
+<p>Instead, I’ll be using something that looks more like Ada:</p>
+<pre><code class="language-ada">IF &lt;condition&gt; &lt;block&gt; ENDIF
 </code></pre>
-<p>In  other  words,  the IF construct has  a  specific  termination
+<p>In  other  words,  the <code>IF</code> construct has  a  specific  termination
 symbol.  This avoids  the  dangling-else of Pascal and C and also
 precludes the need for the brackets {} or begin-end.   The syntax
-I'm showing you here, in fact, is that of the language  KISS that
-I'll be detailing in  later  installments.   The other constructs
-will also be  slightly  different.    That  shouldn't  be  a real
-problem for you.  Once you see how it's done, you'll realize that
-it  really  doesn't  matter  so  much  which  specific syntax  is
+I’m showing you here, in fact, is that of the language  KISS that
+I’ll be detailing in  later  installments.   The other constructs
+will also be  slightly  different.    That  shouldn’t  be  a real
+problem for you.  Once you see how it’s done, you’ll realize that
+it  really  doesn’t  matter  so  much  which  specific syntax  is
 involved.  Once the syntax is defined, turning it  into  code  is
 straightforward.</p>
-<p>Now, all of the  constructs  we'll  be  dealing with here involve
+<p>Now, all of the  constructs  we’ll  be  dealing with here involve
 transfer of control, which at the assembler-language  level means
 conditional  and/or  unconditional branches.   For  example,  the
-simple IF statement</p>
-<pre><code>      `IF &lt;condition&gt; A ENDIF B ....`
+simple <code>IF</code> statement <code>IF &lt;condition&gt; A ENDIF B ...</code>
+must get translated into</p>
+<pre><code class="language-asm">     Branch if NOT condition to L
+     A
+L:   B
+     ...
 </code></pre>
-<p>must get translated into</p>
-<pre><code>          Branch if NOT condition to L
-          A
-     L:   B
-          ...
-</code></pre>
-<p>It's clear, then, that we're going to need  some  more procedures
-to  help  us  deal with these branches.  I've defined two of them
+<p>It’s clear, then, that we’re going to need  some  more procedures
+to  help  us  deal with these branches.  I’ve defined two of them
 below.  Procedure NewLabel generates unique labels.  This is done
-via the simple expedient of calling every label  'Lnn',  where nn
-is a label number starting from zero.   Procedure  PostLabel just
+via the simple expedient of calling every label  <code>Lnn</code>,  where nn
+is a label number starting from zero.   Procedure  <code>PostLabel</code> just
 outputs the labels at the proper place.</p>
 <p>Here are the two routines:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -312,69 +321,74 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Notice that we've added  a  new  global  variable, LCount, so you
-need to change the VAR declarations at the top of the  program to
+<p>Notice that we’ve added  a  new  global  variable, <code>LCount</code>, so you
+need to change the <code>VAR</code> declarations at the top of the  program to
 look like this:</p>
 <pre><code class="language-delphi">var Look  : char;              { Lookahead Character }
     Lcount: integer;           { Label Counter }
 </code></pre>
 <p>Also, add the following extra initialization to Init:</p>
-<pre><code class="language-delphi">   LCount := 0;
+<pre><code class="language-delphi">LCount := 0;
 </code></pre>
-<p>(DON'T forget that, or your labels can look really strange!)</p>
-<p>At this point I'd also like to show you a  new  kind of notation.
-If  you  compare  the form of the IF statement above with the as-
-sembler code that must be produced, you can see  that  there  are
+<p>(<em>Don’t</em> forget that, or your labels can look really strange!)</p>
+<p>At this point I’d also like to show you a  new  kind of notation.
+If  you  compare  the form of the <code>IF</code> statement above with the
+assembler code that must be produced, you can see  that  there  are
 certain  actions  associated  with each of the  keywords  in  the
 statement:</p>
-<pre><code> - IF:  First, get the condition and issue the code for it.
-      Then, create a unique label and emit a branch if false.
-
- - ENDIF: Emit the label.
-</code></pre>
+<ul>
+<li>
+<p><code>IF</code>:  First, get the condition and issue the code for it.
+Then, create a unique label and emit a branch if false.</p>
+</li>
+<li>
+<p><code>ENDIF</code>: Emit the label.</p>
+</li>
+</ul>
 <p>These actions can be shown very concisely if we write  the syntax
 this way:</p>
-<pre><code>     IF
-     &lt;condition&gt;    { Condition;
-                      L = NewLabel;
-                      Emit(Branch False to L); }
-     &lt;block&gt;
-     ENDIF          { PostLabel(L) }
+<pre><code>IF
+&lt;condition&gt;    { Condition;
+                 L = NewLabel;
+                 Emit(Branch False to L); }
+&lt;block&gt;
+ENDIF          { PostLabel(L) }
 </code></pre>
-<p>This is an example  of  syntax-directed  translation.  We've been
-doing it all along ... we've just never written it down  this way
-before.  The stuff in curly brackets represents the ACTIONS to be
+<p>This is an example  of  syntax-directed  translation.  We’ve been
+doing it all along … we’ve just never written it down  this way
+before.  The stuff in curly brackets represents the <em>actions</em> to be
 taken.  The nice part about this representation is  that  it  not
 only shows what  we  have  to  recognize, but also the actions we
 have to perform, and in which  order.   Once we have this syntax,
 the code almost writes itself.</p>
 <p>About  the  only thing left to do is to be a  bit  more  specific
-about what we mean by &quot;Branch if false.&quot;</p>
-<p>I'm assuming that there will  be  code  executed  for <code>&lt;condition&gt;</code>
+about what we mean by “Branch if false.”</p>
+<p>I’m assuming that there will  be  code  executed  for <code>&lt;condition&gt;</code>
 that  will  perform  Boolean algebra and compute some result.  It
 should also set the condition flags corresponding to that result.
-Now, the usual convention  for  a Boolean variable is to let 0000
-represent &quot;false,&quot; and  anything  else (some use FFFF, some 0001)
-represent &quot;true.&quot;</p>
+Now, the usual convention  for  a Boolean variable is to let <code>0000</code>
+represent <code>false</code>, and  anything  else (some use <code>FFFF</code>, some <code>0001</code>)
+represent <code>true</code>.</p>
 <p>On the 68000  the  condition  flags  are set whenever any data is
-moved or calculated.  If the  data  is a 0000 (corresponding to a
+moved or calculated.  If the  data  is a <code>0000</code> (corresponding to a
 false condition, remember), the zero flag will be set.   The code
-for &quot;Branch on zero&quot; is BEQ.  So for our purposes here,</p>
-<pre><code>               BEQ  &lt;=&gt; Branch if false
-               BNE  &lt;=&gt; Branch if true
-</code></pre>
-<p>It's the nature of the beast that most  of  the  branches  we see
-will  be  BEQ's  ...  we'll  be branching AROUND the code  that's
+for “Branch on zero” is <code>BEQ</code>.  So for our purposes here,</p>
+<ul>
+<li><code>BEQ</code> &lt;=&gt; Branch if false</li>
+<li><code>BNE</code> &lt;=&gt; Branch if true</li>
+</ul>
+<p>It’s the nature of the beast that most  of  the  branches  we see
+will  be  <code>BEQ</code>s  …  we’ll  be branching <em>around</em> the code  that’s
 supposed to be executed when the condition is true.</p>
-<a class="header" href="#the-if-statement" id="the-if-statement"><h2>THE IF STATEMENT</h2></a>
-<p>With that bit of explanation out of the way, we're  finally ready
-to begin coding the IF-statement parser.  In  fact,  we've almost
-already  done  it!   As usual, I'll be using our single-character
-approach, with the character 'i' for IF, and 'e'  for  ENDIF  (as
-well  as END ... that dual nature causes  no  confusion).    I'll
-also, for now, skip completely  the character for the branch con-
-dition, which we still have to define.</p>
-<p>The code for DoIf is:</p>
+<h2 id="the-if-statement"><a class="header" href="#the-if-statement">The IF Statement</a></h2>
+<p>With that bit of explanation out of the way, we’re  finally ready
+to begin coding the <code>IF</code>-statement parser.  In  fact,  we’ve almost
+already  done  it!   As usual, I’ll be using our single-character
+approach, with the character <code>i</code> for <code>IF</code>, and <code>e</code>  for  <code>ENDIF</code>  (as
+well  as <code>END</code> … that dual nature causes  no  confusion).    I’ll
+also, for now, skip completely  the character for the branch
+condition, which we still have to define.</p>
+<p>The code for <code>DoIf</code> is:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Recognize and Translate an IF Construct }
 
@@ -394,7 +408,7 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Add this routine to your program, and change  Block  to reference
+<p>Add this routine to your program, and change  <code>Block</code>  to reference
 it as follows:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Recognize and Translate a Statement Block }
@@ -410,10 +424,10 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Notice the reference to procedure Condition.    Eventually, we'll
-write a routine that  can  parse  and  translate any Boolean con-
-dition we care to give it.  But  that's  a  whole  installment by
-itself (the next one, in fact).    For  now, let's just make it a
+<p>Notice the reference to procedure <code>Condition</code>.    Eventually, we’ll
+write a routine that  can  parse  and  translate any Boolean
+condition we care to give it.  But  that’s  a  whole  installment by
+itself (<a href="tutor06_booleanexpressions.html">the next one</a>, in fact).    For  now, let’s just make it a
 dummy that emits some text.  Write the following routine:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Parse and Translate a Boolean Condition }
@@ -425,49 +439,43 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Insert this procedure in your program just before DoIf.   Now run
-the program.  Try a string like</p>
-<pre><code> `aibece`
-</code></pre>
+<p>Insert this procedure in your program just before <code>DoIf</code>.   Now run
+the program.  Try a string like <code>aibece</code>.</p>
 <p>As you can see,  the  parser seems to recognize the construct and
 inserts the object code at the  right  places.   Now try a set of
-nested IF's, like</p>
-<pre><code> `aibicedefe`
-</code></pre>
-<p>It's starting to look real, eh?</p>
+nested <code>IF</code>s, like <code>aibicedefe</code>.</p>
+<p>It’s starting to look real, eh?</p>
 <p>Now that we  have  the  general  idea  (and the tools such as the
-notation and the procedures NewLabel and PostLabel), it's a piece
+notation and the procedures <code>NewLabel</code> and <code>PostLabel</code>), it’s a piece
 of cake to extend the parser to include other  constructs.    The
-first (and also one of the  trickiest)  is to add the ELSE clause
-to IF.  The BNF is</p>
-<pre><code> `IF &lt;condition&gt; &lt;block&gt; [ ELSE &lt;block&gt;] ENDIF`
+first (and also one of the  trickiest)  is to add the <code>ELSE</code> clause
+to <code>IF</code>.  The BNF is</p>
+<pre><code class="language-bnf">IF &lt;condition&gt; &lt;block&gt; [ ELSE &lt;block&gt;] ENDIF
 </code></pre>
 <p>The tricky part arises simply  because there is an optional part,
-which doesn't occur in the other constructs.</p>
+which doesn’t occur in the other constructs.</p>
 <p>The corresponding output code should be</p>
-<pre><code>          &lt;condition&gt;
-          BEQ L1
-          &lt;block&gt;
-          BRA L2
-     L1:  &lt;block&gt;
-     L2:  ...
+<pre><code class="language-asm">     &lt;condition&gt;
+     BEQ L1
+     &lt;block&gt;
+     BRA L2
+L1:  &lt;block&gt;
+L2:  ...
 </code></pre>
 <p>This leads us to the following syntax-directed translation:</p>
-<pre><code>
-     IF
-     &lt;condition&gt;    { L1 = NewLabel;
-                      L2 = NewLabel;
-                      Emit(BEQ L1) }
-     &lt;block&gt;
-     ELSE           { Emit(BRA L2);
-                      PostLabel(L1) }
-     &lt;block&gt;
-     ENDIF          { PostLabel(L2) }
-
+<pre><code>IF
+&lt;condition&gt;    { L1 = NewLabel;
+                 L2 = NewLabel;
+                 Emit(BEQ L1) }
+&lt;block&gt;
+ELSE           { Emit(BRA L2);
+                 PostLabel(L1) }
+&lt;block&gt;
+ENDIF          { PostLabel(L2) }
 </code></pre>
-<p>Comparing this with the case for an ELSE-less IF gives us  a clue
+<p>Comparing this with the case for an <code>ELSE</code>-less <code>IF</code> gives us  a clue
 as to how to handle both situations.   The  code  below  does it.
-(Note that I  use  an  'l'  for  the ELSE, since 'e' is otherwise
+(Note that I  use  an  <code>l</code>  for  the <code>ELSE</code>, since <code>e</code> is otherwise
 occupied):</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Recognize and Translate an IF Construct }
@@ -493,47 +501,43 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>There you have it.  A complete IF parser/translator, in  19 lines
+<p>There you have it.  A complete <code>IF</code> parser/translator, in  19 lines
 of code.</p>
-<p>Give it a try now.  Try something like</p>
-<p><code>aiblcede</code></p>
-<p>Did it work?  Now, just  to  be  sure we haven't broken the ELSE-
-less case, try</p>
-<p><code>aibece</code></p>
-<p>Now try some nested IF's.  Try anything you like,  including some
-badly formed statements.   Just  remember that 'e' is not a legal
-&quot;other&quot; statement.</p>
-<a class="header" href="#the-while-statement" id="the-while-statement"><h2>THE WHILE STATEMENT</h2></a>
+<p>Give it a try now.  Try something like <code>aiblcede</code>.</p>
+<p>Did it work?  Now, just  to  be  sure we haven’t broken the <code>ELSE</code>-less
+case, try <code>aibece</code>.</p>
+<p>Now try some nested <code>IF</code>s.  Try anything you like,  including some
+badly formed statements.   Just  remember that <code>e</code> is not a legal
+“other” statement.</p>
+<h2 id="the-while-statement"><a class="header" href="#the-while-statement">The WHILE Statement</a></h2>
 <p>The next type of statement should be easy, since we  already have
-the process  down  pat.    The  syntax  I've chosen for the WHILE
-statement is</p>
-<pre><code>      `WHILE &lt;condition&gt; &lt;block&gt; ENDWHILE`
-</code></pre>
-<p>I know,  I  know,  we  don't  REALLY  need separate kinds of ter-
-minators for each construct ... you can see that by the fact that
-in our one-character version, 'e' is used for all of them.  But I
-also remember  MANY debugging sessions in Pascal, trying to track
-down a wayward END that the compiler obviously thought I meant to
-put  somewhere  else.   It's been my experience that specific and
+the process  down  pat.    The  syntax  I’ve chosen for the <code>WHILE</code>
+statement is <code>WHILE &lt;condition&gt; &lt;block&gt; ENDWHILE</code>.</p>
+<p>I know,  I  know,  we  don’t  <em>really</em>  need separate kinds of
+terminators for each construct … you can see that by the fact that
+in our one-character version, <code>e</code> is used for all of them.  But I
+also remember  <em>many</em> debugging sessions in Pascal, trying to track
+down a wayward <code>END</code> that the compiler obviously thought I meant to
+put  somewhere  else.   It’s been my experience that specific and
 unique  keywords,  although  they add to the  vocabulary  of  the
 language,  give  a  bit of error-checking that is worth the extra
 work for the compiler writer.</p>
-<p>Now,  consider  what  the  WHILE  should be translated into.   It
+<p>Now,  consider  what  the  <code>WHILE</code>  should be translated into.   It
 should be:</p>
-<pre><code>     L1:  &lt;condition&gt;
-          BEQ L2
-          &lt;block&gt;
-          BRA L1
-     L2:
+<pre><code class="language-asm">L1:  &lt;condition&gt;
+     BEQ L2
+     &lt;block&gt;
+     BRA L1
+L2:
 </code></pre>
 <p>As before, comparing the two representations gives us the actions
 needed at each point.</p>
-<pre><code>     WHILE          { L1 = NewLabel;
-                      PostLabel(L1) }
-     &lt;condition&gt;    { Emit(BEQ L2) }
-     &lt;block&gt;
-     ENDWHILE       { Emit(BRA L1);
-                      PostLabel(L2) }
+<pre><code>WHILE          { L1 = NewLabel;
+                 PostLabel(L1) }
+&lt;condition&gt;    { Emit(BEQ L2) }
+&lt;block&gt;
+ENDWHILE       { Emit(BRA L1);
+                 PostLabel(L2) }
 </code></pre>
 <p>The code follows immediately from the syntax:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -555,8 +559,8 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Since  we've  got a new statement, we have to add a  call  to  it
-within procedure Block:</p>
+<p>Since  we’ve  got a new statement, we have to add a  call  to  it
+within procedure <code>Block</code>:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Recognize and Translate a Statement Block }
 
@@ -573,44 +577,42 @@ end;
 {--------------------------------------------------------------}
 </code></pre>
 <p>No other changes are necessary.</p>
-<p>OK, try the new program.  Note that this  time,  the  <condition>
-code is INSIDE the upper label, which is just where we wanted it.
-Try some nested loops.  Try some loops within IF's, and some IF's
+<p>OK, try the new program.  Note that this  time,  the  <code>&lt;condition&gt;</code>
+code is <em>inside</em> the upper label, which is just where we wanted it.
+Try some nested loops.  Try some loops within <code>IF</code>s, and some <code>IF</code>s
 within loops.  If you get  a  bit  confused as to what you should
-type, don't be discouraged:  you  write  bugs in other languages,
-too, don't you?  It'll look a lot  more  meaningful  when  we get
+type, don’t be discouraged:  you  write  bugs in other languages,
+too, don’t you?  It’ll look a lot  more  meaningful  when  we get
 full keywords.</p>
-<p>I hope by now that you're beginning to  get  the  idea  that this
-really  IS easy.  All we have to do to accomodate a new construct
+<p>I hope by now that you’re beginning to  get  the  idea  that this
+really  <em>is</em> easy.  All we have to do to accommodate a new construct
 is to work out  the  syntax-directed translation of it.  The code
-almost falls out  from  there,  and  it doesn't affect any of the
-other routines.  Once you've gotten the feel of the thing, you'll
+almost falls out  from  there,  and  it doesn’t affect any of the
+other routines.  Once you’ve gotten the feel of the thing, you’ll
 see that you  can  add  new  constructs  about as fast as you can
 dream them up.</p>
-<a class="header" href="#the-loop-statement" id="the-loop-statement"><h2>THE LOOP STATEMENT</h2></a>
-<p>We could stop right here, and  have  a language that works.  It's
+<h2 id="the-loop-statement"><a class="header" href="#the-loop-statement">The LOOP Statement</a></h2>
+<p>We could stop right here, and  have  a language that works.  It’s
 been  shown  many  times that a high-order language with only two
-constructs, the IF and the WHILE, is sufficient  to  write struc-
-tured  code.   But we're on a roll now, so let's  richen  up  the
+constructs, the <code>IF</code> and the <code>WHILE</code>, is sufficient  to  write structured
+code.   But we’re on a roll now, so let’s  richen  up  the
 repertoire a bit.</p>
 <p>This construct is even easier, since it has no condition  test at
-all  ... it's an infinite loop.  What's the point of such a loop?
-Not much, by  itself,  but  later  on  we're going to add a BREAK
+all  … it’s an infinite loop.  What’s the point of such a loop?
+Not much, by  itself,  but  later  on  we’re going to add a <code>BREAK</code>
 command,  that  will  give us a way out.  This makes the language
 considerably richer than Pascal, which  has  no  break,  and also
-avoids the funny  WHILE(1) or WHILE TRUE of C and Pascal.</p>
-<p>The syntax is simply</p>
-<pre><code> `LOOP &lt;block&gt; ENDLOOP`
+avoids the funny  <code>WHILE(1)</code> or <code>WHILE TRUE</code> of C and Pascal.</p>
+<p>The syntax is simply <code>LOOP &lt;block&gt; ENDLOOP</code>
+and the syntax-directed translation is:</p>
+<pre><code>LOOP           { L = NewLabel;
+                 PostLabel(L) }
+&lt;block&gt;
+ENDLOOP        { Emit(BRA L }
 </code></pre>
-<p>and the syntax-directed translation is:</p>
-<pre><code>     LOOP           { L = NewLabel;
-                      PostLabel(L) }
-     &lt;block&gt;
-     ENDLOOP        { Emit(BRA L }
-</code></pre>
-<p>The corresponding code is shown below.  Since  I've  already used
-'l'  for  the  ELSE, I've used  the  last  letter,  'p',  as  the
-&quot;keyword&quot; this time.</p>
+<p>The corresponding code is shown below.  Since  I’ve  already used
+<code>l</code>  for  the  <code>ELSE</code>, I’ve used  the  last  letter,  <code>p</code>,  as  the
+“keyword” this time.</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Parse and Translate a LOOP Statement }
 
@@ -626,19 +628,17 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>When you insert this routine, don't forget to add a line in Block
+<p>When you insert this routine, don’t forget to add a line in <code>Block</code>
 to call it.</p>
-<a class="header" href="#repeat-until" id="repeat-until"><h2>REPEAT-UNTIL</h2></a>
-<p>Here's one construct that I lifted right from Pascal.  The syntax
-is</p>
-<pre><code> `REPEAT &lt;block&gt; UNTIL &lt;condition&gt;`  ,
-</code></pre>
-<p>and the syntax-directed translation is:</p>
-<pre><code>     REPEAT         { L = NewLabel;
-                      PostLabel(L) }
-     &lt;block&gt;
-     UNTIL
-     &lt;condition&gt;    { Emit(BEQ L) }
+<h2 id="repeat-until"><a class="header" href="#repeat-until">REPEAT-UNTIL</a></h2>
+<p>Here’s one construct that I lifted right from Pascal.  The syntax
+is <code>REPEAT &lt;block&gt; UNTIL &lt;condition&gt;</code>,
+and the syntax-directed translation is:</p>
+<pre><code>REPEAT         { L = NewLabel;
+                 PostLabel(L) }
+&lt;block&gt;
+UNTIL
+&lt;condition&gt;    { Emit(BEQ L) }
 </code></pre>
 <p>As usual, the code falls out pretty easily:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -657,12 +657,12 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>As  before, we have to add the call  to  DoRepeat  within  Block.
-This time, there's a difference, though.  I decided  to  use  'r'
-for REPEAT (naturally), but I also decided to use 'u'  for UNTIL.
-This means that the 'u' must be added to the set of characters in
+<p>As  before, we have to add the call  to  <code>DoRepeat</code>  within  <code>Block</code>.
+This time, there’s a difference, though.  I decided  to  use  <code>r</code>
+for <code>REPEAT</code> (naturally), but I also decided to use <code>u</code>  for <code>UNTIL</code>.
+This means that the <code>u</code> must be added to the set of characters in
 the while-test.  These  are  the  characters  that signal an exit
-from the current  block  ... the &quot;follow&quot; characters, in compiler
+from the current  block  … the “follow” characters, in compiler
 jargon.</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Recognize and Translate a Statement Block }
@@ -681,60 +681,60 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<a class="header" href="#the-for-loop" id="the-for-loop"><h2>THE FOR LOOP</h2></a>
-<p>The FOR loop  is a very handy one to have around, but it's a bear
-to translate.  That's not so much because the construct itself is
-hard ... it's only a loop  after  all ... but simply because it's
+<h2 id="the-for-loop"><a class="header" href="#the-for-loop">The FOR Loop</a></h2>
+<p>The <code>FOR</code> loop  is a very handy one to have around, but it’s a bear
+to translate.  That’s not so much because the construct itself is
+hard … it’s only a loop  after  all … but simply because it’s
 hard to implement  in  assembler  language.    Once  the  code is
 figured out, the translation is straightforward enough.</p>
-<p>C fans love  the  FOR-loop  of  that language (and, in fact, it's
-easier to code), but I've chosen instead a syntax very  much like
-the one from good ol' BASIC:</p>
-<pre><code>     FOR &lt;ident&gt; = &lt;expr1&gt; TO &lt;expr2&gt; &lt;block&gt; ENDFOR
+<p>C fans love  the  <code>FOR</code>-loop  of  that language (and, in fact, it’s
+easier to code), but I’ve chosen instead a syntax very  much like
+the one from good ol’ BASIC:</p>
+<pre><code>FOR &lt;ident&gt; = &lt;expr1&gt; TO &lt;expr2&gt; &lt;block&gt; ENDFOR
 </code></pre>
-<p>The translation of a FOR loop  can  be just about as difficult as
+<p>The translation of a <code>FOR</code> loop  can  be just about as difficult as
 you choose  to  make  it,  depending  upon  the way you decide to
-define  the rules as to how to handle the limits.  Does expr2 get
+define  the rules as to how to handle the limits.  Does <code>expr2</code> get
 evaluated  every time through the loop, for  example,  or  is  it
 treated as a constant limit?   Do  you always go through the loop
 at least once,  as  in  FORTRAN,  or  not? It gets simpler if you
 adopt the point of view that the construct is equivalent to:</p>
-<pre><code>     &lt;ident&gt; = &lt;expr1&gt;
-     TEMP = &lt;expr2&gt;
-     WHILE &lt;ident&gt; &lt;= TEMP
-     &lt;block&gt;
-     ENDWHILE
+<pre><code>&lt;ident&gt; = &lt;expr1&gt;
+TEMP = &lt;expr2&gt;
+WHILE &lt;ident&gt; &lt;= TEMP
+&lt;block&gt;
+ENDWHILE
 </code></pre>
 <p>Notice that with this definition of the loop, <code>&lt;block&gt;</code> will not be
 executed at all if <code>&lt;expr1&gt;</code> is initially larger than <code>&lt;expr2&gt;</code>.</p>
-<p>The 68000 code needed to do this is trickier than  anything we've
+<p>The 68000 code needed to do this is trickier than  anything we’ve
 done so far.  I had a couple  of  tries  at  it, putting both the
 counter  and  the    upper limit on the stack, both in registers,
 etc.  I  finally  arrived  at  a hybrid arrangement, in which the
 loop counter is in memory (so that it can be accessed  within the
 loop), and the upper limit is on the stack.  The  translated code
 came out like this:</p>
-<pre><code>          &lt;ident&gt;             get name of loop counter
-          &lt;expr1&gt;             get initial value
-          LEA &lt;ident&gt;(PC),A0  address the loop counter
-          SUBQ #1,D0          predecrement it
-          MOVE D0,(A0)        save it
-          &lt;expr1&gt;             get upper limit
-          MOVE D0,-(SP)       save it on stack
+<pre><code class="language-asm">     &lt;ident&gt;             get name of loop counter
+     &lt;expr1&gt;             get initial value
+     LEA &lt;ident&gt;(PC),A0  address the loop counter
+     SUBQ #1,D0          predecrement it
+     MOVE D0,(A0)        save it
+     &lt;expr1&gt;             get upper limit
+     MOVE D0,-(SP)       save it on stack
 
-     L1:  LEA &lt;ident&gt;(PC),A0  address loop counter
-          MOVE (A0),D0        fetch it to D0
-          ADDQ #1,D0          bump the counter
-          MOVE D0,(A0)        save new value
-          CMP (SP),D0         check for range
-          BLE L2              skip out if D0 &gt; (SP)
-          &lt;block&gt;
-          BRA L1              loop for next pass
-     L2:  ADDQ #2,SP          clean up the stack
+L1:  LEA &lt;ident&gt;(PC),A0  address loop counter
+     MOVE (A0),D0        fetch it to D0
+     ADDQ #1,D0          bump the counter
+     MOVE D0,(A0)        save new value
+     CMP (SP),D0         check for range
+     BLE L2              skip out if D0 &gt; (SP)
+     &lt;block&gt;
+     BRA L1              loop for next pass
+L2:  ADDQ #2,SP          clean up the stack
 </code></pre>
-<p>Wow!    That  seems like a lot of code ...  the  line  containing
-<code>&lt;block&gt;</code> seems to almost get lost.  But that's the best I could do
-with it.   I guess it helps to keep in mind that it's really only
+<p>Wow!    That  seems like a lot of code …  the  line  containing
+<code>&lt;block&gt;</code> seems to almost get lost.  But that’s the best I could do
+with it.   I guess it helps to keep in mind that it’s really only
 sixteen  words,  after  all.  If  anyone else can  optimize  this
 better, please let me know.</p>
 <p>Still, the parser  routine  is  pretty  easy now that we have the
@@ -772,8 +772,8 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Since we don't have  expressions  in this parser, I used the same
-trick as for Condition, and wrote the routine</p>
+<p>Since we don’t have  expressions  in this parser, I used the same
+trick as for <code>Condition</code>, and wrote the routine</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Parse and Translate an Expression }
 { This version is a dummy }
@@ -784,36 +784,34 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Give it a try.  Once again,  don't  forget  to  add  the  call in
-Block.    Since  we don't have any input for the dummy version of
-Expression, a typical input line would look something like</p>
-<pre><code> `afi=bece`
-</code></pre>
-<p>Well, it DOES generate a lot of code, doesn't it?    But at least
-it's the RIGHT code.</p>
-<a class="header" href="#the-do-statement" id="the-do-statement"><h2>THE DO STATEMENT</h2></a>
-<p>All this made me wish for a simpler version of the FOR loop.  The
+<p>Give it a try.  Once again,  don’t  forget  to  add  the  call in
+<code>Block</code>.    Since  we don’t have any input for the dummy version of
+<code>Expression</code>, a typical input line would look something like
+<code>afi=bece</code>.</p>
+<p>Well, it <em>does</em> generate a lot of code, doesn’t it?    But at least
+it’s the <em>right</em> code.</p>
+<h2 id="the-do-statement"><a class="header" href="#the-do-statement">The DO Statement</a></h2>
+<p>All this made me wish for a simpler version of the <code>FOR</code> loop.  The
 reason for all the code  above  is  the  need  to  have  the loop
 counter accessible as a variable within the loop.  If all we need
 is a counting loop to make us go through  something  a  specified
-number of times, but  don't  need  access  to the counter itself,
-there is a much easier solution.  The 68000 has a  &quot;decrement and
-branch nonzero&quot; instruction built in which is ideal for counting.
-For good measure, let's add this construct, too.   This  will  be
+number of times, but  don’t  need  access  to the counter itself,
+there is a much easier solution.  The 68000 has a  “decrement and
+branch nonzero” instruction built in which is ideal for counting.
+For good measure, let’s add this construct, too.   This  will  be
 the last of our loop structures.</p>
 <p>The syntax and its translation is:</p>
-<pre><code>     DO
-     &lt;expr&gt;         { Emit(SUBQ #1,D0);
-                      L = NewLabel;
-                      PostLabel(L);
-                      Emit(MOVE D0,-(SP) }
-     &lt;block&gt;
-     ENDDO          { Emit(MOVE (SP)+,D0;
-                      Emit(DBRA D0,L) }
-
+<pre><code>DO
+&lt;expr&gt;         { Emit(SUBQ #1,D0);
+                 L = NewLabel;
+                 PostLabel(L);
+                 Emit(MOVE D0,-(SP) }
+&lt;block&gt;
+ENDDO          { Emit(MOVE (SP)+,D0;
+                 Emit(DBRA D0,L) }
 </code></pre>
-<p>That's quite a bit simpler!  The loop will execute  <code>&lt;expr&gt;</code> times.
-Here's the code:</p>
+<p>That’s quite a bit simpler!  The loop will execute  <code>&lt;expr&gt;</code> times.
+Here’s the code:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Parse and Translate a DO Statement }
 
@@ -832,22 +830,22 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>I think you'll have to agree, that's a whole lot simpler than the
-classical FOR.  Still, each construct has its place.</p>
-<a class="header" href="#the-break-statement" id="the-break-statement"><h2>THE BREAK STATEMENT</h2></a>
-<p>Earlier I promised you a BREAK statement to accompany LOOP.  This
-is  one  I'm sort of proud of.  On the face of it a  BREAK  seems
+<p>I think you’ll have to agree, that’s a whole lot simpler than the
+classical <code>FOR</code>.  Still, each construct has its place.</p>
+<h2 id="the-break-statement"><a class="header" href="#the-break-statement">The BREAK Statement</a></h2>
+<p>Earlier I promised you a <code>BREAK</code> statement to accompany <code>LOOP</code>.  This
+is  one  I’m sort of proud of.  On the face of it a  <code>BREAK</code>  seems
 really  tricky.  My first approach was to just use it as an extra
-terminator to Block, and split all the loops into two parts, just
-as  I did with the ELSE half of an IF.  That  turns  out  not  to
-work, though, because the BREAK statement is almost certainly not
+terminator to <code>Block</code>, and split all the loops into two parts, just
+as  I did with the <code>ELSE</code> half of an <code>IF</code>.  That  turns  out  not  to
+work, though, because the <code>BREAK</code> statement is almost certainly not
 going to show  up at the same level as the loop itself.  The most
-likely place for a BREAK is right after an IF, which  would cause
-it to exit to the IF  construct,  not the enclosing loop.  WRONG.
-The  BREAK  has  to exit the inner LOOP, even if it's nested down
-into several levels of IFs.</p>
+likely place for a <code>BREAK</code> is right after an <code>IF</code>, which  would cause
+it to exit to the <code>IF</code>  construct,  not the enclosing loop.  <em>Wrong</em>.
+The  <code>BREAK</code>  has  to exit the inner <code>LOOP</code>, even if it’s nested down
+into several levels of <code>IF</code>s.</p>
 <p>My next thought was that I would just store away, in  some global
-variable, the ending label of the innermost loop.    That doesn't
+variable, the ending label of the innermost loop.    That doesn’t
 work  either, because there may be a break  from  an  inner  loop
 followed by a break from an outer one.  Storing the label for the
 inner loop would clobber the label for the  outer  one.    So the
@@ -859,18 +857,18 @@ recursive descent parser was  serving  our needs?  I said that if
 you begin to  see  the  need  for  an external stack you might be
 doing  something  wrong.   Well, I was.  It is indeed possible to
 let the recursion built into  our parser take care of everything,
-and the solution is so simple that it's surprising.</p>
-<p>The secret is  to  note  that  every BREAK statement has to occur
-within a block ... there's no place else for it to be.  So all we
-have  to  do  is to pass into  Block  the  exit  address  of  the
+and the solution is so simple that it’s surprising.</p>
+<p>The secret is  to  note  that  every <code>BREAK</code> statement has to occur
+within a block … there’s no place else for it to be.  So all we
+have  to  do  is to pass into  <code>Block</code>  the  exit  address  of  the
 innermost loop.  Then it can pass the address to the routine that
-translates the  break instruction.  Since an IF statement doesn't
-change the loop level, procedure DoIf doesn't need to do anything
-except  pass the label into ITS blocks (both  of  them).    Since
-loops DO change the level,  each  loop  construct  simply ignores
+translates the  break instruction.  Since an <code>IF</code> statement doesn’t
+change the loop level, procedure <code>DoIf</code> doesn’t need to do anything
+except  pass the label into <em>its</em> blocks (both  of  them).    Since
+loops <em>do</em> change the level,  each  loop  construct  simply ignores
 whatever label is above it and passes its own exit label along.</p>
-<p>All  this  is easier to show you than it is to  describe.    I'll
-demonstrate with the easiest loop, which is LOOP:</p>
+<p>All  this  is easier to show you than it is to  describe.    I’ll
+demonstrate with the easiest loop, which is <code>LOOP</code>:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Parse and Translate a LOOP Statement }
 
@@ -888,12 +886,12 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Notice that DoLoop now has TWO labels, not just one.   The second
-is to give the BREAK instruction a target to jump  to.   If there
-is no BREAK within  the  loop, we've wasted a label and cluttered
-up things a bit, but there's no harm done.</p>
-<p>Note also that Block now has a parameter, which  for  loops  will
-always be the exit address.  The new version of Block is:</p>
+<p>Notice that <code>DoLoop</code> now has <em>two</em> labels, not just one.   The second
+is to give the <code>BREAK</code> instruction a target to jump  to.   If there
+is no <code>BREAK</code> within  the  loop, we’ve wasted a label and cluttered
+up things a bit, but there’s no harm done.</p>
+<p>Note also that <code>Block</code> now has a parameter, which  for  loops  will
+always be the exit address.  The new version of <code>Block</code> is:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Recognize and Translate a Statement Block }
 
@@ -914,10 +912,10 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Again,  notice  that  all Block does with the label is to pass it
-into DoIf and  DoBreak.    The  loop  constructs  don't  need it,
+<p>Again,  notice  that  all <code>Block</code> does with the label is to pass it
+into <code>DoIf</code> and  <code>DoBreak</code>.    The  loop  constructs  don’t  need it,
 because they are going to pass their own label anyway.</p>
-<p>The new version of DoIf is:</p>
+<p>The new version of <code>DoIf</code> is:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Recognize and Translate an IF Construct }
 
@@ -946,13 +944,13 @@ end;
 {--------------------------------------------------------------}
 </code></pre>
 <p>Here,  the  only  thing  that  changes  is  the addition  of  the
-parameter to procedure Block.  An IF statement doesn't change the
-loop  nesting level, so DoIf just passes the  label  along.    No
-matter how many levels of IF nesting we have, the same label will
+parameter to procedure <code>Block</code>.  An <code>IF</code> statement doesn’t change the
+loop  nesting level, so <code>DoIf</code> just passes the  label  along.    No
+matter how many levels of <code>IF</code> nesting we have, the same label will
 be used.</p>
-<p>Now, remember that DoProgram also calls Block, so it now needs to
+<p>Now, remember that <code>DoProgram</code> also calls <code>Block</code>, so it now needs to
 pass it a label.  An  attempt  to  exit the outermost block is an
-error, so DoProgram  passes  a  null  label  which  is  caught by
+error, so <code>DoProgram</code>  passes  a  null  label  which  is  caught by
 DoBreak:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Recognize and Translate a BREAK }
@@ -978,19 +976,19 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>That  ALMOST takes care of everything.  Give it a try, see if you
-can &quot;break&quot; it <code>&lt;pun&gt;</code>.  Careful, though.  By this time  we've used
-so many letters, it's hard to think of characters that aren't now
+<p>That  <em>almost</em> takes care of everything.  Give it a try, see if you
+can “break” it <code>&lt;pun&gt;</code>.  Careful, though.  By this time  we’ve used
+so many letters, it’s hard to think of characters that aren’t now
 representing  reserved  words.    Remember:  before  you  try the
-program, you're going to have to edit every occurence of Block in
+program, you’re going to have to edit every occurrence of <code>Block</code> in
 the other loop constructs to include the new parameter.    Do  it
-just like I did for LOOP.</p>
-<p>I  said ALMOST above.  There is one slight problem: if you take a
-hard  look  at  the code generated for DO, you'll see that if you
+just like I did for <code>LOOP</code>.</p>
+<p>I  said <em>almost</em> above.  There is one slight problem: if you take a
+hard  look  at  the code generated for <code>DO</code>, you’ll see that if you
 break  out  of  this loop, the value of the loop counter is still
-left on the stack.  We're going to have to fix that!  A shame ...
-that was one  of  our  smaller  routines, but it can't be helped.
-Here's a version that doesn't have the problem:</p>
+left on the stack.  We’re going to have to fix that!  A shame …
+that was one  of  our  smaller  routines, but it can’t be helped.
+Here’s a version that doesn’t have the problem:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Parse and Translate a DO Statement }
 
@@ -1013,23 +1011,23 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>The  two  extra  instructions,  the  SUBQ and ADDQ, take care  of
+<p>The  two  extra  instructions,  the  <code>SUBQ</code> and <code>ADDQ</code>, take care  of
 leaving the stack in the right shape.</p>
-<a class="header" href="#conclusion" id="conclusion"><h2>CONCLUSION</h2></a>
-<p>At this point we have created a number of control  constructs ...
-a richer set, really, than that provided by almost any other pro-
-gramming language.  And,  except  for the FOR loop, it was pretty
-easy to do.  Even that one was tricky only because it's tricky in
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>At this point we have created a number of control  constructs …
+a richer set, really, than that provided by almost any other
+programming language.  And,  except  for the <code>FOR</code> loop, it was pretty
+easy to do.  Even that one was tricky only because it’s tricky in
 assembler language.</p>
-<p>I'll conclude this session here.  To wrap the thing up with a red
+<p>I’ll conclude this session here.  To wrap the thing up with a red
 ribbon, we really  should  have  a  go  at  having  real keywords
-instead of these mickey-mouse  single-character  things.   You've
+instead of these mickey-mouse  single-character  things.   You’ve
 already seen that  the  extension to multi-character words is not
 difficult, but in this case it will make a big difference  in the
-appearance of our input code.  I'll save that little bit  for the
-next installment.  In that installment we'll also address Boolean
-expressions, so we can get rid of the dummy version  of Condition
-that we've used here.  See you then.</p>
+appearance of our input code.  I’ll save that little bit  for the
+<a href="tutor06_booleanexpressions.html">next installment</a>.  In that installment we’ll also address Boolean
+expressions, so we can get rid of the dummy version  of <code>Condition</code>
+that we’ve used here.  See you then.</p>
 <p>For reference purposes, here is  the  completed  parser  for this
 session:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -1112,7 +1110,7 @@ function IsDigit(c: char): boolean;
 begin
    IsDigit := c in ['0'..'9'];
 end;
-                             
+
 
 {--------------------------------------------------------------}
 { Recognize an Addop }
@@ -1215,7 +1213,7 @@ begin
    EmitLn('&lt;condition&gt;');
 end;
 
-                             
+
 
 
 {--------------------------------------------------------------}
@@ -1271,7 +1269,7 @@ begin
    EmitLn('BRA ' + L1);
    PostLabel(L2);
 end;
-                             
+
 
 {--------------------------------------------------------------}
 { Parse and Translate a LOOP Statement }
@@ -1443,17 +1441,13 @@ end.
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
                             <a rel="prev" href="tutor04_interpreters.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                        
 
-                        
                             <a rel="next" href="tutor06_booleanexpressions.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -1461,41 +1455,37 @@ end.
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a href="tutor04_interpreters.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="tutor04_interpreters.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                
 
-                
-                    <a href="tutor06_booleanexpressions.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="tutor06_booleanexpressions.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
+        <script>
+            window.playground_copyable = true;
+        </script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
-        
+        <script src="highlight.js"></script>
 
-        
 
+    </div>
     </body>
 </html>

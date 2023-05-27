@@ -1,8 +1,9 @@
-# Part X: INTRODUCING "TINY" - 21 May 1989
+# Part X: Introducing "TINY" - 21 May 1989
 
-## INTRODUCTION
 
-In the last installment, I showed you the general  idea  for  the
+## Introduction
+
+In the [last installment](tutor09_atopview.md), I showed you the general  idea  for  the
 top-down development of  a  compiler.    I gave you the first few
 steps  of  the process for compilers for  Pascal  and  C,  but  I
 stopped  far  short  of  pushing  it through to completion.   The
@@ -13,7 +14,7 @@ language that I've been defining in this tutorial series.
 In this installment, we're going to do just that, for a subset of
 KISS which I've chosen to call TINY.
 
-The process  will be essentially that outlined in Installment IX,
+The process  will be essentially that outlined in [Installment IX](tutor09_atopview.md),
 except  for  one  notable  difference.   In that  installment,  I
 suggested  that  you  begin  with  a full BNF description of  the
 language.  That's fine for something like Pascal or C,  for which
@@ -24,7 +25,7 @@ since we can tailor the language  slightly  as we go, to keep the
 parsing easy.
 
 So in the development  that  follows,  we'll  actually be doing a
-top-down development of BOTH the  language and its compiler.  The
+top-down development of _both_ the  language and its compiler.  The
 BNF description will grow along with the compiler.
 
 In this process, there will be a number of decisions to  be made,
@@ -34,23 +35,23 @@ explain  the  decision  and the rationale behind my choice.  That
 way, if you happen to hold a different opinion and would prefer a
 different option, you can choose it instead.  You  now  have  the
 background  to  do  that.  I guess the important thing to note is
-that  nothing  we  do  here  is  cast  in  concrete.  When YOU'RE
-designing YOUR language, you should feel free to do it YOUR way.
+that  nothing  we  do  here  is  cast  in  concrete.  When _you're_
+designing _your_ language, you should feel free to do it _your_ way.
 
 Many of you may be asking at this point: Why bother starting over
 from  scratch?  We had a working subset of KISS as the outcome of
-Installment  VII  (lexical  scanning).  Why not just extend it as
+[Installment  VII](tutor07_lexicalscanning.md)  (lexical  scanning).  Why not just extend it as
 needed?  The  answer  is  threefold.    First of all, I have been
 making  a  number  of changes to further simplify the program ...
 changes  like  encapsulating  the  code generation procedures, so
 that  we  can  convert to a different target machine more easily.
 Second, I want you to see how the development can indeed  be done
-from the top down as outlined in the last installment.   Finally,
+from the top down as outlined in the [last installment](tutor09_atopview.md).   Finally,
 we both need the practice.  Each time I go through this exercise,
 I get a little better at it, and you will, also.
 
 
-## GETTING STARTED
+## Getting Started
 
 Many  years  ago  there were languages called  Tiny  BASIC,  Tiny
 Pascal, and Tiny C, each of which was a subset of its parent full
@@ -86,14 +87,14 @@ much effort.
 
 The language I have in mind will share some of the  good features
 of  Pascal,  C,  and Ada.  Taking a lesson from the comparison of
-the Pascal and  C  compilers in the previous installment, though,
+the Pascal and  C  compilers in the [previous installment](tutor09_atopview.md), though,
 TINY will have a decided Pascal flavor.  Wherever  feasible,    a
 language structure will  be  bracketed by keywords or symbols, so
 that  the parser will know where it's  going  without  having  to
 guess.
 
 One other ground rule:  As we go, I'd like  to  keep the compiler
-producing real, executable code.  Even though it may not  DO much
+producing real, executable code.  Even though it may not  _do_ much
 at the beginning, it will at least do it correctly.
 
 Finally,  I'll  use  a couple of Pascal  restrictions  that  make
@@ -105,8 +106,8 @@ is at the end of the listing.
 
 The top-level definition will be similar to Pascal:
 
-```
-     <program> ::= PROGRAM <top-level decl> <main> '.'
+```bnf
+<program> ::= PROGRAM <top-level decl> <main> '.'
 ```
 
 Already, we've reached a decision point.  My first thought was to
@@ -115,8 +116,8 @@ write a "program" with no main program, but it does make sense if
 we're  allowing  for  multiple modules, linked together.    As  a
 matter of fact,  I intend to allow for this in KISS.  But then we
 begin  to open up a can of worms that I'd rather leave closed for
-now.  For example, the  term "PROGRAM" really becomes a misnomer.
-The MODULE of Modula-2 or the Unit of Turbo Pascal would  be more
+now.  For example, the  term `PROGRAM` really becomes a misnomer.
+The `MODULE` of Modula-2 or the `Unit` of Turbo Pascal would  be more
 appropriate.  Second,  what  about  scope  rules?    We'd  need a
 convention for  dealing  with  name  visibility  across  modules.
 Better  for  now  to  just  keep  it  simple  and ignore the idea
@@ -150,9 +151,9 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The procedure Header just emits  the startup code required by the
+The procedure `Header` just emits  the startup code required by the
 assembler:
-                              
+
 ```delphi
 {--------------------------------------------------------------}
 { Write Header Info }
@@ -164,7 +165,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The procedures Prolog and  Epilog  emit  the code for identifying
+The procedures `Prolog` and  `Epilog`  emit  the code for identifying
 the main program, and for returning to the OS:
 
 ```delphi
@@ -188,7 +189,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The  main program just calls Prog, and then  looks  for  a  clean
+The  main program just calls `Prog`, and then  looks  for  a  clean
 ending:
 
 ```delphi
@@ -204,11 +205,7 @@ end.
 ```
 
 At this point, TINY  will  accept  only  one input "program," the
-null program:
-
-
-     PROGRAM .   (or 'p.' in our shorthand.)
-
+null program: `PROGRAM .`   (or `p.` in our shorthand.)
 Note, though, that the  compiler  DOES  generate correct code for
 this program.  It will run, and do  what  you'd  expect  the null
 program to do, that is, nothing but return gracefully to the OS.
@@ -219,28 +216,28 @@ language   is   involved.     You  can  learn  a  lot  about  the
 implementation by measuring  the  overhead  in  time  required to
 compile what should be a trivial case.  It's also  interesting to
 measure the amount of code produced.  In many compilers, the code
-can be fairly large, because they always include  the  whole run-
-time  library whether they need it or not.    Early  versions  of
+can be fairly large, because they always include  the  whole run-time
+library whether they need it or not.    Early  versions  of
 Turbo Pascal produced a 12K object file for  this  case.    VAX C
 generates 50K!
 
 The  smallest  null  programs  I've  seen are those  produced  by
 Modula-2 compilers, and they run about 200-800 bytes.
 
-In the case of TINY, we HAVE no run-time library  as  yet, so the
+In the case of TINY, we _have_ no run-time library  as  yet, so the
 object code is indeed tiny:  two  bytes.    That's  got  to  be a
 record, and it's  likely  to  remain  one since it is the minimum
 size required by the OS.
 
 The  next step is to process the code for the main program.  I'll
-use the Pascal BEGIN-block:
+use the Pascal `BEGIN`-block:
 
-```
-     <main> ::= BEGIN <block> END
+```bnf
+<main> ::= BEGIN <block> END
 ```
 
 Here,  again,  we  have made a decision.  We could have chosen to
-require a "PROCEDURE MAIN" sort of declaration, similar to C.   I
+require a `PROCEDURE MAIN` sort of declaration, similar to C.   I
 must  admit  that  this  is  not  a bad idea at all ...  I  don't
 particularly  like  the  Pascal  approach  since I tend  to  have
 trouble locating the main  program  in a Pascal listing.  But the
@@ -253,16 +250,17 @@ be to require a name for  the  program, and then bracket the main
 by
 
 ```
-     BEGIN <name>
-     END <name>
+BEGIN <name>
+END <name>
 ```
 
 similar to the convention of  Modula  2.    This  adds  a  bit of
 "syntactic sugar" to the language.  Things like this are  easy to
 add or change to your liking, if the language is your own design.
 
-To parse this definition of a main block,  change  procedure Prog
+To parse this definition of a main block,  change  procedure `Prog`
 to read:
+
 ```delphi
 {--------------------------------------------------------------}
 {  Parse and Translate a Program }
@@ -293,19 +291,15 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Now, the only legal program is:
-
-```delphi
-     PROGRAM BEGIN END . (or 'pbe.')
-```
+Now, the only legal program is: `PROGRAM BEGIN END .` (or `pbe.`)
 
 Aren't we making progress???  Well, as usual it gets better.  You
-might try some deliberate errors here, like omitting  the  'b' or
-the 'e', and see what happens.  As always,  the  compiler  should
+might try some deliberate errors here, like omitting  the  `b` or
+the `e`, and see what happens.  As always,  the  compiler  should
 flag all illegal inputs.
 
 
-## DECLARATIONS
+## Declarations
 
 The obvious next step is to decide what we mean by a declaration.
 My  intent  here  is to have two kinds of declarations: variables
@@ -313,19 +307,19 @@ and  procedures/functions.    At  the  top  level,   only  global
 declarations are allowed, just as in C.
 
 For now, there  can  only be variable declarations, identified by
-the keyword VAR (abbreviated 'v'):
+the keyword `VAR` (abbreviated `v`):
 
-```
-     <top-level decls> ::= ( <data declaration> )*
+```bnf
+<top-level decls> ::= ( <data declaration> )*
 
-     <data declaration> ::= VAR <var-list>
+<data declaration> ::= VAR <var-list>
 ```
 
 Note that since there is only one variable type, there is no need
 to  declare the type.  Later on, for full KISS, we can easily add
 a type description.
 
-The procedure Prog becomes:
+The procedure `Prog` becomes:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -367,18 +361,18 @@ begin
       end;
 end;
 {--------------------------------------------------------------}
-
 ```
-Note that at this point, Decl  is  just  a stub.  It generates no
+
+Note that at this point, `Decl`  is  just  a stub.  It generates no
 code, and it doesn't process a list ... every variable must occur
-in a separate VAR statement.
+in a separate `VAR` statement.
 
 OK,  now  we  can have any  number  of  data  declarations,  each
-starting with a 'v' for VAR,  before  the BEGIN-block.  Try a few
+starting with a `v` for `VAR`,  before  the `BEGIN`-block.  Try a few
 cases and see what happens.
 
 
-## DECLARATIONS AND SYMBOLS
+## Declarations and Symbols
 
 That looks pretty good, but  we're still only generating the null
 program  for  output.    A  real compiler would  issue  assembler
@@ -386,7 +380,7 @@ directives to allocate storage for  the  variables.    It's about
 time we actually produced some code.
 
 With  a  little  extra  code,  that's  an  easy  thing to do from
-procedure Decl.  Modify it as follows:
+procedure `Decl`.  Modify it as follows:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -401,7 +395,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The procedure Alloc just  issues  a  command  to the assembler to
+The procedure `Alloc` just  issues  a  command  to the assembler to
 allocate storage:
 
 ```delphi
@@ -416,12 +410,10 @@ end;
 ```
 
 Give  this  one  a  whirl.    Try  an  input  that declares  some
-variables, such as:
-
-     `pvxvyvzbe.`
+variables, such as: `pvxvyvzbe.`.
 
 See how the storage is allocated?    Simple, huh?  Note also that
-the entry point, "MAIN," comes out in the right place.
+the entry point, `MAIN`, comes out in the right place.
 
 For the record, a "real" compiler would also have a  symbol table
 to record the variables being used.  Normally,  the  symbol table
@@ -437,11 +429,11 @@ permits a single variable.  That's easy to fix, too.
 
 The BNF for `<var-list>` is
 
-```
-     <var-list> ::= <ident> (, <ident>)*
+```bnf
+<var-list> ::= <ident> (, <ident>)*
 ```
 
-Adding this syntax to Decl gives this new version:
+Adding this syntax to `Decl` gives this new version:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -461,11 +453,11 @@ end;
 ```
 
 OK, now compile this code and give it  a  try.    Try a number of
-lines of VAR declarations, try a list of several variables on one
+lines of `VAR` declarations, try a list of several variables on one
 line, and try combinations of the two.  Does it work?
 
 
-## INITIALIZERS
+## Initializers
 
 As long as we're dealing with data declarations, one thing that's
 always  bothered  me  about  Pascal  is  that  it  doesn't  allow
@@ -475,12 +467,13 @@ language that purports to  be  a minimal language.  But it's also
 SO easy to add that it seems a shame not  to  do  so.    The  BNF
 becomes:
 
-```
-     <var-list> ::= <var> ( <var> )*
+```bnf
+<var-list> ::= <var> ( <var> )*
 
-     <var> ::= <ident> [ = <integer> ]
+<var> ::= <ident> [ = <integer> ]
 ```
-Change Alloc as follows:
+
+Change `Alloc` as follows:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -505,10 +498,10 @@ OK, try this  version  of  TINY  and verify that you can, indeed,
 give the variables initial values.
 
 By golly, this thing is starting to look  real!    Of  course, it
-still doesn't DO anything, but it looks good, doesn't it?
+still doesn't _do_ anything, but it looks good, doesn't it?
 
 Before leaving this section, I should point out  that  we've used
-two versions of function GetNum.  One, the earlier one, returns a
+two versions of function `GetNum`.  One, the earlier one, returns a
 character value, a single digit.  The other accepts a multi-digit
 integer and returns an integer value.  Either one will work here,
 since WriteLn will handle either type.  But there's no  reason to
@@ -532,10 +525,11 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 As a matter  of  fact,  strictly  speaking  we  should  allow for
 expressions in the data field of the initializer, or at  the very
 least  for  negative  values.  For  now,  let's  just  allow  for
-negative values by changing the code for Alloc as follows:
+negative values by changing the code for `Alloc` as follows:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -564,19 +558,15 @@ Now  you should be able to  initialize  variables  with  negative
 and/or multi-digit values.
 
 
-## THE SYMBOL TABLE
+## The Symbol Table
 
 There's one problem  with  the  compiler  as it stands so far: it
 doesn't do anything to record a variable when we declare it.   So
 the compiler is perfectly content to allocate storage for several
 variables with the same name.  You can easily verify this with an
-input like
+input like `pvavavabe.`.
 
-
-     `pvavavabe.`
-
-
-Here we've declared the variable A three times.  As you  can see,
+Here we've declared the variable `A` three times.  As you  can see,
 the compiler will  cheerfully  accept  that,  and  generate three
 identical labels.  Not good.
 
@@ -594,7 +584,7 @@ it, first add the following  declaration at the beginning of your
 program:
 
 ```delphi
-     var ST: array['A'..'Z'] of char;
+var ST: array['A'..'Z'] of char;
 ```
 
 and insert the following function:
@@ -611,7 +601,7 @@ end;
 ```
 
 We  also  need  to initialize the  table  to  all  blanks.    The
-following lines in Init will do the job:
+following lines in `Init` will do the job:
 
 ```delphi
 var i: char;
@@ -622,19 +612,19 @@ begin
 ```
 
 Finally,  insert  the  following two lines at  the  beginning  of
-Alloc:
+`Alloc`:
 
 ```delphi
-   if InTable(N) then Abort('Duplicate Variable Name ' + N);
-   ST[N] := 'v';
+if InTable(N) then Abort('Duplicate Variable Name ' + N);
+ST[N] := 'v';
 ```
 
 That  should  do  it.  The  compiler  will  now  catch  duplicate
-declarations.  Later, we can  also  use  InTable  when generating
+declarations.  Later, we can  also  use  `InTable`  when generating
 references to the variables.
 
 
-## EXECUTABLE STATEMENTS
+## Executable Statements
 
 At this point, we can generate a null program that has  some data
 variables  declared  and  possibly initialized.  But  so  far  we
@@ -649,17 +639,17 @@ take us long to provide for them, as well.
 The BNF definition given earlier  for the main program included a
 statement block, which we have so far ignored:
 
-```
-     <main> ::= BEGIN <block> END
+```bnf
+<main> ::= BEGIN <block> END
 ```
 
 For now,  we  can  just  consider  a  block  to  be  a  series of
 assignment statements:
 
+```bnf
+<block> ::= (Assignment)*
 ```
-     <block> ::= (Assignment)*
 
-```
 Let's start things off by adding  a  parser for the block.  We'll
 begin with a stub for the assignment statement:
 
@@ -684,7 +674,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Modify procedure Main to call Block as shown below:
+Modify procedure `Main` to call `Block` as shown below:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -703,7 +693,7 @@ end;
 
 This version still won't generate any code for  the   "assignment
 statements" ... all it does is to eat characters  until  it  sees
-the 'e' for 'END.'  But it sets the stage for what is to follow.
+the `e` for `END`.  But it sets the stage for what is to follow.
 
 The  next  step,  of  course,  is  to  flesh out the code for  an
 assignment statement.  This  is  something  we've done many times
@@ -829,8 +819,8 @@ retarget  the compiler to a new CPU  simply  by  rewriting  these
 that we can improve the code quality by tweaking these routines a
 bit, without having to modify the compiler proper.
 
-Note that both LoadVar  and  Store check the symbol table to make
-sure that the variable is defined.  The  error  handler Undefined
+Note that both `LoadVar`  and  `Store` check the symbol table to make
+sure that the variable is defined.  The  error  handler `Undefined`
 simply calls Abort:
 
 ```delphi
@@ -846,29 +836,30 @@ end;
 
 OK, we are now finally ready to begin processing executable code.
 We'll  do  that  by  replacing  the  stub  version  of  procedure
-Assignment.
+`Assignment`.
 
 We've been down this  road  many times before, so this should all
 be familiar to you.    In fact, except for the changes associated
 with the code generation, we  could just copy the procedures from
-Part  VII.    Since we are making some changes, I won't just copy
+[Part  VII](tutor07_lexicalscanning.md).    Since we are making some changes, I won't just copy
 them, but we will go a little faster than usual.
 
 The BNF for the assignment statement is:
-```
-     <assignment> ::= <ident> = <expression>
 
-     <expression> ::= <first term> ( <addop> <term> )*
+```bnf
+<assignment> ::= <ident> = <expression>
 
-     <first term> ::= <first factor> <rest>
+<expression> ::= <first term> ( <addop> <term> )*
 
-     <term> ::= <factor> <rest>
+<first term> ::= <first factor> <rest>
 
-     <rest> ::= ( <mulop> <factor> )*
+<term> ::= <factor> <rest>
 
-     <first factor> ::= [ <addop> ] <factor>
+<rest> ::= ( <mulop> <factor> )*
 
-     <factor> ::= <var> | <number> | ( <expression> )
+<first factor> ::= [ <addop> ] <factor>
+
+<factor> ::= <var> | <number> | ( <expression> )
 ```
 
 This version of the BNF is  also  a bit different than we've used
@@ -879,7 +870,7 @@ handle   negative  constant  values  efficiently.    It's   worth
 mentioning  here  that  we  have  often  seen  the advantages  of
 "tweaking"  the  BNF  as we go, to help make the language easy to
 parse.    What  you're looking at here is a bit different:  we've
-tweaked  the  BNF  to make the CODE  GENERATION  more  efficient!
+tweaked  the  BNF  to make the _code  generation_  more  efficient!
 That's a first for this series.
 
 Anyhow, the following code implements the BNF:
@@ -1050,7 +1041,7 @@ representing a complete program that will  assemble  and execute.
 We have a compiler!
 
 
-## BOOLEANS
+## Booleans
 
 The next step should also  be  familiar  to  you.    We  must add
 Boolean  expressions  and relational operations.    Again,  since
@@ -1060,10 +1051,10 @@ done before.  Again, we won't just copy from other  files because
 I've changed a few things just a bit.  Most  of  the changes just
 involve encapsulating the machine-dependent parts as  we  did for
 the   arithmetic  operations.    I've  also  modified   procedure
-NotFactor  somewhat,  to  parallel  the structure of FirstFactor.
+`NotFactor`  somewhat,  to  parallel  the structure of `FirstFactor`.
 Finally,  I  corrected  an  error  in  the  object code  for  the
-relational operators:  The Scc instruction I used  only  sets the
-low 8 bits of D0.  We want all 16 bits set for a logical true, so
+relational operators:  The `Scc` instruction I used  only  sets the
+low 8 bits of `D0`.  We want all 16 bits set for a logical true, so
 I've added an instruction to sign-extend the low byte.
 
 To begin, we're going to need some more recognizers:
@@ -1178,32 +1169,33 @@ begin
 end;
 {---------------------------------------------------------------}
 ```
+
 All of this  gives us the tools we need.  The BNF for the Boolean
 expressions is:
 
-```
-     <bool-expr> ::= <bool-term> ( <orop> <bool-term> )*
+```bnf
+<bool-expr> ::= <bool-term> ( <orop> <bool-term> )*
 
-     <bool-term> ::= <not-factor> ( <andop> <not-factor> )*
+<bool-term> ::= <not-factor> ( <andop> <not-factor> )*
 
-     <not-factor> ::= [ '!' ] <relation>
+<not-factor> ::= [ '!' ] <relation>
 
-     <relation> ::= <expression> [ <relop> <expression> ]
+<relation> ::= <expression> [ <relop> <expression> ]
 ```
 
 Sharp-eyed readers might  note  that this syntax does not include
 the non-terminal  "bool-factor" used in earlier versions.  It was
-needed then because I also allowed for the Boolean constants TRUE
-and FALSE.   But  remember  that  in TINY there is no distinction
+needed then because I also allowed for the Boolean constants `TRUE`
+and `FALSE`.   But  remember  that  in TINY there is no distinction
 made between Boolean and arithmetic  types ... they can be freely
 intermixed.   So there is really no  need  for  these  predefined
 values ... we can just use -1 and 0, respectively.
 
 In C terminology, we could always use the defines:
 
-```
-     #define TRUE -1
-     #define FALSE 0
+```c
+#define TRUE -1
+#define FALSE 0
 ```
 
 (That is, if TINY had a  preprocessor.)   Later on, when we allow
@@ -1211,10 +1203,10 @@ for  declarations  of  constants,  these  two   values   will  be
 predefined by the language.
 
 The reason that I'm harping on this is that  I've  already  tried
-the alternative, which is to  include TRUE and FALSE as keywords.
+the alternative, which is to  include `TRUE` and `FALSE` as keywords.
 The problem with that approach is that it  then  requires lexical
-scanning for EVERY variable name  in every expression.  If you'll
-recall,  I pointed out in Installment VII  that  this  slows  the
+scanning for _every_ variable name  in every expression.  If you'll
+recall,  I pointed out in [Installment VII](tutor07_lexicalscanning.md)  that  this  slows  the
 compiler  down considerably.  As long as  keywords  can't  be  in
 expressions, we need to do the scanning only at the  beginning of
 every  new  statement  ...  quite  an improvement.  So using  the
@@ -1362,45 +1354,44 @@ end;
 ```
 
 To tie it all together, don't forget to change the  references to
-Expression in  procedures Factor and Assignment so that they call
-BoolExpression instead.
+`Expression` in  procedures `Factor` and `Assignment` so that they call
+`BoolExpression` instead.
 
 OK, if  you've  got  all  that typed in, compile it and give it a
 whirl.    First,  make  sure  you  can  still parse  an  ordinary
 arithmetic expression.  Then, try a Boolean one.    Finally, make
 sure  that you can assign the results of  relations.    Try,  for
-example:
-
-     `pvx,y,zbx=z>ye.`
-
-which stands for:
-```
-     PROGRAM
-     VAR X,Y,Z
-     BEGIN
-     X = Z > Y
-     END.
+example, `pvx,y,zbx=z>ye.`, which stands for:
 
 ```
-See how this assigns a Boolean value to X?
+PROGRAM
+VAR X,Y,Z
+BEGIN
+X = Z > Y
+END.
+```
 
-## CONTROL STRUCTURES
+See how this assigns a Boolean value to `X`?
+
+
+## Control Structures
 
 We're almost home.   With  Boolean  expressions  in place, it's a
 simple  matter  to  add control structures.  For TINY, we'll only
-allow two kinds of them, the IF and the WHILE:
+allow two kinds of them, the `IF` and the `WHILE`:
 
-```
-     <if> ::= IF <bool-expression> <block> [ ELSE <block>] ENDIF
+```bnf
+<if> ::= IF <bool-expression> <block> [ ELSE <block>] ENDIF
 
-     <while> ::= WHILE <bool-expression> <block> ENDWHILE
+<while> ::= WHILE <bool-expression> <block> ENDWHILE
 ```
+
 Once  again,  let  me  spell  out the decisions implicit in  this
 syntax, which departs strongly from that of C or Pascal.  In both
-of those languages, the "body" of an IF or WHILE is regarded as a
+of those languages, the "body" of an `IF` or `WHILE` is regarded as a
 single  statement.  If you intend to use a block of more than one
-statement, you have to build a compound statement using BEGIN-END
-(in Pascal) or  '{}' (in C).  In TINY (and KISS) there is no such
+statement, you have to build a compound statement using `BEGIN`-`END`
+(in Pascal) or  `{}` (in C).  In TINY (and KISS) there is no such
 thing as a compound statement  ... single or multiple they're all
 just blocks to these languages.
 
@@ -1410,35 +1401,25 @@ confusion as to where things begin  and  end.  This is the modern
 approach, used in such respected languages as Ada  and  Modula 2,
 and it completely eliminates the problem of the "dangling else."
 
-Note  that I could have chosen to use the same keyword END to end
-all  the constructs, as is done in Pascal.  (The closing '}' in C
+Note  that I could have chosen to use the same keyword `END` to end
+all  the constructs, as is done in Pascal.  (The closing `}` in C
 serves the same purpose.)  But this has always led  to confusion,
 which is why Pascal programmers tend to write things like
+`end { loop }` or `end { if }`.
 
-
-     `end { loop }`
-
-or   `end { if }`
-
-
-As I explained in  Part  V,  using  unique terminal keywords does
+As I explained in  [Part  V](tutor05_controlstructs.md),  using  unique terminal keywords does
 increase  the  size  of the keyword list and therefore slows down
 the  scanning, but in this case it seems a small price to pay for
 the added insurance.   Better  to find the errors at compile time
 rather than run time.
 
-One last thought:  The two constructs above each  have  the  non-
-terminals
-
-
-      `<bool-expression> and <block>`
-
-
+One last thought:  The two constructs above each  have  the
+non-terminals `<bool-expression> and <block>`
 juxtaposed with no separating keyword.  In Pascal we would expect
 the keywords THEN and DO in these locations.
 
 I have no problem with leaving out these keywords, and the parser
-has no trouble either, ON CONDITION that we make no errors in the
+has no trouble either, _on condition_ that we make no errors in the
 bool-expression part.  On  the  other hand, if we were to include
 these extra keywords we would get yet one more level of insurance
 at very little  cost,  and  I  have no problem with that, either.
@@ -1447,6 +1428,7 @@ Use your best judgment as to which way to go.
 OK, with that bit of explanation let's proceed.  As  usual, we're
 going to need some new  code generation routines.  These generate
 the code for conditional and unconditional branches:
+
 ```delphi
 {---------------------------------------------------------------}
 { Branch Unconditional  }
@@ -1519,20 +1501,16 @@ end;
 {--------------------------------------------------------------}
 ```
 
-To tie everything  together,  we need only modify procedure Block
-to recognize the "keywords" for the  IF  and WHILE.  As usual, we
+To tie everything  together,  we need only modify procedure `Block`
+to recognize the "keywords" for the  `IF`  and `WHILE`.  As usual, we
 expand the definition of a block like so:
 
-```
-     <block> ::= ( <statement> )*
+```bnf
+<block> ::= ( <statement> )*
+
+<statement> ::= <if> | <while> | <assignment>
 ```
 
-where
-
-```
-     <statement> ::= <if> | <while> | <assignment>
-
-```
 The corresponding code is:
 
 ```delphi
@@ -1561,23 +1539,23 @@ we've got a virtually complete version of TINY.  I call  it, with
 tongue planted firmly in cheek, TINY Version 0.1.
 
 
-## LEXICAL SCANNING
+## Lexical Scanning
 
 Of course, you know what's next:  We have to convert  the program
 so that  it can deal with multi-character keywords, newlines, and
-whitespace.   We have just gone through all  that  in  Part  VII.
+whitespace.   We have just gone through all  that  in  [Part  VII](tutor07_lexicalscanning.md).
 We'll use the distributed scanner  technique that I showed you in
 that  installment.    The  actual  implementation  is   a  little
 different because the way I'm handling newlines is different.
 
 To begin with, let's simply  allow for whitespace.  This involves
-only adding calls to SkipWhite at the end of the  three routines,
-GetName, GetNum, and Match.    A call to SkipWhite in Init primes
+only adding calls to `SkipWhite` at the end of the  three routines,
+`GetName`, `GetNum`, and `Match`.    A call to `SkipWhite` in `Init` primes
 the pump in case there are leading spaces.
 
 Next, we need to deal with  newlines.   This is really a two-step
-process,  since  the  treatment  of  the  newlines  with  single-
-character tokens is different from that for multi-character ones.
+process,  since  the  treatment  of  the  newlines  with
+single-character tokens is different from that for multi-character ones.
 We can eliminate some work by doing both  steps  at  once,  but I
 feel safer taking things one step at a time.
 
@@ -1599,21 +1577,21 @@ end;
 ```
 
 Note that  we  have  seen  this  procedure  before in the form of
-Procedure Fin.  I've changed the name since this  new  one  seems
+Procedure `Fin`.  I've changed the name since this  new  one  seems
 more descriptive of the actual function.  I've  also  changed the
 code  to  allow  for multiple newlines and lines with nothing but
 white space.
 
-The next step is to insert calls to NewLine wherever we  decide a
+The next step is to insert calls to `NewLine` wherever we  decide a
 newline is permissible.  As I've pointed out before, this  can be
 very different in different languages.   In TINY, I've decided to
 allow them virtually anywhere.  This means that we need  calls to
-NewLine at the BEGINNING (not the end, as with SkipWhite)  of the
-procedures GetName, GetNum, and Match.
+`NewLine` at the _beginning_ (not the end, as with `SkipWhite`)  of the
+procedures `GetName`, `GetNum`, and `Match`.
 
-For procedures that have while loops, such as TopDecl, we  need a
-call  to NewLine at the beginning of the  procedure  AND  at  the
-bottom  of  each  loop.  That way, we can be assured that NewLine
+For procedures that have while loops, such as `TopDecl`, we  need a
+call  to `NewLine` at the beginning of the  procedure  _and_  at  the
+bottom  of  each  loop.  That way, we can be assured that `NewLine`
 has just been called at the beginning of each  pass  through  the
 loop.
 
@@ -1622,7 +1600,7 @@ it will indeed handle white space and newlines.
 
 If it does, then we're  ready to deal with multi-character tokens
 and keywords.   To begin, add the additional declarations (copied
-almost verbatim from Part VII):
+almost verbatim from [Part VII](tutor07_lexicalscanning.md)):
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1658,7 +1636,7 @@ const KWcode: string[NKW1] = 'xilewevbep';
 {--------------------------------------------------------------}
 ```
 
-Next, add the three procedures, also from Part VII:
+Next, add the three procedures, also from [Part VII](tutor07_lexicalscanning.md):
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1703,7 +1681,7 @@ end;
 
 Now, we have to make a  fairly  large number of subtle changes to
 the remaining procedures.  First,  we  must  change  the function
-GetName to a procedure, again as we did in Part VII:
+`GetName` to a procedure, again as we did in [Part VII](tutor07_lexicalscanning.md):
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1724,10 +1702,10 @@ end;
 ```
 
 Note that this procedure leaves its result in  the  global string
-Value.
+`Value`.
 
-Next, we have to change every reference to GetName to reflect its
-new form. These occur in Factor, Assignment, and Decl:
+Next, we have to change every reference to `GetName` to reflect its
+new form. These occur in `Factor`, `Assignment`, and `Decl`:
 
 ```delphi
 {---------------------------------------------------------------}
@@ -1786,12 +1764,13 @@ end;
 names,  so we take the easy way out here and simply use the first
 character of the string.)
 
-Finally, we must make the changes to use Token instead of Look as
-the  test  character  and to call Scan at the appropriate places.
-Mostly, this  involves  deleting  calls  to  Match,  occasionally
-replacing calls to  Match  by calls to MatchString, and Replacing
-calls  to  NewLine  by  calls  to  Scan.    Here are the affected
+Finally, we must make the changes to use `Token` instead of `Look` as
+the  test  character  and to call `Scan` at the appropriate places.
+Mostly, this  involves  deleting  calls  to  `Match`,  occasionally
+replacing calls to  `Match`  by calls to `MatchString`, and replacing
+calls  to  `NewLine`  by  calls  to  `Scan`.    Here are the affected
 routines:
+
 ```delphi
 {---------------------------------------------------------------}
 { Recognize and Translate an IF Construct }
@@ -1918,11 +1897,11 @@ few minor  exceptions we've already got a compiler that's usable.
 There are still a few areas that need improvement.
 
 
-## MULTI-CHARACTER VARIABLE NAMES
+## Multi-Character Variable Names
 
 One of those is  the  restriction  that  we still have, requiring
-single-character variable names.    Now that we can handle multi-
-character keywords, this one  begins  to  look  very much like an
+single-character variable names.    Now that we can handle
+multi-character keywords, this one  begins  to  look  very much like an
 arbitrary  and  unnecessary  limitation.    And  indeed   it  is.
 Basically, its only virtue is  that it permits a trivially simple
 implementation  of  the   symbol   table.    But  that's  just  a
@@ -1937,7 +1916,7 @@ declaring a record type, and making the symbol table an  array of
 such records.  Here, though, we don't really need  a  type  field
 yet  (there is only one kind of entry allowed so far), so we only
 need an array of symbols.  This has the advantage that we can use
-the existing procedure Lookup to  search the symbol table as well
+the existing procedure `Lookup` to  search the symbol table as well
 as the  keyword  list.    As it turns out, even when we need more
 fields we can still use the same approach, simply by  storing the
 other fields in separate arrays.
@@ -1946,7 +1925,7 @@ OK, here are the changes that  need  to  be made.  First, add the
 new typed constant:
 
 ```delphi
-      NEntry: integer = 0;
+NEntry: integer = 0;
 ```
 
 Then change the definition of the symbol table as follows:
@@ -1957,11 +1936,11 @@ const MaxEntry = 100;
 var ST   : array[1..MaxEntry] of Symbol;
 ```
 
-(Note that ST is _NOT_ declared as a SymTab.  That declaration is
-a phony one to get Lookup to work.  A SymTab  would  take  up too
+(Note that `ST` is _not_ declared as a `SymTab`.  That declaration is
+a phony one to get `Lookup` to work.  A `SymTab`  would  take  up too
 much RAM space, and so one is never actually allocated.)
 
-Next, we need to replace InTable:
+Next, we need to replace `InTable`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1972,9 +1951,9 @@ begin
    InTable := Lookup(@ST, n, MaxEntry) <> 0;
 end;
 {--------------------------------------------------------------}
-
 ```
-We also need a new procedure, AddEntry, that adds a new  entry to
+
+We also need a new procedure, `AddEntry`, that adds a new  entry to
 the table:
 
 ```delphi
@@ -1990,9 +1969,9 @@ begin
    SType[NEntry] := T;
 end;
 {--------------------------------------------------------------}
-
 ```
-This procedure is called by Alloc:
+
+This procedure is called by `Alloc`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -2009,11 +1988,11 @@ begin
 ```
 
 Finally, we must change all the routines that currently treat the
-variable name as a single character.  These include   LoadVar and
-Store (just change the  type  from  char  to string), and Factor,
-Assignment, and Decl (just change Value[1] to Value).
+variable name as a single character.  These include   `LoadVar` and
+`Store` (just change the  type  from  `char`  to `string`), and `Factor`,
+`Assignment`, and `Decl` (just change `Value[1]` to `Value`).
 
-One  last  thing:  change  procedure  Init to clear the array  as
+One  last  thing:  change  procedure  `Init` to clear the array  as
 shown:
 
 ```delphi
@@ -2037,14 +2016,14 @@ That should do it.  Try it out and verify  that  you can, indeed,
 use multi-character variable names.
 
 
-## MORE RELOPS
+## More Relops
 
 We still have one remaining single-character restriction: the one
 on relops.  Some of the relops are indeed single  characters, but
-others  require two.  These are `'<='` and `'>='`.  I also prefer the
-Pascal `'<>'` for "not equals,"  instead of `'#'`.
+others  require two.  These are `<=` and `>=`.  I also prefer the
+Pascal `<>` for "not equals,"  instead of `#`.
 
-If you'll recall, in Part VII I pointed out that the conventional
+If you'll recall, in [Part VII](tutor07_lexicalscanning.md) I pointed out that the conventional
 way  to  deal  with  relops  is  to  include them in the list  of
 keywords, and let the  lexical  scanner  find  them.  But, again,
 this requires scanning throughout the expression parsing process,
@@ -2057,7 +2036,7 @@ It's easy to just treat them as special cases and handle  them in
 an ad hoc manner.
 
 The changes required affect only the code generation routines and
-procedures Relation and friends.   First, we're going to need two
+procedures `Relation` and friends.   First, we're going to need two
 more code generation routines:
 
 ```delphi
@@ -2152,10 +2131,10 @@ That's all it takes.  Now  you  can  process all the relops.  Try
 it.
 
 
-## INPUT/OUTPUT
+## Input/Output
 
 We  now  have  a complete, working language, except for one minor
-embarassment: we have no way to get data in or out.  We need some
+embarrassment: we have no way to get data in or out.  We need some
 I/O.
 
 Now, the convention these days, established in C and continued in
@@ -2168,7 +2147,7 @@ are built into the language because they are the  only  ones  for
 which  the  argument  list can have a variable number of entries.
 In C, we settle for kludges like scanf and printf, and  must pass
 the argument count to the called procedure.  In Ada and  Modula 2
-we must use the  awkward  (and SLOW!) approach of a separate call
+we must use the  awkward  (and _slow_!) approach of a separate call
 for each argument.
 
 So I think I prefer the  Pascal  approach of building the I/O in,
@@ -2199,24 +2178,24 @@ end;
 {--------------------------------------------------------------}
 ```
 
-The idea is that READ loads the value from input  to  the D0, and
-WRITE outputs it from there.
+The idea is that `READ` loads the value from input  to  the `D0`, and
+`WRITE` outputs it from there.
 
 These two procedures represent  our  first  encounter with a need
 for library procedures ... the components of a  Run  Time Library
 (RTL).    Of  course, someone (namely  us)  has  to  write  these
 routines, but they're not  part  of the compiler itself.  I won't
 even bother  showing the routines here, since these are obviously
-very much OS-dependent.   I  _WILL_  simply  say that for SK*DOS,
+very much OS-dependent.   I  _will_  simply  say that for SK*DOS,
 they  are  particularly  simple ... almost trivial.  One reason I
 won't show them here is that  you  can add all kinds of fanciness
-to the things, for  example  by prompting in READ for the inputs,
+to the things, for  example  by prompting in `READ` for the inputs,
 and by giving the user a chance to reenter a bad input.
 
 But that is really separate from compiler design, so for now I'll
-just assume that a library call TINYLIB.LIB exists.  Since we now
+just assume that a library call `TINYLIB.LIB` exists.  Since we now
 need  it  loaded,  we need to add a statement to  include  it  in
-procedure Header:
+procedure `Header`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -2230,6 +2209,7 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 That takes care of that part.  Now, we also need to recognize the
 read  and  write  commands.  We can do this by  adding  two  more
 keywords to our list:
@@ -2251,7 +2231,7 @@ const KWcode: string[NKW1] = 'xileweRWvbep';
 ```
 
 (Note how I'm using upper case codes here to avoid  conflict with
-the 'w' of WHILE.)
+the `w` of WHILE.)
 
 Next, we need procedures for processing the  read/write statement
 and its argument list:
@@ -2291,7 +2271,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Finally,  we  must  expand  procedure  Block  to  handle the  new
+Finally,  we  must  expand  procedure  `Block`  to  handle the  new
 statement types:
 
 ```delphi
@@ -2314,10 +2294,11 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
-That's all there is to it.  _NOW_ we have a language!
+
+That's all there is to it.  _Now_ we have a language!
 
 
-## CONCLUSION
+## Conclusion
 
 At this point we have TINY completely defined.  It's not much ...
 actually a toy  compiler.    TINY  has  only one data type and no
@@ -3479,5 +3460,4 @@ begin
    if Look <> CR then Abort('Unexpected data after ''.''');
 end.
 {--------------------------------------------------------------}
-
 ```

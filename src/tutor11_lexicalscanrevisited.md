@@ -1,189 +1,67 @@
-<!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
-    <head>
-        <!-- Book generated using mdBook -->
-        <meta charset="UTF-8">
-        <title>Lexical Scan Revisit - Let's build a compiler</title>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+# Part XI: Lexical Scan Revisited - 3 June 1989
 
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+## Introduction
 
-        <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
-
-        <!-- Custom theme stylesheets -->
-        
-
-        
-    </head>
-    <body class="light">
-        <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
-
-        <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
-            try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
-
-                if (theme.startsWith('"') && theme.endsWith('"')) {
-                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
-                }
-
-                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
-                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
-                }
-            } catch (e) { }
-        </script>
-
-        <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
-            var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
-        </script>
-
-        <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
-            if (document.body.clientWidth >= 1080) {
-                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
-                sidebar = sidebar || 'visible';
-            }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
-        </script>
-
-        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="about.html">About this project</a></li><li class="affix"><a href="tutor01_introduction.html">Introduction</a></li><li class="affix"><a href="tutor02_expressionparsing.html">Expression Parsing</a></li><li class="affix"><a href="tutor03_moreexpressions.html">More Expressions</a></li><li class="affix"><a href="tutor04_interpreters.html">Interpreters</a></li><li class="affix"><a href="tutor05_controlstructs.html">Control Constructs</a></li><li class="affix"><a href="tutor06_booleanexpressions.html">Boolean Expressions</a></li><li class="affix"><a href="tutor07_lexicalscanning.html">Lexical Scanning</a></li><li class="affix"><a href="tutor08_littlephilosophy.html">A Little Philosophy</a></li><li class="affix"><a href="tutor09_atopview.html">A Top View</a></li><li class="affix"><a href="tutor10_introducingtiny.html">Introducing Tiny</a></li><li class="affix"><a href="tutor11_lexicalscanrevisit.html" class="active">Lexical Scan Revisit</a></li><li class="affix"><a href="tutor12_miscellany.html">Miscellany</a></li><li class="affix"><a href="tutor13_procedures.html">Procedures</a></li><li class="affix"><a href="tutor14_types.html">Types</a></li><li class="affix"><a href="tutor15_backtothefuture.html">Back to the Future</a></li><li class="affix"><a href="tutor16_unitconstruction.html">Unit Construction</a></li></ol>
-        </nav>
-
-        <div id="page-wrapper" class="page-wrapper">
-
-            <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
-
-                        <h1 class="menu-title">Let's build a compiler</h1> 
-
-                        <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                
-                <div id="search-wrapper" class="hidden">
-                    <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
-                    </form>
-                    <div id="searchresults-outer" class="searchresults-outer hidden">
-                        <div id="searchresults-header" class="searchresults-header"></div>
-                        <ul id="searchresults">
-                        </ul>
-                    </div>
-                </div>
-                
-
-                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
-                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
-                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script>
-
-                <div id="content" class="content">
-                    <main>
-                        <a class="header" href="#part-xi-lexical-scan-revisited---3-june-1989" id="part-xi-lexical-scan-revisited---3-june-1989"><h1>Part XI: LEXICAL SCAN REVISITED - 3 June 1989</h1></a>
-<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
-<p>I've got some  good news and some bad news.  The bad news is that
+I've got some  good news and some bad news.  The bad news is that
 this installment is  not  the  one  I promised last time.  What's
-more, the one after this one won't be, either.</p>
-<p>The good news is the reason for this installment:  I've  found  a
+more, the one after this one won't be, either.
+
+The good news is the reason for this installment:  I've  found  a
 way  to simplify and improve the lexical  scanning  part  of  the
-compiler.  Let me explain.</p>
-<a class="header" href="#background" id="background"><h2>BACKGROUND</h2></a>
-<p>If  you'll remember, we talked at length  about  the  subject  of
-lexical  scanners in Part VII, and I left you with a design for a
+compiler.  Let me explain.
+
+
+## Background
+
+If  you'll remember, we talked at length  about  the  subject  of
+lexical  scanners in [Part VII](tutor07_lexicalscanning.md), and I left you with a design for a
 distributed scanner that I felt was about as simple  as  I  could
 make it ... more than most that I've  seen  elsewhere.    We used
-that idea in Part X.  The compiler structure  that  resulted  was
-simple, and it got the job done.</p>
-<p>Recently, though, I've begun  to  have  problems, and they're the
-kind that send a message that you might be doing something wrong.</p>
-<p>The  whole thing came to a head when I tried to address the issue
+that idea in [Part X](tutor10_introducingtiny.md).  The compiler structure  that  resulted  was
+simple, and it got the job done.
+
+Recently, though, I've begun  to  have  problems, and they're the
+kind that send a message that you might be doing something wrong.
+
+The  whole thing came to a head when I tried to address the issue
 of  semicolons.  Several people have asked  me  about  them,  and
 whether or not KISS will have them separating the statements.  My
-intention has been NOT to  use semicolons, simply because I don't
-like them and, as you can see, they have not proved necessary.</p>
-<p>But I know that many of you, like me, have  gotten  used to them,
+intention has been _not_ to  use semicolons, simply because I don't
+like them and, as you can see, they have not proved necessary.
+
+But I know that many of you, like me, have  gotten  used to them,
 and so  I  set  out  to write a short installment to show you how
-they could easily be added, if you were so inclined.</p>
-<p>Well, it  turned  out  that  they weren't easy to add at all.  In
-fact it was darned difficult.</p>
-<p>I guess I should have  realized that something was wrong, because
+they could easily be added, if you were so inclined.
+
+Well, it  turned  out  that  they weren't easy to add at all.  In
+fact it was darned difficult.
+
+I guess I should have  realized that something was wrong, because
 of the issue  of  newlines.    In the last couple of installments
 we've addressed that issue,  and  I've shown you how to deal with
-newlines with a  procedure called, appropriately enough, NewLine.
+newlines with a  procedure called, appropriately enough, `NewLine`.
 In  TINY  Version  1.0,  I  sprinkled calls to this procedure  in
-strategic spots in the code.</p>
-<p>It  seems  that  every time I've addressed the issue of newlines,
+strategic spots in the code.
+
+It  seems  that  every time I've addressed the issue of newlines,
 though,  I've found it to be tricky,  and  the  resulting  parser
 turned out to be quite fragile ... one addition or  deletion here
 or  there and things tended to go to pot.  Looking back on it,  I
 realize that  there  was  a  message  in  this that I just wasn't
-paying attention to.</p>
-<p>When I tried to add semicolons  on  top of the newlines, that was
+paying attention to.
+
+When I tried to add semicolons  on  top of the newlines, that was
 the last straw.   I ended up with much too complex a solution.  I
-began to realize that something fundamental had to change.</p>
-<p>So,  in  a  way this installment will cause us to backtrack a bit
+began to realize that something fundamental had to change.
+
+So,  in  a  way this installment will cause us to backtrack a bit
 and revisit the issue of scanning all over again.    Sorry  about
 that.  That's the price you pay for watching me  do  this in real
 time.  But the new version is definitely an improvement, and will
-serve us well for what is to come.</p>
-<p>As  I said, the scanner we used in Part X was about as simple  as
+serve us well for what is to come.
+
+As  I said, the scanner we used in [Part X](tutor10_introducingtiny.md) was about as simple  as
 one can get.  But anything can be improved.   The  new scanner is
 more like the classical  scanner,  and  not  as simple as before.
 But the overall  compiler  structure is even simpler than before.
@@ -192,16 +70,22 @@ think that's worth the time spent in this digression.  So in this
 installment, I'll be showing  you  the  new  structure.  No doubt
 you'll  be  happy  to  know  that, while the changes affect  many
 procedures, they aren't very profound  and so we lose very little
-of what's been done so far.</p>
-<p>Ironically, the new scanner  is  much  more conventional than the
+of what's been done so far.
+
+Ironically, the new scanner  is  much  more conventional than the
 old one, and is very much like the more generic scanner  I showed
-you  earlier  in  Part VII.  Then I started trying to get clever,
+you  earlier  in  [Part VII](tutor12_miscellany.md).  Then I started trying to get clever,
 and I almost clevered myself clean out of business.   You'd think
-one day I'd learn: K-I-S-S!</p>
-<a class="header" href="#the-problem" id="the-problem"><h2>THE PROBLEM</h2></a>
-<p>The problem begins to show  itself in procedure Block, which I've
-reproduced below:</p>
-<pre><code class="language-delphi">{--------------------------------------------------------------}
+one day I'd learn: K-I-S-S!
+
+
+## The Problem
+
+The problem begins to show  itself in procedure `Block`, which I've
+reproduced below:
+
+```delphi
+{--------------------------------------------------------------}
 { Parse and Translate a Block of Statements }
 
 procedure Block;
@@ -219,57 +103,72 @@ begin
    end;
 end;
 {--------------------------------------------------------------}
-</code></pre>
-<p>As  you   can  see,  Block  is  oriented  to  individual  program
+```
+
+As  you   can  see,  `Block`  is  oriented  to  individual  program
 statements.  At each pass through  the  loop, we know that we are
 at  the beginning of a statement.  We exit the block when we have
-scanned an END or an ELSE.</p>
-<p>But suppose that we see a semicolon instead.   The  procedure  as
-it's shown above  can't  handle that, because procedure Scan only
-expects and can only accept tokens that begin with a letter.</p>
-<p>I  tinkered  around for quite awhile to come up with a  fix.    I
+scanned an `END` or an `ELSE`.
+
+But suppose that we see a semicolon instead.   The  procedure  as
+it's shown above  can't  handle that, because procedure `Scan` only
+expects and can only accept tokens that begin with a letter.
+
+I  tinkered  around for quite awhile to come up with a  fix.    I
 found many possible approaches, but none were very satisfying.  I
-finally figured out the reason.</p>
-<p>Recall that when we started with our single-character parsers, we
+finally figured out the reason.
+
+Recall that when we started with our single-character parsers, we
 adopted a convention that the lookahead character would always be
 prefetched.    That   is,   we  would  have  the  character  that
 corresponds to our  current  position in the input stream fetched
 into the global character Look, so that we could  examine  it  as
-many  times  as  needed.    The  rule  we  adopted was that EVERY
+many  times  as  needed.    The  rule  we  adopted was that _every_
 recognizer, if it found its target token, would  advance  Look to
-the next character in the input stream.</p>
-<p>That simple and fixed convention served us very well when  we had
+the next character in the input stream.
+
+That simple and fixed convention served us very well when  we had
 single-character tokens, and it still does.  It would make  a lot
-of sense to apply the same rule to multi-character tokens.</p>
-<p>But when we got into lexical scanning, I began  to  violate  that
-simple rule.  The scanner of Part X  did  indeed  advance  to the
-next token if it found an identifier or keyword, but it DIDN'T do
+of sense to apply the same rule to multi-character tokens.
+
+But when we got into lexical scanning, I began  to  violate  that
+simple rule.  The scanner of [Part X](tutor10_introducingtiny.md)  did  indeed  advance  to the
+next token if it found an identifier or keyword, but it _didn't_ do
 that if it found a carriage return, a whitespace character, or an
-operator.</p>
-<p>Now, that sort of mixed-mode  operation gets us into deep trouble
-in procedure Block, because whether or not the  input  stream has
+operator.
+
+Now, that sort of mixed-mode  operation gets us into deep trouble
+in procedure `Block`, because whether or not the  input  stream has
 been advanced depends upon the kind of token we  encounter.    If
 it's  a keyword or the target of  an  assignment  statement,  the
-&quot;cursor,&quot; as defined by the contents of Look,  has  been advanced
-to  the next token OR to the beginning of whitespace.  If, on the
+"cursor," as defined by the contents of Look,  has  been advanced
+to  the next token `OR` to the beginning of whitespace.  If, on the
 other  hand,  the  token  is  a  semicolon,  or if we have hit  a
-carriage return, the cursor has NOT advanced.</p>
-<p>Needless to say, we can add enough logic  to  keep  us  on track.
-But it's tricky, and makes the whole parser very fragile.</p>
-<p>There's a much  better  way,  and  that's just to adopt that same
-rule that's worked so well before, to apply to TOKENS as  well as
+carriage return, the cursor has _not_ advanced.
+
+Needless to say, we can add enough logic  to  keep  us  on track.
+But it's tricky, and makes the whole parser very fragile.
+
+There's a much  better  way,  and  that's just to adopt that same
+rule that's worked so well before, to apply to _tokens_ as  well as
 single characters.  In other words, we'll prefetch tokens just as
 we've always done for  characters.   It seems so obvious once you
-think about it that way.</p>
-<p>Interestingly enough, if we do things this way  the  problem that
+think about it that way.
+
+Interestingly enough, if we do things this way  the  problem that
 we've had with newline characters goes away.  We  can  just  lump
 them in as  whitespace  characters, which means that the handling
-of  newlines  becomes  very trivial, and MUCH less prone to error
-than we've had to deal with in the past.</p>
-<a class="header" href="#the-solution" id="the-solution"><h2>THE SOLUTION</h2></a>
-<p>Let's  begin  to  fix  the  problem  by  re-introducing  the  two
-procedures:</p>
-<pre><code class="language-delphi">{--------------------------------------------------------------}
+of  newlines  becomes  very trivial, and _much_ less prone to error
+than we've had to deal with in the past.
+
+
+## The Solution
+
+Let's  begin  to  fix  the  problem  by  re-introducing  the  two
+procedures:
+
+```delphi
+{--------------------------------------------------------------}
 { Get an Identifier }
 
 procedure GetName;
@@ -300,16 +199,20 @@ begin
    until not IsDigit(Look);
 end;
 {--------------------------------------------------------------}
-</code></pre>
-<p>These two procedures are  functionally  almost  identical  to the
-ones  I  showed  you in Part VII.  They each  fetch  the  current
+```
+
+These two procedures are  functionally  almost  identical  to the
+ones  I  showed  you in [Part VII](tutor12_miscellany.md).  They each  fetch  the  current
 token, either an identifier or a number, into  the  global string
-Value.    They  also  set  the  encoded  version, Token,  to  the
+`Value`.    They  also  set  the  encoded  version, `Token`,  to  the
 appropriate code.  The input  stream is left with Look containing
-the first character NOT part of the token.</p>
-<p>We  can do the same thing  for  operators,  even  multi-character
-operators, with a procedure such as:</p>
-<pre><code class="language-delphi">{--------------------------------------------------------------}
+the first character _not_ part of the token.
+
+We  can do the same thing  for  operators,  even  multi-character
+operators, with a procedure such as:
+
+```delphi
+{--------------------------------------------------------------}
 { Get an Operator }
 
 procedure GetOp;
@@ -322,16 +225,20 @@ begin
    until IsAlpha(Look) or IsDigit(Look) or IsWhite(Look);
 end;
 {--------------------------------------------------------------}
-</code></pre>
-<p>Note  that  GetOp  returns,  as  its  encoded  token,  the  FIRST
+```
+
+Note  that  `GetOp`  returns,  as  its  encoded  token,  the  _first_
 character of the operator.  This is important,  because  it means
 that we can now use that single character to  drive  the  parser,
-instead of the lookahead character.</p>
-<p>We need to tie these  procedures together into a single procedure
+instead of the lookahead character.
+
+We need to tie these  procedures together into a single procedure
 that can handle all three  cases.  The  following  procedure will
 read any one of the token types and always leave the input stream
-advanced beyond it:</p>
-<pre><code class="language-delphi">{--------------------------------------------------------------}
+advanced beyond it:
+
+```delphi
+{--------------------------------------------------------------}
 { Get the Next Input Token }
 
 procedure Next;
@@ -342,29 +249,35 @@ begin
    else GetOp;
 end;
 {--------------------------------------------------------------}
-</code></pre>
-<p>***NOTE  that  here  I have put SkipWhite BEFORE the calls rather
+```
+
+**NOTE**  that  here  I have put `SkipWhite` _before_ the calls rather
 than after.  This means that, in general, the variable  Look will
-NOT have a meaningful value in it, and therefore  we  should  NOT
+_not_ have a meaningful value in it, and therefore  we  should  _not_
 use it as a test value for parsing, as we have been doing so far.
-That's the big departure from our normal approach.</p>
-<p>Now, remember that before I was careful not to treat the carriage
+That's the big departure from our normal approach.
+
+Now, remember that before I was careful not to treat the carriage
 return (CR) and line  feed  (LF) characters as white space.  This
-was  because,  with  SkipWhite  called  as the last thing in  the
+was  because,  with  `SkipWhite`  called  as the last thing in  the
 scanner, the encounter with  LF  would  trigger a read statement.
 If we were on the last line of the program,  we  couldn't get out
 until we input another line with a non-white  character.   That's
-why I needed the second procedure, NewLine, to handle the CRLF's.</p>
-<p>But now, with the call  to SkipWhite coming first, that's exactly
+why I needed the second procedure, `NewLine`, to handle the CRLFs.
+
+But now, with the call  to `SkipWhite` coming first, that's exactly
 the behavior we want.    The  compiler  must know there's another
-token coming or it wouldn't be calling Next.  In other words,  it
-hasn't found the terminating  END  yet.  So we're going to insist
-on more data until we find something.</p>
-<p>All this means that we can greatly simplify both the  program and
+token coming or it wouldn't be calling `Next`.  In other words,  it
+hasn't found the terminating  `END`  yet.  So we're going to insist
+on more data until we find something.
+
+All this means that we can greatly simplify both the  program and
 the concepts, by treating CR and LF as whitespace characters, and
-eliminating NewLine.  You  can  do  that  simply by modifying the
-function IsWhite:</p>
-<pre><code class="language-delphi">{--------------------------------------------------------------}
+eliminating `NewLine`.  You  can  do  that  simply by modifying the
+function `IsWhite`:
+
+```delphi
+{--------------------------------------------------------------}
 { Recognize White Space }
 
 function IsWhite(c: char): boolean;
@@ -372,11 +285,14 @@ begin
    IsWhite := c in [' ', TAB, CR, LF];
 end;
 {--------------------------------------------------------------}
-</code></pre>
-<p>We've already tried similar routines in Part VII,  but  you might
+```
+
+We've already tried similar routines in [Part VII](tutor12_miscellany.md),  but  you might
 as well try these new ones out.  Add them to a copy of the Cradle
-and call Next with the following main program:</p>
-<pre><code class="language-delphi">{--------------------------------------------------------------}
+and call `Next` with the following main program:
+
+```delphi
+{--------------------------------------------------------------}
 { Main Program }
 
 begin
@@ -387,33 +303,38 @@ begin
    until Token = '.';
 end.
 {--------------------------------------------------------------}
-</code></pre>
-<p>Compile  it and verify that you can separate  a  program  into  a
+```
+
+Compile  it and verify that you can separate  a  program  into  a
 series of tokens, and that you get the right  encoding  for  each
-token.</p>
-<p>This ALMOST works,  but  not  quite.    There  are  two potential
+token.
+
+This _almost_ works,  but  not  quite.    There  are  two potential
 problems:    First,  in KISS/TINY almost all of our operators are
-single-character operators.  The only exceptions  are  the relops</p>
-<blockquote>
-<p>=, &lt;=, and &lt;&gt;.  It seems  a  shame  to  treat  all  operators as
+single-character operators.  The only exceptions  are  the relops
+`>=`, `<=`, and `<>`.  It seems  a  shame  to  treat  all  operators as
 strings and do a  string  compare,  when  only a single character
 compare  will  almost  always  suffice.   Second, and  much  more
-important, the  thing  doesn't  WORK  when  two  operators appear
-together, as in (a+b)<em>(c+d).  Here the string following 'b' would
-be interpreted as a single operator &quot;)</em>(.&quot;</p>
-</blockquote>
-<p>It's possible to fix that problem.  For example,  we  could  just
-give GetOp a  list  of  legal  characters, and we could treat the
+important, the  thing  doesn't  _work_  when  two  operators appear
+together, as in `(a+b)*(c+d)`.  Here the string following `b` would
+be interpreted as a single operator `)*(`.
+
+It's possible to fix that problem.  For example,  we  could  just
+give `GetOp` a  list  of  legal  characters, and we could treat the
 parentheses as different operator types  than  the  others.   But
-this begins to get messy.</p>
-<p>Fortunately, there's a  better  way that solves all the problems.
+this begins to get messy.
+
+Fortunately, there's a  better  way that solves all the problems.
 Since almost  all the operators are single characters, let's just
-treat  them  that  way, and let GetOp get only one character at a
-time.  This not only simplifies GetOp, but also speeds  things up
+treat  them  that  way, and let `GetOp` get only one character at a
+time.  This not only simplifies `GetOp`, but also speeds  things up
 quite a  bit.    We  still have the problem of the relops, but we
-were treating them as special cases anyway.</p>
-<p>So here's the final version of GetOp:</p>
-<pre><code class="language-delphi">{--------------------------------------------------------------}
+were treating them as special cases anyway.
+
+So here's the final version of `GetOp`:
+
+```delphi
+{--------------------------------------------------------------}
 { Get an Operator }
 
 procedure GetOp;
@@ -424,31 +345,36 @@ begin
    GetChar;
 end;
 {--------------------------------------------------------------}
+```
 
-</code></pre>
-<p>Note that I still give the string Value a value.  If you're truly
+Note that I still give the string `Value` a value.  If you're truly
 concerned about efficiency, you could leave this out.  When we're
-expecting an operator, we will only be testing  Token  anyhow, so
+expecting an operator, we will only be testing  `Token`  anyhow, so
 the  value of the string won't matter.  But to me it seems to  be
-good practice to give the thing a value just in case.</p>
-<p>Try  this  new  version with some realistic-looking  code.    You
+good practice to give the thing a value just in case.
+
+Try  this  new  version with some realistic-looking  code.    You
 should  be  able  to  separate  any program into  its  individual
 tokens, with the  caveat  that the two-character relops will scan
 into two separate tokens.  That's OK ... we'll  parse  them  that
-way.</p>
-<p>Now, in Part VII the function of Next was combined with procedure
-Scan,  which  also  checked every identifier against  a  list  of
+way.
+
+Now, in [Part VII](tutor12_miscellany.md) the function of `Next` was combined with procedure
+`Scan`,  which  also  checked every identifier against  a  list  of
 keywords and encoded each one that was found.  As I  mentioned at
 the time, the last thing we would want  to  do  is  to use such a
 procedure in places where keywords  should not appear, such as in
 expressions.  If we  did  that, the keyword list would be scanned
-for every identifier appearing in the code.  Not good.</p>
-<p>The  right  way  to  deal  with  that  is  to simply separate the
+for every identifier appearing in the code.  Not good.
+
+The  right  way  to  deal  with  that  is  to simply separate the
 functions  of  fetching  tokens and looking for  keywords.    The
-version of Scan shown below  does NOTHING but check for keywords.
-Notice that it operates on the current token and does NOT advance
-the input stream.</p>
-<pre><code class="language-delphi">{--------------------------------------------------------------}
+version of `Scan` shown below  does _nothing_ but check for keywords.
+Notice that it operates on the current token and does _not_ advance
+the input stream.
+
+```delphi
+{--------------------------------------------------------------}
 { Scan the Current Identifier for Keywords }
 
 procedure Scan;
@@ -457,36 +383,46 @@ begin
       Token := KWcode[Lookup(Addr(KWlist), Value, NKW) + 1];
 end;
 {--------------------------------------------------------------}
-</code></pre>
-<p>There is one last detail.  In the compiler there are a few places
+```
+
+There is one last detail.  In the compiler there are a few places
 that we must  actually  check  the  string  value  of  the token.
-Mainly, this  is done to distinguish between the different END's,
+Mainly, this  is done to distinguish between the different `END`s,
 but there are a couple  of  other  places.    (I  should  note in
-passing that we could always  eliminate the need for matching END
+passing that we could always  eliminate the need for matching `END`
 characters by encoding each one  to a different character.  Right
-now we are definitely taking the lazy man's route.)</p>
-<p>The  following  version  of MatchString takes the  place  of  the
-character-oriented Match.  Note that, like Match, it DOES advance
-the input stream.</p>
-<pre><code class="language-delphi">{--------------------------------------------------------------}
+now we are definitely taking the lazy man's route.)
+
+The  following  version  of `MatchString` takes the  place  of  the
+character-oriented `Match`.  Note that, like `Match`, it _does_ advance
+the input stream.
+
+```delphi
+{--------------------------------------------------------------}
 { Match a Specific Input String }
 
 procedure MatchString(x: string);
 begin
-   if Value &lt;&gt; x then Expected('''' + x + '''');
+   if Value <> x then Expected('''' + x + '''');
    Next;
 end;
 {--------------------------------------------------------------}
-</code></pre>
-<a class="header" href="#fixing-up-the-compiler" id="fixing-up-the-compiler"><h2>FIXING UP THE COMPILER</h2></a>
-<p>Armed with these new scanner procedures, we can now begin  to fix
+```
+
+## Fixing up the Compiler
+
+Armed with these new scanner procedures, we can now begin  to fix
 the compiler to  use  them  properly.   The changes are all quite
 minor,  but  there  are quite a  few  places  where  changes  are
 necessary.  Rather than  showing  you each place, I will give you
-the general idea and then just give the finished product.</p>
-<p>First of all, the code for procedure Block doesn't change, though
-its function does:</p>
-<pre><code class="language-delphi">{--------------------------------------------------------------}
+the general idea and then just give the finished product.
+
+
+First of all, the code for procedure `Block` doesn't change, though
+its function does:
+
+```delphi
+{--------------------------------------------------------------}
 { Parse and Translate a Block of Statements }
 
 procedure Block;
@@ -504,13 +440,17 @@ begin
    end;
 end;
 {--------------------------------------------------------------}
-</code></pre>
-<p>Remember that the new version of Scan doesn't  advance  the input
+```
+
+Remember that the new version of `Scan` doesn't  advance  the input
 stream, it only  scans  for  keywords.   The input stream must be
-advanced by each procedure that Block calls.</p>
-<p>In general, we have to replace every test on Look with  a similar
-test on Token.  For example:</p>
-<pre><code class="language-delphi">{---------------------------------------------------------------}
+advanced by each procedure that `Block` calls.
+
+In general, we have to replace every test on `Look` with  a similar
+test on `Token`.  For example:
+
+```delphi
+{---------------------------------------------------------------}
 { Parse and Translate a Boolean Expression }
 
 procedure BoolExpression;
@@ -525,10 +465,13 @@ begin
    end;
 end;
 {--------------------------------------------------------------}
-</code></pre>
-<p>In procedures like Add, we don't  have  to use Match anymore.  We
-need only call Next to advance the input stream:</p>
-<pre><code class="language-delphi">{--------------------------------------------------------------}
+```
+
+In procedures like `Add`, we don't  have  to use `Match` anymore.  We
+need only call `Next` to advance the input stream:
+
+```delphi
+{--------------------------------------------------------------}
 { Recognize and Translate an Add }
 
 procedure Add;
@@ -538,10 +481,13 @@ begin
    PopAdd;
 end;
 {-------------------------------------------------------------}
-</code></pre>
-<p>Control  structures  are  actually simpler.  We just call Next to
-advance over the control keywords:</p>
-<pre><code class="language-delphi">{---------------------------------------------------------------}
+```
+
+Control  structures  are  actually simpler.  We just call `Next` to
+advance over the control keywords:
+
+```delphi
+{---------------------------------------------------------------}
 { Recognize and Translate an IF Construct }
 
 procedure Block; Forward;
@@ -566,56 +512,74 @@ begin
    MatchString('ENDIF');
 end;
 {--------------------------------------------------------------}
-</code></pre>
-<p>That's about the extent of the REQUIRED changes.  In  the listing
+```
+
+That's about the extent of the _required_ changes.  In  the listing
 of TINY  Version  1.1  below,  I've  also  made a number of other
-&quot;improvements&quot; that  aren't really required.  Let me explain them
-briefly:</p>
-<p>(1)  I've deleted the two procedures Prog and Main, and combined
-their functions into the main program.  They didn't seem to
-add  to program clarity ... in fact  they  seemed  to  just
-muddy things up a little.</p>
-<p>(2)  I've  deleted  the  keywords  PROGRAM  and  BEGIN  from the
-keyword list.  Each  one  only occurs in one place, so it's
-not necessary to search for it.</p>
-<p>(3)  Having been  bitten  by  an  overdose  of  cleverness, I've
-reminded myself that TINY  is  supposed  to be a minimalist
-program.  Therefore I've  replaced  the  fancy  handling of
-unary minus with the dumbest one I could think of.  A giant
-step backwards in code quality, but a  great simplification
-of the compiler.  KISS is the right place to use  the other
-version.</p>
-<p>(4)  I've added some  error-checking routines such as CheckTable
-and CheckDup, and  replaced  in-line code by calls to them.
-This cleans up a number of routines.</p>
-<p>(5)  I've  taken  the  error  checking  out  of  code generation
-routines  like Store, and put it in  the  parser  where  it
-belongs.  See Assignment, for example.</p>
-<p>(6)  There was an error in InTable and Locate  that  caused them
-to search all locations  instead  of  only those with valid
-data  in them.  They now search only  valid  cells.    This
-allows us to eliminate  the  initialization  of  the symbol
-table, which was done in Init.</p>
-<p>(7)  Procedure AddEntry now has two  arguments,  which  helps to
-make things a bit more modular.</p>
-<p>(8)  I've cleaned up the  code  for  the relational operators by
-the addition of the  new  procedures  CompareExpression and
-NextExpression.</p>
-<p>(9)  I fixed an error in the Read routine ... the  earlier value
-did not check for a valid variable name.</p>
-<a class="header" href="#conclusion" id="conclusion"><h2>CONCLUSION</h2></a>
-<p>The resulting compiler for  TINY  is given below.  Other than the
-removal  of  the  keyword PROGRAM, it parses the same language as
+"improvements" that  aren't really required.  Let me explain them
+briefly:
+
+1. I've deleted the two procedures `Prog` and `Main`, and combined
+   their functions into the main program.  They didn't seem to
+   add  to program clarity ... in fact  they  seemed  to  just
+   muddy things up a little.
+
+2. I've  deleted  the  keywords  `PROGRAM`  and  `BEGIN`  from the
+   keyword list.  Each  one  only occurs in one place, so it's
+   not necessary to search for it.
+
+3. Having been  bitten  by  an  overdose  of  cleverness, I've
+   reminded myself that TINY  is  supposed  to be a minimalist
+   program.  Therefore I've  replaced  the  fancy  handling of
+   unary minus with the dumbest one I could think of.  A giant
+   step backwards in code quality, but a  great simplification
+   of the compiler.  KISS is the right place to use  the other
+   version.
+
+4. I've added some  error-checking routines such as `CheckTable`
+   and `CheckDup`, and  replaced  in-line code by calls to them.
+   This cleans up a number of routines.
+
+5. I've  taken  the  error  checking  out  of  code generation
+   routines  like `Store`, and put it in  the  parser  where  it
+   belongs.  See `Assignment`, for example.
+
+6. There was an error in `InTable` and `Locate`  that  caused them
+   to search all locations  instead  of  only those with valid
+   data  in them.  They now search only  valid  cells.    This
+   allows us to eliminate  the  initialization  of  the symbol
+   table, which was done in `Init`.
+
+7. Procedure `AddEntry` now has two  arguments,  which  helps to
+   make things a bit more modular.
+
+8. I've cleaned up the  code  for  the relational operators by
+   the addition of the  new  procedures  `CompareExpression` and
+   `NextExpression`.
+
+9. I fixed an error in the `Read` routine ... the  earlier value
+   did not check for a valid variable name.
+
+
+## Conclusion
+
+The resulting compiler for  TINY  is given below.  Other than the
+removal  of  the  keyword `PROGRAM`, it parses the same language as
 before.    It's  just  a  bit cleaner, and more importantly  it's
-considerably more robust.  I feel good about it.</p>
-<p>The next installment will be another  digression:  the discussion
+considerably more robust.  I feel good about it.
+
+The [next installment](tutor12_miscellany.md) will be another  digression:  the discussion
 of  semicolons  and  such that got me into this mess in the first
-place.  THEN we'll press on  into  procedures and types.  Hang in
+place.  _Then_ we'll press on  into  procedures and types.  Hang in
 there with me.  The addition of those features will go a long way
-towards removing KISS from  the  &quot;toy  language&quot; category.  We're
-getting very close to being able to write a serious compiler.</p>
-<a class="header" href="#tiny-version-11" id="tiny-version-11"><h2>TINY VERSION 1.1</h2></a>
-<pre><code class="language-delphi">{--------------------------------------------------------------}
+towards removing KISS from  the  "toy  language" category.  We're
+getting very close to being able to write a serious compiler.
+
+
+## TINY Version 1.1
+
+```delphi
+{--------------------------------------------------------------}
 program Tiny11;
 
 {--------------------------------------------------------------}
@@ -725,7 +689,7 @@ end;
 
 procedure CheckIdent;
 begin
-   if Token &lt;&gt; 'x' then Expected('Identifier');
+   if Token <> 'x' then Expected('Identifier');
 end;
 
 
@@ -788,7 +752,7 @@ end;
 
 function IsRelop(c: char): boolean;
 begin
-   IsRelop := c in ['=', '#', '&lt;', '&gt;'];
+   IsRelop := c in ['=', '#', '<', '>'];
 end;
 
 
@@ -820,7 +784,7 @@ var i: integer;
 begin
    found := false;
    i := n;
-   while (i &gt; 0) and not found do
+   while (i > 0) and not found do
       if s = T^[i] then
          found := true
       else
@@ -844,7 +808,7 @@ end;
 
 function InTable(n: Symbol): Boolean;
 begin
-   InTable := Lookup(@ST, n, NEntry) &lt;&gt; 0;
+   InTable := Lookup(@ST, n, NEntry) <> 0;
 end;
 
 
@@ -954,7 +918,7 @@ end;
 
 procedure MatchString(x: string);
 begin
-   if Value &lt;&gt; x then Expected('''' + x + '''');
+   if Value <> x then Expected('''' + x + '''');
    Next;
 end;
 
@@ -1152,7 +1116,7 @@ end;
 
 
 {---------------------------------------------------------------}
-{ Set D0 If Compare was &gt; }
+{ Set D0 If Compare was > }
 
 procedure SetGreater;
 begin
@@ -1162,7 +1126,7 @@ end;
 
 
 {---------------------------------------------------------------}
-{ Set D0 If Compare was &lt; }
+{ Set D0 If Compare was < }
 
 procedure SetLess;
 begin
@@ -1172,7 +1136,7 @@ end;
 
 
 {---------------------------------------------------------------}
-{ Set D0 If Compare was &lt;= }
+{ Set D0 If Compare was <= }
 
 procedure SetLessOrEqual;
 begin
@@ -1182,7 +1146,7 @@ end;
 
 
 {---------------------------------------------------------------}
-{ Set D0 If Compare was &gt;= }
+{ Set D0 If Compare was >= }
 
 procedure SetGreaterOrEqual;
 begin
@@ -1398,7 +1362,7 @@ end;
 
 
 {---------------------------------------------------------------}
-{ Recognize and Translate a Relational &quot;Equals&quot; }
+{ Recognize and Translate a Relational "Equals" }
 
 procedure Equal;
 begin
@@ -1408,7 +1372,7 @@ end;
 
 
 {---------------------------------------------------------------}
-{ Recognize and Translate a Relational &quot;Less Than or Equal&quot; }
+{ Recognize and Translate a Relational "Less Than or Equal" }
 
 procedure LessOrEqual;
 begin
@@ -1418,7 +1382,7 @@ end;
 
 
 {---------------------------------------------------------------}
-{ Recognize and Translate a Relational &quot;Not Equals&quot; }
+{ Recognize and Translate a Relational "Not Equals" }
 
 procedure NotEqual;
 begin
@@ -1428,14 +1392,14 @@ end;
 
 
 {---------------------------------------------------------------}
-{ Recognize and Translate a Relational &quot;Less Than&quot; }
+{ Recognize and Translate a Relational "Less Than" }
 
 procedure Less;
 begin
    Next;
    case Token of
      '=': LessOrEqual;
-     '&gt;': NotEqual;
+     '>': NotEqual;
    else begin
            CompareExpression;
            SetLess;
@@ -1445,7 +1409,7 @@ end;
 
 
 {---------------------------------------------------------------}
-{ Recognize and Translate a Relational &quot;Greater Than&quot; }
+{ Recognize and Translate a Relational "Greater Than" }
 
 procedure Greater;
 begin
@@ -1472,8 +1436,8 @@ begin
       Push;
       case Token of
        '=': Equal;
-       '&lt;': Less;
-       '&gt;': Greater;
+       '<': Less;
+       '>': Greater;
       end;
    end;
 end;
@@ -1500,7 +1464,7 @@ end;
 procedure BoolTerm;
 begin
    NotFactor;
-   while Token = '&amp;' do begin
+   while Token = '&' do begin
       Push;
       Next;
       NotFactor;
@@ -1678,7 +1642,7 @@ end;
 procedure Alloc;
 begin
    Next;
-   if Token &lt;&gt; 'x' then Expected('Variable Name');
+   if Token <> 'x' then Expected('Variable Name');
    CheckDup(Value);
    AddEntry(Value, 'v');
    Allocate(Value, '0');
@@ -1724,80 +1688,4 @@ begin
    Epilog;
 end.
 {--------------------------------------------------------------}
-</code></pre>
-
-                    </main>
-
-                    <nav class="nav-wrapper" aria-label="Page navigation">
-                        <!-- Mobile navigation buttons -->
-                        
-                            <a rel="prev" href="tutor10_introducingtiny.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        
-
-                        
-                            <a rel="next" href="tutor12_miscellany.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        
-
-                        <div style="clear: both"></div>
-                    </nav>
-                </div>
-            </div>
-
-            <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a href="tutor10_introducingtiny.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                
-
-                
-                    <a href="tutor12_miscellany.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                
-            </nav>
-
-        </div>
-
-        
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            var socket = new WebSocket("ws://localhost:3001");
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload(true); // force reload from server (not from cache)
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
-        
-
-        
-
-        
-
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
-
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
-
-        <!-- Custom JS scripts -->
-        
-
-        
-
-    </body>
-</html>
+```

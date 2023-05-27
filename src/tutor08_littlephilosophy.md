@@ -1,6 +1,7 @@
-# Part VIII: A LITTLE PHILOSOPHY - 2 April 1989
+# Part VIII: A Little Philosophy - 2 April 1989
 
-## INTRODUCTION
+
+## Introduction
 
 This is going to be a  different  kind of session than the others
 in our series on  parsing  and  compiler  construction.  For this
@@ -10,7 +11,7 @@ Mercifully, it will be a short  session,  and then we can take up
 where we left off, hopefully with renewed vigor.
 
 When  I  was  in college, I found that I could  always  follow  a
-prof's lecture a lot better if I knew where he was going with it.
+prof's lecture a lot better if I knew where they were going with it.
 I'll bet you were the same.
 
 So I thought maybe it's about  time  I told you where we're going
@@ -19,7 +20,7 @@ general what all  this  is  about.   I'll also share some general
 thoughts concerning the usefulness of what we've been doing.
 
 
-## THE ROAD HOME
+## The Road Home
 
 So far, we've  covered  the parsing and translation of arithmetic
 expressions,  Boolean expressions, and combinations connected  by
@@ -28,8 +29,8 @@ constructs.    In  all of this we've leaned heavily on the use of
 top-down, recursive  descent  parsing,  BNF  definitions  of  the
 syntax, and direct generation of assembly-language code.  We also
 learned the value of  such  tricks  as single-character tokens to
-help  us  see  the  forest  through  the  trees.    In  the  last
-installment  we dealt with lexical scanning,  and  I  showed  you
+help  us  see  the  forest  through  the  trees.    In  the  [last installment](tutor07_lexicalscanning.md)
+we dealt with lexical scanning,  and  I  showed  you
 simple but powerful ways to remove the single-character barriers.
 
 Throughout the whole study, I've emphasized  the  KISS philosophy
@@ -57,21 +58,14 @@ define that language.
 To round out  the  series,  we  still  have a few items to cover.
 These include:
 
-   - Procedure calls, with and without parameters
-
-   - Local and global variables
-
-   - Basic types, such as character and integer types
-
-   - Arrays
-
-   - Strings
-
-   - User-defined types and structures
-
-   - Tree-structured parsers and intermediate languages
-
-   - Optimization
+- Procedure calls, with and without parameters
+- Local and global variables
+- Basic types, such as character and integer types
+- Arrays
+- Strings
+- User-defined types and structures
+- Tree-structured parsers and intermediate languages
+- Optimization
 
 These will all be  covered  in  future  installments.  When we're
 finished, you'll have all the tools you need to design  and build
@@ -86,17 +80,17 @@ These constructs are going  to  be part of the languages I build.
 I  have  three  languages in mind at this point, two of which you
 will see in installments to come:
 
-TINY - A  minimal,  but  usable  language  on the order  of  Tiny
-       BASIC or Tiny C.  It won't be very practical, but  it will
-       have enough power to let you write and  run  real programs
-       that do something worthwhile.
+- TINY: A  minimal,  but  usable  language  on the order  of  Tiny
+  BASIC or Tiny C.  It won't be very practical, but  it will
+  have enough power to let you write and  run  real programs
+  that do something worthwhile.
 
-KISS - The  language  I'm  building for my  own  use.    KISS  is
-       intended to be  a  systems programming language.  It won't
-       have strong typing  or  fancy data structures, but it will
-       support most of  the  things  I  want to do with a higher-
-       order language (HOL), except perhaps writing compilers.
-                              
+- KISS: The  language  I'm  building for my  own  use.    KISS  is
+  intended to be  a  systems programming language.  It won't
+  have strong typing  or  fancy data structures, but it will
+  support most of  the  things  I  want to do with a higher-order
+  language (HOL), except perhaps writing compilers.
+
 I've also  been  toying  for  years  with  the idea of a HOL-like
 assembler,  with  structured  control  constructs   and  HOL-like
 assignment statements.  That, in  fact, was the impetus behind my
@@ -107,13 +101,7 @@ of the CPU instructions.    As you know, assembly language can be
 bizarre  and  irregular  in the extreme, and a language that maps
 one-for-one onto it can be a real challenge.  Still,  I've always
 felt that the syntax used  in conventional assemblers is dumb ...
-why is
-
-     `MOVE.L A,B`
-
-better, or easier to translate, than
-
-     `B=A ?`
+why is `MOVE.L A,B` better, or easier to translate, than `B=A`?
 
 I  think  it  would  be  an  interesting  exercise to  develop  a
 "compiler" that  would give the programmer complete access to and
@@ -133,10 +121,10 @@ ahead in most  of the areas that we will cover.  I have some good
 news:  Things  never  get  much  harder than they've been so far.
 It's  possible  to  build a complete, working compiler for a real
 language, using nothing  but  the same kinds of techniques you've
-learned so far.  And THAT brings up some interesting questions.
+learned so far.  And _that_ brings up some interesting questions.
 
 
-## WHY IS IT SO SIMPLE?
+## Why Is It So Simple?
 
 Before embarking  on this series, I always thought that compilers
 were just naturally complex computer  programs  ...  the ultimate
@@ -150,10 +138,8 @@ series,  I  wasn't  sure how far we would be able  to  go  before
 things got too complex to deal with in the ways  we  have so far.
 But at this point I've already  been  down the road far enough to
 see the end of it.  Guess what?
-                              
 
-                     `THERE ARE NO HARD PARTS!`
-
+THERE ARE NO HARD PARTS!
 
 Then, I thought maybe it was because we were not  generating very
 good object  code.    Those  of  you  who have been following the
@@ -166,7 +152,7 @@ To  some  extent,  that one is true.  In particular, my first few
 efforts at trying to improve efficiency introduced  complexity at
 an alarming rate.  But since then I've been tinkering around with
 some simple optimizations and I've found some that result in very
-respectable code quality, WITHOUT adding a lot of complexity.
+respectable code quality, _without_ adding a lot of complexity.
 
 Finally, I thought that  perhaps  the  saving  grace was the "toy
 compiler" nature of the study.   I  have made no pretense that we
@@ -177,10 +163,9 @@ thing the differences are starting to fade away.
 Just  to make sure you get the message here, let me state it flat
 out:
 
-   USING THE TECHNIQUES WE'VE USED  HERE,  IT  IS  POSSIBLE TO
-   BUILD A PRODUCTION-QUALITY, WORKING COMPILER WITHOUT ADDING
-   A LOT OF COMPLEXITY TO WHAT WE'VE ALREADY DONE.
-
+USING THE TECHNIQUES WE'VE USED  HERE,  IT  IS  POSSIBLE TO
+BUILD A PRODUCTION-QUALITY, WORKING COMPILER WITHOUT ADDING
+A LOT OF COMPLEXITY TO WHAT WE'VE ALREADY DONE.
 
 Since  the series began I've received  some  comments  from  you.
 Most of them echo my own thoughts:  "This is easy!    Why  do the
@@ -227,191 +212,184 @@ simplicity.
 Here are the areas that I think have  led  to  complexity  in the
 past:
 
-  -  Limited RAM Forcing Multiple Passes
+- **Limited RAM Forcing Multiple Passes**
 
-     I  just  read  "Brinch  Hansen  on  Pascal   Compilers"  (an
-     excellent book, BTW).  He  developed a Pascal compiler for a
-     PC, but he started the effort in 1981 with a 64K system, and
-     so almost every design decision  he made was aimed at making
-     the compiler fit  into  RAM.    To do this, his compiler has
-     three passes, one of which is the lexical scanner.  There is
-     no way he could, for  example, use the distributed scanner I
-     introduced  in  the last installment,  because  the  program
-     structure wouldn't allow it.  He also required  not  one but
-     two intermediate  languages,  to  provide  the communication
-     between phases.
+  I  just  read  "Brinch  Hansen  on  Pascal   Compilers"  (an
+  excellent book, BTW).  He  developed a Pascal compiler for a
+  PC, but he started the effort in 1981 with a 64K system, and
+  so almost every design decision  he made was aimed at making
+  the compiler fit  into  RAM.    To do this, their compiler has
+  three passes, one of which is the lexical scanner.  There is
+  no way he could, for  example, use the distributed scanner I
+  introduced  in  the [last installment](tutor07_lexicalscanning.md),  because  the  program
+  structure wouldn't allow it.  He also required  not  one but
+  two intermediate  languages,  to  provide  the communication
+  between phases.
 
-     All the early compiler writers  had to deal with this issue:
-     Break the compiler up into enough parts so that it  will fit
-     in memory.  When  you  have multiple passes, you need to add
-     data structures to support the  information  that  each pass
-     leaves behind for the next.   That adds complexity, and ends
-     up driving the  design.    Lee's  book,  "The  Anatomy  of a
-     Compiler,"  mentions a FORTRAN compiler developed for an IBM
-     1401.  It had no fewer than 63 separate passes!  Needless to
-     say,  in a compiler like this  the  separation  into  phases
-     would dominate the design.
+  All the early compiler writers  had to deal with this issue:
+  Break the compiler up into enough parts so that it  will fit
+  in memory.  When  you  have multiple passes, you need to add
+  data structures to support the  information  that  each pass
+  leaves behind for the next.   That adds complexity, and ends
+  up driving the  design.    Lee's  book,  "The  Anatomy  of a
+  Compiler,"  mentions a FORTRAN compiler developed for an IBM
+  1401.  It had no fewer than 63 separate passes!  Needless to
+  say,  in a compiler like this  the  separation  into  phases
+  would dominate the design.
 
-     Even in  situations  where  RAM  is  plentiful,  people have
-     tended  to  use  the same techniques because  that  is  what
-     they're familiar with.   It  wasn't  until Turbo Pascal came
-     along that we found how simple a compiler could  be  if  you
-     started with different assumptions.
+  Even in  situations  where  RAM  is  plentiful,  people have
+  tended  to  use  the same techniques because  that  is  what
+  they're familiar with.   It  wasn't  until Turbo Pascal came
+  along that we found how simple a compiler could  be  if  you
+  started with different assumptions.
 
+- **Batch Processing**
 
-  -  Batch Processing
-                              
-     In the early days, batch  processing was the only choice ...
-     there was no interactive computing.   Even  today, compilers
-     run in essentially batch mode.
+  In the early days, batch  processing was the only choice ...
+  there was no interactive computing.   Even  today, compilers
+  run in essentially batch mode.
 
-     In a mainframe compiler as  well  as  many  micro compilers,
-     considerable effort is expended on error recovery ... it can
-     consume as much as 30-40%  of  the  compiler  and completely
-     drive the design.  The idea is to avoid halting on the first
-     error, but rather to keep going at all costs,  so  that  you
-     can  tell  the  programmer about as many errors in the whole
-     program as possible.
+  In a mainframe compiler as  well  as  many  micro compilers,
+  considerable effort is expended on error recovery ... it can
+  consume as much as 30-40%  of  the  compiler  and completely
+  drive the design.  The idea is to avoid halting on the first
+  error, but rather to keep going at all costs,  so  that  you
+  can  tell  the  programmer about as many errors in the whole
+  program as possible.
 
-     All of that harks back to the days of the  early mainframes,
-     where turnaround time was measured  in hours or days, and it
-     was important to squeeze every last ounce of information out
-     of each run.
+  All of that harks back to the days of the  early mainframes,
+  where turnaround time was measured  in hours or days, and it
+  was important to squeeze every last ounce of information out
+  of each run.
 
-     In this series, I've been very careful to avoid the issue of
-     error recovery, and instead our compiler  simply  halts with
-     an error message on  the  first error.  I will frankly admit
-     that it was mostly because I wanted to take the easy way out
-     and keep things simple.   But  this  approach,  pioneered by
-     Borland in Turbo Pascal, also has a lot going for it anyway.
-     Aside from keeping the  compiler  simple,  it also fits very
-     well  with   the  idea  of  an  interactive  system.    When
-     compilation is  fast, and especially when you have an editor
-     such as Borland's that  will  take you right to the point of
-     the error, then it makes a  lot  of sense to stop there, and
-     just restart the compilation after the error is fixed.
+  In this series, I've been very careful to avoid the issue of
+  error recovery, and instead our compiler  simply  halts with
+  an error message on  the  first error.  I will frankly admit
+  that it was mostly because I wanted to take the easy way out
+  and keep things simple.   But  this  approach,  pioneered by
+  Borland in Turbo Pascal, also has a lot going for it anyway.
+  Aside from keeping the  compiler  simple,  it also fits very
+  well  with   the  idea  of  an  interactive  system.    When
+  compilation is  fast, and especially when you have an editor
+  such as Borland's that  will  take you right to the point of
+  the error, then it makes a  lot  of sense to stop there, and
+  just restart the compilation after the error is fixed.
 
+- **Large Programs**
 
-  -  Large Programs
+  Early compilers were designed to handle  large  programs ...
+  essentially infinite ones.    In those days there was little
+  choice;  the  idea  of  subroutine  libraries  and  separate
+  compilation  were  still  in  the  future.      Again,  this
+  assumption led to  multi-pass designs and intermediate files
+  to hold the results of partial processing.
 
-     Early compilers were designed to handle  large  programs ...
-     essentially infinite ones.    In those days there was little
-     choice;  the  idea  of  subroutine  libraries  and  separate
-     compilation  were  still  in  the  future.      Again,  this
-     assumption led to  multi-pass designs and intermediate files
-     to hold the results of partial processing.
+  Brinch Hansen's  stated goal was that the compiler should be
+  able to compile itself.   Again, because of his limited RAM,
+  this drove him to a multi-pass design.  He needed  as little
+  resident compiler code as possible,  so  that  the necessary
+  tables and other data structures would fit into RAM.
 
-     Brinch Hansen's  stated goal was that the compiler should be
-     able to compile itself.   Again, because of his limited RAM,
-     this drove him to a multi-pass design.  He needed  as little
-     resident compiler code as possible,  so  that  the necessary
-     tables and other data structures would fit into RAM.
+  I haven't stated this one yet, because there  hasn't  been a
+  need  ... we've always just read and  written  the  data  as
+  streams, anyway.  But  for  the  record,  my plan has always
+  been that, in  a  production compiler, the source and object
+  data should all coexist  in  RAM with the compiler, a la the
+  early Turbo Pascals.  That's why I've been  careful  to keep
+  routines like `GetChar`  and  `Emit`  as  separate  routines, in
+  spite of their small size.   It  will be easy to change them
+  to read to and write from memory.
 
-     I haven't stated this one yet, because there  hasn't  been a
-     need  ... we've always just read and  written  the  data  as
-     streams, anyway.  But  for  the  record,  my plan has always
-     been that, in  a  production compiler, the source and object
-     data should all coexist  in  RAM with the compiler, a la the
-     early Turbo Pascals.  That's why I've been  careful  to keep
-     routines like GetChar  and  Emit  as  separate  routines, in
-     spite of their small size.   It  will be easy to change them
-     to read to and write from memory.
+- **Emphasis on Efficiency**
 
+  John  Backus has stated that, when  he  and  his  colleagues
+  developed the original FORTRAN compiler, they _knew_ that they
+  had to make it produce tight code.  In those days, there was
+  a strong sentiment against HOLs  and  in  favor  of assembly
+  language, and  efficiency was the reason.  If FORTRAN didn't
+  produce very good  code  by  assembly  standards,  the users
+  would simply refuse to use it.  For the record, that FORTRAN
+  compiler turned out to  be  one  of  the most efficient ever
+  built, in terms of code quality.  But it _was_ complex!
 
-  -  Emphasis on Efficiency
+  Today,  we have CPU power and RAM size  to  spare,  so  code
+  efficiency is not  so  much  of  an  issue.    By studiously
+  ignoring this issue, we  have  indeed  been  able to Keep It
+  Simple.    Ironically,  though, as I have said, I have found
+  some optimizations that we can  add  to  the  basic compiler
+  structure, without having to add a lot of complexity.  So in
+  this  case we get to have our cake and eat it too:  we  will
+  end up with reasonable code quality, anyway.
 
-     John  Backus has stated that, when  he  and  his  colleagues
-     developed the original FORTRAN compiler, they KNEW that they
-     had to make it produce tight code.  In those days, there was
-     a strong sentiment against HOLs  and  in  favor  of assembly
-     language, and  efficiency was the reason.  If FORTRAN didn't
-     produce very good  code  by  assembly  standards,  the users
-     would simply refuse to use it.  For the record, that FORTRAN
-     compiler turned out to  be  one  of  the most efficient ever
-     built, in terms of code quality.  But it WAS complex!
+- **Limited Instruction Sets**
 
-     Today,  we have CPU power and RAM size  to  spare,  so  code
-     efficiency is not  so  much  of  an  issue.    By studiously
-     ignoring this issue, we  have  indeed  been  able to Keep It
-     Simple.    Ironically,  though, as I have said, I have found
-     some optimizations that we can  add  to  the  basic compiler
-     structure, without having to add a lot of complexity.  So in
-     this  case we get to have our cake and eat it too:  we  will
-     end up with reasonable code quality, anyway.
+  The early computers had primitive instruction sets.   Things
+  that  we  take  for granted, such as  stack  operations  and
+  indirect addressing, came only with great difficulty.
 
+  Example: In most compiler designs, there is a data structure
+  called the literal pool.  The compiler  typically identifies
+  all literals used in the program, and collects  them  into a
+  single data structure.    All references to the literals are
+  done  indirectly  to  this  pool.    At  the   end   of  the
+  compilation, the  compiler  issues  commands  to  set  aside
+  storage and initialize the literal pool.
 
-  -  Limited Instruction Sets
+  We haven't had to address that  issue  at all.  When we want
+  to load a literal, we just do it, in line, as in
+  `MOVE #3,D0`.
 
-     The early computers had primitive instruction sets.   Things
-     that  we  take  for granted, such as  stack  operations  and
-     indirect addressing, came only with great difficulty.
+  There is something to be said for the use of a literal pool,
+  particularly on a machine like  the 8086 where data and code
+  can  be separated.  Still, the whole  thing  adds  a  fairly
+  large amount of complexity with little in return.
 
-     Example: In most compiler designs, there is a data structure
-     called the literal pool.  The compiler  typically identifies
-     all literals used in the program, and collects  them  into a
-     single data structure.    All references to the literals are
-     done  indirectly  to  this  pool.    At  the   end   of  the
-     compilation, the  compiler  issues  commands  to  set  aside
-     storage and initialize the literal pool.
+  Of course, without the stack we would be lost.  In  a micro,
+  both  subroutine calls and temporary storage depend  heavily
+  on the stack, and  we  have used it even more than necessary
+  to ease expression parsing.
 
-     We haven't had to address that  issue  at all.  When we want
-     to load a literal, we just do it, in line, as in
+- **Desire for Generality**
 
-          `MOVE #3,D0`
+  Much of the content of the typical compiler text is taken up
+  with issues we haven't addressed here at all ... things like
+  automated  translation  of  grammars,  or generation of LALR
+  parse tables.  This is not simply because  the  authors want
+  to impress you.  There are good, practical  reasons  why the
+  subjects are there.
 
-     There is something to be said for the use of a literal pool,
-     particularly on a machine like  the 8086 where data and code
-     can  be separated.  Still, the whole  thing  adds  a  fairly
-     large amount of complexity with little in return.
+  We have been concentrating on the use of a recursive-descent
+  parser to parse a  deterministic  grammar,  i.e.,  a grammar
+  that is not ambiguous and, therefore, can be parsed with one
+  level of lookahead.  I haven't made much of this limitation,
+  but  the  fact  is  that  this represents a small subset  of
+  possible grammars.  In fact,  there is an infinite number of
+  grammars that we can't parse using our techniques.    The LR
+  technique is a more powerful one, and can deal with grammars
+  that we can't.
 
-     Of course, without the stack we would be lost.  In  a micro,
-     both  subroutine calls and temporary storage depend  heavily
-     on the stack, and  we  have used it even more than necessary
-     to ease expression parsing.
+  In compiler theory, it's important  to know how to deal with
+  these  other  grammars,  and  how  to  transform  them  into
+  grammars  that  are  easier to deal with.  For example, many
+  (but not all) ambiguous  grammars  can  be  transformed into
+  unambiguous ones.  The way to do this is not always obvious,
+  though, and so many people  have  devoted  years  to develop
+  ways to transform them automatically.
 
+  In practice, these  issues  turn out to be considerably less
+  important.  Modern languages tend  to be designed to be easy
+  to parse, anyway.   That  was a key motivation in the design
+  of Pascal.   Sure,  there are pathological grammars that you
+  would be hard pressed to write unambiguous BNF  for,  but in
+  the  real  world  the best answer is probably to avoid those
+  grammars!
 
-  -  Desire for Generality
-
-     Much of the content of the typical compiler text is taken up
-     with issues we haven't addressed here at all ... things like
-     automated  translation  of  grammars,  or generation of LALR
-     parse tables.  This is not simply because  the  authors want
-     to impress you.  There are good, practical  reasons  why the
-     subjects are there.
-
-     We have been concentrating on the use of a recursive-descent
-     parser to parse a  deterministic  grammar,  i.e.,  a grammar
-     that is not ambiguous and, therefore, can be parsed with one
-     level of lookahead.  I haven't made much of this limitation,
-     but  the  fact  is  that  this represents a small subset  of
-     possible grammars.  In fact,  there is an infinite number of
-     grammars that we can't parse using our techniques.    The LR
-     technique is a more powerful one, and can deal with grammars
-     that we can't.
-
-     In compiler theory, it's important  to know how to deal with
-     these  other  grammars,  and  how  to  transform  them  into
-     grammars  that  are  easier to deal with.  For example, many
-     (but not all) ambiguous  grammars  can  be  transformed into
-     unambiguous ones.  The way to do this is not always obvious,
-     though, and so many people  have  devoted  years  to develop
-     ways to transform them automatically.
-
-     In practice, these  issues  turn out to be considerably less
-     important.  Modern languages tend  to be designed to be easy
-     to parse, anyway.   That  was a key motivation in the design
-     of Pascal.   Sure,  there are pathological grammars that you
-     would be hard pressed to write unambiguous BNF  for,  but in
-     the  real  world  the best answer is probably to avoid those
-     grammars!
-
-     In  our  case,  of course, we have sneakily let the language
-     evolve  as  we  go, so we haven't painted ourselves into any
-     corners here.  You may not always have that luxury.   Still,
-     with a little  care  you  should  be able to keep the parser
-     simple without having to resort to automatic  translation of
-     the grammar.
-
+  In  our  case,  of course, we have sneakily let the language
+  evolve  as  we  go, so we haven't painted ourselves into any
+  corners here.  You may not always have that luxury.   Still,
+  with a little  care  you  should  be able to keep the parser
+  simple without having to resort to automatic  translation of
+  the grammar.
 
 We have taken  a  vastly  different  approach in this series.  We
 started with a clean sheet  of  paper,  and  developed techniques
@@ -419,7 +397,7 @@ that work in the context that  we  are in; that is, a single-user
 PC  with  rather  ample CPU power and RAM space.  We have limited
 ourselves to reasonable grammars that  are easy to parse, we have
 used the instruction set of the CPU to advantage, and we have not
-concerned ourselves with efficiency.  THAT's why it's been easy.
+concerned ourselves with efficiency.  _That_'s why it's been easy.
 
 Does this mean that we are forever doomed  to  be  able  to build
 only toy compilers?   No, I don't think so.  As I've said, we can
@@ -441,7 +419,7 @@ conditions, and weren't optimum  structures  for  the  problem at
 hand.
 
 
-## CONCLUSION
+## Conclusion
 
 Anyway, that's my arm-waving  guess  as to how we've been able to
 keep things simple.  We started with something simple and  let it
@@ -452,7 +430,7 @@ We're going to  press on with this.  I've given you a list of the
 areas  we'll  be  covering in future installments.    With  those
 installments, you  should  be  able  to  build  complete, working
 compilers for just about any occasion, and build them simply.  If
-you REALLY want to build production-quality compilers,  you'll be
+you _really_ want to build production-quality compilers,  you'll be
 able to do that, too.
 
 For those of you who are chafing at the bit for more parser code,

@@ -1,7 +1,7 @@
-# Part XII: MISCELLANY - 5 June 1989
+# Part XII: Miscellany - 5 June 1989
 
 
-## INTRODUCTION
+## Introduction
 
 This installment is another one  of  those  excursions  into side
 alleys  that  don't  seem to fit  into  the  mainstream  of  this
@@ -24,7 +24,7 @@ without being  bothered by that nagging feeling that something is
 missing, we'll address such issues here.
 
 
-## SEMICOLONS
+## Semicolons
 
 Ever since the introduction of Algol, semicolons have been a part
 of  almost every modern language.  We've all  used  them  to  the
@@ -41,7 +41,7 @@ Pascal, and since the use of semicolons in Pascal is particularly
 tricky,  that one little character is still  by  far  my  biggest
 source of errors.
 
-When  I  began  developing  KISS,  I resolved to  question  EVERY
+When  I  began  developing  KISS,  I resolved to  question  _every_
 construct in other languages, and to try to avoid the most common
 problems that occur with them.  That puts the semicolon very high
 on my hit list.
@@ -69,27 +69,20 @@ When the fathers  of  Algol introduced that language, they wanted
 to get away  from  line-oriented programs like FORTRAN and BASIC,
 and allow for free-form input.   This included the possibility of
 stringing multiple statements on a single line, as in
-
-```
-     a=b; c=d; e=e+1;
-
-```
-In cases like this,  the  semicolon is almost REQUIRED.  The same
+`a=b; c=d; e=e+1;`.
+In cases like this,  the  semicolon is almost _required_.  The same
 line, without the semicolons, just looks "funny":
-
-```
-     a=b c= d e=e+1
-```
-I suspect that this is the major ... perhaps ONLY ...  reason for
+`a=b c= d e=e+1`.
+I suspect that this is the major ... perhaps _only_ ...  reason for
 semicolons: to keep programs from looking funny.
 
 But  the  idea  of stringing multiple statements  together  on  a
 single  line  is  a  dubious  one  at  best.  It's not very  good
 programming  style,  and  harks back to  the  days  when  it  was
-considered improtant to conserve cards.  In these  days  of CRT's
+considered important to conserve cards.  In these  days  of CRT's
 and indented code, the clarity of programs is  far  better served
 by  keeping statements separate.  It's still  nice  to  have  the
-OPTION  of  multiple  statements,  but  it seems a shame to  keep
+_option_  of  multiple  statements,  but  it seems a shame to  keep
 programmers  in  slavery  to the semicolon, just to keep that one
 rare case from "looking funny."
 
@@ -106,7 +99,7 @@ they feel naked  without them.  I'm one of them.  Once I had KISS
 defined sufficiently well, I began to write a few sample programs
 in the language.    I  discovered,  somewhat to my horror, that I
 kept  putting  semicolons  in anyway.   So  now  I'm  facing  the
-prospect of a NEW  rash  of  compiler  errors, caused by UNWANTED
+prospect of a _new_  rash  of  compiler  errors, caused by _unwanted_
 semicolons.  Phooey!
 
 Perhaps more to the point, there are readers out  there  who  are
@@ -116,7 +109,7 @@ conventional languages like  C.    In  either case, we need to be
 able to deal with semicolons.
 
 
-## SYNTACTIC SUGAR
+## Syntactic Sugar
 
 This whole discussion brings  up  the  issue of "syntactic sugar"
 ... constructs that are added to a language, not because they are
@@ -132,12 +125,12 @@ we should do so.    Particularly if the constructs don't add much
 to the complexity of the language or its compiler.
 
 The  semicolon  could  be considered an example,  but  there  are
-plenty of others, such as the 'THEN' in a IF-statement,  the 'DO'
-in a WHILE-statement,  and  even the 'PROGRAM' statement, which I
+plenty of others, such as the `THEN` in a `IF`-statement,  the `DO`
+in a `WHILE`-statement,  and  even the `PROGRAM` statement, which I
 came within a gnat's eyelash of leaving out  of  TINY.    None of
 these tokens  add  much  to  the  syntax  of the language ... the
 compiler can figure out  what's  going on without them.  But some
-folks feel that they  DO  add to the readability of programs, and
+folks feel that they  `DO`  add to the readability of programs, and
 that can be very important.
 
 There are two schools of thought on this subject, which  are well
@@ -174,27 +167,18 @@ pretty  sure that the program will do what you told it.  If there
 is an error at run time, it's probably a design error.
 
 The  best  example  of  useful  sugar  is  the semicolon  itself.
-Consider the code fragment:
-
-```
-     a=1+(2*b+c)   b...
-```
-
-Since there is no operator connecting the token 'b' with the rest
+Consider the code fragment `a=1+(2*b+c)   b...`.
+Since there is no operator connecting the token `b` with the rest
 of the  statement, the compiler will conclude that the expression
-ends  with  the  ')', and the 'b'  is  the  beginning  of  a  new
+ends  with  the  `)`, and the `b`  is  the  beginning  of  a  new
 statement.    But  suppose  I  have simply left out the  intended
-operator, and I really want to say:
-
-```
-     a=1+(2*b+c)*b...
-```
+operator, and I really want to say `a=1+(2*b+c)*b...`.
 
 In  this  case  the compiler will get an error, all right, but it
-won't be very meaningful  since  it will be expecting an '=' sign
-after the 'b' that really shouldn't be there.
+won't be very meaningful  since  it will be expecting an `=` sign
+after the `b` that really shouldn't be there.
 
-If, on the other hand, I include a semicolon after the  'b', THEN
+If, on the other hand, I include a semicolon after the  `b`, _then_
 there  can  be no doubt where I  intend  the  statement  to  end.
 Syntactic  sugar,  then,  can  serve  a  very  useful purpose  by
 providing some additional insurance that we remain on track.
@@ -212,33 +196,33 @@ like  the semicolon, each item of sugar  is  something  that  can
 potentially cause a compile error by its omission.
 
 
-## DEALING WITH SEMICOLONS
+## Dealing with Semicolons
 
 There  are  two  distinct  ways  in which semicolons are used  in
 popular  languages.    In Pascal, the semicolon is regarded as an
 statement SEPARATOR.  No semicolon  is  required  after  the last
 statement in a block.  The syntax is:
 
-```
-     <block> ::= <statement> ( ';' <statement>)*
+```bnf
+<block> ::= <statement> ( ';' <statement>)*
 
-     <statement> ::= <assignment> | <if> | <while> ... | null
-
+<statement> ::= <assignment> | <if> | <while> ... | null
 ```
-(The null statement is IMPORTANT!)
+
+(The null statement is _important!_)
 
 Pascal  also defines some semicolons in  other  places,  such  as
 after the PROGRAM statement.
 
 In  C  and  Ada, on the other hand, the semicolon is considered a
-statement TERMINATOR,  and  follows  all  statements  (with  some
+statement _terminator_,  and  follows  all  statements  (with  some
 embarrassing and confusing  exceptions).   The syntax for this is
 simply:
 
+```bnf
+<block> ::= ( <statement> ';')*
 ```
-     <block> ::= ( <statement> ';')*
 
-```
 Of  the two syntaxes, the Pascal one seems on the face of it more
 rational, but experience has shown  that it leads to some strange
 difficulties.  People get  so  used  to  typing a semicolon after
@@ -246,9 +230,9 @@ every  statement  that  they tend to  type  one  after  the  last
 statement in a block, also.  That usually doesn't cause  any harm
 ...  it  just gets treated as a  null  statement.    Many  Pascal
 programmers, including yours truly,  do  just  that. But there is
-one  place you absolutely CANNOT type  a  semicolon,  and  that's
-right before an ELSE.  This little gotcha  has  cost  me  many an
-extra  compilation,  particularly  when  the  ELSE  is  added  to
+one  place you absolutely _cannot_ type  a  semicolon,  and  that's
+right before an `ELSE`.  This little gotcha  has  cost  me  many an
+extra  compilation,  particularly  when  the  `ELSE`  is  added  to
 existing code.    So  the  C/Ada  choice  turns out to be better.
 Apparently Nicklaus Wirth thinks so, too:  In his  Modula  2,  he
 abandoned the Pascal approach.
@@ -270,11 +254,11 @@ end;
 {--------------------------------------------------------------}
 ```
 
-This procedure works very much like our old Match.  It insists on
+This procedure works very much like our old `Match`.  It insists on
 finding a semicolon as the next token.  Having found it, it skips
 to the next one.
 
-Since a  semicolon follows a statement, procedure Block is almost
+Since a  semicolon follows a statement, procedure `Block` is almost
 the only one we need to change:
 
 ```delphi
@@ -300,12 +284,12 @@ end;
 ```
 
 Note carefully the subtle change in the case statement.  The call
-to  Assignment  is now guarded by a test on Token.   This  is  to
-avoid calling Assignment when the  token  is  a  semicolon (which
+to  `Assignment`  is now guarded by a test on `Token`.   This  is  to
+avoid calling `Assignment` when the  token  is  a  semicolon (which
 could happen if the statement is null).
 
 Since declarations are also  statements,  we  also  need to add a
-call to Semi within procedure TopDecls:
+call to `Semi` within procedure `TopDecls`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -324,7 +308,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Finally, we need one for the PROGRAM statement:
+Finally, we need one for the `PROGRAM` statement:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -349,7 +333,7 @@ It's as easy as that.  Try it with a copy of TINY and see how you
 like it.
 
 The Pascal version  is  a  little  trickier,  but  it  still only
-requires  minor  changes,  and those only to procedure Block.  To
+requires  minor  changes,  and those only to procedure `Block`.  To
 keep things as simple as possible, let's split the procedure into
 two parts.  The following procedure handles just one statement:
 
@@ -371,7 +355,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Using this procedure, we can now rewrite Block like this:
+Using this procedure, we can now rewrite `Block` like this:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -392,7 +376,7 @@ That  sure  didn't  hurt, did it?  We can now parse semicolons in
 Pascal-like fashion.
 
 
-## A COMPROMISE
+## A Compromise
 
 Now that we know how to deal with semicolons, does that mean that
 I'm going to put them in KISS/TINY?  Well, yes and  no.    I like
@@ -400,7 +384,7 @@ the extra sugar and the security that comes with knowing for sure
 where the  ends  of  statements  are.    But I haven't changed my
 dislike for the compilation errors associated with semicolons.
 
-So I have what I think is a nice compromise: Make them OPTIONAL!
+So I have what I think is a nice compromise: Make them _optional_!
 
 Consider the following version of Semi:
 
@@ -415,8 +399,8 @@ end;
 {--------------------------------------------------------------}
 ```
 
-This procedure will ACCEPT a semicolon whenever it is called, but
-it won't INSIST on one.  That means that when  you  choose to use
+This procedure will _accept_ a semicolon whenever it is called, but
+it won't _insist_ on one.  That means that when  you  choose to use
 semicolons, the compiler  will  use the extra information to help
 keep itself on track.  But if you omit one (or omit them all) the
 compiler won't complain.  The best of both worlds.
@@ -426,7 +410,7 @@ Put this procedure in place in the first version of  your program
 Version 1.2.
 
 
-## COMMENTS
+## Comments
 
 Up  until  now  I have carefully avoided the subject of comments.
 You would think that this would be an easy subject ... after all,
@@ -441,17 +425,17 @@ Things  tend to get interesting when  you  consider  things  like
 comment delimiters contained in quoted strings.
 
 
-## SINGLE-CHARACTER DELIMITERS
+## Single-Character Delimiters
 
 Here's an example.  Suppose we assume the  Turbo  Pascal standard
-and use curly braces for comments.  In this case we  have single-
-character delimiters, so our parsing is a little easier.
+and use curly braces for comments.  In this case we  have
+single-character delimiters, so our parsing is a little easier.
 
 One  approach  is  to  strip  the  comments  out the  instant  we
 encounter them in the input stream; that is,  right  in procedure
-GetChar.    To  do  this,  first  change  the  name of GetChar to
-something else, say GetCharX.  (For the record, this is  going to
-be a TEMPORARY change, so best not do this with your only copy of
+`GetChar`.    To  do  this,  first  change  the  name of `GetChar` to
+something else, say `GetCharX`.  (For the record, this is  going to
+be a _temporary_ change, so best not do this with your only copy of
 TINY.  I assume you understand that you should  always  do  these
 experiments with a working copy.)
 
@@ -469,14 +453,14 @@ begin
    GetCharX;
 end;
 {--------------------------------------------------------------}
-
 ```
+
 Clearly, what this procedure is going to do is to simply read and
 discard characters from the input  stream, until it finds a right
 curly brace.  Then it reads one more character and returns  it in
 Look.
 
-Now we can  write  a  new  version of GetChar that SkipComment to
+Now we can  write  a  new  version of `GetChar` that `SkipComment` to
 strip out comments:
 
 ```delphi
@@ -494,22 +478,22 @@ end;
 
 Code this up  and  give  it  a  try.    You'll find that you can,
 indeed, bury comments anywhere you like.  The comments never even
-get into the parser proper ... every call to GetChar just returns
-any character that's NOT part of a comment.
+get into the parser proper ... every call to `GetChar` just returns
+any character that's _not_ part of a comment.
 
 As a matter of fact, while  this  approach gets the job done, and
 may even be  perfectly  satisfactory  for  you, it does its job a
-little  TOO  well.    First  of all, most  programming  languages
+little  _too_  well.    First  of all, most  programming  languages
 specify that a comment should be treated like a  space,  so  that
 comments aren't allowed  to  be embedded in, say, variable names.
-This current version doesn't care WHERE you put comments.
+This current version doesn't care _where_ you put comments.
 
-Second, since the  rest  of  the  parser can't even receive a '{'
+Second, since the  rest  of  the  parser can't even receive a `{`
 character, you will not be allowed to put one in a quoted string.
 
 Before you turn up your nose at this simplistic solution, though,
 I should point out  that  as respected a compiler as Turbo Pascal
-also won't allow  a  '{' in a quoted string.  Try it.  And as for
+also won't allow  a  `{` in a quoted string.  Try it.  And as for
 embedding a comment in an  identifier, I can't imagine why anyone
 would want to do such a  thing,  anyway, so the question is moot.
 For 99% of all  applications,  what I've just shown you will work
@@ -519,8 +503,8 @@ But,  if  you  want  to  be  picky  about it  and  stick  to  the
 conventional treatment, then we  need  to  move  the interception
 point downstream a little further.
 
-To  do  this,  first change GetChar back to the way  it  was  and
-change the name called in SkipComment.  Then, let's add  the left
+To  do  this,  first change `GetChar` back to the way  it  was  and
+change the name called in `SkipComment`.  Then, let's add  the left
 brace as a possible whitespace character:
 
 ```delphi
@@ -534,7 +518,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Now, we can deal with comments in procedure SkipWhite:
+Now, we can deal with comments in procedure `SkipWhite`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -552,7 +536,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Note  that SkipWhite is written so that we  will  skip  over  any
+Note  that `SkipWhite` is written so that we  will  skip  over  any
 combination of whitespace characters and comments, in one call.
 
 OK, give this one a try, too.   You'll  find  that  it will let a
@@ -561,13 +545,13 @@ approach also gives us the  ability to handle curly braces within
 quoted strings, since within such  strings we will not be testing
 for or skipping over whitespace.
 
-There's one last  item  to  deal  with:  Nested  comments.   Some
+There's one last  item  to  deal  with:  `Nested`  comments.   Some
 programmers like the idea  of  nesting  comments, since it allows
 you to comment out code during debugging.  The  code  I've  given
 here won't allow that and, again, neither will Turbo Pascal.
 
 But the fix is incredibly easy.  All  we  need  to  do is to make
-SkipComment recursive:
+`SkipComment` recursive:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -588,7 +572,7 @@ That does it.  As  sophisticated a comment-handler as you'll ever
 need.
 
 
-## MULTI-CHARACTER DELIMITERS
+## Multi-Character Delimiters
 
 That's all well and  good  for cases where a comment is delimited
 by single  characters,  but  what  about  the  cases such as C or
@@ -598,13 +582,13 @@ quite a bit.  I'm sure it won't surprise you to learn that things
 get harder in this case.
 
 For the multi-character situation, the  easiest thing to do is to
-intercept the left delimiter  back  at the GetChar stage.  We can
+intercept the left delimiter  back  at the `GetChar` stage.  We can
 "tokenize" it right there, replacing it by a single character.
 
-Let's assume we're using the C delimiters '/*' and '*/'.   First,
-we  need  to  go back to the "GetCharX' approach.  In yet another
-copy of your compiler, rename  GetChar to GetCharX and then enter
-the following new procedure GetChar:
+Let's assume we're using the C delimiters `/*` and `*/`.   First,
+we  need  to  go back to the `GetCharX` approach.  In yet another
+copy of your compiler, rename  `GetChar` to `GetCharX` and then enter
+the following new procedure `GetChar`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -631,27 +615,27 @@ end;
 ```
 
 As you can see, what this procedure does is  to  intercept  every
-occurrence of '/'.  It then examines the NEXT  character  in  the
-stream.  If the character  is  a  '*',  then  we  have  found the
-beginning  of  a  comment,  and  GetChar  will  return  a  single
+occurrence of `/`.  It then examines the _next_  character  in  the
+stream.  If the character  is  a  `*`,  then  we  have  found the
+beginning  of  a  comment,  and  `GetChar`  will  return  a  single
 character replacement for it.   (For  simplicity,  I'm  using the
-same '{' character  as I did for Pascal.  If you were writing a C
+same `{` character  as I did for Pascal.  If you were writing a C
 compiler, you'd no doubt want to pick some other character that's
-not  used  elsewhere  in C.  Pick anything you like ... even $FF,
+not  used  elsewhere  in C.  Pick anything you like ... even `$FF`,
 anything that's unique.)
 
-If the character  following  the  '/'  is NOT a '*', then GetChar
-tucks it away in the new global TempChar, and  returns  the  '/'.
+If the character  following  the  `/`  is _not_ a `*`, then `GetChar`
+tucks it away in the new global TempChar, and  returns  the  `/`.
 
 Note that you need to declare this new variable and initialize it
-to ' '.  I like to do  things  like  that  using the Turbo "typed
+to ` `.  I like to do  things  like  that  using the Turbo "typed
 constant" construct:
 
 ```delphi
-     const TempChar: char = ' ';
-
+const TempChar: char = ' ';
 ```
-Now we need a new version of SkipComment:
+
+Now we need a new version of `SkipComment`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -670,30 +654,30 @@ end;
 {--------------------------------------------------------------}
 ```
 
-A  few  things  to  note:  first  of  all, function  IsWhite  and
-procedure SkipWhite  don't  need  to  be  changed,  since GetChar
-returns the '{' token.  If you change that token  character, then
+A  few  things  to  note:  first  of  all, function  `IsWhite`  and
+procedure `SkipWhite`  don't  need  to  be  changed,  since `GetChar`
+returns the `{` token.  If you change that token  character, then
 of  course you also need to change the  character  in  those  two
 routines.
 
-Second, note that  SkipComment  doesn't call GetChar in its loop,
-but  GetCharX.    That  means   that  the  trailing  '/'  is  not
-intercepted and  is seen by SkipComment.  Third, although GetChar
+Second, note that  `SkipComment`  doesn't call `GetChar` in its loop,
+but  `GetCharX`.    That  means   that  the  trailing  `/`  is  not
+intercepted and  is seen by `SkipComment`.  Third, although `GetChar`
 is the  procedure  doing  the  work,  we  can still deal with the
 comment  characters  embedded  in  a  quoted  string,  by calling
-GetCharX  instead  of  GetChar  while  we're  within  the string.
+`GetCharX`  instead  of  `GetChar`  while  we're  within  the string.
 Finally,  note  that  we can again provide for nested comments by
-adding a single statement to SkipComment, just as we did before.
+adding a single statement to `SkipComment`, just as we did before.
 
 
-## ONE-SIDED COMMENTS
+## One-Sided Comments
 
 So far I've shown you  how  to  deal  with  any  kind  of comment
-delimited on the left and the  right.   That only leaves the one-
-sided comments like those in assembler language or  in  Ada, that
+delimited on the left and the  right.   That only leaves the
+one-sided comments like those in assembler language or  in  Ada, that
 are terminated by the end of the line.  In a  way,  that  case is
 easier.   The only procedure that would need  to  be  changed  is
-SkipComment, which must now terminate at the newline characters:
+`SkipComment`, which must now terminate at the newline characters:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -709,14 +693,14 @@ end;
 {--------------------------------------------------------------}
 ```
 
-If the leading character is  a  single  one,  as  in  the  ';' of
-assembly language, then we're essentially done.  If  it's  a two-
-character token, as in the '--'  of  Ada, we need only modify the
-tests  within  GetChar.   Either way, it's an easier problem than
+If the leading character is  a  single  one,  as  in  the  `;` of
+assembly language, then we're essentially done.  If  it's  a
+two-character token, as in the `--`  of  Ada, we need only modify the
+tests  within  `GetChar`.   Either way, it's an easier problem than
 the balanced case.
 
 
-## CONCLUSION
+## Conclusion
 
 At this point we now have the ability to deal with  both comments
 and semicolons, as well as other kinds of syntactic sugar.   I've
@@ -727,20 +711,15 @@ conventions should we use in KISS/TINY?
 For the reasons that I've given as we went  along,  I'm  choosing
 the following:
 
-
- (1) Semicolons are TERMINATORS, not separators
-
- (2) Semicolons are OPTIONAL
-
- (3) Comments are delimited by curly braces
-
- (4) Comments MAY be nested
-
+1. Semicolons are _terminators_, not separators
+2. Semicolons are _optional_
+3. Comments are delimited by curly braces
+4. Comments _may_ be nested
 
 Put the code corresponding to these cases into your copy of TINY.
 You now have TINY Version 1.2.
 
 Now that we  have  disposed  of  these  sideline  issues,  we can
-finally get back into the mainstream.  In  the  next installment,
+finally get back into the mainstream.  In  the  [next installment](tutor13_procedures.md),
 we'll talk  about procedures and parameter passing, and we'll add
 these important features to TINY.  See you then.

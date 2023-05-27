@@ -1,6 +1,7 @@
-# Part XIII: PROCEDURES - 27 August 1989
+# Part XIII: Procedures - 27 August 1989
 
-## INTRODUCTION
+
+## Introduction
 
 At last we get to the good part!
 
@@ -38,7 +39,7 @@ mainstream  of  things.    In   this   installment,   I'll  cover
 procedures.  Next time, we'll talk about the basic data types.
 
 
-## ONE LAST DIGRESSION
+## One Last Digression
 
 This has  been an extraordinarily difficult installment for me to
 write.  The reason has nothing to do with the subject  itself ...
@@ -91,7 +92,7 @@ special-purpose  programs,  I  had  abandoned  them  in  favor of
 working with the full compiler.  It wasn't working.
 
 So we're going to go back to our  roots,  so  to  speak.  In this
-installment and the next, I'll be  using  single-character tokens
+installment and the [next](tutor14_types.md), I'll be  using  single-character tokens
 again as we study the concepts of procedures,  unfettered  by the
 other baggage  that we have accumulated in the previous sessions.
 As a  matter  of  fact,  I won't even attempt, at the end of this
@@ -102,17 +103,17 @@ After all this time, you don't need more buildup  than  that,  so
 let's waste no more time and dive right in.
 
 
-## THE BASICS
+## The Basics
 
 All modern  CPU's provide direct support for procedure calls, and
-the  68000  is no exception.  For the 68000, the call  is  a  BSR
-(PC-relative version) or JSR, and the return is RTS.  All we have
+the  68000  is no exception.  For the 68000, the call  is  a  `BSR`
+(PC-relative version) or `JSR`, and the return is `RTS`.  All we have
 to do is to arrange for  the  compiler to issue these commands at
 the proper place.
 
-Actually, there are really THREE things we have to address.   One
+Actually, there are really _three_ things we have to address.   One
 of  them  is  the  call/return  mechanism.    The second  is  the
-mechanism  for  DEFINING  the procedure in the first place.  And,
+mechanism  for  _defining_  the procedure in the first place.  And,
 finally, there is the issue of passing parameters  to  the called
 procedure.  None of these things are really  very  difficult, and
 we can of course borrow heavily on what people have done in other
@@ -121,7 +122,7 @@ three issues, that of parameter passing will occupy  most  of our
 attention, simply because there are so many options available.
 
 
-## A BASIS FOR EXPERIMENTS
+## A Basis for Experiments
 
 As always, we will need some software to  serve  as  a  basis for
 what  we are doing.  We don't need the full TINY compiler, but we
@@ -133,9 +134,8 @@ The program shown below is that basis.  It's a vestigial  form of
 TINY, with single-character tokens.   It  has  data declarations,
 but only in their simplest form ... no lists or initializers.  It
 has assignment statements, but only of the kind
-```
-     <ident> = <ident>
-```
+`<ident> = <ident>`.
+
 In  other  words,  the only legal expression is a single variable
 name.    There  are no control  constructs  ...  the  only  legal
 statement is the assignment.
@@ -474,7 +474,7 @@ end;
 
 {--------------------------------------------------------------}
 
-                             
+
 
 
 
@@ -551,8 +551,8 @@ begin
      BeginBlock;
 end.
 {--------------------------------------------------------------}
-
 ```
+
 Note  that we DO have a symbol table, and there is logic to check
 a variable name to make sure it's a legal one.    It's also worth
 noting that I  have  included  the  code  you've  seen  before to
@@ -562,21 +562,22 @@ main program is delimited, as usual, by BEGIN-END brackets.
 Once you've copied  the  program  to  Turbo, the first step is to
 compile it and make sure it  works.   Give it a few declarations,
 and then a begin-block.  Try something like:
+
 ```
-     va             (for VAR A)
-     vb             (for VAR B)
-     vc             (for VAR C)
-     b              (for BEGIN)
-     a=b
-     b=c
-     e.             (for END.)
+va             (for VAR A)
+vb             (for VAR B)
+vc             (for VAR C)
+b              (for BEGIN)
+a=b
+b=c
+e.             (for END.)
 ```
 
 As usual, you should also make some deliberate errors, and verify
 that the program catches them correctly.
 
 
-## DECLARING A PROCEDURE
+## Declaring a Procedure
 
 If you're satisfied that our little program works, then it's time
 to  deal  with  the  procedures.  Since we haven't  talked  about parameters yet, we'll begin by considering  only  procedures that
@@ -585,25 +586,25 @@ have no parameter lists.
 As a start, let's consider a simple program with a procedure, and
 think about the code we'd like to see generated for it:
 
-```delphi
-     PROGRAM FOO;
-     .
-     .
-     PROCEDURE BAR;                     BAR:
-     BEGIN                                   .
-     .                                       .
-     .                                       .
-     END;                                    RTS
+```asm
+PROGRAM FOO;
+.
+.
+PROCEDURE BAR;                     BAR:
+BEGIN                                   .
+.                                       .
+.                                       .
+END;                                    RTS
 
-     BEGIN { MAIN PROGRAM }             MAIN:
-     .                                       .
-     .                                       .
-     FOO;                                    BSR BAR
-     .                                       .
-     .                                       .
-     END.                                    END MAIN
-
+BEGIN { MAIN PROGRAM }             MAIN:
+.                                       .
+.                                       .
+FOO;                                    BSR BAR
+.                                       .
+.                                       .
+END.                                    END MAIN
 ```
+
 Here I've shown  the  high-order language constructs on the left,
 and the desired assembler code on the right.  The first  thing to
 notice  is that we certainly don't have  much  code  to  generate
@@ -616,23 +617,24 @@ that  although a procedure may be quite  long,  declaring  it  is
 really no different than  declaring  a  variable.   It's just one
 more kind of declaration.  We can write the BNF:
 
-```delphi
-     <declaration> ::= <data decl> | <procedure>
+```bnf
+<declaration> ::= <data decl> | <procedure>
 ```
 
-This means that it should be easy to modify TopDecl to  deal with
+This means that it should be easy to modify `TopDecl` to  deal with
 procedures.  What about the syntax of a procedure?   Well, here's
 a suggested syntax, which is essentially that of Pascal:
 
-```delphi
-     <procedure> ::= PROCEDURE <ident> <begin-block>
+```bnf
+<procedure> ::= PROCEDURE <ident> <begin-block>
 ```
 
 There is practically no code generation required, other than that
 generated within the begin-block.    We need only emit a label at
-the beginning of the procedure, and an RTS at the end.
+the beginning of the procedure, and an `RTS` at the end.
 
 Here's the required code:
+
 ```delphi
 {--------------------------------------------------------------}
 { Parse and Translate a Procedure Declaration }
@@ -653,28 +655,28 @@ end;
 ```
 
 Note that I've added a new code generation routine, Return, which
-merely emits an RTS instruction.  The creation of that routine is
+merely emits an `RTS` instruction.  The creation of that routine is
 "left as an exercise for the student."
 
 To  finish  this  version, add the following line within the Case
 statement in DoBlock:
 
 ```delphi
-            'p': DoProc;
+'p': DoProc;
 ```
 
 I should mention that  this  structure  for declarations, and the
 BNF that drives it, differs from standard Pascal.  In  the Jensen
-& Wirth  definition of Pascal, variable declarations, in fact ALL
+& Wirth  definition of Pascal, variable declarations, in fact _all_
 kinds of declarations,  must  appear in a specific sequence, i.e.
 labels,   constants,  types,  variables,  procedures,  and   main
 program.  To  follow  such  a  scheme, we should separate the two
 declarations, and have code in the main program something like
 
 ```delphi
-     DoVars;
-     DoProcs;
-     DoMain;
+DoVars;
+DoProcs;
+DoMain;
 ```
 
 However,  most implementations of Pascal, including Turbo,  don't
@@ -682,31 +684,31 @@ require  that  order  and  let  you  freely  mix up  the  various
 declarations,  as  long  as  you  still  don't  try to  refer  to
 something  before  it's  declared.    Although  it  may  be  more
 aesthetically pleasing to declare all the global variables at the
-top of the  program,  it  certainly  doesn't do any HARM to allow
-them to be sprinkled around.   In  fact,  it may do some GOOD, in
+top of the  program,  it  certainly  doesn't do any _harm_ to allow
+them to be sprinkled around.   In  fact,  it may do some _good_, in
 the  sense  that it gives you the  opportunity  to  do  a  little
 rudimentary  information  hiding.     Variables  that  should  be
 accessed only by the main program, for example,  can  be declared
 just before it and will thus be inaccessible by the procedures.
 
 OK, try this new version out.  Note that we  can  declare as many
-procedures as we choose (as long  as  we don't run out of single-
-character names!), and the  labels  and RTS's all come out in the
+procedures as we choose (as long  as  we don't run out of
+single-character names!), and the  labels  and `RTS`s all come out in the
 right places.
 
-It's  worth  noting  here  that  I  do  _NOT_  allow  for  nested
+It's  worth  noting  here  that  I  do  _not_  allow  for  nested
 procedures.   In TINY, all procedures must  be  declared  at  the
 global level,  the  same  as  in  C.    There  has  been  quite a
 discussion about this point in  the  Computer  Language  Forum of
 CompuServe.  It turns out that there is a significant  penalty in
 complexity that must be paid for the luxury of nested procedures.
-What's  more,  this  penalty gets paid at RUN TIME, because extra
+What's  more,  this  penalty gets paid at _run time_, because extra
 code must be added and executed every time a procedure is called.
 I also happen to believe that nesting is not a good  idea, simply
 on the grounds that I have seen too many abuses of the feature.
 Before going on to the next step, it's also worth noting that the
 "main program" as it stands  is incomplete, since it doesn't have
-the label and END statement.  Let's fix that little oversight:
+the label and `END` statement.  Let's fix that little oversight:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -735,17 +737,17 @@ end.
 {--------------------------------------------------------------}
 ```
 
-Note  that  DoProc  and DoMain are not quite symmetrical.  DoProc
-uses a call to BeginBlock, whereas DoMain cannot.  That's because
-a procedure  is signaled by the keyword PROCEDURE (abbreviated by
-a 'p' here), while the main program gets no  keyword  other  than
-the BEGIN itself.
+Note  that  `DoProc`  and `DoMain` are not quite symmetrical.  `DoProc`
+uses a call to `BeginBlock`, whereas `DoMain` cannot.  That's because
+a procedure  is signaled by the keyword `PROCEDURE` (abbreviated by
+a `p` here), while the main program gets no  keyword  other  than
+the `BEGIN` itself.
 
-And _THAT_ brings up an interesting question: WHY?
+And _that_ brings up an interesting question: _why_?
 
 If  we  look  at the structure of C programs, we  find  that  all
 functions are treated just  alike,  except  that the main program
-happens to be identified by its name, "main."  Since  C functions
+happens to be identified by its name, `main`.  Since  C functions
 can appear in any order, the main program can also be anywhere in
 the compilation unit.
 
@@ -754,7 +756,7 @@ be declared before they're  used,  which  means  that there is no
 point putting anything after the  main program ... it could never
 be accessed.  The "main program" is not identified at  all, other
 than  being that part of the code that  comes  after  the  global
-BEGIN.  In other words, if it ain't anything else, it must be the
+`BEGIN`.  In other words, if it ain't anything else, it must be the
 main program.
 
 This  causes  no  small  amount   of   confusion   for  beginning
@@ -763,9 +765,9 @@ to  find the beginning of the main program at all.  This leads to
 conventions such as identifying it in comments:
 
 ```delphi
-     BEGIN { of MAIN }
-
+BEGIN { of MAIN }
 ```
+
 This  has  always  seemed  to  me to be a bit of a kludge.    The
 question comes up:    Why  should  the main program be treated so
 much  differently  than  a  procedure?   In fact, now that  we've
@@ -775,22 +777,20 @@ declaration, also?
 
 The answer is yes, and by  treating  it that way, we can simplify
 the code and make  it  considerably  more  orthogonal.  I propose
-that  we  use  an explicit keyword, PROGRAM, to identify the main
+that  we  use  an explicit keyword, `PROGRAM`, to identify the main
 program (Note that this  means  that we can't start the file with
 it, as in Pascal).  In this case, our BNF becomes:
 
-```
-     <declaration> ::= <data decl> | <procedure> | <main program>
+```bnf
+<declaration> ::= <data decl> | <procedure> | <main program>
 
+<procedure> ::= PROCEDURE <ident> <begin-block>
 
-     <procedure> ::= PROCEDURE <ident> <begin-block>
-
-
-     <main program> ::= PROGRAM <ident> <begin-block>
+<main program> ::= PROGRAM <ident> <begin-block>
 ```
 
 The code  also  looks  much  better,  at  least in the sense that
-DoMain and DoProc look more alike:
+`DoMain` and `DoProc` look more alike:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -839,7 +839,7 @@ end.
 ```
 
 Since the declaration of the main program is now within  the loop
-of  TopDecl,  that  does  present  some difficulties.  How do  we
+of  `TopDecl`,  that  does  present  some difficulties.  How do  we
 ensure that it's  the last thing in the file?  And how do we ever
 exit  from  the  loop?  My answer for the second question, as you
 can see, was to bring back our old friend the  period.   Once the
@@ -850,7 +850,7 @@ willing to go to  protect  the programmer from dumb mistakes.  In
 the code that I've shown,  there's nothing to keep the programmer
 from adding code after  the  main  program  ... even another main
 program.   The code will just not be  accessible.    However,  we
-COULD access it via a FORWARD statement, which we'll be providing
+_could_ access it via a `FORWARD` statement, which we'll be providing
 later. As a  matter  of fact, many assembler language programmers
 like to use  the  area  just  after the program to declare large,
 uninitialized data blocks, so there may indeed be  some  value in
@@ -864,23 +864,23 @@ could  at least flag an error if someone  tries  to  include  two
 mains.
 
 
-## CALLING THE PROCEDURE
+## Calling the Procedure
 
 If you're satisfied that  things  are  working, let's address the
 second half of the equation ... the call.
 
 Consider the BNF for a procedure call:
 
-```
-     <proc_call> ::= <identifier>
+```bnf
+<proc_call> ::= <identifier>
 ```
 
 for an assignment statement, on the other hand, the BNF is:
 
+```bnf
+<assignment> ::= <identifier> '=' <expression>
 ```
-     <assignment> ::= <identifier> '=' <expression>
 
-```
 At this point we seem to  have  a problem. The two BNF statements
 both begin on the  right-hand  side  with the token `<identifier>`.
 How are we supposed to know, when we see the  identifier, whether
@@ -936,12 +936,12 @@ end;
 {--------------------------------------------------------------}
 ```
 
-As you can see, procedure Block now calls AssignOrProc instead of
-Assignment.  The function of this new procedure is to simply read
+As you can see, procedure `Block` now calls `AssignOrProc` instead of
+`Assignment`.  The function of this new procedure is to simply read
 the identifier,  determine  its  type,  and  then  call whichever
 procedure  is  appropriate  for  that  type.  Since the name  has
 already been read,  we  must  pass  it to the two procedures, and
-modify Assignment to match.   Procedure CallProc is a simple code
+modify `Assignment` to match.   Procedure `CallProc` is a simple code
 generation routine:
 
 ```delphi
@@ -958,32 +958,30 @@ end;
 Well,  at  this  point  we  have  a  compiler  that can deal with
 procedures.    It's  worth  noting  that   procedures   can  call
 procedures to any depth.  So even though we  don't  allow  nested
-DECLARATIONS, there  is certainly nothing to keep us from nesting
-CALLS, just as  we  would  expect  to  do in any language.  We're
+_declarations_, there  is certainly nothing to keep us from nesting
+_calls_, just as  we  would  expect  to  do in any language.  We're
 getting there, and it wasn't too hard, was it?
 
 Of course, so far we can  only  deal with procedures that have no
 parameters.    The  procedures  can  only operate on  the  global
 variables  by  their  global names.  So at this point we have the
-equivalent of BASIC's GOSUB construct.  Not too bad ... after all
-lots of serious programs were written using GOSUBs, but we can do
+equivalent of BASIC's `GOSUB` construct.  Not too bad ... after all
+lots of serious programs were written using `GOSUB`s, but we can do
 better, and we will.  That's the next step.
 
 
-## PASSING PARAMETERS
+## Passing Parameters
 
 Again, we all know the basic idea of passed parameters, but let's
 review them just to be safe.
 
 In general the procedure is given a parameter list, for example
-```
-     PROCEDURE FOO(X, Y, Z)
-```
+`PROCEDURE FOO(X, Y, Z)`.
 In  the declaration of a procedure,  the  parameters  are  called
 formal  parameters, and may be referred to in  the  body  of  the
 procedure  by  those  names.    The  names  used for  the  formal
 parameters  are  really  arbitrary.    Only  the  position really
-counts.  In  the  example  above,  the name 'X' simply means "the
+counts.  In  the  example  above,  the name `X` simply means "the
 first parameter" wherever it is used.
 
 When a procedure is called,  the "actual parameters" passed to it
@@ -992,19 +990,20 @@ basis.
 
 The BNF for the syntax looks something like this:
 
-```
-     <procedure> ::= PROCEDURE <ident>
-                    '(' <param-list> ')' <begin-block>
+```bnf
+<procedure> ::= PROCEDURE <ident>
+               '(' <param-list> ')' <begin-block>
 
 
-     <param_list> ::= <parameter> ( ',' <parameter> )* | null
+<param_list> ::= <parameter> ( ',' <parameter> )* | null
 ```
+
 Similarly, the procedure call looks like:
 
+```bnf
+<proc call> ::= <ident> '(' <param-list> ')'
 ```
-     <proc call> ::= <ident> '(' <param-list> ')'
 
-```
 Note that there is already an implicit decision  built  into this
 syntax.  Some languages, such as Pascal and Ada, permit parameter
 lists to be  optional.    If  there are no parameters, you simply
@@ -1013,12 +1012,7 @@ Modula 2, require the parens even if the list is empty.  Clearly,
 the example we just finished corresponds to the  former  point of
 view.  But to tell the truth I prefer the latter.  For procedures
 alone, the  decision would seem to favor the "listless" approach.
-The statement
-
-```delphi
-     Initialize; ,
-
-```
+The statement `Initialize;`,
 standing alone, can only  mean  a procedure call.  In the parsers
 we've  been  writing,  we've  made  heavy  use  of  parameterless
 procedures, and it would seem a  shame  to have to write an empty
@@ -1031,7 +1025,7 @@ have to go  back  to  the  declarations  to find out.  Some folks
 consider  this to be an advantage.  Their  argument  is  that  an
 identifier gets replaced by a value, and what do you care whether
 it's done by  substitution  or  by  a function?  But we sometimes
-_DO_ care, because the function may be quite time-consuming.  If,
+_do_ care, because the function may be quite time-consuming.  If,
 by  writing  a  simple identifier into a given expression, we can
 incur a heavy run-time penalty, it seems to  me  we  ought  to be
 made aware of it.
@@ -1040,7 +1034,7 @@ Anyway,  Niklaus  Wirth  designed both Pascal and Modula 2.  I'll
 give him the benefit of the doubt and assume that  he  had a good
 reason for changing the rules the second time around!
 
-Needless to say, it's an easy thing to accomodate either point of
+Needless to say, it's an easy thing to accommodate either point of
 view as we design a language, so this one is strictly a matter of
 personal preference.  Do it whichever way you like best.
 
@@ -1048,7 +1042,7 @@ Before we go any further, let's alter the translator to  handle a
 (possibly empty) parameter list.  For now we  won't  generate any
 extra code ... just parse the syntax.  The  code  for  processing
 the declaration has very  much  the  same  form we've seen before
-when dealing with VAR-lists:
+when dealing with `VAR`-lists:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1069,7 +1063,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Procedure DoProc needs to have a line added to call FormalList:
+Procedure `DoProc` needs to have a line added to call `FormalList`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1091,7 +1085,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-For now, the code for FormalParam is just a dummy one that simply
+For now, the code for `FormalParam` is just a dummy one that simply
 skips the parameter name:
 
 ```delphi
@@ -1155,7 +1149,7 @@ called it from within `CallProc`.
 
 OK, if you'll add all this code to  your  translator  and  try it
 out, you'll find that you can indeed parse the syntax properly.
-I'll note in  passing  that  there  is _NO_ checking to make sure
+I'll note in  passing  that  there  is _no_ checking to make sure
 that  the  number  (and,  later,  types)  of  formal  and  actual
 parameters match up.  In a production compiler, we must of course
 do  this.  We'll ignore the issue now if for no other reason than
@@ -1164,11 +1158,11 @@ a place to store the necessary information.  Later on, we'll have
 a place for that data and we can deal with the issue then.
 
 
-## THE SEMANTICS OF PARAMETERS
+## The Semantics of Parameters
 
-So  far we've dealt with the SYNTAX  of  parameter  passing,  and
+So  far we've dealt with the _syntax_  of  parameter  passing,  and
 we've got the parsing mechanisms in place to handle it.  Next, we
-have to look at the SEMANTICS, i.e., the actions to be taken when
+have to look at the _semantics_, i.e., the actions to be taken when
 we encounter parameters. This brings  us  square  up  against the
 issue of the different ways parameters can be passed.
 
@@ -1181,8 +1175,8 @@ choose to.
 
 There are two main ways parameters are passed:
 
-     - By value
-     - By reference (address)
+- By value
+- By reference (address)
 
 The differences are best seen in the light of a little history.
 
@@ -1203,7 +1197,7 @@ access to all variables that appeared in the parameter list.
 Many  times,  we  didn't want to actually change a parameter, but
 only use it as an input.  For example, we  might  pass an element
 count  to a subroutine, and wish we could  then  use  that  count
-within a DO-loop.    To  avoid  changing the value in the calling
+within a `DO`-loop.    To  avoid  changing the value in the calling
 program, we had to make a local copy of the input  parameter, and
 operate only on the  copy.    Some  FORTRAN programmers, in fact,
 made it a practice to copy ALL parameters except those  that were
@@ -1215,27 +1209,17 @@ There was, however, an even more insidious problem, which was not
 really just the fault of  the "pass by reference" convention, but
 a bad convergence of several implementation decisions.
 
-Suppose we have a subroutine:
-
-```delphi
-     SUBROUTINE FOO(X, Y, N)
-```
-
+Suppose we have a subroutine `SUBROUTINE FOO(X, Y, N)`,
 where N is some kind of  input  count  or flag.  Many times, we'd
 like  to be able to pass a literal or even an expression in place
-of a variable, such as:
-
-```delphi
-     CALL FOO(A, B, J + 1)
-```
-
+of a variable, such as `CALL FOO(A, B, J + 1)`.
 Here the third  parameter  is  not  a  variable, and so it has no
 address.    The  earliest FORTRAN compilers did  not  allow  such
 things, so we had to resort to subterfuges like:
 
-```delphi
-     K = J + 1
-     CALL FOO(A, B, K)
+```fortran
+K = J + 1
+CALL FOO(A, B, K)
 ```
 
 Here again, there was copying required, and the burden was on the
@@ -1252,11 +1236,8 @@ it would be recalculated anyway.
 
 The  problem  arose  when  someone  decided to make  things  more
 efficient.  They  reasoned,  rightly enough, that the most common
-kind of "expression" was a single integer value, as in:
-
-```delphi
-     CALL FOO(A, B, 4)
-```
+kind of "expression" was a single integer value, as in
+`CALL FOO(A, B, 4)`.
 
 It seemed inefficient to go to the trouble of "computing" such an
 integer and storing it  in  a temporary variable, just to pass it
@@ -1271,17 +1252,17 @@ literal.    That  combination  of  design  decisions:     passing
 expressions, optimization for literals as a special case, and use
 of a literal pool, is what led to disaster.
 
-To  see  how  it works, imagine that we call subroutine FOO as in
+To  see  how  it works, imagine that we call subroutine `FOO` as in
 the example above, passing  it  a literal 4.  Actually, what gets
 passed  is  the  address of the literal 4, which is stored in the
 literal pool.   This address corresponds to the formal parameter,
 K, in the subroutine itself.
 
-Now suppose that, unbeknownst to the  programmer,  subroutine FOO
-actually modifies K to be, say, -7.  Suddenly, that literal  4 in
-the literal pool  gets  CHANGED,  to  a  -7.  From then on, every
+Now suppose that, unbeknownst to the  programmer,  subroutine `FOO`
+actually modifies `K` to be, say, `-7`.  Suddenly, that literal  4 in
+the literal pool  gets  _changed_,  to  a  `-7`.  From then on, every
 expression that uses  a  4  and  every subroutine that passes a 4
-will be using the value of -7 instead!  Needless to say, this can
+will be using the value of `-7` instead!  Needless to say, this can
 lead to some  bizarre  and difficult-to-find behavior.  The whole
 thing gave  the concept of pass-by-reference a bad name, although
 as we have seen, it was really a combination of  design decisions
@@ -1290,7 +1271,7 @@ that led to the problem.
 In spite of  the  problem,  the  FORTRAN  approach  had  its good
 points.    Chief  among them is the fact that we  don't  have  to
 support  multiple  mechanisms.    The  same  scheme,  passing the
-address of  the argument, works for EVERY case, including arrays.
+address of  the argument, works for _every_ case, including arrays.
 So the size of the compiler can be reduced.
 
 Partly because of the FORTRAN  gotcha, and partly just because of
@@ -1304,7 +1285,7 @@ any way it likes.  The value in the caller will not be changed.
 
 It may seem at first that  this  is a bit inefficient, because of
 the need to copy the parameter.  But remember that we're going to
-have  to  fetch SOME value to pass  anyway,  whether  it  be  the
+have  to  fetch _some_ value to pass  anyway,  whether  it  be  the
 parameter  itself  or  an address for it.  Inside the subroutine,
 using  pass-by-value  is  definitely  more  efficient,  since  we
 eliminate one level of indirection.  Finally, we saw earlier that
@@ -1314,13 +1295,13 @@ variables.  All in all, pass-by-value is better.
 
 Except for one small little detail:  if all parameters are passed
 by value, there is no way for a called to  procedure  to return a
-result to its caller!  The parameter passed is NOT altered in the
+result to its caller!  The parameter passed is _not_ altered in the
 caller,  only  in  the called procedure.  Clearly, that won't get
 the job done.
 
 There  have  been   two   answers  to  this  problem,  which  are
-equivalent.   In Pascal, Wirth provides for VAR parameters, which
-are  passed-by-reference.    What a VAR parameter is, in fact, is
+equivalent.   In Pascal, Wirth provides for `VAR` parameters, which
+are  passed-by-reference.    What a `VAR` parameter is, in fact, is
 none other than our old friend the FORTRAN parameter, with  a new
 name and paint job for disguise.  Wirth neatly  gets  around  the
 "changing a literal"  problem  as  well  as  the  "address  of an
@@ -1328,12 +1309,12 @@ expression" problem, by  the  simple expedient of allowing only a
 variable to be the actual parameter.  In other  words,  it's  the
 same restriction that the earliest FORTRANs imposed.
 
-C does the same thing, but explicitly.  In  C,  _ALL_  parameters
+C does the same thing, but explicitly.  In  C,  _all_  parameters
 are passed  by  value.    One  kind  of variable that C supports,
 however, is the pointer.  So  by  passing a pointer by value, you
 in effect pass what it points to by reference.  In some ways this
 works even better yet,  because  even  though  you can change the
-variable  pointed to all you like, you  still  CAN'T  change  the
+variable  pointed to all you like, you  still  _can't_  change  the
 pointer itself.  In a function such as strcpy, for example, where
 the  pointers are incremented as the string  is  copied,  we  are
 really only incrementing copies of the pointers, so the values of
@@ -1342,38 +1323,35 @@ were.  To modify a  pointer,  you  must  pass  a  pointer  to the
 pointer.
 
 Since we are simply  performing  experiments  here, we'll look at
-BOTH pass-by-value and pass-by-reference.    That  way,  we'll be
+_both_ pass-by-value and pass-by-reference.    That  way,  we'll be
 able to use either one as we need to.  It's worth mentioning that
 it's  going  to  be tough to use the C approach to pointers here,
 since a pointer is a different type and we haven't  studied types
 yet!
 
 
-## PASS-BY-VALUE
+## Pass-by-Value
 
 Let's just try some simple-minded  things and see where they lead
 us.    Let's begin with the pass-by-value  case.    Consider  the
-procedure call:
-
-```delphi
-     FOO(X, Y)
-```
+procedure call `FOO(X, Y)`.
 
 Almost the only reasonable way to pass the data  is  through  the
 CPU stack.  So the code we'd like  to  see  generated  might look
 something like this:
 
 ```asm
-     MOVE X(PC),-(SP)    ; Push X
-     MOVE Y(PC),-(SP)    ; Push Y
-     BSR FOO             ; Call FOO
+MOVE X(PC),-(SP)    ; Push X
+MOVE Y(PC),-(SP)    ; Push Y
+BSR FOO             ; Call FOO
 ```
 
 That certainly doesn't seem too complex!
 
-When the BSR is executed, the CPU pushes the return  address onto
-the stack and jumps to FOO.    At  this point the stack will look
+When the `BSR` is executed, the CPU pushes the return  address onto
+the stack and jumps to `FOO`.    At  this point the stack will look
 like this:
+
 ```
           .
           .
@@ -1386,28 +1364,27 @@ So the values of  the  parameters  have  addresses that are fixed
 offsets from the stack pointer.  In this  example,  the addresses
 are:
 
-```
-     X:  6(SP)
-     Y:  4(SP)
-```
+- X:  6(SP)
+- Y:  4(SP)
 
 Now consider what the called procedure might look like:
 
-```delphi
-     PROCEDURE FOO(A, B)
-     BEGIN
-          A = B
-     END
 ```
+PROCEDURE FOO(A, B)
+BEGIN
+     A = B
+END
+```
+
 (Remember, the names  of  the formal parameters are arbitrary ...
 only the positions count.)
 
 The desired output code might look like:
 
 ```asm
-     FOO: MOVE 4(SP),D0
-          MOVE D0,6(SP)
-          RTS
+FOO: MOVE 4(SP),D0
+     MOVE D0,6(SP)
+     RTS
 ```
 
 Note that, in order to address the formal parameters, we're going
@@ -1419,14 +1396,14 @@ table for the formal parameters.
 Let's begin by declaring a new table:
 
 ```delphi
-     var Params: Array['A'..'Z'] of integer;
+var Params: Array['A'..'Z'] of integer;
 ```
 
 We  also  will  need to keep track of how many parameters a given
 procedure has:
 
 ```delphi
-     var NumParams: integer;
+var NumParams: integer;
 ```
 
 And we need to initialize the new table.  Now, remember  that the
@@ -1448,8 +1425,8 @@ end;
 {--------------------------------------------------------------}
 ```
 
-We'll put a call to this procedure in Init, and  also  at the end
-of DoProc:
+We'll put a call to this procedure in `Init`, and  also  at the end
+of `DoProc`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1488,12 +1465,12 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Note that the call  within  DoProc ensures that the table will be
+Note that the call  within  `DoProc` ensures that the table will be
 clear when we're in the main program.
 
 
 OK, now  we  need  a  few procedures to work with the table.  The
-next few functions are  essentially  copies  of  InTable, TypeOf,
+next few functions are  essentially  copies  of  `InTable`, `TypeOf`,
 etc.:
 
 ```delphi
@@ -1587,8 +1564,8 @@ end;
 
 Now, what about dealing with a formal parameter  when  it appears
 in the body of the procedure?  That takes a little more work.  We
-must first determine that it IS a formal parameter.  To  do this,
-I've written a modified version of TypeOf:
+must first determine that it _is_ a formal parameter.  To  do this,
+I've written a modified version of `TypeOf`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1604,10 +1581,10 @@ end;
 {--------------------------------------------------------------}
 ```
 
-(Note that, since  TypeOf  now  calls  IsParam, it may need to be
+(Note that, since  `TypeOf`  now  calls  `IsParam`, it may need to be
 relocated in your source.)
 
-We also must modify AssignOrProc to deal with this new type:
+We also must modify `AssignOrProc` to deal with this new type:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1666,8 +1643,8 @@ As you can see, these procedures will treat  every  variable name
 encountered as either a  formal  parameter  or a global variable,
 depending  on  whether  or not it appears in the parameter symbol
 table.   Remember  that  we  are  using  only a vestigial form of
-Expression.  In the  final  program,  the  change shown here will
-have to be added to Factor, not Expression.
+`Expression`.  In the  final  program,  the  change shown here will
+have to be added to `Factor`, not `Expression`.
 
 The rest is easy.  We need only add the  semantics  to the actual
 procedure call, which we can do with one new line of code:
@@ -1688,14 +1665,14 @@ That's  it.  Add these changes to your program and give it a try.
 Try declaring one or two procedures, each with a formal parameter
 list.  Then do some assignments, using combinations of global and
 formal  parameters.    You  can  call one procedure  from  within
-another, but you cannot DECLARE a nested procedure.  You can even
+another, but you cannot _declare_ a nested procedure.  You can even
 pass formal parameters from one procedure to another.  If  we had
 the  full  syntax  of the language here, you'd also be able to do
 things like read  or  write  formal  parameters  or  use  them in
 complicated expressions.
 
 
-## WHAT'S WRONG?
+## What's Wrong?
 
 At this point, you might be thinking: Surely there's more to this
 than a few pushes and  pops.    There  must  be  more  to passing
@@ -1707,9 +1684,9 @@ generating here leaves a lot to be desired in several respects.
 The most glaring oversight is that it's wrong!   If  you'll  look
 back at the code for a procedure call, you'll see that the caller
 pushes each actual parameter onto the stack before  it  calls the
-procedure.  The  procedure  USES that information, but it doesn't
+procedure.  The  procedure  _uses_ that information, but it doesn't
 change the stack  pointer.    That  means that the stuff is still
-there when we return. SOMEBODY needs to clean up  the  stack,  or
+there when we return. _Somebody_ needs to clean up  the  stack,  or
 we'll soon be in very hot water!
 
 Fortunately,  that's  easily fixed.  All we  have  to  do  is  to
@@ -1725,9 +1702,9 @@ return address so as not to lose it.
 I prefer letting  the  caller  clean  up, so that the callee need
 only execute a return.  Also, it seems a bit more balanced, since
 the caller is  the  one  who  "messed  up" the stack in the first
-place.  But  THAT  means  that  the caller must remember how many
+place.  But  _that_  means  that  the caller must remember how many
 items  it  pushed.    To  make  things  easy, I've  modified  the
-procedure  ParamList to be a function  instead  of  a  procedure,
+procedure  `ParamList` to be a function  instead  of  a  procedure,
 returning the number of bytes pushed:
 
 ```delphi
@@ -1754,7 +1731,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Procedure CallProc then uses this to clean up the stack:
+Procedure `CallProc` then uses this to clean up the stack:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1794,22 +1771,22 @@ the stack pointer.  That works fine in our simple examples, since
 with our rudimentary  form  of expressions nobody else is messing
 with the stack.  But consider a different example as simple as:
 
-```delphi
-     PROCEDURE FOO(A, B)
-     BEGIN
-          A = A + B
-     END
+```
+PROCEDURE FOO(A, B)
+BEGIN
+     A = A + B
+END
 ```
 
 The code generated by a simple-minded parser might be:
 
 ```asm
-     FOO: MOVE 6(SP),D0       ; Fetch A
-          MOVE D0,-(SP)       ; Push it
-          MOVE 4(SP),D0       ; Fetch B
-          ADD (SP)+,D0        ; Add A
-          MOVE D0,6(SP)       : Store A
-          RTS
+FOO: MOVE 6(SP),D0       ; Fetch A
+     MOVE D0,-(SP)       ; Push it
+     MOVE 4(SP),D0       ; Fetch B
+     ADD (SP)+,D0        ; Add A
+     MOVE D0,6(SP)       : Store A
+     RTS
 ```
 
 This  would  be  wrong.  When we push the first argument onto the
@@ -1830,40 +1807,40 @@ this kind of thing.
 The problem, as you  can  see, is that as the procedure executes,
 the stack  pointer  bounces  up  and  down,  and so it becomes an
 awkward  thing  to  use  as  a  reference  to access  the  formal
-parameters.  The solution is to define some _OTHER_ register, and
+parameters.  The solution is to define some _other_ register, and
 use  it instead.  This register is typically  set  equal  to  the
 original stack pointer, and is called the frame pointer.
 
-The  68000 instruction set LINK lets you  declare  such  a  frame
+The  68000 instruction set `LINK` lets you  declare  such  a  frame
 pointer, and  sets  it  equal  to  the  stack pointer, all in one
 instruction.  As a matter of  fact,  it does even more than that.
 Since this register may have been in use for  something  else  in
-the calling procedure, LINK also pushes the current value of that
+the calling procedure, `LINK` also pushes the current value of that
 register onto the stack.  It  can  also  add a value to the stack
 pointer, to make room for local variables.
 
-The complement of LINK is UNLK, which simply  restores  the stack
+The complement of `LINK` is `UNLK`, which simply  restores  the stack
 pointer and pops the old value back into the register.
 
 Using these two  instructions,  the code for the previous example
 becomes:
 
 ```asm
-     FOO: LINK A6,#0
-          MOVE 10(A6),D0      ; Fetch A
-          MOVE D0,-(SP)       ; Push it
-          MOVE 8(A6),D0       ; Fetch B
-          ADD (SP)+,D0        ; Add A
-          MOVE D0,10(A6)      : Store A
-          UNLK A6
-          RTS
+FOO: LINK A6,#0
+     MOVE 10(A6),D0      ; Fetch A
+     MOVE D0,-(SP)       ; Push it
+     MOVE 8(A6),D0       ; Fetch B
+     ADD (SP)+,D0        ; Add A
+     MOVE D0,10(A6)      : Store A
+     UNLK A6
+     RTS
 ```
 
 Fixing the compiler to generate this code is a lot easier than it
 is  to  explain  it.    All we need to do is to modify  the  code
-generation created by DoProc.  Since that makes the code a little
+generation created by `DoProc`.  Since that makes the code a little
 more than one line, I've created new procedures to deal  with it,
-paralleling the Prolog and Epilog procedures called by DoMain:
+paralleling the `Prolog` and `Epilog` procedures called by `DoMain`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1887,7 +1864,7 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Procedure DoProc now just calls these:
+Procedure `DoProc` now just calls these:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1910,8 +1887,8 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Finally, we need to  change  the  references  to SP in procedures
-LoadParam and StoreParam:
+Finally, we need to  change  the  references  to `SP` in procedures
+`LoadParam` and `StoreParam`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -1937,10 +1914,10 @@ begin
      WriteLn(Offset, '(A6)');
 end;
 {--------------------------------------------------------------}
-
 ```
-(Note that the Offset computation  changes to allow for the extra
-push of A6.)
+
+(Note that the `Offset` computation  changes to allow for the extra
+push of `A6`.)
 
 That's all it takes.  Try this out and see how you like it.
 
@@ -1951,46 +1928,44 @@ allowed, this code is just what we need.
 
 There is still just one little small problem remaining:
 
-
-## WE HAVE NO WAY TO RETURN RESULTS TO THE CALLER!
-
+WE HAVE NO WAY TO RETURN RESULTS TO THE CALLER!
 
 But  that,  of course, is not a  limitation  of  the  code  we're
 generating, but  one  inherent  in  the  call-by-value  protocol.
-Notice that we CAN use formal parameters in any  way  inside  the
+Notice that we _can_ use formal parameters in any  way  inside  the
 procedure.  We  can  calculate  new  values for them, use them as
 loop counters (if we had loops, that is!), etc.   So  the code is
 doing what it's supposed to.   To  get over this last problem, we
 need to look at the alternative protocol.
 
 
-## CALL-BY-REFERENCE
+## Call-by-Reference
 
 This  one is easy, now that we have  the  mechanisms  already  in
 place.    We  only  have  to  make  a few  changes  to  the  code
 generation.  Instead of  pushing  a value onto the stack, we must
 push an address.  As it turns out, the 68000 has  an instruction,
-PEA, that does just that.
+`PEA`, that does just that.
 
 We'll be  making  a  new  version  of  the test program for this.
 Before we do anything else,
 
-`>>>> MAKE A COPY <<<<` of  the program as it now stands, because  we'll  be  needing  it
+**MAKE A COPY** of  the program as it now stands, because  we'll  be  needing  it
 again later.
 
 Let's begin by looking at the code we'd like to see generated for
 the new case. Using the same example as before, we need the call
 
-```delphi
-     FOO(X, Y)
+```
+FOO(X, Y)
 ```
 
 to be translated to:
 
-```delphi
-     PEA X(PC)           ; Push the address of X
-     PEA Y(PC)           ; Push Y the address of Y
-     BSR FOO             ; Call FOO
+```asm
+PEA X(PC)           ; Push the address of X
+PEA Y(PC)           ; Push Y the address of Y
+BSR FOO             ; Call FOO
 ```
 
 That's a simple matter of a slight change to Param:
@@ -2007,27 +1982,27 @@ end;
 ```
 
 (Note that with pass-by-reference, we can't  have  expressions in
-the calling list, so Param can just read the name directly.)
+the calling list, so `Param` can just read the name directly.)
 
 At the other end, the references to the formal parameters must be
 given one level of indirection:
 
 ```asm
-     FOO: LINK A6,#0
-          MOVE.L 12(A6),A0    ; Fetch the address of A
-          MOVE (A0),D0        ; Fetch A
-          MOVE D0,-(SP)       ; Push it
-          MOVE.L 8(A6),A0     ; Fetch the address of B
-          MOVE (A0),D0        ; Fetch B
-          ADD (SP)+,D0        ; Add A
-          MOVE.L 12(A6),A0    ; Fetch the address of A
-          MOVE D0,(A0)        : Store A
-          UNLK A6
-          RTS
+FOO: LINK A6,#0
+     MOVE.L 12(A6),A0    ; Fetch the address of A
+     MOVE (A0),D0        ; Fetch A
+     MOVE D0,-(SP)       ; Push it
+     MOVE.L 8(A6),A0     ; Fetch the address of B
+     MOVE (A0),D0        ; Fetch B
+     ADD (SP)+,D0        ; Add A
+     MOVE.L 12(A6),A0    ; Fetch the address of A
+     MOVE D0,(A0)        : Store A
+     UNLK A6
+     RTS
 ```
 
-All  of  this  can  be   handled  by  changes  to  LoadParam  and
-StoreParam:
+All  of  this  can  be   handled  by  changes  to  `LoadParam`  and
+`StoreParam`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -2056,11 +2031,12 @@ begin
 end;
 {--------------------------------------------------------------}
 ```
+
 To  get  the  count  right,  we  must  also  change  one line  in
-ParamList:
+`ParamList`:
 
 ```delphi
-     ParamList := 4 * N;
+ParamList := 4 * N;
 ```
 
 That  should  do it.  Give it a try and see  if  it's  generating
@@ -2073,11 +2049,11 @@ candidate for optimization, and press on.
 
 Now we've learned to process parameters  using  pass-by-value and
 pass-by-reference.  In the real world, of course, we'd like to be
-able  to  deal  with BOTH methods.  We can't do that yet, though,
+able  to  deal  with _both_ methods.  We can't do that yet, though,
 because we have not yet had a session on types,  and  that has to
 come first.
 
-If  we can only have ONE method, then of course it has to be  the
+If  we can only have _one_ method, then of course it has to be  the
 good ol' FORTRAN method of  pass-by-reference,  since  that's the
 only way procedures can ever return values to their caller.
 
@@ -2086,7 +2062,7 @@ KISS.  In the next version of TINY,  we'll  use pass-by-reference
 for all parameters.  KISS will support both methods.
 
 
-## LOCAL VARIABLES
+## Local Variables
 
 So  far,  we've  said  nothing  about  local  variables, and  our
 definition of procedures doesn't allow  for  them.    Needless to
@@ -2123,7 +2099,7 @@ mechanisms  already  for  doing this.  In fact, the same routines
 that  deal with passed (by value) parameters  on  the  stack  can
 easily deal  with  local  variables  as  well  ... the code to be
 generated  is  the  same.  The purpose of the offset in the 68000
-LINK instruction is there just for that reason:  we can use it to
+`LINK` instruction is there just for that reason:  we can use it to
 adjust the stack  pointer  to  make  room  for  locals.   Dynamic
 storage, of course, inherently supports recursion.
 
@@ -2134,7 +2110,7 @@ early FORTRAN compilers  produced  a quality of code that's still
 rarely matched by modern compilers.   Even today, a given program
 written  in  FORTRAN  is likely to outperform  the  same  program
 written in C or Pascal, sometimes  by  wide margins. (Whew!  Am I
-going to hear about THAT statement!)
+going to hear about _that_ statement!)
 
 I've always supposed that the reason had to do with the  two main
 differences  between  FORTRAN  implementations  and  the  others:
@@ -2150,23 +2126,18 @@ More recently, though, several folks  have pointed out to me that
 there really is no performance  penalty  associated  with dynamic
 storage.  With the 68000, for example, you shouldn't use absolute
 addressing  anyway  ...  most  operating systems require position
-independent code.  And the 68000 instruction
-```
-     MOVE 8(A6),D0
-```
-has exactly the same timing as
-```
-     MOVE X(PC),D0.
-```
-So  I'm  convinced,  now, that there is no good reason NOT to use
+independent code.  And the 68000 instruction `MOVE 8(A6),D0`
+has exactly the same timing as `MOVE X(PC),D0`.
+
+So  I'm  convinced,  now, that there is no good reason _not_ to use
 dynamic storage.
 
 Since this use of local variables fits so well into the scheme of
 pass-by-value  parameters,  we'll  use   that   version   of  the
-translator to illustrate it. (I _SURE_ hope you kept a copy!)
+translator to illustrate it. (I _sure_ hope you kept a copy!)
 
 The general idea is to keep track of how  many  local  parameters
-there  are.    Then we use the integer in the LINK instruction to
+there  are.    Then we use the integer in the `LINK` instruction to
 adjust the stack pointer downward to make room for them.   Formal
 parameters are  addressed  as  positive  offsets  from  the frame
 pointer, and locals as negative offsets.  With a  little  bit  of
@@ -2176,11 +2147,12 @@ the whole thing.
 Let's start by creating a new variable, Base:
 
 ```delphi
-     var Base: integer;
+var Base: integer;
 ```
+
 We'll use this  variable,  instead of NumParams, to compute stack
-offsets.  That means changing  the two references to NumParams in
-LoadParam and StoreParam:
+offsets.  That means changing  the two references to `NumParams` in
+`LoadParam` and `StoreParam`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -2211,7 +2183,7 @@ end;
 The idea is that the value of Base will be  frozen  after we have
 processed the formal parameters, and  won't  increase  further as
 the new, local variables, are inserted in the symbol table.  This
-is taken care of at the end of FormalList:
+is taken care of at the end of `FormalList`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -2241,7 +2213,7 @@ the locals.)
 
 About all we  need  to  do  next  is to install the semantics for
 declaring local variables into the parser.  The routines are very
-similar to Decl and TopDecls:
+similar to `Decl` and `TopDecls`:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -2274,10 +2246,10 @@ end;
 {--------------------------------------------------------------}
 ```
 
-Note that LocDecls is a  FUNCTION, returning the number of locals
-to DoProc.
+Note that `LocDecls` is a  `FUNCTION`, returning the number of locals
+to `DoProc`.
 
-Next, we modify DoProc to use this information:
+Next, we modify `DoProc` to use this information:
 
 ```delphi
 {--------------------------------------------------------------}
@@ -2303,12 +2275,12 @@ end;
 
 (I've  made   a  couple  of  changes  here  that  weren't  really
 necessary.  Aside from rearranging things a bit, I moved the call
-to  Fin  to  within FormalList, and placed one inside LocDecls as
-well.   Don't forget to put one at the end of FormalList, so that
+to  `Fin`  to  within `FormalList`, and placed one inside `LocDecls` as
+well.   Don't forget to put one at the end of `FormalList`, so that
 we're together here.)
 
-Note the change in the call  to  ProcProlog.  The new argument is
-the number of WORDS (not bytes) to allocate space  for.    Here's
+Note the change in the call  to  `ProcProlog`.  The new argument is
+the number of `WORDS` (not bytes) to allocate space  for.    Here's
 the new version of ProcProlog:
 
 ```delphi
@@ -2327,7 +2299,7 @@ end;
 That should do it.  Add these changes and see how they work.
 
 
-## CONCLUSION
+## Conclusion
 
 At this point you know  how to compile procedure declarations and
 procedure calls,  with  parameters  passed  by  reference  and by
@@ -2343,5 +2315,5 @@ both mechanisms instead of just one at a  time.    I'd  prefer to
 save  that  one  until after we've  dealt  with  ways  to  handle
 different variable types.
 
-That will be the next installment, which will be coming soon to a
+That will be the [next installment](tutor14_types.md), which will be coming soon to a
 Forum near you.  See you then.

@@ -1,14 +1,18 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Types - Let's build a compiler</title>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Types - Let&#x27;s Build a Compiler</title>
+
+
+        <!-- Custom HTML head -->
+        
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -17,8 +21,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -26,16 +29,18 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
 
-        
     </head>
-    <body class="light">
+    <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -51,71 +56,78 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="about.html">About this project</a></li><li class="affix"><a href="tutor01_introduction.html">Introduction</a></li><li class="affix"><a href="tutor02_expressionparsing.html">Expression Parsing</a></li><li class="affix"><a href="tutor03_moreexpressions.html">More Expressions</a></li><li class="affix"><a href="tutor04_interpreters.html">Interpreters</a></li><li class="affix"><a href="tutor05_controlstructs.html">Control Constructs</a></li><li class="affix"><a href="tutor06_booleanexpressions.html">Boolean Expressions</a></li><li class="affix"><a href="tutor07_lexicalscanning.html">Lexical Scanning</a></li><li class="affix"><a href="tutor08_littlephilosophy.html">A Little Philosophy</a></li><li class="affix"><a href="tutor09_atopview.html">A Top View</a></li><li class="affix"><a href="tutor10_introducingtiny.html">Introducing Tiny</a></li><li class="affix"><a href="tutor11_lexicalscanrevisit.html">Lexical Scan Revisit</a></li><li class="affix"><a href="tutor12_miscellany.html">Miscellany</a></li><li class="affix"><a href="tutor13_procedures.html">Procedures</a></li><li class="affix"><a href="tutor14_types.html" class="active">Types</a></li><li class="affix"><a href="tutor15_backtothefuture.html">Back to the Future</a></li><li class="affix"><a href="tutor16_unitconstruction.html">Unit Construction</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="about.html">About this project</a></li><li class="chapter-item expanded "><a href="tutor01_introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="tutor02_expressionparsing.html"><strong aria-hidden="true">2.</strong> Expression Parsing</a></li><li class="chapter-item expanded "><a href="tutor03_moreexpressions.html"><strong aria-hidden="true">3.</strong> More Expressions</a></li><li class="chapter-item expanded "><a href="tutor04_interpreters.html"><strong aria-hidden="true">4.</strong> Interpreters</a></li><li class="chapter-item expanded "><a href="tutor05_controlstructs.html"><strong aria-hidden="true">5.</strong> Control Constructs</a></li><li class="chapter-item expanded "><a href="tutor06_booleanexpressions.html"><strong aria-hidden="true">6.</strong> Boolean Expressions</a></li><li class="chapter-item expanded "><a href="tutor07_lexicalscanning.html"><strong aria-hidden="true">7.</strong> Lexical Scanning</a></li><li class="chapter-item expanded "><a href="tutor08_littlephilosophy.html"><strong aria-hidden="true">8.</strong> A Little Philosophy</a></li><li class="chapter-item expanded "><a href="tutor09_atopview.html"><strong aria-hidden="true">9.</strong> A Top View</a></li><li class="chapter-item expanded "><a href="tutor10_introducingtiny.html"><strong aria-hidden="true">10.</strong> Introducing Tiny</a></li><li class="chapter-item expanded "><a href="tutor11_lexicalscanrevisited.html"><strong aria-hidden="true">11.</strong> Lexical Scan Revisited</a></li><li class="chapter-item expanded "><a href="tutor12_miscellany.html"><strong aria-hidden="true">12.</strong> Miscellany</a></li><li class="chapter-item expanded "><a href="tutor13_procedures.html"><strong aria-hidden="true">13.</strong> Procedures</a></li><li class="chapter-item expanded "><a href="tutor14_types.html" class="active"><strong aria-hidden="true">14.</strong> Types</a></li><li class="chapter-item expanded "><a href="tutor15_backtothefuture.html"><strong aria-hidden="true">15.</strong> Back to the Future</a></li><li class="chapter-item expanded "><a href="tutor16_unitconstruction.html"><strong aria-hidden="true">16.</strong> Unit Construction</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
 
-                        <h1 class="menu-title">Let's build a compiler</h1> 
+                    <h1 class="menu-title">Let&#x27;s Build a Compiler</h1>
 
-                        <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                        </div>
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/xmonader/letsbuildacompiler-pretty" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -123,10 +135,9 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -136,92 +147,92 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#part-xiv-types---26-may-1990" id="part-xiv-types---26-may-1990"><h1>Part XIV: TYPES - 26 May 1990</h1></a>
-<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
-<p>In the  last installment (Part XIII: PROCEDURES) I mentioned that
+                        <h1 id="part-xiv-types---26-may-1990"><a class="header" href="#part-xiv-types---26-may-1990">Part XIV: Types - 26 May 1990</a></h1>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>In the  last installment (<a href="tutor13_procedures.html">Part XIII: PROCEDURES</a>) I mentioned that
 in that part and this one,  we  would cover the two features that
 tend  to  separate  the toy language from a real, usable one.  We
 covered  procedure  calls  in that installment.  Many of you have
-been  waiting patiently, since August '89, for  me  to  drop  the
+been  waiting patiently, since August ’89, for  me  to  drop  the
 other shoe.  Well, here it is.</p>
-<p>In this installment, we'll talk  about how to deal with different
-data types.  As I did in the last segment, I will NOT incorporate
+<p>In this installment, we’ll talk  about how to deal with different
+data types.  As I did in the last segment, I will <em>not</em> incorporate
 these  features directly into the TINY  compiler  at  this  time.
-Instead, I'll be using the same approach that has worked  so well
+Instead, I’ll be using the same approach that has worked  so well
 for  us  in the past: using only  fragments  of  the  parser  and
 single-character  tokens.    As  usual,  this  allows  us to  get
 directly to the  heart  of  the  matter  without  having  to wade
 through a lot of  unnecessary  code.  Since the major problems in
 dealing with multiple types occur in  the  arithmetic operations,
-that's where we'll concentrate our focus.</p>
+that’s where we’ll concentrate our focus.</p>
 <p>A  few words of warning:  First, there are some types that I will
-NOT  be  covering in this installment.   Here  we  will  ONLY  be
-talking about the simple, predefined types.  We  won't  even deal
-with arrays, pointers or strings  in  this  installment;  I'll be
+NOT  be  covering in this installment.   Here  we  will  <em>only</em>  be
+talking about the simple, predefined types.  We  won’t  even deal
+with arrays, pointers or strings  in  this  installment;  I’ll be
 covering them in the next few.</p>
 <p>Second, we also will not discuss user-defined types.    That will
 not come until  much  later,  for  the simple reason that I still
-haven't convinced myself  that  user-defined  types  belong  in a
+haven’t convinced myself  that  user-defined  types  belong  in a
 language named KISS.  In later installments, I do intend to cover
 at least the general  concepts  of  user-defined  types, records,
 etc., just so that the series  will  be complete.  But whether or
 not they will be included as part of KISS is still an open issue.
 I am open to comments or suggestions on this question.</p>
-<p>Finally,  I  should  warn you: what we are about to  do  CAN  add
+<p>Finally,  I  should  warn you: what we are about to  do  <em>can</em>  add
 considerable  extra  complication  to  both  the  parser  and the
 generated  code.    Handling  variables  of  different  types  is
 straightforward enough.  The complexity  comes  in  when  you add
 rules about conversion between types.  In general,  you  can make
 the  compiler  as  simple or as complex as you choose to make it,
 depending upon the  way  you  define  the  type-conversion rules.
-Even if you decide not to allow ANY type conversions (as  in Ada,
+Even if you decide not to allow <em>any</em> type conversions (as  in Ada,
 for example) the problem is still there, and is  built  into  the
 mathematics.  When  you  multiply two short numbers, for example,
 you can get a long result.</p>
-<p>I've approached this problem very  carefully,  in  an  attempt to
-Keep It Simple.  But we can't avoid the complexity entirely.   As
+<p>I’ve approached this problem very  carefully,  in  an  attempt to
+Keep It Simple.  But we can’t avoid the complexity entirely.   As
 has so often has happened, we end up having to trade code quality
 against complexity,  and  as  usual  I  will  tend to opt for the
 simplest approach.</p>
-<a class="header" href="#whats-coming-next" id="whats-coming-next"><h2>WHAT'S COMING NEXT?</h2></a>
-<p>Before diving into the tutorial, I think you'd like to know where
-we are going  from  here  ...  especially since it's been so long
-since the last installment.</p>
-<p>I have not been idle in  the  meantime.   What I've been doing is
+<h2 id="whats-coming-next"><a class="header" href="#whats-coming-next">What’s Coming Next?</a></h2>
+<p>Before diving into the tutorial, I think you’d like to know where
+we are going  from  here  …  especially since it’s been so long
+since the <a href="tutor13_procedures.html">last installment</a>.</p>
+<p>I have not been idle in  the  meantime.   What I’ve been doing is
 reorganizing  the  compiler  itself into Turbo Units.  One of the
-problems I've encountered is that  as we've covered new areas and
-thereby added features to  the  TINY  compiler, it's been getting
+problems I’ve encountered is that  as we’ve covered new areas and
+thereby added features to  the  TINY  compiler, it’s been getting
 longer and longer.  I realized a couple of installments back that
-this was causing trouble, and that's why I've gone back  to using
+this was causing trouble, and that’s why I’ve gone back  to using
 only compiler fragments for  the  last  installment and this one.
 The problem is that it just  seems  dumb to have to reproduce the
-code  for,  say,  processing  boolean  exclusive  OR's,  when the
+code  for,  say,  processing  boolean  exclusive  ORs,  when the
 subject of the discussion is parameter passing.</p>
 <p>The obvious way  to have our cake and eat it, too, is to break up
 the compiler into separately compilable  modules,  and  of course
 the Turbo Unit is an ideal  vehicle  for doing this.  This allows
 us to hide some fairly complex code (such as the  full arithmetic
 and boolean expression parsing) into a single unit, and just pull
-it in whenever it's needed.  In that way, the only code I'll have
+it in whenever it’s needed.  In that way, the only code I’ll have
 to reproduce in these installments will be the code that actually
 relates to the issue under discussion.</p>
-<p>I've  also  been  toying with Turbo 5.5, which of course includes
-the Borland object-oriented  extensions  to  Pascal.    I haven't
+<p>I’ve  also  been  toying with Turbo 5.5, which of course includes
+the Borland object-oriented  extensions  to  Pascal.    I haven’t
 decided whether to make use of these features,  for  two reasons.
 First of all, many of you who have been following this series may
-still not have 5.5, and I certainly don't want to force anyone to
+still not have 5.5, and I certainly don’t want to force anyone to
 have to go out and  buy  a  new  compiler  just  to  complete the
-series.  Secondly, I'm not convinced that the O-O extensions have
-all that much value for this application.  We've been having some
-discussions  about that in CompuServe's CLM  forum,  and  so  far
-we've  not found any compelling reason  to  use  O-O  constructs.
+series.  Secondly, I’m not convinced that the O-O extensions have
+all that much value for this application.  We’ve been having some
+discussions  about that in CompuServe’s CLM  forum,  and  so  far
+we’ve  not found any compelling reason  to  use  O-O  constructs.
 This is another of those areas where I could  use  some  feedback
 from you readers.  Anyone want to vote for Turbo 5.5 and O-O?</p>
 <p>In any case, after  the  next few installments in the series, the
 plan  is  to  upload to you a complete set of Units, and complete
 functioning compilers as  well.    The  plan, in fact, is to have
-THREE compilers:  One for  a single-character version of TINY (to
-use  for  our  experiments), one for TINY and one for KISS.  I've
+<em>three</em> compilers:  One for  a single-character version of TINY (to
+use  for  our  experiments), one for TINY and one for KISS.  I’ve
 pretty much isolated the differences between TINY and KISS, which
 are these:</p>
 <ul>
@@ -233,38 +244,38 @@ useless.   KISS will support all  the  usual  simple  types,
 including arrays and even floating point.</p>
 </li>
 <li>
-<p>TINY will only have two control constructs, the  IF  and the
-WHILE.  KISS will  support  a  very  rich set of constructs,
-including one we haven't discussed here before ... the CASE.</p>
+<p>TINY will only have two control constructs, the  <code>IF</code>  and the
+<code>WHILE</code>.  KISS will  support  a  very  rich set of constructs,
+including one we haven’t discussed here before … the <code>CASE</code>.</p>
 </li>
 <li>
 <p>KISS will support separately compilable modules.</p>
 </li>
 </ul>
-<p>One caveat: Since I still don't know much  about  80x86 assembler
+<p>One caveat: Since I still don’t know much  about  80x86 assembler
 language, all these compiler modules  will  still  be  written to
 support 68000 code.  However, for the programs I plan  to upload,
 all the code generation  has  been  carefully encapsulated into a
 single unit, so that any enterprising student should  be  able to
-easily retarget to any other processor.  This task is &quot;left as an
-exercise for the  student.&quot;    I'll  make an offer right here and
+easily retarget to any other processor.  This task is “left as an
+exercise for the  student.”    I’ll  make an offer right here and
 now:  For the person who provides us the first robust retarget to
 80x86, I will be happy to discuss shared copyrights and royalties
-from the book that's upcoming.</p>
-<p>But enough talk.  Let's get on with  the  study  of  types.  As I
-said  earlier,  we'll  do  this  one  as  we  did  in   the  last
+from the book that’s upcoming.</p>
+<p>But enough talk.  Let’s get on with  the  study  of  types.  As I
+said  earlier,  we’ll  do  this  one  as  we  did  in   the  last
 installment:  by  performing experiments  using  single-character
 tokens.</p>
-<a class="header" href="#the-symbol-table" id="the-symbol-table"><h2>THE SYMBOL TABLE</h2></a>
-<p>It should be apparent that, if we're going to deal with variables
-of different types, we're going  to need someplace to record what
+<h2 id="the-symbol-table"><a class="header" href="#the-symbol-table">The Symbol Table</a></h2>
+<p>It should be apparent that, if we’re going to deal with variables
+of different types, we’re going  to need someplace to record what
 those  types are.  The obvious vehicle for  that  is  the  symbol
-table, and we've already  used  it  that  way to distinguish, for
+table, and we’ve already  used  it  that  way to distinguish, for
 example,   between  local  and  global  variables,  and   between
 variables and procedures.</p>
 <p>The  symbol  table   structure  for  single-character  tokens  is
-particularly simple, and we've used  it several times before.  To
-deal with it, we'll steal some procedures that we've used before.</p>
+particularly simple, and we’ve used  it several times before.  To
+deal with it, we’ll steal some procedures that we’ve used before.</p>
 <p>First, we need to declare the symbol table itself:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Variable Declarations }
@@ -274,8 +285,8 @@ var Look: char;              { Lookahead Character }
     ST: Array['A'..'Z'] of char;   {  *** ADD THIS LINE ***}
 {--------------------------------------------------------------}
 </code></pre>
-<p>Next, we need to make sure it's initialized as part  of procedure
-Init:</p>
+<p>Next, we need to make sure it’s initialized as part  of procedure
+<code>Init</code>:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Initialize }
 
@@ -288,7 +299,7 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>We don't really need  the  next procedure, but it will be helpful
+<p>We don’t really need  the  next procedure, but it will be helpful
 for debugging.  All it does is to dump the contents of the symbol
 table:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -302,13 +313,13 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>It really doesn't matter much where you put this procedure  ... I
+<p>It really doesn’t matter much where you put this procedure  … I
 plan to cluster all the symbol table routines together, so  I put
 mine just after the error reporting procedures.</p>
-<p>If  you're  the  cautious type (as I am), you might want to begin
+<p>If  you’re  the  cautious type (as I am), you might want to begin
 with a test program that does nothing but initializes, then dumps
-the table.  Just to be sure that we're all on the same wavelength
-here, I'm reproducing the entire program below, complete with the
+the table.  Just to be sure that we’re all on the same wavelength
+here, I’m reproducing the entire program below, complete with the
 new  procedures.  Note that this  version  includes  support  for
 white space:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -551,32 +562,32 @@ end.
 </code></pre>
 <p>OK, run this program.  You  should  get a (very fast) printout of
 all the letters of  the  alphabet  (potential  identifiers), each
-followed by  a  question  mark.    Not  very exciting, but it's a
+followed by  a  question  mark.    Not  very exciting, but it’s a
 start.</p>
 <p>Of course, in general we  only  want  to  see  the  types  of the
 variables that have been defined.  We can eliminate the others by
-modifying DumpTable with an IF test.  Change the loop to read:</p>
-<pre><code class="language-delphi">  for i := 'A' to 'Z' do
-     if ST[i] &lt;&gt; '?' then
-         WriteLn(i, ' ', ST[i]);
+modifying <code>DumpTable</code> with an <code>IF</code> test.  Change the loop to read:</p>
+<pre><code class="language-delphi">for i := 'A' to 'Z' do
+   if ST[i] &lt;&gt; '?' then
+       WriteLn(i, ' ', ST[i]);
 </code></pre>
 <p>Now, run the program again.  What did you get?</p>
-<p>Well, that's even more  boring  than before!  There was no output
-at all, since at this point NONE of the names have been declared.
+<p>Well, that’s even more  boring  than before!  There was no output
+at all, since at this point <em>none</em> of the names have been declared.
 We  can  spice  things up a  bit  by  inserting  some  statements
 declaring some entries in the main program.  Try these:</p>
-<pre><code class="language-delphi">     ST['A'] := 'a';
-     ST['P'] := 'b';
-     ST['X'] := 'c';
+<pre><code class="language-delphi">ST['A'] := 'a';
+ST['P'] := 'b';
+ST['X'] := 'c';
 </code></pre>
 <p>This time, when  you  run  the  program, you should get an output
 showing that the symbol table is working right.</p>
-<a class="header" href="#adding-entries" id="adding-entries"><h2>ADDING ENTRIES</h2></a>
+<h2 id="adding-entries"><a class="header" href="#adding-entries">Adding Entries</a></h2>
 <p>Of course, writing to the table directly is pretty poor practice,
 and not one that will  help  us  much  later.   What we need is a
 procedure to add entries to the table.  At the same time, we know
-that  we're going to need to test the table, to make sure that we
-aren't redeclaring a variable that's already in use  (easy  to do
+that  we’re going to need to test the table, to make sure that we
+aren’t redeclaring a variable that’s already in use  (easy  to do
 with only 26 choices!).  To handle all this, enter  the following
 new procedures:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -619,27 +630,27 @@ end;
 {--------------------------------------------------------------}
 </code></pre>
 <p>Now change the three lines in the main program to read:</p>
-<pre><code class="language-delphi">     AddEntry('A', 'a');
-     AddEntry('P', 'b');
-     AddEntry('X', 'c');
+<pre><code class="language-delphi">AddEntry('A', 'a');
+AddEntry('P', 'b');
+AddEntry('X', 'c');
 </code></pre>
 <p>and run the program again.  Did it work?  Then we have the symbol
 table routines needed to support our work on types.  In  the next
-section, we'll actually begin to use them.</p>
-<a class="header" href="#allocating-storage" id="allocating-storage"><h2>ALLOCATING STORAGE</h2></a>
+section, we’ll actually begin to use them.</p>
+<h2 id="allocating-storage"><a class="header" href="#allocating-storage">Allocating Storage</a></h2>
 <p>In  other programs like this one,  including  the  TINY  compiler
 itself, we have  already  addressed the issue of declaring global
-variables, and the  code  generated  for  them.    Let's  build a
-vestigial version of a &quot;compiler&quot; here, whose only function is to
+variables, and the  code  generated  for  them.    Let’s  build a
+vestigial version of a “compiler” here, whose only function is to
 allow  us   declare  variables.    Remember,  the  syntax  for  a
 declaration is:</p>
-<pre><code>     &lt;data decl&gt; ::= VAR &lt;identifier&gt;
+<pre><code class="language-bnf">&lt;data decl&gt; ::= VAR &lt;identifier&gt;
 </code></pre>
 <p>Again, we can lift a lot of the code from previous programs.  The
 following are stripped-down versions of those  procedures.   They
 are greatly simplified  since  I  have  eliminated  niceties like
-variable lists and  initializers.   In procedure Alloc, note that
-the  new call to AddEntry will also  take  care  of  checking for
+variable lists and  initializers.   In procedure <code>Alloc</code>, note that
+the  new call to <code>AddEntry</code> will also  take  care  of  checking for
 duplicate declarations:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Allocate Storage for a Variable }
@@ -676,34 +687,31 @@ begin
    end;
 end;
 {--------------------------------------------------------------}
-
 </code></pre>
-<p>Now, in the  main  program,  add  a  call to TopDecls and run the
+<p>Now, in the  main  program,  add  a  call to <code>TopDecls</code> and run the
 program.  Try allocating a  few variables, and note the resulting
 code generated.  This is old stuff for you, so the results should
-look familiar.  Note from the code for TopDecls that  the program
+look familiar.  Note from the code for <code>TopDecls</code> that  the program
 is ended by a terminating period.</p>
-<p>While you're at it,  try  declaring  two  variables with the same
+<p>While you’re at it,  try  declaring  two  variables with the same
 name, and verify that the parser catches the error.</p>
-<a class="header" href="#declaring-types" id="declaring-types"><h2>DECLARING TYPES</h2></a>
+<h2 id="declaring-types"><a class="header" href="#declaring-types">Declaring Types</a></h2>
 <p>Allocating storage of different sizes  is  as  easy  as modifying
-procedure TopDecls to recognize more than one keyword.  There are
+procedure <code>TopDecls</code> to recognize more than one keyword.  There are
 a  number  of  decisions to be made here, in terms  of  what  the
-syntax should be, etc., but for now I'm  going  to  duck  all the
+syntax should be, etc., but for now I’m  going  to  duck  all the
 issues and simply declare by  executive fiat that our syntax will
 be:</p>
-<pre><code>     &lt;data decl&gt; ::= &lt;typename&gt;  &lt;identifier&gt;
-</code></pre>
-<p>where:</p>
-<pre><code>     &lt;typename&gt; ::= BYTE | WORD | LONG
+<pre><code class="language-bnf">&lt;data decl&gt; ::= &lt;typename&gt;  &lt;identifier&gt;
 
+&lt;typename&gt; ::= BYTE | WORD | LONG
 </code></pre>
 <p>(By  an amazing coincidence, the first  letters  of  these  names
 happen  to  be  the  same  as  the  68000  assembly  code  length
 specifications, so this choice saves us a little work.)</p>
 <p>We can create the code to take care of  these  declarations  with
-only slight modifications.  In the routines below, note that I've
-separated  the  code  generation parts of Alloc  from  the  logic
+only slight modifications.  In the routines below, note that I’ve
+separated  the  code  generation parts of <code>Alloc</code>  from  the  logic
 parts.  This  is  in  keeping  with our desire to encapsulate the
 machine-dependent part of the compiler.</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -752,20 +760,20 @@ end;
 {--------------------------------------------------------------}
 </code></pre>
 <p>Make the changes shown to these procedures, and give the  thing a
-try.    Use  the  single  characters  'b',  'w',  and 'l' for the
+try.    Use  the  single  characters  <code>b</code>,  <code>w</code>,  and <code>l</code> for the
 keywords (they must be lower case,  for  now).  You will see that
 in each case, we are allocating the proper storage  size.    Note
 from the dumped symbol table that the sizes are also recorded for
-later use.  What later use?  Well, that's the subject of the rest
+later use.  What later use?  Well, that’s the subject of the rest
 of this installment.</p>
-<a class="header" href="#assignments" id="assignments"><h2>ASSIGNMENTS</h2></a>
+<h2 id="assignments"><a class="header" href="#assignments">Assignments</a></h2>
 <p>Now that we can declare variables of different  sizes,  it stands
 to reason that we ought to be able  to  do  something  with them.
-For our first trick, let's just try loading them into our working
-register, D0.  It makes sense to use the same  idea  we used for
+For our first trick, let’s just try loading them into our working
+register, <code>D0</code>.  It makes sense to use the same  idea  we used for
 Alloc; that is, make a load procedure that can load more than one
-size.    We  also  want  to continue to encapsulate the  machine-
-dependent stuff.  The load procedure looks like this:</p>
+size.    We  also  want  to continue to encapsulate the
+machine-dependent stuff.  The load procedure looks like this:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Load a Variable to Primary Register }
 
@@ -776,7 +784,7 @@ end;
 {---------------------------------------------------------------}
 </code></pre>
 <p>On  the  68000,  at least, it happens that many instructions turn
-out to be MOVE's.  It turns out to be useful to create a separate
+out to be <code>MOVE</code>s.  It turns out to be useful to create a separate
 code generator just for these instructions, and then  call  it as
 needed:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
@@ -805,7 +813,7 @@ end;
 </code></pre>
 <p>Next, it would be nice to have a routine that will fetch the type
 of a variable from the symbol table, while checking  it  to  make
-sure it's valid:</p>
+sure it’s valid:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Get a Variable Type from the Symbol Table }
 
@@ -830,27 +838,27 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>(NOTE to the  concerned:  I  know,  I  know, all this is all very
+<p>(<strong>Note</strong> to the  concerned:  I  know,  I  know, all this is all very
 inefficient.  In a production  program,  we  probably  would take
-steps to avoid such deep nesting of procedure calls.  Don't worry
-about it.  This is an EXERCISE, remember?  It's more important to
+steps to avoid such deep nesting of procedure calls.  Don’t worry
+about it.  This is an <em>exercise</em>, remember?  It’s more important to
 get it  right  and  understand  it, than it is to make it get the
 wrong  answer,  quickly.   If you get your compiler completed and
-find that you're unhappy  with  the speed, feel free to come back
+find that you’re unhappy  with  the speed, feel free to come back
 and hack the code to speed it up!)</p>
 <p>It would be a good idea to test the program at this point.  Since
-we don't have a  procedure  for  dealing  with assignments yet, I
+we don’t have a  procedure  for  dealing  with assignments yet, I
 just added the lines:</p>
-<pre><code class="language-delphi">     Load('A');
-     Load('B');
-     Load('C');
-     Load('X');
+<pre><code class="language-delphi">Load('A');
+Load('B');
+Load('C');
+Load('X');
 </code></pre>
 <p>to  the main program.  Thus, after  the  declaration  section  is
 complete, they will be executed to generate code  for  the loads.
 You can play around with  this, and try different combinations of
 declarations to see how the errors are handled.</p>
-<p>I'm sure you won't be surprised to learn  that  storing variables
+<p>I’m sure you won’t be surprised to learn  that  storing variables
 is a lot like  loading  them.  The necessary procedures are shown
 next:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
@@ -873,10 +881,10 @@ end;
 {--------------------------------------------------------------}
 </code></pre>
 <p>You can test this one the same way as the loads.</p>
-<p>Now, of course, it's a RATHER  small  step to use these to handle
-assignment  statements.  What we'll do is  to  create  a  special
-version   of  procedure  Block  that  supports  only   assignment
-statements, and also a  special  version  of Expression that only
+<p>Now, of course, it’s a <em>rather</em>  small  step to use these to handle
+assignment  statements.  What we’ll do is  to  create  a  special
+version   of  procedure  <code>Block</code>  that  supports  only   assignment
+statements, and also a  special  version  of <code>Expression</code> that only
 supports single variables as legal expressions.  Here they are:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Parse and Translate an Expression }
@@ -913,18 +921,18 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>(It's worth noting that, if  anything,  the  new  procedures that
+<p>(It’s worth noting that, if  anything,  the  new  procedures that
 permit us to manipulate types  are, if anything, even simpler and
-cleaner than what we've seen before.  This is  mostly  thanks  to
+cleaner than what we’ve seen before.  This is  mostly  thanks  to
 our efforts to encapsulate the code generator procedures.)</p>
 <p>There is one small, nagging problem.  Before, we used  the Pascal
-terminating period to get us out of procedure TopDecls.   This is
-now the wrong  character  ...  it's  used to terminate Block.  In
-previous programs, we've used the BEGIN symbol  (abbreviated 'b')
+terminating period to get us out of procedure <code>TopDecls</code>.   This is
+now the wrong  character  …  it’s  used to terminate <code>Block</code>.  In
+previous programs, we’ve used the <code>BEGIN</code> symbol  (abbreviated <code>b</code>)
 to get us out.  But that is now used as a type symbol.</p>
-<p>The solution, while somewhat of a kludge, is easy enough.   We'll
-use  an  UPPER CASE 'B' to stand for the BEGIN.   So  change  the
-character in the WHILE loop within TopDecls, from '.' to 'B', and
+<p>The solution, while somewhat of a kludge, is easy enough.   We’ll
+use  an  upper-case <code>B</code> to stand for the <code>BEGIN</code>.   So  change  the
+character in the <code>WHILE</code> loop within <code>TopDecls</code>, from <code>.</code> to <code>B</code>, and
 everything will be fine.</p>
 <p>Now, we can  complete  the  task  by changing the main program to
 read:</p>
@@ -941,71 +949,70 @@ begin
 end.
 {--------------------------------------------------------------}
 </code></pre>
-<p>(Note  that I've had to sprinkle a few calls to Fin around to get
+<p>(Note  that I’ve had to sprinkle a few calls to <code>Fin</code> around to get
 us out of Newline troubles.)</p>
 <p>OK, run this program.  Try the input:</p>
-<pre><code>
-     ba        { byte a }   *** DON'T TYPE THE COMMENTS!!! ***
-     wb        { word b }
-     lc        { long c }
-     B         { begin  }
-     a=a
-     a=b
-     a=c
-     b=a
-     b=b
-     b=c
-     c=a
-     c=b
-     c=c
-     .
+<pre><code>ba        { byte a }   *** DON'T TYPE THE COMMENTS!!! ***
+wb        { word b }
+lc        { long c }
+B         { begin  }
+a=a
+a=b
+a=c
+b=a
+b=b
+b=c
+c=a
+c=b
+c=c
+.
 </code></pre>
 <p>For  each  declaration,  you  should  get  code   generated  that
 allocates storage.  For each assignment, you should get code that
 loads a variable of the correct size, and stores one, also of the
 correct size.</p>
-<p>There's only one small  little  problem:    The generated code is
-WRONG!</p>
+<p>There’s only one small  little  problem:    The generated code is
+<em>wrong</em>!</p>
 <p>Look at the code for a=c above.  The code is:</p>
-<pre><code class="language-delphi">     MOVE.L    C(PC),D0
-     LEA       A(PC),A0
-     MOVE.B    D0,(A0)
+<pre><code class="language-asm">MOVE.L    C(PC),D0
+LEA       A(PC),A0
+MOVE.B    D0,(A0)
 </code></pre>
 <p>This code is correct.  It will cause the lower eight bits of C to
-be stored into A, which is a reasonable behavior.  It's about all
+be stored into A, which is a reasonable behavior.  It’s about all
 we can expect to happen.</p>
-<p>But now, look at the opposite case.  For c=a, the  code generated
+<p>But now, look at the opposite case.  For <code>c=a</code>, the  code generated
 is:</p>
-<pre><code>     MOVE.B A(PC),D0
-     LEA  C(PC),A0
-     MOVE.L D0,(A0)
+<pre><code class="language-asm">MOVE.B A(PC),D0
+LEA  C(PC),A0
+MOVE.L D0,(A0)
 </code></pre>
-<p>This is  <code>NOT</code>  correct.    It will cause the byte variable A to be
-stored into the lower eight bits  of  D0.  According to the rules
+<p>This is  <em>not</em>  correct.    It will cause the byte variable <code>A</code> to be
+stored into the lower eight bits  of  <code>D0</code>.  According to the rules
 for the 68000 processor,  the  upper 24 bits are unchanged.  This
 means  that when we store the entire 32  bits  into  C,  whatever
 garbage  that  was  in those high bits will also get stored.  Not
 good.</p>
-<p>So what  we  have  run  into here, early on, is the issue of TYPE
-CONVERSION, or COERCION.</p>
+<p>So what  we  have  run  into here, early on, is the issue of <em>type
+conversion</em>, or <em>coercion</em>.</p>
 <p>Before we do anything with  variables of different types, even if
-it's just to  copy  them, we have to face up to the issue.  It is
+it’s just to  copy  them, we have to face up to the issue.  It is
 not the most easy part of a compiler.  Most of  the  bugs  I have
 seen in production compilers  have  had to do with errors in type
 conversion for  some obscure combination of arguments.  As usual,
 there is a tradeoff between compiler complexity and the potential
 quality of the  generated  code,  and  as usual, we will take the
-path that keeps the  compiler  simple.  I think you'll find that,
+path that keeps the  compiler  simple.  I think you’ll find that,
 with this approach, we can keep the potential complexity in check
 rather nicely.</p>
-<a class="header" href="#the-cowards-way-out" id="the-cowards-way-out"><h2>THE COWARD'S WAY OUT</h2></a>
+<h2 id="the-cowards-way-out"><a class="header" href="#the-cowards-way-out">The Coward’s Way Out</a></h2>
 <p>Before we get into the details (and potential complexity) of type
-conversion,  I'd  like  you to see that there is one super-simple
+conversion,  I’d  like  you to see that there is one super-simple
 way to solve the problem: simply promote every variable to a long
 integer when we load it!</p>
-<p>This takes the addition of only one line to LoadVar,  although if
-we  are  not  going to COMPLETELY ignore efficiency, it should be
-guarded by an IF test.  Here is the modified version:</p>
+<p>This takes the addition of only one line to <code>LoadVar</code>,  although if
+we  are  not  going to <em>completely</em> ignore efficiency, it should be
+guarded by an <code>IF</code> test.  Here is the modified version:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Load a Variable to Primary Register }
 
@@ -1017,27 +1024,27 @@ begin
 end;
 {---------------------------------------------------------------}
 </code></pre>
-<p>(Note that StoreVar needs no similar change.)</p>
+<p>(Note that <code>StoreVar</code> needs no similar change.)</p>
 <p>If you run some tests with  this  new version, you will find that
 everything  works correctly now, albeit sometimes  inefficiently.
-For example, consider the case  a=b  (for  the  same declarations
+For example, consider the case  <code>a=b</code>  (for  the  same declarations
 shown above).  Now the generated code turns out to be:</p>
-<pre><code>     CLR.L D0
-     MOVE.W B(PC),D0
-     LEA  A(PC),A0
-     MOVE.B D0,(A0)
+<pre><code class="language-asm">CLR.L D0
+MOVE.W B(PC),D0
+LEA  A(PC),A0
+MOVE.B D0,(A0)
 </code></pre>
-<p>In  this  case,  the CLR turns out not to be necessary, since the
+<p>In  this  case,  the <code>CLR</code> turns out not to be necessary, since the
 result is going into a byte-sized variable.  With a little bit of
 work, we can do better.  Still, this is not  bad,  and it typical
-of the kinds of inefficiencies  that we've seen before in simple-
-minded compilers.</p>
+of the kinds of inefficiencies  that we’ve seen before in simple-minded
+compilers.</p>
 <p>I should point out that, by setting the high bits to zero, we are
-in effect treating the numbers as UNSIGNED integers.  If  we want
+in effect treating the numbers as <em>unsigned</em> integers.  If  we want
 to treat them as signed ones instead (the more  likely  case)  we
 should do a  sign  extension  after  the load, instead of a clear
 before it. Just  to  tie  this  part  of the discussion up with a
-nice, red ribbon, let's change LoadVar as shown below:</p>
+nice, red ribbon, let’s change <code>LoadVar</code> as shown below:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Load a Variable to Primary Register }
 
@@ -1053,32 +1060,32 @@ end;
 </code></pre>
 <p>With this version, a byte is treated as unsigned  (as  in  Pascal
 and C), while a word is treated as signed.</p>
-<a class="header" href="#a-more-reasonable-solution" id="a-more-reasonable-solution"><h2>A MORE REASONABLE SOLUTION</h2></a>
-<p>As we've seen, promoting  every  variable  to  long while it's in
+<h2 id="a-more-reasonable-solution"><a class="header" href="#a-more-reasonable-solution">A More Reasonable Solution</a></h2>
+<p>As we’ve seen, promoting  every  variable  to  long while it’s in
 memory solves the problem, but it can hardly be called efficient,
-and  probably wouldn't be acceptable even for  those  of  us  who
+and  probably wouldn’t be acceptable even for  those  of  us  who
 claim be unconcerned about  efficiency.    It  will mean that all
 arithmetic operations will be done to 32-bit accuracy, which will
-DOUBLE the run time  for  most operations, and make it even worse
+<em>double</em> the run time  for  most operations, and make it even worse
 for multiplication  and division.  For those operations, we would
 need to call subroutines to do  them,  even if the data were byte
 or  word types.  The whole thing is sort of a cop-out, too, since
 it ducks all the real issues.</p>
-<p>OK, so that solution's no good.  Is there still a relatively easy
+<p>OK, so that solution’s no good.  Is there still a relatively easy
 way to get data conversion?  Can we still Keep It Simple?</p>
 <p>Yes, indeed.   All we have to do is to make the conversion at the
-other end ... that is, we convert on the way <em>OUT</em>, when the data
+other end … that is, we convert on the way <em>out</em>, when the data
 is stored, rather than on the way in.</p>
 <p>But, remember, the storage part  of the assignment is pretty much
 independent of the data load, which is taken care of by procedure
-Expression.    In  general  the  expression  may  be  arbitrarily
-complex, so how can procedure Assignment know what  type  of data
-is left in register D0?</p>
-<p>Again,  the  answer  is  simple:    We'll  just  <em>ASK</em>  procedure
-Expression!  The answer can be returned as a function value.</p>
+<code>Expression</code>.    In  general  the  expression  may  be  arbitrarily
+complex, so how can procedure <code>Assignment</code> know what  type  of data
+is left in register <code>D0</code>?</p>
+<p>Again,  the  answer  is  simple:    We’ll  just  <em>ask</em>  procedure
+<code>Expression</code>!  The answer can be returned as a function value.</p>
 <p>All of this requires several procedures to be  modified,  but the
 mods, like the method, are quite simple.  First of all,  since we
-aren't requiring LoadVar to do  all the work of conversion, let's
+aren’t requiring <code>LoadVar</code> to do  all the work of conversion, let’s
 go back to the simple version:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Load a Variable to Primary Register }
@@ -1089,7 +1096,7 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Next, let's add a  new  procedure that will convert from one type
+<p>Next, let’s add a  new  procedure that will convert from one type
 to another:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Convert a Data Item from One Type to Another }
@@ -1132,16 +1139,16 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Note that Load is a function, which not only emits the code for a
+<p>Note that <code>Load</code> is a function, which not only emits the code for a
 load, but also returns the variable type.  In this way, we always
 know what type of data we  are  dealing  with.  When we execute a
-Store,  we pass it the current type of the variable in D0.  Since
-Store also knows the  type  of  the  destination variable, it can
+<code>Store</code>,  we pass it the current type of the variable in <code>D0</code>.  Since
+<code>Store</code> also knows the  type  of  the  destination variable, it can
 convert as necessary.</p>
 <p>Armed  with all these new routines,  the  implementation  of  our
 rudimentary   assignment   statement  is   essentially   trivial.
-Procedure Expression now becomes a  function,  which  returns its
-type to procedure Assignment:</p>
+Procedure <code>Expression</code> now becomes a  function,  which  returns its
+type to procedure <code>Assignment</code>:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Parse and Translate an Expression }
 
@@ -1163,33 +1170,33 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Again, note how  incredibly  simple these two routines are. We've
-encapsulated  all the type logic into Load  and  Store,  and  the
+<p>Again, note how  incredibly  simple these two routines are. We’ve
+encapsulated  all the type logic into <code>Load</code>  and  <code>Store</code>,  and  the
 trick of  passing  the  type  around  makes  the rest of the work
 extremely easy.    Of  course,  all  of  this is for our special,
-trivial case of Expression.  Naturally, for the  general  case it
-will have to get more complex.  But  you're  looking  now  at the
-FINAL version of procedure Assignment!</p>
+trivial case of <code>Expression</code>.  Naturally, for the  general  case it
+will have to get more complex.  But  you’re  looking  now  at the
+<em>final</em> version of procedure <code>Assignment</code>!</p>
 <p>All this seems like a very  simple  and clean solution, and it is
 indeed.   Compile this program and run the  same  test  cases  as
 before.    You will see that all  types  of  data  are  converted
 properly, and there are few if any wasted instructions.  Only the
 byte-to-long conversion uses two instructions where one would do,
-and we could easily modify Convert to handle this case, too.</p>
-<p>Although we haven't considered unsigned variables in this case, I
-think you can see  that  we could easily fix up procedure Convert
-to deal with these types as well.  This is  &quot;left  as an exercise
-for the student.&quot;</p>
-<a class="header" href="#literal-arguments" id="literal-arguments"><h2>LITERAL ARGUMENTS</h2></a>
-<p>Sharp-eyed readers might have noticed, though, that we don't even
-have a proper form of a simple factor yet, because we don't allow
-for loading literal constants,  only  variables.   Let's fix that
+and we could easily modify <code>Convert</code> to handle this case, too.</p>
+<p>Although we haven’t considered unsigned variables in this case, I
+think you can see  that  we could easily fix up procedure <code>Convert</code>
+to deal with these types as well.  This is  “left  as an exercise
+for the student.”</p>
+<h2 id="literal-arguments"><a class="header" href="#literal-arguments">Literal Arguments</a></h2>
+<p>Sharp-eyed readers might have noticed, though, that we don’t even
+have a proper form of a simple factor yet, because we don’t allow
+for loading literal constants,  only  variables.   Let’s fix that
 now.</p>
-<p>To begin with, we'll need a GetNum function.  We've  seen several
+<p>To begin with, we’ll need a <code>GetNum</code> function.  We’ve  seen several
 versions of this, some returning  only a single character, some a
 string, and some an integer.   The  one needed here will return a
-LongInt, so that it can handle anything we  throw  at  it.   Note
-that no type information is returned here: GetNum doesn't concern
+<code>LongInt</code>, so that it can handle anything we  throw  at  it.   Note
+that no type information is returned here: <code>GetNum</code> doesn’t concern
 itself with how the number will be used:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Get a Number }
@@ -1210,12 +1217,12 @@ end;
 </code></pre>
 <p>Now, when dealing with  literal  data,  we  have one little small
 problem.   With variables, we know what  type  things  should  be
-because they've been declared to be  that  type.  We have no such
-type information for  literals.   When the programmer says, &quot;-1,&quot;
+because they’ve been declared to be  that  type.  We have no such
+type information for  literals.   When the programmer says, <code>-1</code>,
 does that mean a byte, word, or longword  version?    We  have no
 clue.  The obvious thing to do would be to  use  the largest type
-possible, i.e. a longword.    But that's a bad idea, because when
-we get to more complex expressions, we'll find that it will cause
+possible, i.e. a longword.    But that’s a bad idea, because when
+we get to more complex expressions, we’ll find that it will cause
 every expression involving literals  to  be  promoted to long, as
 well.</p>
 <p>A better approach is to select a type based upon the value of the
@@ -1236,12 +1243,12 @@ begin
 end;
 {---------------------------------------------------------------}
 </code></pre>
-<p>(I know, I know, the number base isn't really symmetric.  You can
-store -128 in a single byte,  and  -32768  in a word.  But that's
+<p>(I know, I know, the number base isn’t really symmetric.  You can
+store <code>-128</code> in a single byte,  and  <code>-32768</code>  in a word.  But that’s
 easily fixed, and not  worth  the time or the added complexity to
-fool with it here.  It's the thought that counts.)</p>
-<p>Note  that  LoadNum  calls  a  new version of the code  generator
-routine  LoadConst, which has an added  argument  to  define  the
+fool with it here.  It’s the thought that counts.)</p>
+<p>Note  that  <code>LoadNum</code>  calls  a  new version of the code  generator
+routine  <code>LoadConst</code>, which has an added  argument  to  define  the
 type:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Load a Constant to the Primary Register }
@@ -1254,7 +1261,7 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Now  we can modify procedure Expression  to  accomodate  the  two
+<p>Now  we can modify procedure <code>Expression</code>  to  accommodate  the  two
 possible kinds of factors:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Parse and Translate an Expression }
@@ -1268,24 +1275,24 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>(Wow, that sure didn't hurt too bad!  Just a  few  extra lines do
+<p>(Wow, that sure didn’t hurt too bad!  Just a  few  extra lines do
 the job.)</p>
 <p>OK,  compile  this code into your program  and  give  it  a  try.
-You'll see that it now works for either variables or constants as
+You’ll see that it now works for either variables or constants as
 valid expressions.</p>
-<a class="header" href="#additive-expressions" id="additive-expressions"><h2>ADDITIVE EXPRESSIONS</h2></a>
-<p>If you've been following this series from the beginning, I'm sure
-you  know  what's coming next:  We'll  expand  the  form  for  an
+<h2 id="additive-expressions"><a class="header" href="#additive-expressions">Additive Expressions</a></h2>
+<p>If you’ve been following this series from the beginning, I’m sure
+you  know  what’s coming next:  We’ll  expand  the  form  for  an
 expression   to   handle   first   additive   expressions,   then
 multiplicative, then general expressions with parentheses.</p>
 <p>The nice part is that we already have a pattern for  dealing with
 these more complex expressions.  All we have  to  do  is  to make
-sure that  all the procedures called by Expression (Term, Factor,
+sure that  all the procedures called by <code>Expression</code> (<code>Term</code>, <code>Factor</code>,
 etc.)  always  return a type identifier.   If  we  do  that,  the
 program structure gets changed hardly at all.</p>
 <p>The  first  step  is  easy:  We can rename our existing  function
-Expression  to  Term,  as  we've  done so many times before,  and
-create the new version of Expression:</p>
+<code>Expression</code>  to  <code>Term</code>,  as  we’ve  done so many times before,  and
+create the new version of <code>Expression</code>:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Parse and Translate an Expression }
 
@@ -1310,14 +1317,14 @@ end;
 <p>Note  in  this  routine how each  procedure  call  has  become  a
 function call, and how  the  local  variable  Typ gets updated at
 each pass.</p>
-<p>Note also the new call to a function  Unop,  which  lets  us deal
-with a leading unary minus.  This change is not necessary  ... we
-could  still  use  a form more like what we've done before.  I've
+<p>Note also the new call to a function  <code>Unop</code>,  which  lets  us deal
+with a leading unary minus.  This change is not necessary  … we
+could  still  use  a form more like what we’ve done before.  I’ve
 chosen  to  introduce  UnOp as a separate routine because it will
-make it easier, later, to produce somewhat better code than we've
-been  doing.    In other words, I'm looking ahead to optimization
+make it easier, later, to produce somewhat better code than we’ve
+been  doing.    In other words, I’m looking ahead to optimization
 issues.</p>
-<p>For  this  version,  though, we'll retain the same dumb old code,
+<p>For  this  version,  though, we’ll retain the same dumb old code,
 which makes the new routine trivial:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Process a Term with Leading Unary Operator }
@@ -1329,7 +1336,7 @@ begin
 end;
 {---------------------------------------------------------------}
 </code></pre>
-<p>Procedure  Push  is  a code-generator routine, and now has a type
+<p>Procedure  <code>Push</code>  is  a code-generator routine, and now has a type
 argument:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Push Primary onto Stack }
@@ -1340,9 +1347,9 @@ begin
 end;
 {---------------------------------------------------------------}
 </code></pre>
-<p>Now, let's take a look at functions Add  and  Subtract.    In the
+<p>Now, let’s take a look at functions <code>Add</code>  and  <code>Subtract</code>.    In the
 older versions of these routines, we let them call code generator
-routines PopAdd and PopSub.    We'll  continue  to do that, which
+routines <code>PopAdd</code> and <code>PopSub</code>.    We’ll  continue  to do that, which
 makes the functions themselves extremely simple:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Recognize and Translate an Add }
@@ -1364,28 +1371,28 @@ begin
 end;
 {---------------------------------------------------------------}
 </code></pre>
-<p>The simplicity is  deceptive,  though, because what we've done is
-to defer all the logic to PopAdd and PopSub, which are  no longer
+<p>The simplicity is  deceptive,  though, because what we’ve done is
+to defer all the logic to <code>PopAdd</code> and <code>PopSub</code>, which are  no longer
 just code generation routines.    They must also now take care of
 the type conversions required.</p>
 <p>And just what conversion is that?  Simple: Both arguments must be
 of the same size, and the result  is  also  of  that  size.   The
-smaller of the two arguments must be &quot;promoted&quot; to  the  size  of
+smaller of the two arguments must be “promoted” to  the  size  of
 the larger one.</p>
 <p>But  this  presents a bit of a problem.  If the  argument  to  be
 promoted is the second argument  (i.e.  in  the  primary register
-D0), we  are  in  great  shape.  If it's not, however, we're in a
-fix: we can't change the size of the  information  that's already
+D0), we  are  in  great  shape.  If it’s not, however, we’re in a
+fix: we can’t change the size of the  information  that’s already
 been pushed onto the stack.</p>
 <p>The solution is simple but a little painful: We must abandon that
-lovely  &quot;pop  the  data and do something  with  it&quot;  instructions
+lovely  “pop  the  data and do something  with  it”  instructions
 thoughtfully provided by Motorola.</p>
-<p>The alternative is to assign  a  secondary  register,  which I've
-chosen to be R7.  (Why not R1?  Because I  have  later  plans for
+<p>The alternative is to assign  a  secondary  register,  which I’ve
+chosen to be <code>R7</code>.  (Why not <code>R1</code>?  Because I  have  later  plans for
 the other registers.)</p>
-<p>The  first  step in this new structure  is  to  introduce  a  Pop
-procedure analogous to the Push.   This procedure will always Pop
-the top element of the stack into D7:</p>
+<p>The  first  step in this new structure  is  to  introduce  a  <code>Pop</code>
+procedure analogous to the <code>Push</code>.   This procedure will always <code>Pop</code>
+the top element of the stack into <code>D7</code>:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Pop Stack into Secondary Register }
 
@@ -1395,10 +1402,10 @@ begin
 end;
 {---------------------------------------------------------------}
 </code></pre>
-<p>The general idea is that all the &quot;Pop-Op&quot; routines can  call this
+<p>The general idea is that all the “Pop-Op” routines can  call this
 one.    When  this is done, we will then have  both  operands  in
 registers, so we can promote whichever  one  we need to.  To deal
-with this, procedure Convert needs another argument, the register
+with this, procedure <code>Convert</code> needs another argument, the register
 name:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Convert a Data Item from One Type to Another }
@@ -1415,7 +1422,7 @@ end;
 {---------------------------------------------------------------}
 </code></pre>
 <p>The next function does a conversion, but only if the current type
-T1  is  smaller  in size than the desired  type  T2.    It  is  a
+<code>T1</code>  is  smaller  in size than the desired  type  <code>T2</code>.    It  is  a
 function, returning the final type to let us know what it decided
 to do:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
@@ -1447,7 +1454,7 @@ end;
 {---------------------------------------------------------------}
 </code></pre>
 <p>These new routines give us the ammunition we need  to  flesh  out
-PopAdd and PopSub:</p>
+<code>PopAdd</code> and <code>PopSub</code>:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Generate Code to Add Primary to the Stack }
 
@@ -1475,10 +1482,10 @@ end;
 <p>After  all   the   buildup,   the   final   results   are  almost
 anticlimactic.  Once  again,  you can see that the logic is quite
 simple.  All the two routines do is to pop the  top-of-stack into
-D7, force the two operands to be the same size, and then generate
+<code>D7</code>, force the two operands to be the same size, and then generate
 the code.</p>
-<p>Note  the  new  code generator routines GenAdd and GenSub.  These
-are vestigial forms of the ORIGINAL PopAdd and PopSub.   That is,
+<p>Note  the  new  code generator routines <code>GenAdd</code> and <code>GenSub</code>.  These
+are vestigial forms of the <em>original</em> <code>PopAdd</code> and <code>PopSub</code>.   That is,
 they  are pure code generators, producing a  register-to-register
 add or subtract:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
@@ -1500,41 +1507,41 @@ begin
 end;
 {---------------------------------------------------------------}
 </code></pre>
-<p>OK,  I grant you:  I've thrown a lot of routines at you since  we
+<p>OK,  I grant you:  I’ve thrown a lot of routines at you since  we
 last tested the code.   But  you  have  to  admit  that  each new
-routine is pretty simple and transparent.  If you (like me) don't
-like to test so many new  routines  at  once, that's OK.  You can
-stub out routines like Convert, Promote, and SameType, since they
-don't  read  any inputs.  You won't  get  the  correct  code,  of
+routine is pretty simple and transparent.  If you (like me) don’t
+like to test so many new  routines  at  once, that’s OK.  You can
+stub out routines like <code>Convert</code>, <code>Promote</code>, and <code>SameType</code>, since they
+don’t  read  any inputs.  You won’t  get  the  correct  code,  of
 course, but things should work.  Then flesh  them  out  one  at a
 time.</p>
-<p>When testing the program,  don't  forget  that  you first have to
-declare some variables, and then  start the &quot;body&quot; of the program
-with an upper-case  'B'  (for  BEGIN).   You should find that the
+<p>When testing the program,  don’t  forget  that  you first have to
+declare some variables, and then  start the “body” of the program
+with an upper-case  <code>B</code>  (for  <code>BEGIN</code>).   You should find that the
 parser  will  handle  any  additive  expressions.  Once  all  the
 conversion routines are in, you should see that the  correct code
 is  generated,  with  type  conversions inserted where necessary.
 Try mixing up variables  of  different  sizes, and also literals.
-Make sure that everything's working properly.  As  usual,  it's a
+Make sure that everything’s working properly.  As  usual,  it’s a
 good  idea  to  try  some  erroneous expressions and see how  the
 compiler handles them.</p>
-<a class="header" href="#why-so-many-procedures" id="why-so-many-procedures"><h2>WHY SO MANY PROCEDURES?</h2></a>
-<p>At this point, you may think  I've  pretty much gone off the deep
+<h2 id="why-so-many-procedures"><a class="header" href="#why-so-many-procedures">Why So Many Procedures?</a></h2>
+<p>At this point, you may think  I’ve  pretty much gone off the deep
 end in terms of deeply nested procedures.  There is  admittedly a
-lot of overhead here.  But there's a method in my madness.  As in
-the case of UnOp, I'm looking ahead to the time when  we're going
+lot of overhead here.  But there’s a method in my madness.  As in
+the case of <code>UnOp</code>, I’m looking ahead to the time when  we’re going
 to want better code  generation.   The way the code is organized,
 we can achieve  this  without major modifications to the program.
 For example, in cases where the value pushed onto the  stack does
-<em>NOT</em> have to be converted, it's still better to use the &quot;pop and
-add&quot;  instruction.    If we choose to test for such cases, we can
-embed the extra tests into  PopAdd  and  PopSub  without changing
+<em>not</em> have to be converted, it’s still better to use the “pop and
+add”  instruction.    If we choose to test for such cases, we can
+embed the extra tests into  <code>PopAdd</code>  and  <code>PopSub</code>  without changing
 anything else much.</p>
-<a class="header" href="#multiplicative-expressions" id="multiplicative-expressions"><h2>MULTIPLICATIVE EXPRESSIONS</h2></a>
+<h2 id="multiplicative-expressions"><a class="header" href="#multiplicative-expressions">Multiplicative Expressions</a></h2>
 <p>The procedure for dealing with multiplicative  operators  is much
 the  same.    In  fact,  at  the  first  level,  they are  almost
-identical, so I'll just show them here without much fanfare.  The
-first  one  is  our  general  form  for  Factor,  which  includes
+identical, so I’ll just show them here without much fanfare.  The
+first  one  is  our  general  form  for  <code>Factor</code>,  which  includes
 parenthetical subexpressions:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Parse and Translate a Factor }
@@ -1594,18 +1601,18 @@ end;
 {---------------------------------------------------------------}
 </code></pre>
 <p>These routines parallel the additive  ones  almost  exactly.   As
-before, the complexity is encapsulated within PopMul  and PopDiv.
-If  you'd  like  to test the program before we get into that, you
-can build dummy versions of them, similar to  PopAdd  and PopSub.
-Again, the code won't be correct at this point,  but  the  parser
+before, the complexity is encapsulated within <code>PopMul</code>  and <code>PopDiv</code>.
+If  you’d  like  to test the program before we get into that, you
+can build dummy versions of them, similar to  <code>PopAdd</code>  and <code>PopSub</code>.
+Again, the code won’t be correct at this point,  but  the  parser
 should handle expressions of arbitrary complexity.</p>
-<a class="header" href="#multiplication" id="multiplication"><h2>MULTIPLICATION</h2></a>
-<p>Once you've  convinced yourself that the parser itself is working
+<h2 id="multiplication"><a class="header" href="#multiplication">Multiplication</a></h2>
+<p>Once you’ve  convinced yourself that the parser itself is working
 properly, we need to figure out what it will take to generate the
 right code.  This is where  things  begin to get a little sticky,
 because the rules are more complex.</p>
-<p>Let's take the case of multiplication first.   This  operation is
-similar to the &quot;addops&quot; in that both operands should  be  of  the
+<p>Let’s take the case of multiplication first.   This  operation is
+similar to the “addops” in that both operands should  be  of  the
 same size.  It differs in two important respects:</p>
 <ul>
 <li>
@@ -1653,16 +1660,16 @@ table:</p>
 </code></pre>
 <p>This table shows the actions to be taken for each  combination of
 operand types.  There are three things to note: First,  we assume
-a library routine  MUL32  which  performs  a  32  x  32 multiply,
-leaving a &gt;&gt; 32-bit &lt;&lt; (not 64-bit) product.    If  there  is any
+a library routine  <code>MUL32</code>  which  performs  a  32  x  32 multiply,
+leaving a <strong>32-bit</strong> (not 64-bit) product.    If  there  is any
 overflow in the process,  we  choose to ignore it and return only
 the lower 32 bits.</p>
-<p>Second, note that the  table  is  symmetric  ... the two operands
-enter in the same way.  Finally, note that the product  is ALWAYS
-a longword, except when  both  operands  are  bytes.  (It's worth
+<p>Second, note that the  table  is  symmetric  … the two operands
+enter in the same way.  Finally, note that the product  is <em>always</em>
+a longword, except when  both  operands  are  bytes.  (It’s worth
 noting, in passing, that  this  means  that many expressions will
 end up being longwords, whether we  like  it or not.  Perhaps the
-idea  of  just  promoting  them  all  up  front wasn't  all  that
+idea  of  just  promoting  them  all  up  front wasn’t  all  that
 outrageous, after all!)</p>
 <p>Now, clearly, we are going to have to generate different code for
 the 16-bit and 32-bit multiplies.  This is best  done  by  having
@@ -1685,7 +1692,7 @@ begin
 end;
 {---------------------------------------------------------------}
 </code></pre>
-<p>An examination of the code below for PopMul  should  convince you
+<p>An examination of the code below for <code>PopMul</code>  should  convince you
 that the conditions in the table are met:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Generate Code to Multiply Primary by Stack }
@@ -1708,8 +1715,8 @@ begin
 end;
 {---------------------------------------------------------------}
 </code></pre>
-<p>As you can see, the routine starts off just like PopAdd.  The two
-arguments are forced to the same type.  The two calls  to Convert
+<p>As you can see, the routine starts off just like <code>PopAdd</code>.  The two
+arguments are forced to the same type.  The two calls  to <code>Convert</code>
 take  care  of  the case where both operands are bytes.  The data
 themselves are promoted  to  words, but the routine remembers the
 type so as to assign the correct type to the result.  Finally, we
@@ -1717,19 +1724,20 @@ call one of the two code generator routines, and then  assign the
 result type.  Not too complicated, really.</p>
 <p>At this point, I suggest that you go ahead and test  the program.
 Try all combinations of operand sizes.</p>
-<a class="header" href="#division" id="division"><h2>DIVISION</h2></a>
+<h2 id="division"><a class="header" href="#division">Division</a></h2>
 <p>The case of division is not nearly so  symmetric.    I  also have
 some bad news for you:</p>
-<p>All  modern  16-bit   CPU's   support   integer   divide.     The
-manufacturer's data  sheet  will  describe  this  operation  as a
+<p>All  modern  16-bit   CPU’s   support   integer   divide.     The
+manufacturer’s data  sheet  will  describe  this  operation  as a
 32 x 16-bit divide, meaning that you can divide a 32-bit dividend
-by a 16-bit divisor.  Here's the bad news:  <code>THEY'RE LYING TO YOU!!!</code></p>
-<p>If you don't believe  it,  try  dividing  any large 32-bit number
+by a 16-bit divisor.  Here’s the bad news:</p>
+<p>THEY’RE LYING TO YOU!!!</p>
+<p>If you don’t believe  it,  try  dividing  any large 32-bit number
 (meaning that it has non-zero bits  in  the upper 16 bits) by the
-integer 1.  You are guaranteed to get an overflow exception.</p>
+integer <code>1</code>.  You are guaranteed to get an overflow exception.</p>
 <p>The  problem is that the instruction  really  requires  that  the
-resulting quotient fit into a 16-bit result.   This  won't happen
-UNLESS the divisor is  sufficiently  large.    When any number is
+resulting quotient fit into a 16-bit result.   This  won’t happen
+<em>unless</em> the divisor is  sufficiently  large.    When any number is
 divided by unity, the quotient will of course be the same  as the
 dividend, which had better fit into a 16-bit word.</p>
 <p>Since  the  beginning  of  time  (well,  computers,  anyway), CPU
@@ -1755,35 +1763,33 @@ long result.</p>
 </ul>
 <p>This  looks  like  a job for  another  table,  to  summarize  the
 required actions:</p>
-<hr />
-<p>T1 --&gt;  |                 |                 |                 |
-|                 |                 |                 |
-|   |        B        |        W        |       L         |
-T2  V   |                 |                 |                 |</p>
-<hr />
-<pre><code>      |                 |                 |                 |
- B    | Convert D0 to W | Convert D0 to W | Convert D0 to L |
-      | Convert D7 to L | Convert D7 to L |                 |
-      | DIVS            | DIVS            | JSR DIV32       |
-      | Result = B      | Result = W      | Result = L      |
-      |                 |                 |                 |
+<pre><code>-----------------------------------------------------------------
+  T1 --&gt;  |                 |                 |                 |
+          |                 |                 |                 |
+      |   |        B        |        W        |       L         |
+  T2  V   |                 |                 |                 |
+-----------------------------------------------------------------
+          |                 |                 |                 |
+     B    | Convert D0 to W | Convert D0 to W | Convert D0 to L |
+          | Convert D7 to L | Convert D7 to L |                 |
+          | DIVS            | DIVS            | JSR DIV32       |
+          | Result = B      | Result = W      | Result = L      |
+          |                 |                 |                 |
+-----------------------------------------------------------------
+          |                 |                 |                 |
+     W    | Convert D7 to L | Convert D7 to L | Convert D0 to L |
+          | DIVS            | DIVS            | JSR DIV32       |
+          | Result = B      | Result = W      | Result = L      |
+          |                 |                 |                 |
+-----------------------------------------------------------------
+          |                 |                 |                 |
+     L    | Convert D7 to L | Convert D7 to L |                 |
+          | JSR DIV32       | JSR DIV32       | JSR DIV32       |
+          | Result = B      | Result = W      | Result = L      |
+          |                 |                 |                 |
+-----------------------------------------------------------------
 </code></pre>
-<hr />
-<pre><code>      |                 |                 |                 |
- W    | Convert D7 to L | Convert D7 to L | Convert D0 to L |
-      | DIVS            | DIVS            | JSR DIV32       |
-      | Result = B      | Result = W      | Result = L      |
-      |                 |                 |                 |
-</code></pre>
-<hr />
-<pre><code>      |                 |                 |                 |
- L    | Convert D7 to L | Convert D7 to L |                 |
-      | JSR DIV32       | JSR DIV32       | JSR DIV32       |
-      | Result = B      | Result = W      | Result = L      |
-      |                 |                 |                 |
-</code></pre>
-<hr />
-<p>(You may wonder why it's necessary to do a 32-bit  division, when
+<p>(You may wonder why it’s necessary to do a 32-bit  division, when
 the  dividend is, say, only a byte in the first place.  Since the
 number  of bits in the result can only be as many as that in  the
 dividend,  why  bother?   The reason is that, if the divisor is a
@@ -1832,46 +1838,46 @@ end;
 {---------------------------------------------------------------}
 
 </code></pre>
-<p>Note  that  we  assume that DIV32 leaves the (longword) result in
+<p>Note  that  we  assume that <code>DIV32</code> leaves the (longword) result in
 <code>D0</code>.</p>
 <p>OK, install the new  procedures  for division.  At this point you
 should be able  to  generate  code  for  any  kind  of arithmetic
 expression.  Give it a whirl!</p>
-<a class="header" href="#beginning-to-wind-down" id="beginning-to-wind-down"><h2>BEGINNING TO WIND DOWN</h2></a>
-<p>At  last, in this installment, we've learned  how  to  deal  with
+<h2 id="beginning-to-wind-down"><a class="header" href="#beginning-to-wind-down">Beginning to Wind Down</a></h2>
+<p>At  last, in this installment, we’ve learned  how  to  deal  with
 variables (and literals) of different types.  As you can  see, it
-hasn't been too tough.  In  fact,  in  some ways most of the code
+hasn’t been too tough.  In  fact,  in  some ways most of the code
 looks even more simple than it does in earlier  programs.    Only
 the  multiplication  and  division  operators  require  a  little
 thinking and planning.</p>
 <p>The main concept that  made  things  easy  was that of converting
-procedures such as Expression into functions that return the type
+procedures such as <code>Expression</code> into functions that return the type
 of the result.  Once this  was  done,  we were able to retain the
 same general structure of the compiler.</p>
-<p>I won't pretend that  we've  covered  every  single aspect of the
+<p>I won’t pretend that  we’ve  covered  every  single aspect of the
 issue.  I conveniently  ignored  unsigned  arithmetic.  From what
-we've  done, I think you can see that to include them adds no new
+we’ve  done, I think you can see that to include them adds no new
 challenges, just extra possibilities to test for.</p>
-<p>I've also ignored the  logical  operators And, Or, etc.  It turns
+<p>I’ve also ignored the  logical  operators And, Or, etc.  It turns
 out  that  these are pretty easy to  handle.    All  the  logical
 operators are  bitwise  operations,  so  they  are  symmetric and
-therefore work  in  the  same  fashion  as  PopAdd.  There is one
+therefore work  in  the  same  fashion  as  <code>PopAdd</code>.  There is one
 difference,  however:    if  it  is necessary to extend the  word
 length for a logical variable, the extension should be done as an
-UNSIGNED  number.      Floating   point   numbers,   again,   are
-straightforward  to  handle  ... just a few more procedures to be
+<em>unsigned</em>  number.      Floating   point   numbers,   again,   are
+straightforward  to  handle  … just a few more procedures to be
 added to the run-time library, or perhaps instructions for a math
 chip.</p>
 <p>Perhaps more importantly, I have also skirted the  issue  of type
-CHECKING,  as  opposed  to  conversion.   In other  words,  we've
+<em>checking</em>,  as  opposed  to  conversion.   In other  words,  we’ve
 allowed for operations between variables of  all  combinations of
-types.  In general this will not be true ... certainly  you don't
+types.  In general this will not be true … certainly  you don’t
 want to add an integer, for example, to a string.  Most languages
-also don't allow you to mix up character and integer variables.</p>
+also don’t allow you to mix up character and integer variables.</p>
 <p>Again, there are  really  no  new  issues to be addressed in this
-case.  We are already checking the types of the two  operands ...
+case.  We are already checking the types of the two  operands …
 much  of this checking gets done  in  procedures  like  SameType.
-It's  pretty  straightforward  to  include  a  call  to an  error
+It’s  pretty  straightforward  to  include  a  call  to an  error
 handler, if the types of the two operands are incompatible.</p>
 <p>In the general  case,  we  can  think of every single operator as
 being handled by  a  different procedure, depending upon the type
@@ -1881,51 +1887,52 @@ types  as indices.  In Pascal,  the  equivalent  operation  would
 involve nested Case statements.    Some  of the called procedures
 could then be simple  error  routines,  while others could effect
 whatever kind of conversion we need.  As more  types  are  added,
-the number of procedures goes up by a square-law rule, but that's
+the number of procedures goes up by a square-law rule, but that’s
 still not an unreasonably large number of procedures.</p>
-<p>What  we've  done  here is to collapse such a jump table into far
+<p>What  we’ve  done  here is to collapse such a jump table into far
 fewer  procedures, simply by making use  of  symmetry  and  other
 simplifying rules.</p>
-<a class="header" href="#to-coerce-or-not-to-coerce" id="to-coerce-or-not-to-coerce"><h2>TO COERCE OR NOT TO COERCE</h2></a>
-<p>In case you haven't gotten this message yet, it sure appears that
-TINY and KISS will  probably  <em>NOT</em>  be strongly typed languages,
-since I've allowed for  automatic  mixing  and conversion of just
-about any type.  Which brings up the next issue:  <code>Is this really what we want to do?</code></p>
+<h2 id="to-coerce-or-not-to-coerce"><a class="header" href="#to-coerce-or-not-to-coerce">To Coerce or Not to Coerce</a></h2>
+<p>In case you haven’t gotten this message yet, it sure appears that
+TINY and KISS will  probably  <em>not</em>  be strongly typed languages,
+since I’ve allowed for  automatic  mixing  and conversion of just
+about any type.  Which brings up the next issue:</p>
+<p>Is this really what we want to do?</p>
 <p>The answer depends on what kind of language you want, and the way
-you'd like it to behave.  What we have not addressed is the issue
+you’d like it to behave.  What we have not addressed is the issue
 of when to allow and when to deny the use of operations involving
 different  data  types.   In other  words,  what  should  be  the
-SEMANTICS of our compiler?   Do we want automatic type conversion
+<em>semantics</em> of our compiler?   Do we want automatic type conversion
 for all cases, for some cases, or not at all?</p>
-<p>Let's pause here to think about this a bit more.   To  do  so, it
+<p>Let’s pause here to think about this a bit more.   To  do  so, it
 will help to look at a bit of history.</p>
-<p>FORTRAN  II supported only two simple  data  types:  Integer  and
-Real.    It  allowed implicit type conversion  between  real  and
+<p>FORTRAN  II supported only two simple  data  types:  <code>Integer</code>  and
+<code>Real</code>.    It  allowed implicit type conversion  between  real  and
 integer types during assignment, but not within expressions.  All
 data items (including literal constants) on  the  right-hand side
 of an assignment statement had to be of the same type.  That made
-things pretty easy  ...  much  simpler  than what we've had to do
+things pretty easy  …  much  simpler  than what we’ve had to do
 here.</p>
-<p>This  was  changed  in  FORTRAN   IV   to   support  &quot;mixed-mode&quot;
+<p>This  was  changed  in  FORTRAN   IV   to   support  “mixed-mode”
 arithmetic.  If an expression had any real data items in it, they
 were all converted to reals and the expression  itself  was real.
 To round out  the  picture, functions were provided to explicitly
 convert  from  one  type to the other, so that you could force an
 expression to end up as either type.</p>
 <p>This  led to two things:  code that was easier to write, and code
-that was less efficient.  That's because sloppy programmers would
+that was less efficient.  That’s because sloppy programmers would
 write expressions with simple  constants  like  0  and 1 in them,
 which  the  compiler  would  dutifully  compile  to   convert  at
 execution  time.  Still, the system  worked  pretty  well,  which
 would  tend  to  indicate that implicit type conversion is a Good
 Thing.</p>
 <p>C is also a weakly typed language, though it  supports  a  larger
-number  of types.  C won't complain if you try to add a character
+number  of types.  C won’t complain if you try to add a character
 to an integer,  for  example.    Partly,  this is helped by the C
 convention of promoting every char  to integer when it is loaded,
 or  passed  through  a  parameter  list.    This  simplifies  the
 conversions quite a  bit.    In  fact, in subset C compilers that
-don't support long or float types,  we  end up back where we were
+don’t support long or float types,  we  end up back where we were
 in our earlier,  simple-minded  first try: every variable has the
 same representation, once loaded into  a  register.    Makes life
 pretty easy!</p>
@@ -1935,86 +1942,86 @@ data types, and you can mix them all  freely.    If  the implicit
 conversions of FORTRAN seemed good,  then  those  of  PL/I should
 have been Heaven, but it turned  out  to  be more like Hell!  The
 problem was that with so many data types, there had to be a large
-number  of  different conversions, AND  a  correspondingly  large
+number  of  different conversions, <em>and</em>  a  correspondingly  large
 number of rules about how  mixed  operands  should  be converted.
 These rules became so  complex  that  no  one could remember what
 they  were!  A lot of the errors in PL/I programs had to do  with
 unexpected and unwanted type  conversions.    Too  much of a Good
 Thing can be bad for you!</p>
-<p>Pascal,  on  the  other hand, is a  language  which  is &quot;strongly
-typed,&quot; which means that in general you can't mix types,  even if
-they differ only in <em>NAME</em>, and yet have the same base type!
+<p>Pascal,  on  the  other hand, is a  language  which  is “strongly
+typed,” which means that in general you can’t mix types,  even if
+they differ only in <em>name</em>, and yet have the same base type!
 Niklaus Wirth made Pascal strongly typed to help keep programmers
 out of trouble, and  the  restrictions  have  indeed saved many a
-programmer from himself, because the compiler kept him from doing
+programmer from themself, because the compiler kept them from doing
 something dumb.  Better  to  find  the  bug in compilation rather
 than  the  debug  phase.    The same restrictions can also  cause
-frustration when you really  WANT  to mix types, and they tend to
+frustration when you really  <em>want</em>  to mix types, and they tend to
 drive an ex-C-programmer up the wall.</p>
 <p>Even so, Pascal does permit some implicit conversions.    You can
 assign  an integer to a real value.  You can also mix integer and
-real types in  expressions  of  type  Real.  The integers will be
+real types in  expressions  of  type  <code>Real</code>.  The integers will be
 automatically coerced to real, just as in FORTRAN  (and  with the
 same hidden cost in run-time overhead).</p>
-<p>You can't, however, convert the  other way, from real to integer,
-without applying an explicit  conversion  function,  Trunc.   The
+<p>You can’t, however, convert the  other way, from real to integer,
+without applying an explicit  conversion  function,  <code>Trunc</code>.   The
 theory here is that,  since  the numerical value of a real number
 is  necessarily  going  to  be  changed  by  the conversion  (the
-fractional  part will be lost), you really  shouldn't  do  it  in
-&quot;secret.&quot;</p>
+fractional  part will be lost), you really  shouldn’t  do  it  in
+“secret.”</p>
 <p>In the spirit of strong typing, Pascal will not allow you  to mix
-Char  and  Integer   variables,  without  applying  the  explicit
+<code>Char</code>  and  <code>Integer</code>   variables,  without  applying  the  explicit
 coercion functions Chr and Ord.</p>
-<p>Turbo Pascal also includes the  types  Byte,  Word,  and LongInt.
+<p>Turbo Pascal also includes the  types  <code>Byte</code>,  <code>Word</code>,  and <code>LongInt</code>.
 The first two are basically the same as unsigned  integers.    In
 Turbo,  these can be freely intermixed  with  variables  of  type
-Integer,  and  Turbo will automatically  handle  the  conversion.
+<code>Integer</code>,  and  Turbo will automatically  handle  the  conversion.
 There are run-time  checks,  though, to keep you from overflowing
-or otherwise getting the wrong  answer. Note that you still can't
-mix Byte and Char types, even though they  are  stored internally
+or otherwise getting the wrong  answer. Note that you still can’t
+mix <code>Byte</code> and <code>Char</code> types, even though they  are  stored internally
 in the same representation.</p>
 <p>The ultimate in a  strongly-typed  language  is Ada, which allows
-<em>NO</em>  implicit  type  conversions at all, and also will not allow
-mixed-mode  arithmetic.    Jean   Ichbiah's   position   is  that
-conversions cost  execution time, and you shouldn't be allowed to
+<em>no</em>  implicit  type  conversions at all, and also will not allow
+mixed-mode  arithmetic.    Jean   Ichbiah’s   position   is  that
+conversions cost  execution time, and you shouldn’t be allowed to
 build in such cost in a hidden manner.  By forcing the programmer
 to  explicitly  request  a  type  conversion,  you  make it  more
 apparent that there could be a cost involved.</p>
 <p>I have been using another strongly-typed  language,  a delightful
 little  language  called  Whimsical,  by  John  Spray.   Although
 Whimsical is  intended as a systems programming language, it also
-requires explicit conversion EVERY time.    There  are  NEVER any
+requires explicit conversion <em>every</em> time.    There  are  <em>never</em> any
 automatic conversions, even the ones supported by Pascal.</p>
 <p>This approach does  have  certain advantages:  The compiler never
 has to guess what to do: the programmer always tells it precisely
-what  he  wants.  As a result, there tends to be  a  more  nearly
+what  they  want.  As a result, there tends to be  a  more  nearly
 one-to-one correspondence between  source code and compiled code,
-and John's compiler produces VERY tight code.</p>
+and John’s compiler produces <em>very</em> tight code.</p>
 <p>On the other hand, I sometimes find the  explicit  conversions to
 be a pain.  If I want, for example, to add one to a character, or
 AND it with a mask, there are a lot of conversions to make.  If I
-get  it  wrong,  the  only   error  message  is  &quot;Types  are  not
-compatible.&quot;  As it happens, John's particular  implementation of
-the language in his compiler doesn't tell you exactly WHICH types
-are not compatible ... it only tells you which LINE the  error is
+get  it  wrong,  the  only   error  message  is  “Types  are  not
+compatible.”  As it happens, John’s particular  implementation of
+the language in his compiler doesn’t tell you exactly <em>which</em> types
+are not compatible … it only tells you which <em>line</em> the  error is
 in.</p>
 <p>I must admit that most of my errors with this compiler tend to be
-errors of this type, and  I've  spent  a  lot  of  time  with the
-Whimsical compiler, trying to figure out just WHERE  in  the line
-I've offended it.   The only real way to fix the error is to keep
+errors of this type, and  I’ve  spent  a  lot  of  time  with the
+Whimsical compiler, trying to figure out just <em>where</em>  in  the line
+I’ve offended it.   The only real way to fix the error is to keep
 trying things until something works.</p>
 <p>So what should we do in TINY and KISS?  For the first one, I have
-the answer:  TINY  will  support only the types Char and Integer,
-and  we'll  use  the  C  trick  of  promoting Chars  to  Integers
-internally.  That means  that  the  TINY  compiler will be <em>MUCH</em>
-simpler  than  what  we've  already  done.    Type conversion  in
+the answer:  TINY  will  support only the types <code>Char</code> and <code>Integer</code>,
+and  we’ll  use  the  C  trick  of  promoting Chars  to  Integers
+internally.  That means  that  the  TINY  compiler will be <em>much</em>
+simpler  than  what  we’ve  already  done.    Type conversion  in
 expressions is sort of moot, since none will be required!   Since
-longwords will not be supported, we also won't need the MUL32 and
-DIV32 run-time routines, nor the logic to figure out when to call
-them.  I <em>LIKE</em> it!</p>
+longwords will not be supported, we also won’t need the <code>MUL32</code> and
+<code>DIV32</code> run-time routines, nor the logic to figure out when to call
+them.  I <em>like</em> it!</p>
 <p>KISS, on the other hand, will support the type Long.</p>
 <p>Should it support both signed and unsigned arithmetic?    For the
-sake of simplicity I'd rather not.    It  does add quite a bit to
+sake of simplicity I’d rather not.    It  does add quite a bit to
 the  complexity  of  type conversions.  Even  Niklaus  Wirth  has
 eliminated  unsigned  (Cardinal) numbers from  his  new  language
 Oberon, with the argument that  32-bit  integers  should  be long
@@ -2022,19 +2029,19 @@ enough for anybody, in either case.</p>
 <p>But KISS is supposed to  be a systems programming language, which
 means that we should  be  able to do whatever operations that can
 be done in assembler.    Since the 68000 supports both flavors of
-integers, I guess KISS  should,  also.    We've seen that logical
+integers, I guess KISS  should,  also.    We’ve seen that logical
 operations  need to be able to extend  integers  in  an  unsigned
 fashion, so the unsigned conversion  procedures  are  required in
 any case.</p>
-<a class="header" href="#conclusion" id="conclusion"><h2>CONCLUSION</h2></a>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>That wraps up our session on type conversions.  Sorry you  had to
 wait  so  long for it, but hope you feel that it  was  worth  the
 wait.</p>
-<p>In  the  next  few installments, we'll extend the simple types to
-include arrays and pointers, and we'll have a look at what  to do
+<p>In  the  next  few installments, we’ll extend the simple types to
+include arrays and pointers, and we’ll have a look at what  to do
 about  strings.    That should pretty well wrap up the mainstream
-part of the series.  After  that,  I'll give you the new versions
-of the TINY and KISS compilers,  and  then we'll start to look at
+part of the series.  After  that,  I’ll give you the new versions
+of the TINY and KISS compilers,  and  then we’ll start to look at
 optimization issues.</p>
 <p>See you then.</p>
 
@@ -2042,17 +2049,13 @@ optimization issues.</p>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
                             <a rel="prev" href="tutor13_procedures.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                        
 
-                        
                             <a rel="next" href="tutor15_backtothefuture.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -2060,41 +2063,37 @@ optimization issues.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a href="tutor13_procedures.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="tutor13_procedures.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                
 
-                
-                    <a href="tutor15_backtothefuture.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="tutor15_backtothefuture.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
+        <script>
+            window.playground_copyable = true;
+        </script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
-        
+        <script src="highlight.js"></script>
 
-        
 
+    </div>
     </body>
 </html>

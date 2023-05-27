@@ -26,7 +26,7 @@ output: [pdf, epub, html]
 + src/tutor08_littlephilosophy.md
 + src/tutor09_atopview.md
 + src/tutor10_introducingtiny.md
-+ src/tutor11_lexicalscanrevisit.md
++ src/tutor11_lexicalscanrevisited.md
 + src/tutor12_miscellany.md
 + src/tutor13_procedures.md
 + src/tutor14_types.md
