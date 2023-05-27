@@ -1,14 +1,18 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>A Top View - Let's build a compiler</title>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>A Top View - Let&#x27;s Build a Compiler</title>
+
+
+        <!-- Custom HTML head -->
+        
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -17,8 +21,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -26,16 +29,18 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
 
-        
     </head>
-    <body class="light">
+    <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -51,71 +56,78 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="about.html">About this project</a></li><li class="affix"><a href="tutor01_introduction.html">Introduction</a></li><li class="affix"><a href="tutor02_expressionparsing.html">Expression Parsing</a></li><li class="affix"><a href="tutor03_moreexpressions.html">More Expressions</a></li><li class="affix"><a href="tutor04_interpreters.html">Interpreters</a></li><li class="affix"><a href="tutor05_controlstructs.html">Control Constructs</a></li><li class="affix"><a href="tutor06_booleanexpressions.html">Boolean Expressions</a></li><li class="affix"><a href="tutor07_lexicalscanning.html">Lexical Scanning</a></li><li class="affix"><a href="tutor08_littlephilosophy.html">A Little Philosophy</a></li><li class="affix"><a href="tutor09_atopview.html" class="active">A Top View</a></li><li class="affix"><a href="tutor10_introducingtiny.html">Introducing Tiny</a></li><li class="affix"><a href="tutor11_lexicalscanrevisit.html">Lexical Scan Revisit</a></li><li class="affix"><a href="tutor12_miscellany.html">Miscellany</a></li><li class="affix"><a href="tutor13_procedures.html">Procedures</a></li><li class="affix"><a href="tutor14_types.html">Types</a></li><li class="affix"><a href="tutor15_backtothefuture.html">Back to the Future</a></li><li class="affix"><a href="tutor16_unitconstruction.html">Unit Construction</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="about.html">About this project</a></li><li class="chapter-item expanded "><a href="tutor01_introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="tutor02_expressionparsing.html"><strong aria-hidden="true">2.</strong> Expression Parsing</a></li><li class="chapter-item expanded "><a href="tutor03_moreexpressions.html"><strong aria-hidden="true">3.</strong> More Expressions</a></li><li class="chapter-item expanded "><a href="tutor04_interpreters.html"><strong aria-hidden="true">4.</strong> Interpreters</a></li><li class="chapter-item expanded "><a href="tutor05_controlstructs.html"><strong aria-hidden="true">5.</strong> Control Constructs</a></li><li class="chapter-item expanded "><a href="tutor06_booleanexpressions.html"><strong aria-hidden="true">6.</strong> Boolean Expressions</a></li><li class="chapter-item expanded "><a href="tutor07_lexicalscanning.html"><strong aria-hidden="true">7.</strong> Lexical Scanning</a></li><li class="chapter-item expanded "><a href="tutor08_littlephilosophy.html"><strong aria-hidden="true">8.</strong> A Little Philosophy</a></li><li class="chapter-item expanded "><a href="tutor09_atopview.html" class="active"><strong aria-hidden="true">9.</strong> A Top View</a></li><li class="chapter-item expanded "><a href="tutor10_introducingtiny.html"><strong aria-hidden="true">10.</strong> Introducing Tiny</a></li><li class="chapter-item expanded "><a href="tutor11_lexicalscanrevisited.html"><strong aria-hidden="true">11.</strong> Lexical Scan Revisited</a></li><li class="chapter-item expanded "><a href="tutor12_miscellany.html"><strong aria-hidden="true">12.</strong> Miscellany</a></li><li class="chapter-item expanded "><a href="tutor13_procedures.html"><strong aria-hidden="true">13.</strong> Procedures</a></li><li class="chapter-item expanded "><a href="tutor14_types.html"><strong aria-hidden="true">14.</strong> Types</a></li><li class="chapter-item expanded "><a href="tutor15_backtothefuture.html"><strong aria-hidden="true">15.</strong> Back to the Future</a></li><li class="chapter-item expanded "><a href="tutor16_unitconstruction.html"><strong aria-hidden="true">16.</strong> Unit Construction</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
 
-                        <h1 class="menu-title">Let's build a compiler</h1> 
+                    <h1 class="menu-title">Let&#x27;s Build a Compiler</h1>
 
-                        <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                        </div>
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/xmonader/letsbuildacompiler-pretty" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -123,10 +135,9 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -136,18 +147,18 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#part-ix-a-top-view---16-april-1989" id="part-ix-a-top-view---16-april-1989"><h1>Part IX: A TOP VIEW - 16 April 1989</h1></a>
-<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
+                        <h1 id="part-ix-a-top-view---16-april-1989"><a class="header" href="#part-ix-a-top-view---16-april-1989">Part IX: A Top View - 16 April 1989</a></h1>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
 <p>In  the  previous  installments,  we  have  learned  many of  the
-techniques required to  build  a full-blown compiler.  We've done
+techniques required to  build  a full-blown compiler.  We’ve done
 both  assignment   statements   (with   Boolean   and  arithmetic
 expressions),  relational operators, and control constructs.   We
-still haven't  addressed procedure or function calls, but even so
+still haven’t  addressed procedure or function calls, but even so
 we  could  conceivably construct a  mini-language  without  them.
-I've  always  thought  it would be fun to see just  how  small  a
-language  one  could  build  that  would still be useful.   We're
-ALMOST in a position to do that now.  The  problem  is: though we
-know  how  to  parse and translate the constructs, we still don't
+I’ve  always  thought  it would be fun to see just  how  small  a
+language  one  could  build  that  would still be useful.   We’re
+<em>almost</em> in a position to do that now.  The  problem  is: though we
+know  how  to  parse and translate the constructs, we still don’t
 know quite how to put them all together into a language.</p>
 <p>In those earlier installments, the  development  of  our programs
 had  a decidedly bottom-up flavor.  In  the  case  of  expression
@@ -158,28 +169,28 @@ our way up to more complex expressions.</p>
 than  the  bottom-up  one.  I do too,  but  the  way  we  did  it
 certainly seemed natural enough for the kinds of  things  we were
 parsing.</p>
-<p>You mustn't get  the  idea, though, that the incremental approach
-that  we've  been  using  in  all these tutorials  is  inherently
-bottom-up.  In  this  installment  I'd  like to show you that the
-approach can work just as well when applied from the top down ...
-maybe better.  We'll consider languages such as C and Pascal, and
+<p>You mustn’t get  the  idea, though, that the incremental approach
+that  we’ve  been  using  in  all these tutorials  is  inherently
+bottom-up.  In  this  installment  I’d  like to show you that the
+approach can work just as well when applied from the top down …
+maybe better.  We’ll consider languages such as C and Pascal, and
 see how complete compilers can be built starting from the top.</p>
-<p>In the next installment, we'll  apply the same technique to build
+<p>In the <a href="tutor10_introducingtiny.html">next installment</a>, we’ll  apply the same technique to build
 a  complete  translator  for a subset of the KISS language, which
-I'll be  calling  TINY.    But one of my goals for this series is
+I’ll be  calling  TINY.    But one of my goals for this series is
 that you will  not only be able to see how a compiler for TINY or
 KISS  works,  but  that you will also be able to design and build
 compilers for your own languages.  The C and Pascal examples will
-help.    One  thing I'd like you  to  see  is  that  the  natural
+help.    One  thing I’d like you  to  see  is  that  the  natural
 structure of the compiler depends very much on the language being
 translated, so the simplicity and  ease  of  construction  of the
 compiler  depends  very  much  on  letting the language  set  the
 program structure.</p>
-<p>It's  a bit much to produce a full C or Pascal compiler here, and
-we won't try.   But we can flesh out the top levels far enough so
+<p>It’s  a bit much to produce a full C or Pascal compiler here, and
+we won’t try.   But we can flesh out the top levels far enough so
 that you can see how it goes.</p>
-<p>Let's get started.</p>
-<a class="header" href="#the-top-level" id="the-top-level"><h2>THE TOP LEVEL</h2></a>
+<p>Let’s get started.</p>
+<h2 id="the-top-level"><a class="header" href="#the-top-level">The Top Level</a></h2>
 <p>One of the biggest  mistakes  people make in a top-down design is
 failing  to start at the true top.  They think they know what the
 overall structure of the  design  should be, so they go ahead and
@@ -187,36 +198,35 @@ write it down.</p>
 <p>Whenever  I  start a new design, I always like to do  it  at  the
 absolute beginning.   In  program design language (PDL), this top
 level looks something like:</p>
-<pre><code class="language-delphi">     begin
-        solve the problem
-     end
+<pre><code>begin
+   solve the problem
+end
 </code></pre>
-<p>OK, I grant  you that this doesn't give much of a hint as to what
+<p>OK, I grant  you that this doesn’t give much of a hint as to what
 the next level is, but I  like  to  write it down anyway, just to
 give me that warm feeling that I am indeed starting at the top.</p>
 <p>For our problem, the overall function of a compiler is to compile
 a complete program.  Any definition of the  language,  written in
 BNF,  begins here.  What does the top level BNF look like?  Well,
-that depends quite a bit on the language to be translated.  Let's
+that depends quite a bit on the language to be translated.  Let’s
 take a look at Pascal.</p>
-<a class="header" href="#the-structure-of-pascal" id="the-structure-of-pascal"><h2>THE STRUCTURE OF PASCAL</h2></a>
-<p>Most  texts  for  Pascal  include  a   BNF   or  &quot;railroad-track&quot;
+<h2 id="the-structure-of-pascal"><a class="header" href="#the-structure-of-pascal">The Structure of Pascal</a></h2>
+<p>Most  texts  for  Pascal  include  a   BNF   or  “railroad-track”
 definition of the language.  Here are the first few lines of one:</p>
-<pre><code>
-     &lt;program&gt; ::= &lt;program-header&gt; &lt;block&gt; '.'
+<pre><code class="language-bnf">&lt;program&gt; ::= &lt;program-header&gt; &lt;block&gt; '.'
 
-     &lt;program-header&gt; ::= PROGRAM &lt;ident&gt;
+&lt;program-header&gt; ::= PROGRAM &lt;ident&gt;
 
-     &lt;block&gt; ::= &lt;declarations&gt; &lt;statements&gt;
+&lt;block&gt; ::= &lt;declarations&gt; &lt;statements&gt;
 </code></pre>
 <p>We can write recognizers  to  deal  with  each of these elements,
-just as we've done before.  For each one, we'll use  our familiar
+just as we’ve done before.  For each one, we’ll use  our familiar
 single-character tokens to represent the input, then flesh things
-out a little at a time.    Let's begin with the first recognizer:
+out a little at a time.    Let’s begin with the first recognizer:
 the program itself.</p>
-<p>To translate this, we'll  start  with a fresh copy of the Cradle.
-Since we're back to single-character  names, we'll just use a 'p'
-to stand for 'PROGRAM.'</p>
+<p>To translate this, we’ll  start  with a fresh copy of the Cradle.
+Since we’re back to single-character  names, we’ll just use a <code>p</code>
+to stand for <code>PROGRAM</code>.</p>
 <p>To a fresh copy of the cradle, add the following code, and insert
 a call to it from the main program:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -232,17 +242,16 @@ begin
    Epilog(Name);
 end;
 {--------------------------------------------------------------}
-
 </code></pre>
-<p>The procedures  Prolog and Epilog perform whatever is required to
+<p>The procedures  <code>Prolog</code> and <code>Epilog</code> perform whatever is required to
 let the program interface with the operating system,  so  that it
 can execute as a program.  Needless to  say,  this  part  will be
-VERY OS-dependent.  Remember, I've been emitting code for a 68000
+<em>very</em> OS-dependent.  Remember, I’ve been emitting code for a 68000
 running under the OS I use, which is SK*DOS.   I  realize most of
-you are using PC's  and  would rather see something else, but I'm
+you are using PC’s  and  would rather see something else, but I’m
 in this thing too deep to change now!</p>
 <p>Anyhow, SK*DOS is a  particularly  easy OS to interface to.  Here
-is the code for Prolog and Epilog:</p>
+is the code for <code>Prolog</code> and <code>Epilog</code>:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Write the Prolog }
 
@@ -262,25 +271,24 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>As usual, add  this  code  and  try  out the &quot;compiler.&quot;  At this
-point, there is only one legal input:</p>
-<pre><code> px.   (where x is any single letter, the program name)
-</code></pre>
+<p>As usual, add  this  code  and  try  out the “compiler.”  At this
+point, there is only one legal input:
+<code>px.</code>   (where <code>x</code> is any single letter, the program name).</p>
 <p>Well,  as  usual  our first effort is rather unimpressive, but by
-now  I'm sure you know that things  will  get  more  interesting.
+now  I’m sure you know that things  will  get  more  interesting.
 There is one important thing to  note:   THE OUTPUT IS A WORKING,
-COMPLETE, AND EXECUTABLE PROGRAM (at least after it's assembled).</p>
+COMPLETE, AND EXECUTABLE PROGRAM (at least after it’s assembled).</p>
 <p>This  is  very  important.  The  nice  feature  of  the  top-down
 approach is that at any stage you can  compile  a  subset  of the
 complete language and get  a  program that will run on the target
 machine.    From here on, then, we  need  only  add  features  by
-fleshing out the language constructs.  It's all  very  similar to
-what we've been doing all along, except that we're approaching it
+fleshing out the language constructs.  It’s all  very  similar to
+what we’ve been doing all along, except that we’re approaching it
 from the other end.</p>
-<a class="header" href="#fleshing-it-out" id="fleshing-it-out"><h2>FLESHING IT OUT</h2></a>
+<h2 id="fleshing-it-out"><a class="header" href="#fleshing-it-out">Fleshing It Out</a></h2>
 <p>To flesh out  the  compiler,  we  only have to deal with language
 features  one by one.  I like to start with a stub procedure that
-does  nothing, then add detail in  incremental  fashion.    Let's
+does  nothing, then add detail in  incremental  fashion.    Let’s
 begin  by  processing  a block, in accordance with its PDL above.
 We can do this in two stages.  First, add the null procedure:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -291,7 +299,7 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>and modify Prog to read:</p>
+<p>and modify <code>Prog</code> to read:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Parse and Translate A Program }
 
@@ -307,9 +315,9 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>That certainly  shouldn't change the behavior of the program, and
-it doesn't.  But now the  definition  of Prog is complete, and we
-can proceed to flesh out DoBlock.  That's done right from its BNF
+<p>That certainly  shouldn’t change the behavior of the program, and
+it doesn’t.  But now the  definition  of <code>Prog</code> is complete, and we
+can proceed to flesh out <code>DoBlock</code>.  That’s done right from its BNF
 definition:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Parse and Translate a Pascal Block }
@@ -322,36 +330,35 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>The  procedure  PostLabel  was  defined  in  the  installment  on
-branches.  Copy it into your cradle.</p>
+<p>The  procedure  <code>PostLabel</code>  was  defined  in  the  <a href="tutor05_controlstructs.html">installment  on  branches</a>.
+Copy it into your cradle.</p>
 <p>I probably need to  explain  the  reason  for inserting the label
 where I have.  It has to do with the operation of SK<em>DOS.  Unlike
-some OS's,  SK</em>DOS allows the entry point to the main  program to
+some OS’s,  SK</em>DOS allows the entry point to the main  program to
 be  anywhere in the program.  All you have to do is to give  that
-point a name.  The call  to  PostLabel puts that name just before
+point a name.  The call  to  <code>PostLabel</code> puts that name just before
 the first executable statement  in  the  main  program.  How does
 SK*DOS know which of the many labels is the entry point, you ask?
-It's the one that matches the END statement  at  the  end  of the
+It’s the one that matches the <code>END</code> statement  at  the  end  of the
 program.</p>
-<p>OK,  now  we  need  stubs  for  the  procedures Declarations  and
-Statements.  Make them null procedures as we did before.</p>
+<p>OK,  now  we  need  stubs  for  the  procedures <code>Declarations</code>  and
+<code>Statements</code>.  Make them null procedures as we did before.</p>
 <p>Does the program  still run the same?  Then we can move on to the
 next stage.</p>
-<a class="header" href="#declarations" id="declarations"><h2>DECLARATIONS</h2></a>
+<h2 id="declarations"><a class="header" href="#declarations">Declarations</a></h2>
 <p>The BNF for Pascal declarations is:</p>
-<pre><code>     &lt;declarations&gt; ::= ( &lt;label list&gt;    |
-                          &lt;constant list&gt; |
-                          &lt;type list&gt;     |
-                          &lt;variable list&gt; |
-                          &lt;procedure&gt;     |
-                          &lt;function&gt;         )*
-                              
+<pre><code class="language-bnf">&lt;declarations&gt; ::= ( &lt;label list&gt;    |
+                     &lt;constant list&gt; |
+                     &lt;type list&gt;     |
+                     &lt;variable list&gt; |
+                     &lt;procedure&gt;     |
+                     &lt;function&gt;         )*
 </code></pre>
-<p>(Note  that  I'm  using the more liberal definition used by Turbo
+<p>(Note  that  I’m  using the more liberal definition used by Turbo
 Pascal.  In the standard Pascal definition, each  of  these parts
 must be in a specific order relative to the rest.)</p>
-<p>As  usual,  let's  let a single character represent each of these
-declaration types.  The new form of Declarations is:</p>
+<p>As  usual,  let’s  let a single character represent each of these
+declaration types.  The new form of <code>Declarations</code> is:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Parse and Translate the Declaration Part }
 
@@ -370,8 +377,8 @@ end;
 {--------------------------------------------------------------}
 </code></pre>
 <p>Of course, we need stub  procedures for each of these declaration
-types.  This time,  they  can't  quite  be null procedures, since
-otherwise we'll end up with an infinite While loop.  At  the very
+types.  This time,  they  can’t  quite  be null procedures, since
+otherwise we’ll end up with an infinite While loop.  At  the very
 least, each recognizer must  eat  the  character that invokes it.
 Insert the following procedures:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -429,20 +436,19 @@ end;
 </code></pre>
 <p>Now try out the  compiler  with a few representative inputs.  You
 can  mix  the  declarations any way you like, as long as the last
-character  in  the  program is'.' to  indicate  the  end  of  the
+character  in  the  program is <code>.</code> to  indicate  the  end  of  the
 program.  Of course,  none  of  the declarations actually declare
-anything, so you don't need  (and can't use) any characters other
+anything, so you don’t need  (and can’t use) any characters other
 than those standing for the keywords.</p>
 <p>We can flesh out the statement  part  in  a similar way.  The BNF
 for it is:</p>
-<pre><code>     &lt;statements&gt; ::= &lt;compound statement&gt;
+<pre><code class="language-bnf">&lt;statements&gt; ::= &lt;compound statement&gt;
 
-     &lt;compound statement&gt; ::= BEGIN &lt;statement&gt;
-                                   (';' &lt;statement&gt;) END
-
+&lt;compound statement&gt; ::= BEGIN &lt;statement&gt;
+                              (';' &lt;statement&gt;) END
 </code></pre>
-<p>Note that statements can  begin  with  any identifier except END.
-So the first stub form of procedure Statements is:</p>
+<p>Note that statements can  begin  with  any identifier except <code>END</code>.
+So the first stub form of procedure <code>Statements</code> is:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Parse and Translate the Statement Part }
 
@@ -454,16 +460,13 @@ begin
    Match('e');
 end;
 {--------------------------------------------------------------}
-
 </code></pre>
 <p>At  this  point  the  compiler   will   accept   any   number  of
-declarations, followed by the  BEGIN  block  of the main program.
+declarations, followed by the  <code>BEGIN</code>  block  of the main program.
 This  block  itself  can contain any characters at all (except an
-END), but it must be present.</p>
-<p>The simplest form of input is now</p>
-<pre><code> `'pxbe.'`
-</code></pre>
-<p>Try  it.    Also  try  some  combinations  of  this.   Make  some
+<code>END</code>), but it must be present.</p>
+<p>The simplest form of input is now <code>pxbe</code>.
+Try  it.    Also  try  some  combinations  of  this.   Make  some
 deliberate errors and see what happens.</p>
 <p>At this point you should be beginning to see the drill.  We begin
 with a stub translator to process a program, then  we  flesh  out
@@ -471,37 +474,36 @@ each procedure in turn,  based  upon its BNF definition.  Just as
 the lower-level BNF definitions add detail and elaborate upon the
 higher-level ones, the lower-level  recognizers  will  parse more
 detail  of  the  input  program.    When  the  last stub has been
-expanded,  the  compiler  will  be  complete.    That's  top-down
+expanded,  the  compiler  will  be  complete.    That’s  top-down
 design/implementation in its purest form.</p>
-<p>You might note that even though we've been adding procedures, the
-output of the program hasn't changed.  That's as  it  should  be.
+<p>You might note that even though we’ve been adding procedures, the
+output of the program hasn’t changed.  That’s as  it  should  be.
 At these  top  levels  there  is  no  emitted code required.  The
 recognizers are  functioning as just that: recognizers.  They are
 accepting input sentences, catching bad ones, and channeling good
 input to the right places, so  they  are  doing their job.  If we
 were to pursue this a bit longer, code would start to appear.</p>
 <p>The  next  step  in our expansion should  probably  be  procedure
-Statements.  The Pascal definition is:</p>
-<pre><code>    &lt;statement&gt; ::= &lt;simple statement&gt; | &lt;structured statement&gt;
+<code>Statements</code>.  The Pascal definition is:</p>
+<pre><code class="language-bnf">&lt;statement&gt; ::= &lt;simple statement&gt; | &lt;structured statement&gt;
 
-    &lt;simple statement&gt; ::= &lt;assignment&gt; | &lt;procedure call&gt; | null
+&lt;simple statement&gt; ::= &lt;assignment&gt; | &lt;procedure call&gt; | null
 
-    &lt;structured statement&gt; ::= &lt;compound statement&gt; |
-                               &lt;if statement&gt;       |
-                               &lt;case statement&gt;     |
-                               &lt;while statement&gt;    |
-                               &lt;repeat statement&gt;   |
-                               &lt;for statement&gt;      |
-                               &lt;with statement&gt;
-
+&lt;structured statement&gt; ::= &lt;compound statement&gt; |
+                           &lt;if statement&gt;       |
+                           &lt;case statement&gt;     |
+                           &lt;while statement&gt;    |
+                           &lt;repeat statement&gt;   |
+                           &lt;for statement&gt;      |
+                           &lt;with statement&gt;
 </code></pre>
 <p>These  are  starting  to look familiar.  As a matter of fact, you
 have already gone  through  the process of parsing and generating
 code for both assignment statements and control structures.  This
 is where the top level meets our bottom-up  approach  of previous
 sessions.  The constructs will be a little  different  from those
-we've  been  using  for KISS, but the differences are nothing you
-can't handle.</p>
+we’ve  been  using  for KISS, but the differences are nothing you
+can’t handle.</p>
 <p>I  think  you can get the picture now as to the  procedure.    We
 begin with a complete BNF  description of the language.  Starting
 at  the  top  level, we code  up  the  recognizer  for  that  BNF
@@ -510,54 +512,60 @@ flesh those lower-level statements out one by one.</p>
 <p>As it happens, the definition of Pascal is  very  compatible with
 the  use of BNF, and BNF descriptions  of  the  language  abound.
 Armed  with  such   a   description,  you  will  find  it  fairly
-straightforward to continue the process we've begun.</p>
+straightforward to continue the process we’ve begun.</p>
 <p>You  might  have  a go at fleshing a few of these constructs out,
-just  to get a feel for it.  I don't expect you  to  be  able  to
-complete a Pascal compiler  here  ...  there  are too many things
-such  as  procedures  and types that we haven't addressed yet ...
+just  to get a feel for it.  I don’t expect you  to  be  able  to
+complete a Pascal compiler  here  …  there  are too many things
+such  as  procedures  and types that we haven’t addressed yet …
 but  it  might  be helpful to try some of the more familiar ones.
 It will do  you  good  to  see executable programs coming out the
 other end.</p>
-<p>If I'm going to address those issues that we haven't covered yet,
-I'd rather  do  it  in  the context of KISS.  We're not trying to
-build a complete Pascal  compiler  just yet, so I'm going to stop
-the expansion of Pascal here.    Let's  take  a  look  at  a very
+<p>If I’m going to address those issues that we haven’t covered yet,
+I’d rather  do  it  in  the context of KISS.  We’re not trying to
+build a complete Pascal  compiler  just yet, so I’m going to stop
+the expansion of Pascal here.    Let’s  take  a  look  at  a very
 different language.</p>
-<a class="header" href="#the-structure-of-c" id="the-structure-of-c"><h2>THE STRUCTURE OF C</h2></a>
-<p>The C language is quite another matter, as you'll see.   Texts on
+<h2 id="the-structure-of-c"><a class="header" href="#the-structure-of-c">The Structure of C</a></h2>
+<p>The C language is quite another matter, as you’ll see.   Texts on
 C  rarely  include  a BNF definition of  the  language.  Probably
-that's because the language is quite hard to write BNF for.</p>
-<p>One reason I'm showing you these structures now is so that  I can
+that’s because the language is quite hard to write BNF for.</p>
+<p>One reason I’m showing you these structures now is so that  I can
 impress upon you these two facts:</p>
-<p>(1) The definition of  the  language drives the structure of the
+<ol>
+<li>
+<p>The definition of  the  language drives the structure of the
 compiler.  What works for one language may be a disaster for
-another.    It's  a very bad idea to try to  force  a  given
+another.    It’s  a very bad idea to try to  force  a  given
 structure upon the compiler.  Rather, you should let the BNF
 drive the structure, as we have done here.</p>
-<p>(2) A language that is hard to write BNF for  will  probably  be
+</li>
+<li>
+<p>A language that is hard to write BNF for  will  probably  be
 hard  to  write  a compiler for, as well.  C  is  a  popular
 language,  and  it  has  a  reputation  for  letting you  do
 virtually  anything that is possible to  do.    Despite  the
-success of Small C, C is <em>NOT</em> an easy language to parse.</p>
+success of Small C, C is <em>not</em> an easy language to parse.</p>
+</li>
+</ol>
 <p>A C program has  less  structure than its Pascal counterpart.  At
 the top level, everything in C is a static declaration, either of
 data or of a function.  We can capture this thought like this:</p>
-<pre><code>     &lt;program&gt; ::= ( &lt;global declaration&gt; )*
+<pre><code class="language-bnf">&lt;program&gt; ::= ( &lt;global declaration&gt; )*
 
-     &lt;global declaration&gt; ::= &lt;data declaration&gt;  |
-                              &lt;function&gt;
+&lt;global declaration&gt; ::= &lt;data declaration&gt;  |
+                         &lt;function&gt;
 </code></pre>
 <p>In Small C, functions  can  only have the default type int, which
 is not declared.  This makes  the  input easy to parse: the first
-token is either &quot;int,&quot; &quot;char,&quot; or the name  of  a  function.   In
+token is either <code>int</code>, <code>char</code>, or the name  of  a  function.   In
 Small  C, the preprocessor commands are  also  processed  by  the
 compiler proper, so the syntax becomes:</p>
-<pre><code>     &lt;global declaration&gt; ::= '#' &lt;preprocessor command&gt;  |
-                              'int' &lt;data list&gt;           |
-                              'char' &lt;data list&gt;          |
-                              &lt;ident&gt; &lt;function body&gt;     |
+<pre><code class="language-bnf">&lt;global declaration&gt; ::= '#' &lt;preprocessor command&gt;  |
+                         'int' &lt;data list&gt;           |
+                         'char' &lt;data list&gt;          |
+                         &lt;ident&gt; &lt;function body&gt;     |
 </code></pre>
-<p>Although we're really more interested in full C  here,  I'll show
+<p>Although we’re really more interested in full C  here,  I’ll show
 you the  code corresponding to this top-level structure for Small
 C.</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -576,42 +584,40 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Note that I've had to use a ^Z to indicate the end of the source.
-C has no keyword such as END or the '.' to otherwise indicate the
+<p>Note that I’ve had to use a ^Z to indicate the end of the source.
+C has no keyword such as <code>END</code> or the <code>.</code> to otherwise indicate the
 end.</p>
-<p>With full C,  things  aren't  even  this easy.  The problem comes
+<p>With full C,  things  aren’t  even  this easy.  The problem comes
 about because in full C, functions can also have types.   So when
-the compiler sees a  keyword  like  &quot;int,&quot;  it still doesn't know
+the compiler sees a  keyword  like  <code>int,</code>  it still doesn’t know
 whether to expect a  data  declaration  or a function definition.
 Things get more  complicated  since  the  next token may not be a
-name  ... it may start with an '*' or '(', or combinations of the
+name  … it may start with an <code>*</code> or <code>(</code>, or combinations of the
 two.</p>
 <p>More specifically, the BNF for full C begins with:</p>
-<pre><code>     &lt;program&gt; ::= ( &lt;top-level decl&gt; )*
+<pre><code class="language-bnf">&lt;program&gt; ::= ( &lt;top-level decl&gt; )*
 
-     &lt;top-level decl&gt; ::= &lt;function def&gt; | &lt;data decl&gt;
+&lt;top-level decl&gt; ::= &lt;function def&gt; | &lt;data decl&gt;
 
-     &lt;data decl&gt; ::= [&lt;class&gt;] &lt;type&gt; &lt;decl-list&gt;
+&lt;data decl&gt; ::= [&lt;class&gt;] &lt;type&gt; &lt;decl-list&gt;
 
-     &lt;function def&gt; ::= [&lt;class&gt;] [&lt;type&gt;] &lt;function decl&gt;
+&lt;function def&gt; ::= [&lt;class&gt;] [&lt;type&gt;] &lt;function decl&gt;
 </code></pre>
 <p>You  can  now  see the problem:   The  first  two  parts  of  the
 declarations for data and functions can be the same.   Because of
-the  ambiguity  in  the grammar as  written  above,  it's  not  a
+the  ambiguity  in  the grammar as  written  above,  it’s  not  a
 suitable  grammar  for  a  recursive-descent  parser.     Can  we
 transform it into one that is suitable?  Yes, with a little work.
 Suppose we write it this way:</p>
-<pre><code>
-     &lt;top-level decl&gt; ::= [&lt;class&gt;] &lt;decl&gt;
+<pre><code class="language-bnf">&lt;top-level decl&gt; ::= [&lt;class&gt;] &lt;decl&gt;
 
-     &lt;decl&gt; ::= &lt;type&gt; &lt;typed decl&gt; | &lt;function decl&gt;
+&lt;decl&gt; ::= &lt;type&gt; &lt;typed decl&gt; | &lt;function decl&gt;
 
-     &lt;typed decl&gt; ::= &lt;data list&gt; | &lt;function decl&gt;
-
+&lt;typed decl&gt; ::= &lt;data list&gt; | &lt;function decl&gt;
 </code></pre>
 <p>We  can  build  a  parsing  routine  for  the   class   and  type
 definitions, and have them store away their findings  and  go on,
-without their ever having to &quot;know&quot; whether a function or  a data
+without their ever having to “know” whether a function or  a data
 declaration is being processed.</p>
 <p>To begin, key in the following version of the main program:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -629,17 +635,17 @@ end.
 {--------------------------------------------------------------}
 </code></pre>
 <p>For the first round, just make the three procedures stubs that do
-nothing <em>BUT</em> call GetChar.</p>
-<p>Does this program work?  Well, it would be hard put NOT to, since
-we're not really asking it to do anything.  It's been said that a
-C compiler will accept virtually any input without choking.  It's
-certainly true of THIS  compiler,  since in effect all it does is
+nothing <em>but</em> call <code>GetChar</code>.</p>
+<p>Does this program work?  Well, it would be hard put <em>not</em> to, since
+we’re not really asking it to do anything.  It’s been said that a
+C compiler will accept virtually any input without choking.  It’s
+certainly true of <em>this</em>  compiler,  since in effect all it does is
 to eat input characters until it finds a ^Z.</p>
-<p>Next, let's make  GetClass  do something worthwhile.  Declare the
+<p>Next, let’s make  <code>GetClass</code>  do something worthwhile.  Declare the
 global variable</p>
 <pre><code class="language-delphi">     var Class: char;
 </code></pre>
-<p>and change GetClass to do the following:</p>
+<p>and change <code>GetClass</code> to do the following:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 {  Get a Storage Class Specifier }
 
@@ -653,11 +659,11 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Here, I've used three  single  characters  to represent the three
-storage classes &quot;auto,&quot; &quot;extern,&quot;  and  &quot;static.&quot;   These are not
-the only three possible classes ... there are also &quot;register&quot; and
-&quot;typedef,&quot; but this should  give  you the picture.  Note that the
-default class is &quot;auto.&quot;</p>
+<p>Here, I’ve used three  single  characters  to represent the three
+storage classes <code>auto</code>, <code>extern</code>,  and  <code>static</code>.   These are not
+the only three possible classes … there are also <code>register</code> and
+<code>typedef</code>, but this should  give  you the picture.  Note that the
+default class is <code>auto</code>.</p>
 <p>We  can  do  a  similar  thing  for  types.   Enter the following
 procedure next:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
@@ -679,19 +685,19 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Note that you must add two more global variables, Sign and Typ.</p>
+<p>Note that you must add two more global variables, <code>Sign</code> and <code>Typ</code>.</p>
 <p>With these two procedures in place, the compiler will process the
 class and type definitions and store away their findings.  We can
 now process the rest of the declaration.</p>
 <p>We  are by no means out of the woods yet, because there are still
 many complexities just in the definition of the  type,  before we
-even get to the actual data or function names.  Let's pretend for
+even get to the actual data or function names.  Let’s pretend for
 the moment that we have passed all those gates, and that the next
 thing in the  input stream is a name.  If the name is followed by
 a left paren, we have a function declaration.  If not, we have at
 least one data item,  and  possibly a list, each element of which
 can have an initializer.</p>
-<p>Insert the following version of TopDecl:</p>
+<p>Insert the following version of <code>TopDecl</code>:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Process a Top-Level Declaration }
 
@@ -708,7 +714,7 @@ end;
 </code></pre>
 <p>(Note that, since we have already read the name, we must  pass it
 along to the appropriate routine.)</p>
-<p>Finally, add the two procedures DoFunc and DoData:</p>
+<p>Finally, add the two procedures <code>DoFunc</code> and <code>DoData</code>:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Process a Function Definition }
 
@@ -738,26 +744,26 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Since  we're  still  a long way from producing executable code, I
+<p>Since  we’re  still  a long way from producing executable code, I
 decided to just have these two routines tell us what they found.</p>
-<p>OK, give this program a try.    For data declarations, it's OK to
-give a list separated by commas.  We  can't  process initializers
-as yet.  We also can't process argument lists for  the functions,
-but the &quot;(){}&quot; characters should be there.</p>
-<p>We're still a <em>VERY</em> long way from having a C compiler,  but what
+<p>OK, give this program a try.    For data declarations, it’s OK to
+give a list separated by commas.  We  can’t  process initializers
+as yet.  We also can’t process argument lists for  the functions,
+but the <code>(){}</code> characters should be there.</p>
+<p>We’re still a <em>very</em> long way from having a C compiler,  but what
 we have is starting to process the right kinds of inputs,  and is
 recognizing both good  and  bad  inputs.    In  the  process, the
 natural structure of the compiler is starting to take form.</p>
 <p>Can we continue this until we have something that acts  more like
-a compiler. Of course we can.  Should we?  That's another matter.
-I don't know about you, but I'm beginning to get dizzy, and we've
+a compiler. Of course we can.  Should we?  That’s another matter.
+I don’t know about you, but I’m beginning to get dizzy, and we’ve
 still  got  a  long  way  to  go  to  even  get  past   the  data
 declarations.</p>
 <p>At  this  point,  I think you can see how the  structure  of  the
 compiler evolves from the language  definition.    The structures
-we've seen for our  two  examples, Pascal and C, are as different
+we’ve seen for our  two  examples, Pascal and C, are as different
 as night and day.  Pascal was designed at least partly to be easy
-to parse, and that's  reflected  in the compiler.  In general, in
+to parse, and that’s  reflected  in the compiler.  In general, in
 Pascal there is more structure and we have a better idea  of what
 kinds of constructs to expect at any point.  In  C,  on the other
 hand,  the  program  is  essentially  a  list   of  declarations,
@@ -765,11 +771,11 @@ terminated only by the end of file.</p>
 <p>We  could  pursue  both  of  these structures much  farther,  but
 remember that our purpose here is  not  to  build a Pascal or a C
 compiler, but rather to study compilers in general.  For those of
-you  who DO want to deal with Pascal or C, I hope I've given  you
+you  who <em>do</em> want to deal with Pascal or C, I hope I’ve given  you
 enough of a start so that you can  take  it  from  here (although
-you'll soon need some of the stuff we still haven't  covered yet,
+you’ll soon need some of the stuff we still haven’t  covered yet,
 such as typing and procedure calls).    For the rest of you, stay
-with me through the next installment.  There, I'll be leading you
+with me through the <a href="tutor10_introducingtiny.html">next installment</a>.  There, I’ll be leading you
 through the development of a complete compiler for TINY, a subset
 of KISS.</p>
 <p>See you then.</p>
@@ -778,17 +784,13 @@ of KISS.</p>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
                             <a rel="prev" href="tutor08_littlephilosophy.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                        
 
-                        
                             <a rel="next" href="tutor10_introducingtiny.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -796,41 +798,37 @@ of KISS.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a href="tutor08_littlephilosophy.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="tutor08_littlephilosophy.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                
 
-                
-                    <a href="tutor10_introducingtiny.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="tutor10_introducingtiny.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
+        <script>
+            window.playground_copyable = true;
+        </script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
-        
+        <script src="highlight.js"></script>
 
-        
 
+    </div>
     </body>
 </html>

@@ -1,14 +1,18 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>More Expressions - Let's build a compiler</title>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>More Expressions - Let&#x27;s Build a Compiler</title>
+
+
+        <!-- Custom HTML head -->
+        
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -17,8 +21,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -26,16 +29,18 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
 
-        
     </head>
-    <body class="light">
+    <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -51,71 +56,78 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="about.html">About this project</a></li><li class="affix"><a href="tutor01_introduction.html">Introduction</a></li><li class="affix"><a href="tutor02_expressionparsing.html">Expression Parsing</a></li><li class="affix"><a href="tutor03_moreexpressions.html" class="active">More Expressions</a></li><li class="affix"><a href="tutor04_interpreters.html">Interpreters</a></li><li class="affix"><a href="tutor05_controlstructs.html">Control Constructs</a></li><li class="affix"><a href="tutor06_booleanexpressions.html">Boolean Expressions</a></li><li class="affix"><a href="tutor07_lexicalscanning.html">Lexical Scanning</a></li><li class="affix"><a href="tutor08_littlephilosophy.html">A Little Philosophy</a></li><li class="affix"><a href="tutor09_atopview.html">A Top View</a></li><li class="affix"><a href="tutor10_introducingtiny.html">Introducing Tiny</a></li><li class="affix"><a href="tutor11_lexicalscanrevisit.html">Lexical Scan Revisit</a></li><li class="affix"><a href="tutor12_miscellany.html">Miscellany</a></li><li class="affix"><a href="tutor13_procedures.html">Procedures</a></li><li class="affix"><a href="tutor14_types.html">Types</a></li><li class="affix"><a href="tutor15_backtothefuture.html">Back to the Future</a></li><li class="affix"><a href="tutor16_unitconstruction.html">Unit Construction</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="about.html">About this project</a></li><li class="chapter-item expanded "><a href="tutor01_introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="tutor02_expressionparsing.html"><strong aria-hidden="true">2.</strong> Expression Parsing</a></li><li class="chapter-item expanded "><a href="tutor03_moreexpressions.html" class="active"><strong aria-hidden="true">3.</strong> More Expressions</a></li><li class="chapter-item expanded "><a href="tutor04_interpreters.html"><strong aria-hidden="true">4.</strong> Interpreters</a></li><li class="chapter-item expanded "><a href="tutor05_controlstructs.html"><strong aria-hidden="true">5.</strong> Control Constructs</a></li><li class="chapter-item expanded "><a href="tutor06_booleanexpressions.html"><strong aria-hidden="true">6.</strong> Boolean Expressions</a></li><li class="chapter-item expanded "><a href="tutor07_lexicalscanning.html"><strong aria-hidden="true">7.</strong> Lexical Scanning</a></li><li class="chapter-item expanded "><a href="tutor08_littlephilosophy.html"><strong aria-hidden="true">8.</strong> A Little Philosophy</a></li><li class="chapter-item expanded "><a href="tutor09_atopview.html"><strong aria-hidden="true">9.</strong> A Top View</a></li><li class="chapter-item expanded "><a href="tutor10_introducingtiny.html"><strong aria-hidden="true">10.</strong> Introducing Tiny</a></li><li class="chapter-item expanded "><a href="tutor11_lexicalscanrevisited.html"><strong aria-hidden="true">11.</strong> Lexical Scan Revisited</a></li><li class="chapter-item expanded "><a href="tutor12_miscellany.html"><strong aria-hidden="true">12.</strong> Miscellany</a></li><li class="chapter-item expanded "><a href="tutor13_procedures.html"><strong aria-hidden="true">13.</strong> Procedures</a></li><li class="chapter-item expanded "><a href="tutor14_types.html"><strong aria-hidden="true">14.</strong> Types</a></li><li class="chapter-item expanded "><a href="tutor15_backtothefuture.html"><strong aria-hidden="true">15.</strong> Back to the Future</a></li><li class="chapter-item expanded "><a href="tutor16_unitconstruction.html"><strong aria-hidden="true">16.</strong> Unit Construction</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
 
-                        <h1 class="menu-title">Let's build a compiler</h1> 
+                    <h1 class="menu-title">Let&#x27;s Build a Compiler</h1>
 
-                        <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                        </div>
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/xmonader/letsbuildacompiler-pretty" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -123,10 +135,9 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -136,60 +147,56 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#part-iii-more-expressions---4-aug-1988" id="part-iii-more-expressions---4-aug-1988"><h1>Part III: MORE EXPRESSIONS - 4 Aug 1988</h1></a>
-<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
-<p>In the last installment, we examined the techniques used to parse
+                        <h1 id="part-iii-more-expressions---4-aug-1988"><a class="header" href="#part-iii-more-expressions---4-aug-1988">Part III: More Expressions - 4 Aug 1988</a></h1>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>In the <a href="tutor02_expressionparsing.html">last installment</a>, we examined the techniques used to parse
 and  translate a general math expression.  We  ended  up  with  a
 simple parser that  could handle arbitrarily complex expressions,
 with two restrictions:</p>
 <ul>
-<li>
-<p>No variables were allowed, only numeric factors</p>
-</li>
-<li>
-<p>The numeric factors were limited to single digits</p>
-</li>
+<li>No variables were allowed, only numeric factors</li>
+<li>The numeric factors were limited to single digits</li>
 </ul>
-<p>In this installment, we'll get  rid of those restrictions.  We'll
-also extend what  we've  done  to  include  assignment statements
+<p>In this installment, we’ll get  rid of those restrictions.  We’ll
+also extend what  we’ve  done  to  include  assignment statements
 function  calls  and.    Remember,   though,   that   the  second
-restriction was  mainly self-imposed  ... a choice of convenience
+restriction was  mainly self-imposed  … a choice of convenience
 on our part, to make life easier and to let us concentrate on the
-fundamental concepts.    As  you'll  see  in  a bit, it's an easy
-restriction to get rid of, so don't get  too  hung  up  about it.
-We'll use the trick when it serves us to do so, confident that we
-can discard it when we're ready to.</p>
-<a class="header" href="#variables" id="variables"><h2>VARIABLES</h2></a>
+fundamental concepts.    As  you’ll  see  in  a bit, it’s an easy
+restriction to get rid of, so don’t get  too  hung  up  about it.
+We’ll use the trick when it serves us to do so, confident that we
+can discard it when we’re ready to.</p>
+<h2 id="variables"><a class="header" href="#variables">Variables</a></h2>
 <p>Most expressions  that we see in practice involve variables, such
-as <code>b * b + 4 * a * c</code></p>
+as <code>b * b + 4 * a * c</code>.</p>
 <p>No  parser is much good without being able  to  deal  with  them.
-Fortunately, it's also quite easy to do.</p>
+Fortunately, it’s also quite easy to do.</p>
 <p>Remember that in our parser as it currently stands, there are two
 kinds of  factors  allowed:  integer  constants  and  expressions
 within parentheses.  In BNF notation,</p>
-<pre><code> `&lt;factor&gt; ::= &lt;number&gt; | (&lt;expression&gt;)`
+<pre><code class="language-bnf">&lt;factor&gt; ::= &lt;number&gt; | (&lt;expression&gt;)
 </code></pre>
-<p>The '|' stands for &quot;or&quot;, meaning of course that either form  is a
+<p>The <code>|</code> stands for “or”, meaning of course that either form  is a
 legal form for a factor.   Remember,  too, that we had no trouble
-knowing which was which  ...  the  lookahead  character is a left
-paren '(' in one case, and a digit in the other.</p>
-<p>It probably won't come as too much of a surprise that  a variable
+knowing which was which  …  the  lookahead  character is a left
+paren <code>(</code> in one case, and a digit in the other.</p>
+<p>It probably won’t come as too much of a surprise that  a variable
 is just another kind of factor.    So  we extend the BNF above to
 read:</p>
-<pre><code> `&lt;factor&gt; ::= &lt;number&gt; | (&lt;expression&gt;) | &lt;variable&gt;`
+<pre><code class="language-bnf">&lt;factor&gt; ::= &lt;number&gt; | (&lt;expression&gt;) | &lt;variable&gt;
 </code></pre>
 <p>Again, there is no  ambiguity:  if  the  lookahead character is a
 letter,  we  have  a variable; if a digit, we have a number. Back
 when we translated the number, we just issued code  to  load  the
-number,  as immediate data, into D0.  Now we do the same, only we
+number,  as immediate data, into <code>D0</code>.  Now we do the same, only we
 load a variable.</p>
 <p>A minor complication in the  code generation arises from the fact
-that most  68000 operating systems, including the SK*DOS that I'm
-using, require the code to be  written  in &quot;position-independent&quot;
+that most  68000 operating systems, including the SK*DOS that I’m
+using, require the code to be  written  in “position-independent”
 form, which  basically means that everything is PC-relative.  The
-format for a load in this language is <code>MOVE X(PC),D0</code></p>
-<p>where X is, of course, the variable name.  Armed with that, let's
-modify the current version of Factor to read:</p>
+format for a load in this language is <code>MOVE X(PC),D0</code>,
+where <code>X</code> is, of course, the variable name.  Armed with that, let’s
+modify the current version of <code>Factor</code> to read:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Parse and Translate a Math Factor }
 
@@ -209,46 +216,46 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>I've  remarked before how easy it is to  add  extensions  to  the
-parser, because of  the  way  it's  structured.  You can see that
+<p>I’ve  remarked before how easy it is to  add  extensions  to  the
+parser, because of  the  way  it’s  structured.  You can see that
 this  still  holds true here.  This time it cost us  all  of  two
 extra lines of code.  Notice, too, how the if-else-else structure
 exactly parallels the BNF syntax equation.</p>
-<p>OK, compile and test this new version of the parser.  That didn't
+<p>OK, compile and test this new version of the parser.  That didn’t
 hurt too badly, did it?</p>
-<a class="header" href="#functions" id="functions"><h2>FUNCTIONS</h2></a>
+<h2 id="functions"><a class="header" href="#functions">Functions</a></h2>
 <p>There is only one  other  common kind of factor supported by most
-languages: the function call.  It's really too early  for  us  to
-deal with functions well,  because  we  haven't yet addressed the
-issue of parameter passing.  What's more, a &quot;real&quot; language would
+languages: the function call.  It’s really too early  for  us  to
+deal with functions well,  because  we  haven’t yet addressed the
+issue of parameter passing.  What’s more, a “real” language would
 include a mechanism to  support  more than one type, one of which
-should be a function type.  We haven't gotten there  yet, either.
-But I'd still like to deal with functions  now  for  a  couple of
+should be a function type.  We haven’t gotten there  yet, either.
+But I’d still like to deal with functions  now  for  a  couple of
 reasons.    First,  it  lets  us  finally  wrap  up the parser in
 something very close to its final form, and second, it  brings up
 a new issue which is very much worth talking about.</p>
-<p>Up  till  now,  we've  been  able  to  write  what  is  called  a
-&quot;predictive parser.&quot;  That  means  that at any point, we can know
+<p>Up  till  now,  we’ve  been  able  to  write  what  is  called  a
+“predictive parser.”  That  means  that at any point, we can know
 by looking at the current  lookahead character exactly what to do
-next.  That isn't the case when we add functions.  Every language
+next.  That isn’t the case when we add functions.  Every language
 has some naming rules  for  what  constitutes a legal identifier.
 For the present, ours is simply that it  is  one  of  the letters
-'a'..'z'.  The  problem  is  that  a variable name and a function
+<code>a</code>..<code>z</code>.  The  problem  is  that  a variable name and a function
 name obey  the  same  rules.   So how can we tell which is which?
 One way is to require that they each be declared before  they are
 used.    Pascal  takes that approach.  The other is that we might
 require a function to be followed by a (possibly empty) parameter
-list.  That's the rule used in C.</p>
-<p>Since  we  don't  yet have a mechanism for declaring types, let's
-use the C  rule for now.  Since we also don't have a mechanism to
+list.  That’s the rule used in C.</p>
+<p>Since  we  don’t  yet have a mechanism for declaring types, let’s
+use the C  rule for now.  Since we also don’t have a mechanism to
 deal  with parameters, we can only handle  empty  lists,  so  our
-function calls will have the form <code>x()</code>  .</p>
-<p>Since  we're  not  dealing  with  parameter lists yet,  there  is
+function calls will have the form <code>x()</code>.</p>
+<p>Since  we’re  not  dealing  with  parameter lists yet,  there  is
 nothing  to do but to call the function, so we need only to issue
-a BSR (call) instead of a MOVE.</p>
-<p>Now that there are two  possibilities for the &quot;If IsAlpha&quot; branch
-of the test in Factor, let's treat them in a  separate procedure.
-Modify Factor to read:</p>
+a <code>BSR</code> (call) instead of a <code>MOVE</code>.</p>
+<p>Now that there are two  possibilities for the <code>If IsAlpha</code> branch
+of the test in <code>Factor</code>, let’s treat them in a  separate procedure.
+Modify <code>Factor</code> to read:</p>
 <pre><code class="language-delphi">{---------------------------------------------------------------}
 { Parse and Translate a Math Factor }
 
@@ -290,82 +297,80 @@ end;
 expressions?  Does it correctly flag badly formed ones?</p>
 <p>The important thing to notice is that even though  we  no  longer
 have  a predictive parser, there is  little  or  no  complication
-added with the recursive descent approach that we're  using.   At
-the point where  Factor  finds an identifier (letter), it doesn't
-know whether it's a variable name or a function name, nor does it
-really care.  It simply passes it on to Ident and leaves it up to
-that procedure to figure it out.  Ident, in  turn,  simply  tucks
+added with the recursive descent approach that we’re  using.   At
+the point where  <code>Factor</code>  finds an identifier (letter), it doesn’t
+know whether it’s a variable name or a function name, nor does it
+really care.  It simply passes it on to <code>Ident</code> and leaves it up to
+that procedure to figure it out.  <code>Ident</code>, in  turn,  simply  tucks
 away the identifier and then reads one more  character  to decide
-which kind of identifier it's dealing with.</p>
-<p>Keep this approach in mind.  It's a very powerful concept, and it
+which kind of identifier it’s dealing with.</p>
+<p>Keep this approach in mind.  It’s a very powerful concept, and it
 should be used  whenever  you  encounter  an  ambiguous situation
 requiring further lookahead.   Even  if  you  had to look several
 tokens ahead, the principle would still work.</p>
-<a class="header" href="#more-on-error-handling" id="more-on-error-handling"><h2>MORE ON ERROR HANDLING</h2></a>
-<p>As long as we're talking  philosophy,  there's  another important
+<h2 id="more-on-error-handling"><a class="header" href="#more-on-error-handling">More on Error Handling</a></h2>
+<p>As long as we’re talking  philosophy,  there’s  another important
 issue to point out:  error  handling.    Notice that although the
 parser correctly rejects (almost)  every malformed  expression we
-can  throw at it, with a meaningful  error  message,  we  haven't
+can  throw at it, with a meaningful  error  message,  we  haven’t
 really had to  do much work to make that happen.  In fact, in the
-whole parser per se (from  Ident  through  Expression)  there are
-only two calls to the error routine, Expected.  Even those aren't
-necessary ... if you'll look again in Term and Expression, you'll
-see that those statements can't be reached.  I put them  in early
-on as a  bit  of  insurance,  but  they're no longer needed.  Why
-don't you delete them now?</p>
+whole parser per se (from  <code>Ident</code>  through  <code>Expression</code>)  there are
+only two calls to the error routine, <code>Expected</code>.  Even those aren’t
+necessary … if you’ll look again in <code>Term</code> and <code>Expression</code>, you’ll
+see that those statements can’t be reached.  I put them  in early
+on as a  bit  of  insurance,  but  they’re no longer needed.  Why
+don’t you delete them now?</p>
 <p>So how did we get this nice error handling  virtually  for  free?
-It's simply  that  I've  carefully  avoided  reading  a character
-directly  using  GetChar.  Instead,  I've  relied  on  the  error
-handling in GetName,  GetNum,  and  Match  to  do  all  the error
+It’s simply  that  I’ve  carefully  avoided  reading  a character
+directly  using  <code>GetChar</code>.  Instead,  I’ve  relied  on  the  error
+handling in <code>GetName</code>,  <code>GetNum</code>,  and  <code>Match</code>  to  do  all  the error
 checking for me.    Astute  readers  will notice that some of the
-calls to Match (for example, the ones in Add  and  Subtract)  are
-also unnecessary ... we already know what the character is by the
-time  we get there ... but it maintains  a  certain  symmetry  to
-leave them in, and  the  general rule to always use Match instead
-of GetChar is a good one.</p>
-<p>I mentioned an &quot;almost&quot; above.   There  is a case where our error
-handling  leaves a bit to be desired.  So far we haven't told our
+calls to <code>Match</code> (for example, the ones in <code>Add</code>  and  <code>Subtract</code>)  are
+also unnecessary … we already know what the character is by the
+time  we get there … but it maintains  a  certain  symmetry  to
+leave them in, and  the  general rule to always use <code>Match</code> instead
+of <code>GetChar</code> is a good one.</p>
+<p>I mentioned an “almost” above.   There  is a case where our error
+handling  leaves a bit to be desired.  So far we haven’t told our
 parser what and  end-of-line  looks  like,  or  what  to  do with
 embedded  white  space.  So  a  space  character  (or  any  other
 character not part of the recognized character set) simply causes
 the parser to terminate, ignoring the unrecognized characters.</p>
 <p>It  could  be  argued  that  this is reasonable behavior at  this
-point.  In a &quot;real&quot;  compiler, there is usually another statement
-following the one we're working on, so any characters not treated
+point.  In a “real”  compiler, there is usually another statement
+following the one we’re working on, so any characters not treated
 as part of our expression will either be used for or  rejected as
 part of the next one.</p>
-<p>But  it's  also a very easy thing to fix up, even  if  it's  only
+<p>But  it’s  also a very easy thing to fix up, even  if  it’s  only
 temporary.   All  we  have  to  do  is assert that the expression
-should end with an end-of-line , i.e., a carriage return.</p>
-<p>To see what I'm talking about, try the input line</p>
-<pre><code>           `1+2 &lt;space&gt; 3+4`
-</code></pre>
+should end with an end-of-line, i.e., a carriage return.</p>
+<p>To see what I’m talking about, try the input line
+<code>1+2 &lt;space&gt; 3+4</code>.</p>
 <p>See  how the space was treated as a terminator?  Now, to make the
 compiler properly flag this, add the line</p>
-<pre><code class="language-delphi">               if Look &lt;&gt; CR then Expected('Newline');
+<pre><code class="language-delphi">if Look &lt;&gt; CR then Expected('Newline');
 </code></pre>
-<p>in the main  program,  just  after  the call to Expression.  That
-catches anything left over in the input stream.  Don't  forget to
+<p>in the main  program,  just  after  the call to <code>Expression</code>.  That
+catches anything left over in the input stream.  Don’t  forget to
 define CR in the const statement:</p>
-<pre><code class="language-delphi">               CR = ^M;
+<pre><code class="language-delphi">CR = ^M;
 </code></pre>
-<p>As usual, recompile the program and verify that it does what it's
+<p>As usual, recompile the program and verify that it does what it’s
 supposed to.</p>
-<a class="header" href="#assignment-statements" id="assignment-statements"><h2>ASSIGNMENT STATEMENTS</h2></a>
-<p>OK,  at  this  point we have a parser that works very nicely. I'd
+<h2 id="assignment-statements"><a class="header" href="#assignment-statements">Assignment Statements</a></h2>
+<p>OK,  at  this  point we have a parser that works very nicely. I’d
 like to  point  out  that  we  got  it  using  only  88  lines of
 executable code, not  counting  what  was  in  the  cradle.   The
 compiled  object  file  is  a  whopping  4752  bytes.   Not  bad,
-considering we weren't trying very  hard  to  save  either source
+considering we weren’t trying very  hard  to  save  either source
 code or object size.  We just stuck to the KISS principle.</p>
 <p>Of course, parsing an expression  is not much good without having
-something to do with it afterwards.  Expressions USUALLY (but not
-always) appear in assignment statements, in the form</p>
-<pre><code>      `&lt;Ident&gt; = &lt;Expression&gt;` 
-</code></pre>
-<p>We're only a breath  away  from being able to parse an assignment
-statement, so let's take that  last  step.  Just  after procedure
-Expression, add the following new procedure:</p>
+something to do with it afterwards.  Expressions <em>usually</em> (but not
+always) appear in assignment statements, in the form
+<code>&lt;Ident&gt; = &lt;Expression&gt;</code>.</p>
+<p>We’re only a breath  away  from being able to parse an assignment
+statement, so let’s take that  last  step.  Just  after procedure
+<code>Expression</code>, add the following new procedure:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Parse and Translate an Assignment Statement }
 
@@ -381,48 +386,48 @@ end;
 {--------------------------------------------------------------}
 </code></pre>
 <p>Note again that the  code  exactly parallels the BNF.  And notice
-further that  the error checking was painless, handled by GetName
-and Match.</p>
+further that  the error checking was painless, handled by <code>GetName</code>
+and <code>Match</code>.</p>
 <p>The reason for the two  lines  of  assembler  has  to  do  with a
 peculiarity in the  68000,  which requires this kind of construct
 for PC-relative code.</p>
-<p>Now change the call to Expression, in the main program, to one to
-Assignment.  That's all there is to it.</p>
+<p>Now change the call to <code>Expression</code>, in the main program, to one to
+<code>Assignment</code>.  That’s all there is to it.</p>
 <p>Son of a gun!  We are actually  compiling  assignment statements.
-If those were the only kind of statements in a language, all we'd
-have to  do  is  put  this in a loop and we'd have a full-fledged
+If those were the only kind of statements in a language, all we’d
+have to  do  is  put  this in a loop and we’d have a full-fledged
 compiler!</p>
-<p>Well, of course they're not the only kind.  There are also little
-items  like  control  statements  (IFs  and  loops),  procedures,
+<p>Well, of course they’re not the only kind.  There are also little
+items  like  control  statements  (<code>IF</code>s  and  loops),  procedures,
 declarations, etc.  But cheer  up.    The  arithmetic expressions
-that we've been dealing with are among the most challenging  in a
-language.      Compared  to  what  we've  already  done,  control
-statements  will be easy.  I'll be covering  them  in  the  fifth
-installment.  And the other statements will all fall in  line, as
+that we’ve been dealing with are among the most challenging  in a
+language.      Compared  to  what  we’ve  already  done,  control
+statements  will be easy.  I’ll be covering  them  in  the  <a href="tutor05_controlstructs.html">fifth installment</a>.
+And the other statements will all fall in  line, as
 long as we remember to KISS.</p>
-<a class="header" href="#multi-character-tokens" id="multi-character-tokens"><h2>MULTI-CHARACTER TOKENS</h2></a>
-<p>Throughout  this   series,   I've   been   carefully  restricting
+<h2 id="multi-character-tokens"><a class="header" href="#multi-character-tokens">Multi-Character Tokens</a></h2>
+<p>Throughout  this   series,   I’ve   been   carefully  restricting
 everything  we  do  to  single-character  tokens,  all  the while
-assuring  you  that  it wouldn't be difficult to extend to multi-
-character ones.    I  don't  know if you believed me or not ... I
-wouldn't  really blame you if you were a  bit  skeptical.    I'll
+assuring  you  that  it wouldn’t be difficult to extend to
+multi-character ones.    I  don’t  know if you believed me or not … I
+wouldn’t  really blame you if you were a  bit  skeptical.    I’ll
 continue  to use  that approach in  the  sessions  which  follow,
-because it helps keep complexity away.    But I'd like to back up
+because it helps keep complexity away.    But I’d like to back up
 those  assurances, and wrap up this portion  of  the  parser,  by
 showing you  just  how  easy  that  extension  really is.  In the
-process, we'll also provide for embedded white space.  Before you
+process, we’ll also provide for embedded white space.  Before you
 make  the  next  few changes, though, save the current version of
 the parser away under another name.  I have some more uses for it
-in  the  next  installment, and we'll be working with the single-
-character version.</p>
+in  the  <a href="tutor04_interpreters.html">next  installment</a>, and we’ll be working with the
+single-character version.</p>
 <p>Most compilers separate out the handling of the input stream into
 a separate module called  the  lexical scanner.  The idea is that
 the scanner deals with all the character-by-character  input, and
 returns the separate units  (tokens)  of  the  stream.  There may
-come a time when we'll want  to  do something like that, too, but
+come a time when we’ll want  to  do something like that, too, but
 for  now  there  is  no  need. We can handle the  multi-character
 tokens that we need by very slight and  very  local modifications
-to GetName and GetNum.</p>
+to <code>GetName</code> and <code>GetNum</code>.</p>
 <p>The usual definition of an identifier is that the first character
 must be a letter, but the rest can be  alphanumeric  (letters  or
 numbers).  To  deal  with  this,  we  need  one  other recognizer
@@ -436,10 +441,10 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Add this function to your parser.  I put mine just after IsDigit.
-While you're  at  it,  might  as  well  include it as a permanent
-member of Cradle, too.</p>
-<p>Now, we need  to  modify  function  GetName  to  return  a string
+<p>Add this function to your parser.  I put mine just after <code>IsDigit</code>.
+While you’re  at  it,  might  as  well  include it as a permanent
+member of <code>Cradle</code>, too.</p>
+<p>Now, we need  to  modify  function  <code>GetName</code>  to  return  a string
 instead of a character:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Get an Identifier }
@@ -457,7 +462,7 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Similarly, modify GetNum to read:</p>
+<p>Similarly, modify <code>GetNum</code> to read:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Get a Number }
 
@@ -473,35 +478,34 @@ begin
    GetNum := Value;
 end;
 {--------------------------------------------------------------}
-
 </code></pre>
 <p>Amazingly enough, that  is  virtually all the changes required to
-the  parser!  The local variable Name  in  procedures  Ident  and
-Assignment was originally declared as  &quot;char&quot;,  and  must  now be
-declared string[8].  (Clearly,  we  could  make the string length
+the  parser!  The local variable <code>Name</code>  in  procedures  <code>Ident</code>  and
+<code>Assignment</code> was originally declared as  <code>char</code>,  and  must  now be
+declared <code>string[8]</code>.  (Clearly,  we  could  make the string length
 longer if we chose, but most assemblers limit the length anyhow.)
-Make  this  change,  and  then  recompile and test. <em>NOW</em> do  you
-believe that it's a simple change?</p>
-<a class="header" href="#white-space" id="white-space"><h2>WHITE SPACE</h2></a>
-<p>Before we leave this parser for awhile, let's  address  the issue
+Make  this  change,  and  then  recompile and test. <em>Now</em> do  you
+believe that it’s a simple change?</p>
+<h2 id="white-space"><a class="header" href="#white-space">White Space</a></h2>
+<p>Before we leave this parser for awhile, let’s  address  the issue
 of  white  space.   As it stands now, the parser  will  barf  (or
 simply terminate) on a single space  character  embedded anywhere
-in  the input stream.  That's pretty  unfriendly  behavior.    So
-let's &quot;productionize&quot; the thing  a  bit  by eliminating this last
+in  the input stream.  That’s pretty  unfriendly  behavior.    So
+let’s “productionize” the thing  a  bit  by eliminating this last
 restriction.</p>
 <p>The  key  to easy handling of white space is to come  up  with  a
 simple rule for how the parser should treat the input stream, and
 to  enforce that rule everywhere.  Up  till  now,  because  white
-space wasn't permitted, we've been able to assume that after each
+space wasn’t permitted, we’ve been able to assume that after each
 parsing action, the lookahead character  Look  contains  the next
 meaningful  character,  so  we could test it  immediately.    Our
 design was based upon this principle.</p>
-<p>It still sounds like a good rule to me, so  that's  the one we'll
+<p>It still sounds like a good rule to me, so  that’s  the one we’ll
 use.    This  means  that  every routine that advances the  input
 stream must skip over white space, and leave  the  next non-white
-character in Look.   Fortunately,  because  we've been careful to
-use GetName, GetNum, and Match  for most of our input processing,
-it is  only  those  three  routines  (plus  Init) that we need to
+character in Look.   Fortunately,  because  we’ve been careful to
+use <code>GetName</code>, <code>GetNum</code>, and <code>Match</code>  for most of our input processing,
+it is  only  those  three  routines  (plus  <code>Init</code>) that we need to
 modify.</p>
 <p>Not  surprisingly,  we  start  with  yet  another  new recognizer
 routine:</p>
@@ -526,7 +530,7 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>Now,  add calls to SkipWhite to Match,  GetName,  and  GetNum  as
+<p>Now,  add calls to <code>SkipWhite</code> to <code>Match</code>,  <code>GetName</code>,  and  <code>GetNum</code>  as
 shown below:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Match a Specific Input Character }
@@ -575,10 +579,10 @@ begin
 end;
 {--------------------------------------------------------------}
 </code></pre>
-<p>(Note  that  I  rearranged  Match  a  bit,  without changing  the
+<p>(Note  that  I  rearranged  <code>Match</code>  a  bit,  without changing  the
 functionality.)</p>
-<p>Finally, we need to skip over leading blanks where we  &quot;prime the
-pump&quot; in Init:</p>
+<p>Finally, we need to skip over leading blanks where we  “prime the
+pump” in <code>Init</code>:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 { Initialize }
 
@@ -590,10 +594,10 @@ end;
 {--------------------------------------------------------------}
 </code></pre>
 <p>Make these changes and recompile the program.  You will find that
-you will have to move Match below SkipWhite, to  avoid  an  error
+you will have to move <code>Match</code> below <code>SkipWhite</code>, to  avoid  an  error
 message from the Pascal compiler.  Test the program as  always to
 make sure it works properly.</p>
-<p>Since we've made quite  a  few  changes  during this session, I'm
+<p>Since we’ve made quite  a  few  changes  during this session, I’m
 reproducing the entire parser below:</p>
 <pre><code class="language-delphi">{--------------------------------------------------------------}
 program parse;
@@ -629,7 +633,7 @@ end;
 
 {--------------------------------------------------------------}
 { Report Error and Halt }
-                             
+
 procedure Abort(s: string);
 begin
    Error(s);
@@ -684,7 +688,7 @@ end;
 
 {--------------------------------------------------------------}
 { Recognize White Space }
-                             
+
 function IsWhite(c: char): boolean;
 begin
    IsWhite := c in [' ', TAB];
@@ -901,7 +905,7 @@ end;
 
 {--------------------------------------------------------------}
 { Initialize }
-                             
+
 procedure Init;
 begin
    GetChar;
@@ -919,10 +923,10 @@ begin
 end.
 {--------------------------------------------------------------}
 </code></pre>
-<p>Now the parser is complete.  It's got every feature we can put in
-a  one-line &quot;compiler.&quot;  Tuck it away in a safe place.  Next time
-we'll move on to a new subject, but we'll still be  talking about
-expressions for quite awhile.  Next installment, I plan to talk a
+<p>Now the parser is complete.  It’s got every feature we can put in
+a  one-line “compiler.”  Tuck it away in a safe place.  Next time
+we’ll move on to a new subject, but we’ll still be  talking about
+expressions for quite awhile.  <a href="tutor04_interpreters.html">Next installment</a>, I plan to talk a
 bit about interpreters as opposed  to compilers, and show you how
 the structure of the parser changes a bit as we change  what sort
 of action has to be taken.  The information we pick up there will
@@ -933,17 +937,13 @@ interpreters.  See you next time.</p>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
                             <a rel="prev" href="tutor02_expressionparsing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                        
 
-                        
                             <a rel="next" href="tutor04_interpreters.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -951,41 +951,37 @@ interpreters.  See you next time.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a href="tutor02_expressionparsing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="tutor02_expressionparsing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                
 
-                
-                    <a href="tutor04_interpreters.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="tutor04_interpreters.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
+        <script>
+            window.playground_copyable = true;
+        </script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
-        
+        <script src="highlight.js"></script>
 
-        
 
+    </div>
     </body>
 </html>

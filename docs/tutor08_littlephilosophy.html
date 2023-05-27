@@ -1,14 +1,18 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="sidebar-visible no-js light">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>A Little Philosophy - Let's build a compiler</title>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>A Little Philosophy - Let&#x27;s Build a Compiler</title>
+
+
+        <!-- Custom HTML head -->
+        
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -17,8 +21,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -26,16 +29,18 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
 
-        
     </head>
-    <body class="light">
+    <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -51,71 +56,78 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="about.html">About this project</a></li><li class="affix"><a href="tutor01_introduction.html">Introduction</a></li><li class="affix"><a href="tutor02_expressionparsing.html">Expression Parsing</a></li><li class="affix"><a href="tutor03_moreexpressions.html">More Expressions</a></li><li class="affix"><a href="tutor04_interpreters.html">Interpreters</a></li><li class="affix"><a href="tutor05_controlstructs.html">Control Constructs</a></li><li class="affix"><a href="tutor06_booleanexpressions.html">Boolean Expressions</a></li><li class="affix"><a href="tutor07_lexicalscanning.html">Lexical Scanning</a></li><li class="affix"><a href="tutor08_littlephilosophy.html" class="active">A Little Philosophy</a></li><li class="affix"><a href="tutor09_atopview.html">A Top View</a></li><li class="affix"><a href="tutor10_introducingtiny.html">Introducing Tiny</a></li><li class="affix"><a href="tutor11_lexicalscanrevisit.html">Lexical Scan Revisit</a></li><li class="affix"><a href="tutor12_miscellany.html">Miscellany</a></li><li class="affix"><a href="tutor13_procedures.html">Procedures</a></li><li class="affix"><a href="tutor14_types.html">Types</a></li><li class="affix"><a href="tutor15_backtothefuture.html">Back to the Future</a></li><li class="affix"><a href="tutor16_unitconstruction.html">Unit Construction</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="about.html">About this project</a></li><li class="chapter-item expanded "><a href="tutor01_introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="tutor02_expressionparsing.html"><strong aria-hidden="true">2.</strong> Expression Parsing</a></li><li class="chapter-item expanded "><a href="tutor03_moreexpressions.html"><strong aria-hidden="true">3.</strong> More Expressions</a></li><li class="chapter-item expanded "><a href="tutor04_interpreters.html"><strong aria-hidden="true">4.</strong> Interpreters</a></li><li class="chapter-item expanded "><a href="tutor05_controlstructs.html"><strong aria-hidden="true">5.</strong> Control Constructs</a></li><li class="chapter-item expanded "><a href="tutor06_booleanexpressions.html"><strong aria-hidden="true">6.</strong> Boolean Expressions</a></li><li class="chapter-item expanded "><a href="tutor07_lexicalscanning.html"><strong aria-hidden="true">7.</strong> Lexical Scanning</a></li><li class="chapter-item expanded "><a href="tutor08_littlephilosophy.html" class="active"><strong aria-hidden="true">8.</strong> A Little Philosophy</a></li><li class="chapter-item expanded "><a href="tutor09_atopview.html"><strong aria-hidden="true">9.</strong> A Top View</a></li><li class="chapter-item expanded "><a href="tutor10_introducingtiny.html"><strong aria-hidden="true">10.</strong> Introducing Tiny</a></li><li class="chapter-item expanded "><a href="tutor11_lexicalscanrevisited.html"><strong aria-hidden="true">11.</strong> Lexical Scan Revisited</a></li><li class="chapter-item expanded "><a href="tutor12_miscellany.html"><strong aria-hidden="true">12.</strong> Miscellany</a></li><li class="chapter-item expanded "><a href="tutor13_procedures.html"><strong aria-hidden="true">13.</strong> Procedures</a></li><li class="chapter-item expanded "><a href="tutor14_types.html"><strong aria-hidden="true">14.</strong> Types</a></li><li class="chapter-item expanded "><a href="tutor15_backtothefuture.html"><strong aria-hidden="true">15.</strong> Back to the Future</a></li><li class="chapter-item expanded "><a href="tutor16_unitconstruction.html"><strong aria-hidden="true">16.</strong> Unit Construction</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
 
-                        <h1 class="menu-title">Let's build a compiler</h1> 
+                    <h1 class="menu-title">Let&#x27;s Build a Compiler</h1>
 
-                        <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                        </div>
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/xmonader/letsbuildacompiler-pretty" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -123,10 +135,9 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -136,145 +147,129 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#part-viii-a-little-philosophy---2-april-1989" id="part-viii-a-little-philosophy---2-april-1989"><h1>Part VIII: A LITTLE PHILOSOPHY - 2 April 1989</h1></a>
-<a class="header" href="#introduction" id="introduction"><h2>INTRODUCTION</h2></a>
+                        <h1 id="part-viii-a-little-philosophy---2-april-1989"><a class="header" href="#part-viii-a-little-philosophy---2-april-1989">Part VIII: A Little Philosophy - 2 April 1989</a></h1>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
 <p>This is going to be a  different  kind of session than the others
 in our series on  parsing  and  compiler  construction.  For this
-session, there won't be  any  experiments to do or code to write.
-This  once,  I'd  like  to  just  talk  with  you  for  a  while.
+session, there won’t be  any  experiments to do or code to write.
+This  once,  I’d  like  to  just  talk  with  you  for  a  while.
 Mercifully, it will be a short  session,  and then we can take up
 where we left off, hopefully with renewed vigor.</p>
 <p>When  I  was  in college, I found that I could  always  follow  a
-prof's lecture a lot better if I knew where he was going with it.
-I'll bet you were the same.</p>
-<p>So I thought maybe it's about  time  I told you where we're going
-with this series: what's coming up in future installments, and in
-general what all  this  is  about.   I'll also share some general
-thoughts concerning the usefulness of what we've been doing.</p>
-<a class="header" href="#the-road-home" id="the-road-home"><h2>THE ROAD HOME</h2></a>
-<p>So far, we've  covered  the parsing and translation of arithmetic
+prof’s lecture a lot better if I knew where they were going with it.
+I’ll bet you were the same.</p>
+<p>So I thought maybe it’s about  time  I told you where we’re going
+with this series: what’s coming up in future installments, and in
+general what all  this  is  about.   I’ll also share some general
+thoughts concerning the usefulness of what we’ve been doing.</p>
+<h2 id="the-road-home"><a class="header" href="#the-road-home">The Road Home</a></h2>
+<p>So far, we’ve  covered  the parsing and translation of arithmetic
 expressions,  Boolean expressions, and combinations connected  by
-relational  operators.    We've also done the  same  for  control
-constructs.    In  all of this we've leaned heavily on the use of
+relational  operators.    We’ve also done the  same  for  control
+constructs.    In  all of this we’ve leaned heavily on the use of
 top-down, recursive  descent  parsing,  BNF  definitions  of  the
 syntax, and direct generation of assembly-language code.  We also
 learned the value of  such  tricks  as single-character tokens to
-help  us  see  the  forest  through  the  trees.    In  the  last
-installment  we dealt with lexical scanning,  and  I  showed  you
+help  us  see  the  forest  through  the  trees.    In  the  <a href="tutor07_lexicalscanning.html">last installment</a>
+we dealt with lexical scanning,  and  I  showed  you
 simple but powerful ways to remove the single-character barriers.</p>
-<p>Throughout the whole study, I've emphasized  the  KISS philosophy
-... Keep It Simple, Sidney ... and I hope by now  you've realized
+<p>Throughout the whole study, I’ve emphasized  the  KISS philosophy
+… Keep It Simple, Sidney … and I hope by now  you’ve realized
 just  how  simple  this stuff can really be.  While there are for
 sure areas of compiler  theory  that  are truly intimidating, the
 ultimate message of this series is that in practice you  can just
 politely  sidestep   many  of  these  areas.    If  the  language
 definition  cooperates  or,  as in this series, if you can define
-the language as you go, it's possible to write down  the language
-definition in BNF with reasonable ease.  And, as we've  seen, you
+the language as you go, it’s possible to write down  the language
+definition in BNF with reasonable ease.  And, as we’ve  seen, you
 can crank out parse procedures from the BNF just about as fast as
 you can type.</p>
-<p>As our compiler has taken form, it's gotten more parts,  but each
+<p>As our compiler has taken form, it’s gotten more parts,  but each
 part  is  quite small and simple, and  very  much  like  all  the
 others.</p>
 <p>At this point, we have many  of  the makings of a real, practical
 compiler.  As a matter of  fact,  we  already have all we need to
 build a toy  compiler  for  a  language as powerful as, say, Tiny
-BASIC.  In the next couple of installments, we'll  go  ahead  and
+BASIC.  In the next couple of installments, we’ll  go  ahead  and
 define that language.</p>
 <p>To round out  the  series,  we  still  have a few items to cover.
 These include:</p>
 <ul>
-<li>
-<p>Procedure calls, with and without parameters</p>
-</li>
-<li>
-<p>Local and global variables</p>
-</li>
-<li>
-<p>Basic types, such as character and integer types</p>
-</li>
-<li>
-<p>Arrays</p>
-</li>
-<li>
-<p>Strings</p>
-</li>
-<li>
-<p>User-defined types and structures</p>
-</li>
-<li>
-<p>Tree-structured parsers and intermediate languages</p>
-</li>
-<li>
-<p>Optimization</p>
-</li>
+<li>Procedure calls, with and without parameters</li>
+<li>Local and global variables</li>
+<li>Basic types, such as character and integer types</li>
+<li>Arrays</li>
+<li>Strings</li>
+<li>User-defined types and structures</li>
+<li>Tree-structured parsers and intermediate languages</li>
+<li>Optimization</li>
 </ul>
-<p>These will all be  covered  in  future  installments.  When we're
-finished, you'll have all the tools you need to design  and build
+<p>These will all be  covered  in  future  installments.  When we’re
+finished, you’ll have all the tools you need to design  and build
 your own languages, and the compilers to translate them.</p>
-<p>I can't  design  those  languages  for  you,  but I can make some
-comments  and  recommendations.    I've  already  sprinkled  some
-throughout past installments.    You've  seen,  for  example, the
+<p>I can’t  design  those  languages  for  you,  but I can make some
+comments  and  recommendations.    I’ve  already  sprinkled  some
+throughout past installments.    You’ve  seen,  for  example, the
 control constructs I prefer.</p>
 <p>These constructs are going  to  be part of the languages I build.
 I  have  three  languages in mind at this point, two of which you
 will see in installments to come:</p>
-<p>TINY - A  minimal,  but  usable  language  on the order  of  Tiny
-BASIC or Tiny C.  It won't be very practical, but  it will
+<ul>
+<li>
+<p>TINY: A  minimal,  but  usable  language  on the order  of  Tiny
+BASIC or Tiny C.  It won’t be very practical, but  it will
 have enough power to let you write and  run  real programs
 that do something worthwhile.</p>
-<p>KISS - The  language  I'm  building for my  own  use.    KISS  is
-intended to be  a  systems programming language.  It won't
+</li>
+<li>
+<p>KISS: The  language  I’m  building for my  own  use.    KISS  is
+intended to be  a  systems programming language.  It won’t
 have strong typing  or  fancy data structures, but it will
-support most of  the  things  I  want to do with a higher-
-order language (HOL), except perhaps writing compilers.</p>
-<p>I've also  been  toying  for  years  with  the idea of a HOL-like
+support most of  the  things  I  want to do with a higher-order
+language (HOL), except perhaps writing compilers.</p>
+</li>
+</ul>
+<p>I’ve also  been  toying  for  years  with  the idea of a HOL-like
 assembler,  with  structured  control  constructs   and  HOL-like
 assignment statements.  That, in  fact, was the impetus behind my
 original foray into the jungles of compiler theory.  This one may
-never be built, simply  because  I've  learned that it's actually
+never be built, simply  because  I’ve  learned that it’s actually
 easier to implement a language like KISS, that only uses a subset
 of the CPU instructions.    As you know, assembly language can be
 bizarre  and  irregular  in the extreme, and a language that maps
-one-for-one onto it can be a real challenge.  Still,  I've always
-felt that the syntax used  in conventional assemblers is dumb ...
-why is</p>
-<pre><code> `MOVE.L A,B`
-</code></pre>
-<p>better, or easier to translate, than</p>
-<pre><code> `B=A ?`
-</code></pre>
+one-for-one onto it can be a real challenge.  Still,  I’ve always
+felt that the syntax used  in conventional assemblers is dumb …
+why is <code>MOVE.L A,B</code> better, or easier to translate, than <code>B=A</code>?</p>
 <p>I  think  it  would  be  an  interesting  exercise to  develop  a
-&quot;compiler&quot; that  would give the programmer complete access to and
+“compiler” that  would give the programmer complete access to and
 control over the full complement  of the CPU instruction set, and
 would allow you to generate  programs  as  efficient  as assembly
 language, without the pain  of  learning a set of mnemonics.  Can
-it be done?  I don't  know.  The  real question may be, &quot;Will the
-resulting language be any  easier  to  write  than assembly&quot;?  If
-not, there's no point in it.  I think that it  can  be  done, but
-I'm not completely sure yet how the syntax should look.</p>
-<p>Perhaps you have some  comments  or suggestions on this one.  I'd
+it be done?  I don’t  know.  The  real question may be, “Will the
+resulting language be any  easier  to  write  than assembly”?  If
+not, there’s no point in it.  I think that it  can  be  done, but
+I’m not completely sure yet how the syntax should look.</p>
+<p>Perhaps you have some  comments  or suggestions on this one.  I’d
 love to hear them.</p>
-<p>You probably won't be surprised to learn that I've already worked
+<p>You probably won’t be surprised to learn that I’ve already worked
 ahead in most  of the areas that we will cover.  I have some good
-news:  Things  never  get  much  harder than they've been so far.
-It's  possible  to  build a complete, working compiler for a real
-language, using nothing  but  the same kinds of techniques you've
-learned so far.  And THAT brings up some interesting questions.</p>
-<a class="header" href="#why-is-it-so-simple" id="why-is-it-so-simple"><h2>WHY IS IT SO SIMPLE?</h2></a>
+news:  Things  never  get  much  harder than they’ve been so far.
+It’s  possible  to  build a complete, working compiler for a real
+language, using nothing  but  the same kinds of techniques you’ve
+learned so far.  And <em>that</em> brings up some interesting questions.</p>
+<h2 id="why-is-it-so-simple"><a class="header" href="#why-is-it-so-simple">Why Is It So Simple?</a></h2>
 <p>Before embarking  on this series, I always thought that compilers
-were just naturally complex computer  programs  ...  the ultimate
+were just naturally complex computer  programs  …  the ultimate
 challenge.  Yet the things we have done here have  usually turned
 out to be quite simple, sometimes even trivial.</p>
-<p>For awhile, I thought  is  was simply because I hadn't yet gotten
+<p>For awhile, I thought  is  was simply because I hadn’t yet gotten
 into the meat  of  the  subject.    I had only covered the simple
 parts.  I will freely admit  to  you  that, even when I began the
-series,  I  wasn't  sure how far we would be able  to  go  before
+series,  I  wasn’t  sure how far we would be able  to  go  before
 things got too complex to deal with in the ways  we  have so far.
-But at this point I've already  been  down the road far enough to
+But at this point I’ve already  been  down the road far enough to
 see the end of it.  Guess what?</p>
-<pre><code>                 `THERE ARE NO HARD PARTS!`
-</code></pre>
+<p>THERE ARE NO HARD PARTS!</p>
 <p>Then, I thought maybe it was because we were not  generating very
 good object  code.    Those  of  you  who have been following the
 series and trying sample compiles know that, while the code works
@@ -283,43 +278,43 @@ figured that if we were  concentrating on turning out tight code,
 we would soon find all that missing complexity.</p>
 <p>To  some  extent,  that one is true.  In particular, my first few
 efforts at trying to improve efficiency introduced  complexity at
-an alarming rate.  But since then I've been tinkering around with
-some simple optimizations and I've found some that result in very
-respectable code quality, WITHOUT adding a lot of complexity.</p>
-<p>Finally, I thought that  perhaps  the  saving  grace was the &quot;toy
-compiler&quot; nature of the study.   I  have made no pretense that we
+an alarming rate.  But since then I’ve been tinkering around with
+some simple optimizations and I’ve found some that result in very
+respectable code quality, <em>without</em> adding a lot of complexity.</p>
+<p>Finally, I thought that  perhaps  the  saving  grace was the “toy
+compiler” nature of the study.   I  have made no pretense that we
 were  ever  going  to be able to build a compiler to compete with
 Borland and Microsoft.  And yet, again, as I get deeper into this
 thing the differences are starting to fade away.</p>
 <p>Just  to make sure you get the message here, let me state it flat
 out:</p>
-<p>USING THE TECHNIQUES WE'VE USED  HERE,  IT  IS  POSSIBLE TO
+<p>USING THE TECHNIQUES WE’VE USED  HERE,  IT  IS  POSSIBLE TO
 BUILD A PRODUCTION-QUALITY, WORKING COMPILER WITHOUT ADDING
-A LOT OF COMPLEXITY TO WHAT WE'VE ALREADY DONE.</p>
-<p>Since  the series began I've received  some  comments  from  you.
-Most of them echo my own thoughts:  &quot;This is easy!    Why  do the
-textbooks make it seem so hard?&quot;  Good question.</p>
-<p>Recently, I've gone back and looked at some of those texts again,
+A LOT OF COMPLEXITY TO WHAT WE’VE ALREADY DONE.</p>
+<p>Since  the series began I’ve received  some  comments  from  you.
+Most of them echo my own thoughts:  “This is easy!    Why  do the
+textbooks make it seem so hard?”  Good question.</p>
+<p>Recently, I’ve gone back and looked at some of those texts again,
 and even bought and read some new ones.  Each  time,  I come away
 with the same feeling: These guys have made it seem too hard.</p>
-<p>What's going on here?  Why does the whole thing seem difficult in
+<p>What’s going on here?  Why does the whole thing seem difficult in
 the texts, but easy to us?    Are  we that much smarter than Aho,
 Ullman, Brinch Hansen, and all the rest?</p>
 <p>Hardly.  But we  are  doing some things differently, and more and
-more  I'm  starting  to appreciate the value of our approach, and
+more  I’m  starting  to appreciate the value of our approach, and
 the way that  it  simplifies  things.    Aside  from  the obvious
 shortcuts that I outlined in Part I, like single-character tokens
 and console I/O, we have  made some implicit assumptions and done
 some things differently from those who have designed compilers in
 the past. As it turns out, our approach makes life a lot easier.</p>
-<p>So why didn't all those other guys use it?</p>
+<p>So why didn’t all those other guys use it?</p>
 <p>You have to remember the context of some of the  earlier compiler
 development.  These people were working with very small computers
 of  limited  capacity.      Memory  was  very  limited,  the  CPU
 instruction  set  was  minimal, and programs ran  in  batch  mode
 rather  than  interactively.   As it turns out, these caused some
 key design decisions that have  really  complicated  the designs.
-Until recently,  I hadn't realized how much of classical compiler
+Until recently,  I hadn’t realized how much of classical compiler
 design was driven by the available hardware.</p>
 <p>Even in cases where these  limitations  no  longer  apply, people
 have  tended  to  structure their programs in the same way, since
@@ -334,16 +329,16 @@ simplicity.</p>
 past:</p>
 <ul>
 <li>
-<p>Limited RAM Forcing Multiple Passes</p>
-<p>I  just  read  &quot;Brinch  Hansen  on  Pascal   Compilers&quot;  (an
+<p><strong>Limited RAM Forcing Multiple Passes</strong></p>
+<p>I  just  read  “Brinch  Hansen  on  Pascal   Compilers”  (an
 excellent book, BTW).  He  developed a Pascal compiler for a
 PC, but he started the effort in 1981 with a 64K system, and
 so almost every design decision  he made was aimed at making
-the compiler fit  into  RAM.    To do this, his compiler has
+the compiler fit  into  RAM.    To do this, their compiler has
 three passes, one of which is the lexical scanner.  There is
 no way he could, for  example, use the distributed scanner I
-introduced  in  the last installment,  because  the  program
-structure wouldn't allow it.  He also required  not  one but
+introduced  in  the <a href="tutor07_lexicalscanning.html">last installment</a>,  because  the  program
+structure wouldn’t allow it.  He also required  not  one but
 two intermediate  languages,  to  provide  the communication
 between phases.</p>
 <p>All the early compiler writers  had to deal with this issue:
@@ -351,28 +346,24 @@ Break the compiler up into enough parts so that it  will fit
 in memory.  When  you  have multiple passes, you need to add
 data structures to support the  information  that  each pass
 leaves behind for the next.   That adds complexity, and ends
-up driving the  design.    Lee's  book,  &quot;The  Anatomy  of a
-Compiler,&quot;  mentions a FORTRAN compiler developed for an IBM</p>
-<ol start="1401">
-<li>It had no fewer than 63 separate passes!  Needless to
+up driving the  design.    Lee’s  book,  “The  Anatomy  of a
+Compiler,”  mentions a FORTRAN compiler developed for an IBM
+1401.  It had no fewer than 63 separate passes!  Needless to
 say,  in a compiler like this  the  separation  into  phases
-would dominate the design.</li>
-</ol>
+would dominate the design.</p>
 <p>Even in  situations  where  RAM  is  plentiful,  people have
 tended  to  use  the same techniques because  that  is  what
-they're familiar with.   It  wasn't  until Turbo Pascal came
+they’re familiar with.   It  wasn’t  until Turbo Pascal came
 along that we found how simple a compiler could  be  if  you
 started with different assumptions.</p>
 </li>
-</ul>
-<ul>
 <li>
-<p>Batch Processing</p>
-<p>In the early days, batch  processing was the only choice ...
+<p><strong>Batch Processing</strong></p>
+<p>In the early days, batch  processing was the only choice …
 there was no interactive computing.   Even  today, compilers
 run in essentially batch mode.</p>
 <p>In a mainframe compiler as  well  as  many  micro compilers,
-considerable effort is expended on error recovery ... it can
+considerable effort is expended on error recovery … it can
 consume as much as 30-40%  of  the  compiler  and completely
 drive the design.  The idea is to avoid halting on the first
 error, but rather to keep going at all costs,  so  that  you
@@ -382,7 +373,7 @@ program as possible.</p>
 where turnaround time was measured  in hours or days, and it
 was important to squeeze every last ounce of information out
 of each run.</p>
-<p>In this series, I've been very careful to avoid the issue of
+<p>In this series, I’ve been very careful to avoid the issue of
 error recovery, and instead our compiler  simply  halts with
 an error message on  the  first error.  I will frankly admit
 that it was mostly because I wanted to take the easy way out
@@ -391,48 +382,44 @@ Borland in Turbo Pascal, also has a lot going for it anyway.
 Aside from keeping the  compiler  simple,  it also fits very
 well  with   the  idea  of  an  interactive  system.    When
 compilation is  fast, and especially when you have an editor
-such as Borland's that  will  take you right to the point of
+such as Borland’s that  will  take you right to the point of
 the error, then it makes a  lot  of sense to stop there, and
 just restart the compilation after the error is fixed.</p>
 </li>
-</ul>
-<ul>
 <li>
-<p>Large Programs</p>
-<p>Early compilers were designed to handle  large  programs ...
+<p><strong>Large Programs</strong></p>
+<p>Early compilers were designed to handle  large  programs …
 essentially infinite ones.    In those days there was little
 choice;  the  idea  of  subroutine  libraries  and  separate
 compilation  were  still  in  the  future.      Again,  this
 assumption led to  multi-pass designs and intermediate files
 to hold the results of partial processing.</p>
-<p>Brinch Hansen's  stated goal was that the compiler should be
+<p>Brinch Hansen’s  stated goal was that the compiler should be
 able to compile itself.   Again, because of his limited RAM,
 this drove him to a multi-pass design.  He needed  as little
 resident compiler code as possible,  so  that  the necessary
 tables and other data structures would fit into RAM.</p>
-<p>I haven't stated this one yet, because there  hasn't  been a
-need  ... we've always just read and  written  the  data  as
+<p>I haven’t stated this one yet, because there  hasn’t  been a
+need  … we’ve always just read and  written  the  data  as
 streams, anyway.  But  for  the  record,  my plan has always
 been that, in  a  production compiler, the source and object
 data should all coexist  in  RAM with the compiler, a la the
-early Turbo Pascals.  That's why I've been  careful  to keep
-routines like GetChar  and  Emit  as  separate  routines, in
+early Turbo Pascals.  That’s why I’ve been  careful  to keep
+routines like <code>GetChar</code>  and  <code>Emit</code>  as  separate  routines, in
 spite of their small size.   It  will be easy to change them
 to read to and write from memory.</p>
 </li>
-</ul>
-<ul>
 <li>
-<p>Emphasis on Efficiency</p>
+<p><strong>Emphasis on Efficiency</strong></p>
 <p>John  Backus has stated that, when  he  and  his  colleagues
-developed the original FORTRAN compiler, they KNEW that they
+developed the original FORTRAN compiler, they <em>knew</em> that they
 had to make it produce tight code.  In those days, there was
 a strong sentiment against HOLs  and  in  favor  of assembly
-language, and  efficiency was the reason.  If FORTRAN didn't
+language, and  efficiency was the reason.  If FORTRAN didn’t
 produce very good  code  by  assembly  standards,  the users
 would simply refuse to use it.  For the record, that FORTRAN
 compiler turned out to  be  one  of  the most efficient ever
-built, in terms of code quality.  But it WAS complex!</p>
+built, in terms of code quality.  But it <em>was</em> complex!</p>
 <p>Today,  we have CPU power and RAM size  to  spare,  so  code
 efficiency is not  so  much  of  an  issue.    By studiously
 ignoring this issue, we  have  indeed  been  able to Keep It
@@ -442,10 +429,8 @@ structure, without having to add a lot of complexity.  So in
 this  case we get to have our cake and eat it too:  we  will
 end up with reasonable code quality, anyway.</p>
 </li>
-</ul>
-<ul>
 <li>
-<p>Limited Instruction Sets</p>
+<p><strong>Limited Instruction Sets</strong></p>
 <p>The early computers had primitive instruction sets.   Things
 that  we  take  for granted, such as  stack  operations  and
 indirect addressing, came only with great difficulty.</p>
@@ -456,10 +441,9 @@ single data structure.    All references to the literals are
 done  indirectly  to  this  pool.    At  the   end   of  the
 compilation, the  compiler  issues  commands  to  set  aside
 storage and initialize the literal pool.</p>
-<p>We haven't had to address that  issue  at all.  When we want
-to load a literal, we just do it, in line, as in</p>
-<pre><code> `MOVE #3,D0`
-</code></pre>
+<p>We haven’t had to address that  issue  at all.  When we want
+to load a literal, we just do it, in line, as in
+<code>MOVE #3,D0</code>.</p>
 <p>There is something to be said for the use of a literal pool,
 particularly on a machine like  the 8086 where data and code
 can  be separated.  Still, the whole  thing  adds  a  fairly
@@ -469,12 +453,10 @@ both  subroutine calls and temporary storage depend  heavily
 on the stack, and  we  have used it even more than necessary
 to ease expression parsing.</p>
 </li>
-</ul>
-<ul>
 <li>
-<p>Desire for Generality</p>
+<p><strong>Desire for Generality</strong></p>
 <p>Much of the content of the typical compiler text is taken up
-with issues we haven't addressed here at all ... things like
+with issues we haven’t addressed here at all … things like
 automated  translation  of  grammars,  or generation of LALR
 parse tables.  This is not simply because  the  authors want
 to impress you.  There are good, practical  reasons  why the
@@ -482,13 +464,13 @@ subjects are there.</p>
 <p>We have been concentrating on the use of a recursive-descent
 parser to parse a  deterministic  grammar,  i.e.,  a grammar
 that is not ambiguous and, therefore, can be parsed with one
-level of lookahead.  I haven't made much of this limitation,
+level of lookahead.  I haven’t made much of this limitation,
 but  the  fact  is  that  this represents a small subset  of
 possible grammars.  In fact,  there is an infinite number of
-grammars that we can't parse using our techniques.    The LR
+grammars that we can’t parse using our techniques.    The LR
 technique is a more powerful one, and can deal with grammars
-that we can't.</p>
-<p>In compiler theory, it's important  to know how to deal with
+that we can’t.</p>
+<p>In compiler theory, it’s important  to know how to deal with
 these  other  grammars,  and  how  to  transform  them  into
 grammars  that  are  easier to deal with.  For example, many
 (but not all) ambiguous  grammars  can  be  transformed into
@@ -503,7 +485,7 @@ would be hard pressed to write unambiguous BNF  for,  but in
 the  real  world  the best answer is probably to avoid those
 grammars!</p>
 <p>In  our  case,  of course, we have sneakily let the language
-evolve  as  we  go, so we haven't painted ourselves into any
+evolve  as  we  go, so we haven’t painted ourselves into any
 corners here.  You may not always have that luxury.   Still,
 with a little  care  you  should  be able to keep the parser
 simple without having to resort to automatic  translation of
@@ -516,43 +498,43 @@ that work in the context that  we  are in; that is, a single-user
 PC  with  rather  ample CPU power and RAM space.  We have limited
 ourselves to reasonable grammars that  are easy to parse, we have
 used the instruction set of the CPU to advantage, and we have not
-concerned ourselves with efficiency.  THAT's why it's been easy.</p>
+concerned ourselves with efficiency.  <em>That</em>’s why it’s been easy.</p>
 <p>Does this mean that we are forever doomed  to  be  able  to build
-only toy compilers?   No, I don't think so.  As I've said, we can
+only toy compilers?   No, I don’t think so.  As I’ve said, we can
 add  certain   optimizations   without   changing   the  compiler
 structure.  If we want to process large files, we can  always add
 file  buffering  to do that.  These  things  do  not  affect  the
 overall program design.</p>
-<p>And I think  that's  a  key  factor.   By starting with small and
+<p>And I think  that’s  a  key  factor.   By starting with small and
 limited  cases,  we  have been able to concentrate on a structure
 for  the  compiler  that is natural  for  the  job.    Since  the
 structure naturally fits the job, it is almost bound to be simple
-and transparent.   Adding  capability doesn't have to change that
+and transparent.   Adding  capability doesn’t have to change that
 basic  structure.    We  can  simply expand things like the  file
 structure or add an optimization layer.  I guess  my  feeling  is
 that, back when resources were tight, the structures people ended
 up  with  were  artificially warped to make them work under those
-conditions, and weren't optimum  structures  for  the  problem at
+conditions, and weren’t optimum  structures  for  the  problem at
 hand.</p>
-<a class="header" href="#conclusion" id="conclusion"><h2>CONCLUSION</h2></a>
-<p>Anyway, that's my arm-waving  guess  as to how we've been able to
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>Anyway, that’s my arm-waving  guess  as to how we’ve been able to
 keep things simple.  We started with something simple and  let it
 evolve  naturally,  without  trying  to   force   it   into  some
 traditional mold.</p>
-<p>We're going to  press on with this.  I've given you a list of the
-areas  we'll  be  covering in future installments.    With  those
+<p>We’re going to  press on with this.  I’ve given you a list of the
+areas  we’ll  be  covering in future installments.    With  those
 installments, you  should  be  able  to  build  complete, working
 compilers for just about any occasion, and build them simply.  If
-you REALLY want to build production-quality compilers,  you'll be
+you <em>really</em> want to build production-quality compilers,  you’ll be
 able to do that, too.</p>
 <p>For those of you who are chafing at the bit for more parser code,
-I apologize for this digression.  I just thought  you'd  like  to
-have things put  into  perspective  a  bit.  Next time, we'll get
+I apologize for this digression.  I just thought  you’d  like  to
+have things put  into  perspective  a  bit.  Next time, we’ll get
 back to the mainstream of the tutorial.</p>
-<p>So far, we've only looked at pieces of compilers,  and  while  we
-have  many  of  the  makings  of a complete language, we  haven't
+<p>So far, we’ve only looked at pieces of compilers,  and  while  we
+have  many  of  the  makings  of a complete language, we  haven’t
 talked about how to put  it  all  together.    That  will  be the
-subject of our next  two  installments.  Then we'll press on into
+subject of our next  two  installments.  Then we’ll press on into
 the new subjects I listed at the beginning of this installment.</p>
 <p>See you then.</p>
 
@@ -560,17 +542,13 @@ the new subjects I listed at the beginning of this installment.</p>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
                             <a rel="prev" href="tutor07_lexicalscanning.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                        
 
-                        
                             <a rel="next" href="tutor09_atopview.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -578,41 +556,37 @@ the new subjects I listed at the beginning of this installment.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a href="tutor07_lexicalscanning.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="tutor07_lexicalscanning.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                
 
-                
-                    <a href="tutor09_atopview.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="tutor09_atopview.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
+        <script>
+            window.playground_copyable = true;
+        </script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
-        
+        <script src="highlight.js"></script>
 
-        
 
+    </div>
     </body>
 </html>
