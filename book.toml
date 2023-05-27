@@ -1,6 +1,10 @@
-
 [book]
+title = "Let's Build a Compiler"
 authors = ["Jack W. Crenshaw"]
-multilingual = false
 src = "src"
-title = "Let's build a compiler"
+language = "en"
+multilingual = false
+
+[output.html]
+curly-quotes = true
+git-repository-url = "https://github.com/xmonader/letsbuildacompiler-pretty"
