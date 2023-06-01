@@ -972,11 +972,12 @@ end;
 
 end.
 {--------------------------------------------------------------}
-
+```
 
 Copy and compile this unit, and execute the following main
 program:
 
+```delphi
 {--------------------------------------------------------------}
 program Main;
 uses WinCRT, Input, Output, Errors, Scanner, Parser;
