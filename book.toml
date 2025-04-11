@@ -3,7 +3,6 @@ title = "Let's Build a Compiler"
 authors = ["Jack W. Crenshaw"]
 src = "src"
 language = "en"
-multilingual = false
 
 [output.html]
 curly-quotes = true
